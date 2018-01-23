@@ -1,0 +1,148 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '@angular/cli@4.9.0' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData @angular/cli@4.9.0
+8 silly fetchNamedPackageData @angular/cli
+9 silly mapToRegistry name @angular/cli
+10 silly mapToRegistry scope (from package name) @angular
+11 verbose mapToRegistry no registry URL found in name for scope @angular
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry data Result {
+14 silly mapToRegistry   raw: '@angular/cli',
+14 silly mapToRegistry   scope: '@angular',
+14 silly mapToRegistry   escapedName: '@angular%2fcli',
+14 silly mapToRegistry   name: '@angular/cli',
+14 silly mapToRegistry   rawSpec: '',
+14 silly mapToRegistry   spec: 'latest',
+14 silly mapToRegistry   type: 'tag' }
+15 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcli
+16 verbose request uri https://registry.npmjs.org/@angular%2fcli
+17 verbose request no auth needed
+18 info attempt registry request try #1 at 12:14:48 AM
+19 verbose request id c9ed85cbc1d02311
+20 verbose etag W/"5a3b0cd3-45191"
+21 verbose lastModified Thu, 21 Dec 2017 01:22:27 GMT
+22 http request GET https://registry.npmjs.org/@angular%2fcli
+23 http 304 https://registry.npmjs.org/@angular%2fcli
+24 verbose headers { date: 'Fri, 22 Dec 2017 06:14:49 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   'cache-control': 'max-age=0',
+24 verbose headers   etag: 'W/"5a3b0cd3-45191"',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-mia17633-MIA',
+24 verbose headers   'x-cache': 'MISS',
+24 verbose headers   'x-cache-hits': '0',
+24 verbose headers   'x-timer': 'S1513923289.297966,VS0,VE314',
+24 verbose headers   vary: 'Accept-Encoding' }
+25 silly get cb [ 304,
+25 silly get   { date: 'Fri, 22 Dec 2017 06:14:49 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     'cache-control': 'max-age=0',
+25 silly get     etag: 'W/"5a3b0cd3-45191"',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-mia17633-MIA',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1513923289.297966,VS0,VE314',
+25 silly get     vary: 'Accept-Encoding' } ]
+26 verbose etag https://registry.npmjs.org/@angular%2fcli from cache
+27 verbose get saving @angular/cli to /Users/kevin93/.npm/registry.npmjs.org/_40angular_252fcli/.cache.json
+28 verbose correctMkdir /Users/kevin93/.npm correctMkdir not in flight; initializing
+29 silly fetchNamedPackageData No valid target from cache, forcing network
+30 verbose request uri https://registry.npmjs.org/@angular%2fcli
+31 verbose request no auth needed
+32 info attempt registry request try #1 at 12:14:49 AM
+33 http request GET https://registry.npmjs.org/@angular%2fcli
+34 http 200 https://registry.npmjs.org/@angular%2fcli
+35 verbose headers { 'content-type': 'application/json',
+35 verbose headers   server: 'nginx/1.10.1',
+35 verbose headers   'last-modified': 'Thu, 21 Dec 2017 01:22:27 GMT',
+35 verbose headers   etag: 'W/"5a3b0cd3-45191"',
+35 verbose headers   'content-encoding': 'gzip',
+35 verbose headers   'cache-control': 'max-age=0',
+35 verbose headers   'transfer-encoding': 'chunked',
+35 verbose headers   'accept-ranges': 'bytes',
+35 verbose headers   date: 'Fri, 22 Dec 2017 06:14:50 GMT',
+35 verbose headers   via: '1.1 varnish',
+35 verbose headers   connection: 'keep-alive',
+35 verbose headers   'x-served-by': 'cache-mia17633-MIA',
+35 verbose headers   'x-cache': 'MISS',
+35 verbose headers   'x-cache-hits': '0',
+35 verbose headers   'x-timer': 'S1513923290.825942,VS0,VE466',
+35 verbose headers   vary: 'Accept-Encoding' }
+36 silly get cb [ 200,
+36 silly get   { 'content-type': 'application/json',
+36 silly get     server: 'nginx/1.10.1',
+36 silly get     'last-modified': 'Thu, 21 Dec 2017 01:22:27 GMT',
+36 silly get     etag: 'W/"5a3b0cd3-45191"',
+36 silly get     'content-encoding': 'gzip',
+36 silly get     'cache-control': 'max-age=0',
+36 silly get     'transfer-encoding': 'chunked',
+36 silly get     'accept-ranges': 'bytes',
+36 silly get     date: 'Fri, 22 Dec 2017 06:14:50 GMT',
+36 silly get     via: '1.1 varnish',
+36 silly get     connection: 'keep-alive',
+36 silly get     'x-served-by': 'cache-mia17633-MIA',
+36 silly get     'x-cache': 'MISS',
+36 silly get     'x-cache-hits': '0',
+36 silly get     'x-timer': 'S1513923290.825942,VS0,VE466',
+36 silly get     vary: 'Accept-Encoding' } ]
+37 verbose get saving @angular/cli to /Users/kevin93/.npm/registry.npmjs.org/_40angular_252fcli/.cache.json
+38 verbose correctMkdir /Users/kevin93/.npm correctMkdir not in flight; initializing
+39 silly fetchPackageMetaData Error: No compatible version found: @angular/cli@4.9.0
+39 silly fetchPackageMetaData Valid install targets:
+39 silly fetchPackageMetaData 1.6.2, 1.6.1, 1.6.0, 1.6.0-rc.2, 1.6.0-rc.1, 1.6.0-rc.0, 1.6.0-beta.2, 1.6.0-beta.1, 1.6.0-beta.0, 1.5.5, 1.5.4, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.8, 1.5.0-rc.7, 1.5.0-rc.6, 1.5.0-rc.5, 1.5.0-rc.4, 1.5.0-rc.3, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.4, 1.5.0-beta.3, 1.5.0-beta.2, 1.5.0-beta.1, 1.5.0-beta.0, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5, 1.3.0-rc.4, 1.3.0-rc.3, 1.3.0-rc.2, 1.3.0-rc.1, 1.3.0-rc.0, 1.3.0-beta.1, 1.3.0-beta.0, 1.2.8, 1.2.7, 1.2.6, 1.2.5, 1.2.4, 1.2.3, 1.2.2, 1.2.1, 1.2.0, 1.2.0-rc.1, 1.2.0-rc.0, 1.2.0-beta.1, 1.2.0-beta.0, 1.1.3, 1.1.2, 1.1.1, 1.1.0, 1.1.0-rc.2, 1.1.0-rc.1, 1.1.0-rc.0, 1.1.0-beta.1, 1.1.0-beta.0, 1.0.6, 1.0.5, 1.0.4, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 1.0.0-rc.4, 1.0.0-rc.3, 1.0.0-rc.2, 1.0.0-rc.1, 1.0.0-rc.0, 1.0.0-beta.33.1, 1.0.0-beta.33, 1.0.0-beta.32.3, 1.0.0-beta.32.2, 1.0.0-beta.32, 1.0.0-beta.31, 1.0.0-beta.30, 1.0.0-beta.29, 1.0.0-beta.28.3
+39 silly fetchPackageMetaData
+39 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+39 silly fetchPackageMetaData     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+39 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15)
+39 silly fetchPackageMetaData  error for @angular/cli@4.9.0 { Error: No compatible version found: @angular/cli@4.9.0
+39 silly fetchPackageMetaData Valid install targets:
+39 silly fetchPackageMetaData 1.6.2, 1.6.1, 1.6.0, 1.6.0-rc.2, 1.6.0-rc.1, 1.6.0-rc.0, 1.6.0-beta.2, 1.6.0-beta.1, 1.6.0-beta.0, 1.5.5, 1.5.4, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.8, 1.5.0-rc.7, 1.5.0-rc.6, 1.5.0-rc.5, 1.5.0-rc.4, 1.5.0-rc.3, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.4, 1.5.0-beta.3, 1.5.0-beta.2, 1.5.0-beta.1, 1.5.0-beta.0, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5, 1.3.0-rc.4, 1.3.0-rc.3, 1.3.0-rc.2, 1.3.0-rc.1, 1.3.0-rc.0, 1.3.0-beta.1, 1.3.0-beta.0, 1.2.8, 1.2.7, 1.2.6, 1.2.5, 1.2.4, 1.2.3, 1.2.2, 1.2.1, 1.2.0, 1.2.0-rc.1, 1.2.0-rc.0, 1.2.0-beta.1, 1.2.0-beta.0, 1.1.3, 1.1.2, 1.1.1, 1.1.0, 1.1.0-rc.2, 1.1.0-rc.1, 1.1.0-rc.0, 1.1.0-beta.1, 1.1.0-beta.0, 1.0.6, 1.0.5, 1.0.4, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 1.0.0-rc.4, 1.0.0-rc.3, 1.0.0-rc.2, 1.0.0-rc.1, 1.0.0-rc.0, 1.0.0-beta.33.1, 1.0.0-beta.33, 1.0.0-beta.32.3, 1.0.0-beta.32.2, 1.0.0-beta.32, 1.0.0-beta.31, 1.0.0-beta.30, 1.0.0-beta.29, 1.0.0-beta.28.3
+39 silly fetchPackageMetaData
+39 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+39 silly fetchPackageMetaData     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+39 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+39 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15) code: 'ETARGET' }
+40 silly rollbackFailedOptional Starting
+41 silly rollbackFailedOptional Finishing
+42 silly runTopLevelLifecycles Finishing
+43 silly install printInstalled
+44 verbose stack Error: No compatible version found: @angular/cli@4.9.0
+44 verbose stack Valid install targets:
+44 verbose stack 1.6.2, 1.6.1, 1.6.0, 1.6.0-rc.2, 1.6.0-rc.1, 1.6.0-rc.0, 1.6.0-beta.2, 1.6.0-beta.1, 1.6.0-beta.0, 1.5.5, 1.5.4, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.8, 1.5.0-rc.7, 1.5.0-rc.6, 1.5.0-rc.5, 1.5.0-rc.4, 1.5.0-rc.3, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.4, 1.5.0-beta.3, 1.5.0-beta.2, 1.5.0-beta.1, 1.5.0-beta.0, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5, 1.3.0-rc.4, 1.3.0-rc.3, 1.3.0-rc.2, 1.3.0-rc.1, 1.3.0-rc.0, 1.3.0-beta.1, 1.3.0-beta.0, 1.2.8, 1.2.7, 1.2.6, 1.2.5, 1.2.4, 1.2.3, 1.2.2, 1.2.1, 1.2.0, 1.2.0-rc.1, 1.2.0-rc.0, 1.2.0-beta.1, 1.2.0-beta.0, 1.1.3, 1.1.2, 1.1.1, 1.1.0, 1.1.0-rc.2, 1.1.0-rc.1, 1.1.0-rc.0, 1.1.0-beta.1, 1.1.0-beta.0, 1.0.6, 1.0.5, 1.0.4, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 1.0.0-rc.4, 1.0.0-rc.3, 1.0.0-rc.2, 1.0.0-rc.1, 1.0.0-rc.0, 1.0.0-beta.33.1, 1.0.0-beta.33, 1.0.0-beta.32.3, 1.0.0-beta.32.2, 1.0.0-beta.32, 1.0.0-beta.31, 1.0.0-beta.30, 1.0.0-beta.29, 1.0.0-beta.28.3
+44 verbose stack
+44 verbose stack     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+44 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+44 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+44 verbose stack     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+44 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+44 verbose stack     at FSReqWrap.oncomplete (fs.js:123:15)
+45 verbose cwd /Users/kevin93/Desktop/Queue/public
+46 error Darwin 17.3.0
+47 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "@angular/cli@4.9.0"
+48 error node v6.11.4
+49 error npm  v3.10.10
+50 error code ETARGET
+51 error notarget No compatible version found: @angular/cli@4.9.0
+51 error notarget Valid install targets:
+51 error notarget 1.6.2, 1.6.1, 1.6.0, 1.6.0-rc.2, 1.6.0-rc.1, 1.6.0-rc.0, 1.6.0-beta.2, 1.6.0-beta.1, 1.6.0-beta.0, 1.5.5, 1.5.4, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.8, 1.5.0-rc.7, 1.5.0-rc.6, 1.5.0-rc.5, 1.5.0-rc.4, 1.5.0-rc.3, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.4, 1.5.0-beta.3, 1.5.0-beta.2, 1.5.0-beta.1, 1.5.0-beta.0, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5, 1.3.0-rc.4, 1.3.0-rc.3, 1.3.0-rc.2, 1.3.0-rc.1, 1.3.0-rc.0, 1.3.0-beta.1, 1.3.0-beta.0, 1.2.8, 1.2.7, 1.2.6, 1.2.5, 1.2.4, 1.2.3, 1.2.2, 1.2.1, 1.2.0, 1.2.0-rc.1, 1.2.0-rc.0, 1.2.0-beta.1, 1.2.0-beta.0, 1.1.3, 1.1.2, 1.1.1, 1.1.0, 1.1.0-rc.2, 1.1.0-rc.1, 1.1.0-rc.0, 1.1.0-beta.1, 1.1.0-beta.0, 1.0.6, 1.0.5, 1.0.4, 1.0.3, 1.0.2, 1.0.1, 1.0.0, 1.0.0-rc.4, 1.0.0-rc.3, 1.0.0-rc.2, 1.0.0-rc.1, 1.0.0-rc.0, 1.0.0-beta.33.1, 1.0.0-beta.33, 1.0.0-beta.32.3, 1.0.0-beta.32.2, 1.0.0-beta.32, 1.0.0-beta.31, 1.0.0-beta.30, 1.0.0-beta.29, 1.0.0-beta.28.3
+52 error notarget This is most likely not a problem with npm itself.
+52 error notarget In most cases you or one of your dependencies are requesting
+52 error notarget a package version that doesn't exist.
+53 verbose exit [ 1, true ]

@@ -1,0 +1,19 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Login</h2>
+    <form [formGroup]="loginform" (ngSubmit)="login(loginform.value)">
+        <div class="form-group" >
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" formControlName="username" />
+            <!--<<div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>-->
+        </div>
+        <div class="form-group" >
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" formControlName="password" />
+            <!--<div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>-->
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Login</button>
+            <img *ngIf="loading" src="../../assets/loading.gif" />
+        </div>
+    </form>
+</div>
