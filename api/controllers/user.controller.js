@@ -126,7 +126,11 @@ users.register = function (req, res) {
 
         res
           .status(201)
+<<<<<<< HEAD
           .json({status:201,user:user});
+=======
+          .json(user);
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
       }
     });
 

@@ -1,6 +1,10 @@
 # Angular5
 
+<<<<<<< HEAD
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
+=======
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
 
 ## Development server
 

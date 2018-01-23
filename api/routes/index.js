@@ -14,7 +14,11 @@ var ctrlBitacora = require('../controllers/bitacora.controller.js');
 
 router
   .route('/login/register')
+<<<<<<< HEAD
   .post(ctrlUsers.register)
+=======
+  .post(helpers.isAdmin, ctrlUsers.register)
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
 
 router
   .route('/login')

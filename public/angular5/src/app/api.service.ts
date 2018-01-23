@@ -26,7 +26,11 @@ export class ApiService {
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
     return this.http
+<<<<<<< HEAD
     .get(API_URL + '/api/user')
+=======
+    .get(API_URL + '/api/engineers')
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
     .map(response => {
       return response
     })
@@ -38,7 +42,11 @@ export class ApiService {
   public getOneEngineers(id): Observable<Response> {
     let body = JSON.stringify({"id_engi": id})    
     return this.http
+<<<<<<< HEAD
     .post(API_URL + '/api/user', body, 
+=======
+    .post(API_URL + '/api/engineers', body, 
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
     {headers: new HttpHeaders().set('Content-Type','application/json')}
   )
     .map(response => {
@@ -69,10 +77,17 @@ export class ApiService {
     .catch(this.handleError);
   }
   
+<<<<<<< HEAD
   public addUser(data): Observable<Response> {
     let body = JSON.stringify(data)
     return this.http
     .post(API_URL + '/api/login/register', body,
+=======
+  public addEngineer(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    return this.http
+    .post(API_URL + '/api/engineer', body,
+>>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
