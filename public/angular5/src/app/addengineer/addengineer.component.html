@@ -1,0 +1,107 @@
+<form class="form-horizontal ibox-content" [formGroup]="myform" (ngSubmit)="addEngineer(myform.value)" role="form">
+
+    <div class="container">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form  control-label">Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="Name" formControlName="eng_name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Last Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="email@microfocus.com" formControlName="email">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">City</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="City" formControlName="city">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Start day</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="8" formControlName="work_start">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">End day</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="17" formControlName="work_end">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Time Zone</label>
+                <div class="col-sm-8">
+                        <select type="text" value='3' class="form-control" formControlName="time">
+                            <option value='1'>PST</option>
+                            <option value='2'>CST</option>
+                            <option value='3'>EST</option>
+                            <option value='4'>MST</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Static/Dynamic</label>
+                <div class="col-sm-8">
+                    <select type="text" value='3' class="form-control" formControlName="sta_dyn">
+                        <option value='3'>Both</option>
+                        <option value='2'>Dynamic</option>
+                        <option value='1'>Static</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Max case</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="0" value='0' formControlName="max">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-sm-4 label-form control-label">Status</label>
+                <div class="col-sm-8">
+                    <select type="text" value='1' class="form-control" formControlName="status">
+                        <option value='true'>Available</option>
+                        <option value='false'>Disable</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="cont-button">
+            <div class="form-group">
+                <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
+                    <i class="fa fa-times-circle-o"></i> Cancel</button>
+                <button class="btn btn-primary" type="submit">Continue</button>
+            </div>
+        </div>
+    </div>
+
+</form>
