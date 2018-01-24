@@ -92,7 +92,8 @@ users.register = function (req, res) {
 	{
 		res.status(400);
 		res.send({status:'error',error:'Username or password is missing.'});
-	}
+  }
+
   db.create({
     email : req.body.email,
   		city : req.body.city,
@@ -103,7 +104,7 @@ users.register = function (req, res) {
       username: req.body.username,
       password: req.body.password,
       name: req.body.name,
-      lastName: req.body.lastName,
+      last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
       day_off: "",

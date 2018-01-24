@@ -19,8 +19,6 @@ export class RegisterComponent implements OnInit {
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
   addUser(data){
-    data.work_start = +data.work_start;
-    data.work_end = +data.work_end;
     data.time = +data.time;
     data.sta_dyn = +data.sta_dyn;
     data.max = +data.max;
@@ -41,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.myform= this.fb.group({
-      eng_name: '',
+      name: '',
       last_name: '',
       email: '',
       city : '',

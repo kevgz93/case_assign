@@ -60,27 +60,7 @@ ticket.loadEnginner2 = function(){
           foreignField: 'user_id', 
           'as': 'schedule_loaded'
         }
-      },
-      { "$project": {
-        "id": 1,
-        "email": 1,
-        "city": 1,
-        "work_start": 1,
-        "work_end": 1,
-        "time_zone": 1,
-        "sta_dyn": 1,
-        "max_case": 1,
-        "name": 1,
-        "last_name": 1,
-        "cases_loaded": {
-           "$filter": {
-               "input": "$cases_loaded",
-               "as": "case",
-               "cond": { "$eq": [ "$$case.date.month", month ] }
-           }
-        },
-        "schedule_loaded":1
-    }}
+      }
     ],function(err, engi) {
       
       if (err){
@@ -110,7 +90,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
       year: date.getFullYear(),
     },
     time: time,
-    engineer_id: req.body.engi_id,
+    engineer_id: req.body.engi_id
     }, function(err, tickt) { //this will run when create is completed
       if(err) {
         console.log("Error creating a User");

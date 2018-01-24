@@ -26,6 +26,7 @@ interface engineer{
 export class HomeComponent implements OnInit {
 
   public data = null;
+  public user = null;
   public status = null;
   
 
@@ -36,7 +37,11 @@ export class HomeComponent implements OnInit {
     getAllEng(): Observable<engineer>{
       this.service.getAllEngineers()
       .subscribe(data => {
+        console.log(Object.keys(data).length);
         this.data = data;
+        for(let i in data){
+          
+        }
       })
       
       return;

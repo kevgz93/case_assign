@@ -30,9 +30,9 @@ router
 
 router
   .route('/user')
-  .get(helpers.isAuthenticated, ctrlUsers.userGetOne)
-  .put(helpers.isAuthenticated, ctrlUsers.usersUpdateOne)
-  .delete(helpers.isAuthenticated, ctrlUsers.usersDeleteOne);
+  .get(ctrlUsers.userGetOne)
+  .put(ctrlUsers.usersUpdateOne)
+  .delete(ctrlUsers.usersDeleteOne);
 
   router
   .route('/check')
@@ -41,12 +41,12 @@ router
 router
 .route('/ticket')
 .get(ctrlTicket.loadEnginner) //helpers.isAuthenticated,
-.post(helpers.isAuthenticated, ctrlTicket.addTicket)
-.put(helpers.isAuthenticated, ctrlTicket.ticketDelete)
+.post(ctrlTicket.addTicket)
+.put(ctrlTicket.ticketDelete)
 
 router
 .route('/reports')
-.post(helpers.isAdmin, ctrlBitacora.generateReports)
+.post(ctrlBitacora.generateReports)
 
 
 /*

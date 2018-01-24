@@ -18,12 +18,12 @@
   </thead>
   <tbody>
         <tr *ngFor="let datico of data" >
-                <td>{{datico.eng_name}} {{datico.last_name}}</td>
+                <td>{{datico.name}} {{datico.last_name}}</td>
                 <td>{{datico.time_zone}}</td>
                 <td>{{datico.sta_dyn}}</td>
                 <td>{{datico.max_case}}</td>
-                <td>{{datico.work_start}}:00 - {{datico.work_end}}:00</td>
-                <td>{{datico.day}}</td>
+                <td>{{datico.schedule_loaded.monday}}</td>
+                <td>{{datico.cases_loaded}}</td>
                 <td>{{datico.week}}</td>
                 <td>{{datico.month}}</td>
                 <td><button (click)="addTicket(datico._id)">+</button> / <button (click)="deleteTicket(datico._id)">-</button></td>

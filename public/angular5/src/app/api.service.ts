@@ -26,7 +26,7 @@ export class ApiService {
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
     return this.http
-    .get(API_URL + '/api/user')
+    .get(API_URL + '/api/ticket')
 
     .map(response => {
       return response
