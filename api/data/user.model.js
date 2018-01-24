@@ -8,8 +8,6 @@ var userSchema = new mongoose.Schema({
 	password: String,
 	email: String,
 	city : String,
-	work_start: Number,
-	work_end: Number,
 	time_zone: Number,
 	sta_dyn: Number,
 	max_case: Number,

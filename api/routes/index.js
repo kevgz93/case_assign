@@ -6,19 +6,23 @@ var helpers = require('../helper/helperFunctions');
 var ctrlTicket = require('../controllers/ticket.controller.js');
 var ctrlUsers = require('../controllers/user.controller.js');
 var ctrlBitacora = require('../controllers/bitacora.controller.js');
+var ctrlSchedule = require('../controllers/schedule.controller.js');
 
 
-
-
- //cambiamos el /new y se hizo merge con /hotels
 
 router
   .route('/login/register')
-<<<<<<< HEAD
-  .post(ctrlUsers.register)
-=======
-  .post(helpers.isAdmin, ctrlUsers.register)
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
+  .post(ctrlUsers.register);
+
+router
+  .route('/login/schedule')
+  .post(ctrlSchedule.createSchedule);
+
+router
+  .route('/schedule')
+  .post(ctrlSchedule.getScheduleId)
+  .put(ctrlSchedule.updateSchedule);
+  
 
 router
   .route('/login')
@@ -36,7 +40,7 @@ router
 
 router
 .route('/ticket')
-.get(helpers.isAuthenticated, ctrlTicket.loadEnginner)
+.get(ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(helpers.isAuthenticated, ctrlTicket.addTicket)
 .put(helpers.isAuthenticated, ctrlTicket.ticketDelete)
 

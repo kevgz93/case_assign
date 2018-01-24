@@ -96,8 +96,6 @@ users.register = function (req, res) {
   db.create({
     email : req.body.email,
   		city : req.body.city,
-  	  work_start: req.body.work_start,
-  	  work_end: req.body.work_end,
   	  time_zone: req.body.time,
       sta_dyn: req.body.sta_dyn,
       max_case: req.body.max,
@@ -108,8 +106,8 @@ users.register = function (req, res) {
       lastName: req.body.lastName,
       activeSession: "",
       role: req.body.role,
-      day_off: req.body.day_off,
-	    day_on: req.body.day_on,
+      day_off: "",
+	    day_on: "",
       days_working: 365,
       last_case:""
       
@@ -126,11 +124,8 @@ users.register = function (req, res) {
 
         res
           .status(201)
-<<<<<<< HEAD
           .json({status:201,user:user});
-=======
-          .json(user);
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
+
       }
     });
 
@@ -312,8 +307,6 @@ users.usersUpdateOne = function (req, res) {
       } else {
         doc.email = req.body.email,
         doc.city = req.body.city,
-        doc.work_start= req.body.work_start,
-        doc.work_end= req.body.work_end,
         doc.time_zone= req.body.time,
         doc.sta_dyn= req.body.sta_dyn,
         doc.max_case= req.body.max,

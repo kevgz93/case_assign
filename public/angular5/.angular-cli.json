@@ -19,11 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-<<<<<<< HEAD
-        "styles.scss"
-      ],
-      "scripts": [],
-=======
+
         "styles.scss",
         "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
@@ -31,7 +27,6 @@
         "../../../node_modules/jquery/dist/jquery.min.js",
         "../../../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -53,6 +53,14 @@ ticket.loadEnginner2 = function(){
           'as': 'cases_loaded'
         }
       },
+      {
+        $lookup: {
+          from: 'schedules', 
+          localField: '_id', 
+          foreignField: 'user_id', 
+          'as': 'schedule_loaded'
+        }
+      },
       { "$project": {
         "id": 1,
         "email": 1,
@@ -70,7 +78,8 @@ ticket.loadEnginner2 = function(){
                "as": "case",
                "cond": { "$eq": [ "$$case.date.month", month ] }
            }
-        }
+        },
+        "schedule_loaded":1
     }}
     ],function(err, engi) {
       

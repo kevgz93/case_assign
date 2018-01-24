@@ -9,13 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { ApiService } from './api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { EngineerComponent } from './EditEngineer/EditEngineer.component';
-import { AddengineerComponent } from './addengineer/addengineer.component';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
-<<<<<<< HEAD
 import { RegisterComponent } from './register/register.component';
-=======
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
+
 
 
 @NgModule({
@@ -24,13 +21,8 @@ import { RegisterComponent } from './register/register.component';
     NavbarComponent,
     HomeComponent,
     EngineerComponent,
-    AddengineerComponent,
-<<<<<<< HEAD
     LoginComponent,
     RegisterComponent
-=======
-    LoginComponent
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
   ],
   imports: [
     BrowserModule,
