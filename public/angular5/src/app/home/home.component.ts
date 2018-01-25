@@ -25,6 +25,7 @@ interface engineer{
 
 export class HomeComponent implements OnInit {
 
+  public aux = null;
   public data = null;
   public user = null;
   public status = null;
@@ -34,18 +35,27 @@ export class HomeComponent implements OnInit {
 
     // Simulate GET /todos
 
+    filterDay(thiscase): any{
+
+      return
+    }
+
+
     getAllEng(): Observable<engineer>{
       this.service.getAllEngineers()
       .subscribe(data => {
         console.log(Object.keys(data).length);
-        this.data = data;
-        for(let i in data){
-          
+        this.aux = data;
+        for(let i in this.aux){
+          for(let j in this.aux[i]){
+            this.filterDay(this.aux[i].cases_loaded[j]);
+          }
         }
       })
       
       return;
     }
+
 
     addTicket(id): Observable<any>{
       console.log(id);
