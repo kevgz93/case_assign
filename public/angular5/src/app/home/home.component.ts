@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit {
   public data = null;
   public user = null;
   public status = null;
+  public countDay = 0;
+  public countWeek = 0;
+  public date = new Date();
   
 
   constructor(private service: ApiService) { }
@@ -36,7 +39,16 @@ export class HomeComponent implements OnInit {
     // Simulate GET /todos
 
     filterDay(thiscase): any{
+      var month = this.date.getMonth() + 1;
 
+      if (this.date.getDate() == thiscase.date && month == thiscase.month){
+      this.countDay++
+    }
+      else if (this.date.getDate() == thiscase.date && this.date.getDay() != 1){
+        this.countWeek++
+      }
+
+      else()
       return
     }
 

@@ -36,7 +36,7 @@ ticket.loadEnginner = function(req, res, next) {
 ticket.loadEnginner2 = function(){
   var results = q.defer();
   var date = new Date();
-  var month = date.getMonth() + 1;
+
 
   user.aggregate(
     [
