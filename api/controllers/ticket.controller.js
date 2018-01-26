@@ -85,7 +85,8 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
     user_id: req.body.user_id,
     action: 'added',
     date: {
-      day: date.getDate(),
+      day: date.getDay(),
+      date: date.getDate(),
       month: month,
       year: date.getFullYear(),
     },

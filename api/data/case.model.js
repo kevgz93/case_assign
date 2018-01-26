@@ -10,6 +10,7 @@ var caseSchema = new mongoose.Schema({
 	action: String,
 	date: {
 		day: Number,
+		date: Number,
 		month: Number,
 		year: Number
 	},

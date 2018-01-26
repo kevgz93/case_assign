@@ -49,7 +49,7 @@ export class ApiService {
   }
 
   public addTickets(id): Observable<Response> {
-    let body = JSON.stringify({"id_engi": id})
+    let body = JSON.stringify({"engi_id": id, "user_id": id})
     return this.http
     .post(API_URL + '/api/ticket', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
