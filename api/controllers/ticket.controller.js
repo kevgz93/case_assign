@@ -60,6 +60,7 @@ ticket.loadEnginner2 = function(){
           foreignField: 'user_id', 
           'as': 'schedule_loaded'
         }
+<<<<<<< HEAD
       },
         { "$project": {
           "_id": 1,
@@ -88,6 +89,8 @@ ticket.loadEnginner2 = function(){
           },
           "schedule_loaded":1
         }
+=======
+>>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
       }
     ],function(err, engi) {
       
@@ -139,6 +142,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
 
 }
 
+<<<<<<< HEAD
 ticket.ticketDelete2 = function (req, res, user){
   console.log("Entro para Editar el caso")
   var response;
@@ -196,6 +200,30 @@ ticket.ticketDelete = function (req, res) {
         response = err;
       } else if(!doc){
         response = {"Messages": "Not user ID Found"}
+=======
+ticket.ticketDelete = function (req, res) {
+
+  var user_id = req.body.user_id;
+  //console.log("Get hotels" + engirId);
+
+  user
+    .findById(engirId)
+    .exec(function(err, doc){
+      var response = {
+        status: 200,
+        message: doc
+      };
+
+      if (err) {
+        console.log("Error finding user");
+        response.status = 500;
+        response.message = err;
+      } else if(!doc){
+        response.status= 404;
+        response.message = {
+          "message":"User ID not found"
+        };
+>>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
       }
 
       if (response.status != 200) {
@@ -203,8 +231,26 @@ ticket.ticketDelete = function (req, res) {
           .status(response.status)
           .json(response.message);
       } else {
+<<<<<<< HEAD
         ticketDelete2(doc);
       }
+=======
+        doc.day = doc.day - 1;
+        doc.week = doc.week - 1;
+        doc.month = doc.month - 1;
+        bitacora.addBitacora(req.cookies.SessionId, "delete ticket", doc._id, doc.eng_name, doc.last_name);
+
+
+        doc.save(function(err, engiUpdated) {
+          if (err) {
+            res.send({message : err});
+
+          } else {
+            res.send({status:204, message : "ticket Deleted"});
+          }
+        })
+      };
+>>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
 
     });
 };
