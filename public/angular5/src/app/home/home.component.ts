@@ -31,10 +31,7 @@ export class HomeComponent implements OnInit {
   public status = null;
   public countDay = 0;
   public countWeek = 0;
-<<<<<<< HEAD
   public countMonth = 0;
-=======
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
   public date = new Date();
   
 
@@ -67,7 +64,6 @@ export class HomeComponent implements OnInit {
       }
     }
 
-<<<<<<< HEAD
     addCountMonth(thiscase, month): void{
       if (month == thiscase.date.month ){
         console.log("Sumo Dias");
@@ -80,11 +76,6 @@ export class HomeComponent implements OnInit {
     this.countDay = 0;
     this.countWeek = 0;
     this.countMonth = 0;
-=======
-  cleanCount():void{
-    this.countDay = 0;
-    this.countWeek = 0;
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
   }
 
     filterDay(thiscase): void{
@@ -107,10 +98,7 @@ export class HomeComponent implements OnInit {
 
       this.addCountDay(thiscase, month);
       this.addCountWeek(thiscase, monday, month2)
-<<<<<<< HEAD
       this.addCountMonth(thiscase, month);
-=======
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
 
 
     
@@ -118,10 +106,7 @@ export class HomeComponent implements OnInit {
 
 
     getAllEng(): Observable<engineer>{
-<<<<<<< HEAD
       this.cleanCount();
-=======
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
       var count;
       this.service.getAllEngineers()
       .subscribe(data => {
@@ -136,12 +121,8 @@ export class HomeComponent implements OnInit {
           console.log("CountWeek", this.countWeek);
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
-<<<<<<< HEAD
           this.data[i].countmonth = this.countMonth;
           
-=======
-          this.cleanCount;
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
         }
         
         console.log("esto es this.data ", this.data);

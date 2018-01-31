@@ -60,11 +60,7 @@ export class ApiService {
   }
 
   public deleteTickets(id): Observable<Response> {
-<<<<<<< HEAD
     let body = JSON.stringify({"engi_id": id})
-=======
-    let body = JSON.stringify({"id_engi": id})
->>>>>>> af607aa28ac628b8180339f91360baf10f363ac8
     return this.http
     .put(API_URL + '/api/ticket', body,
      {headers: new HttpHeaders().set('Content-Type','application/json')}) //{headers: new HttpHeaders().set('Content-Type','application/json')}
