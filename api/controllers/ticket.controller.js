@@ -78,7 +78,7 @@ ticket.loadEnginner2 = function(){
           "day_on":1,
           "day_off":1,
           "days_working":1,
-          "last-case":1,
+          "last_case":1,
           "cases_loaded":{             
             "$filter": {
               "input": "$cases_loaded",
@@ -103,10 +103,36 @@ ticket.loadEnginner2 = function(){
   }
 
 
+ticket.saveOnUser = function (ticket_id, engi_id, res){
+  var response = {};
+  user.findById(engi_id)
+  .exec(function(err, doc){
+    if(err){
+      res.send("error to find the engineer")
+    }
+    else{
+      console.log(ticket_id, engi_id);
+      doc.last_case = ticket_id.toString();
+    }
 
+    doc.save(function(err, caseUpdated) {
+      if (err) {
+        res
+        .status(400)
+        .json(err)
+
+      } else {
+        res
+        .status(201)
+        .json(caseUpdated)
+      }
+    })
+  });
+}
 
 ticket.addTicket = function (req, res ) { //user_id, engi_id
   var date = new Date();
+  var response;
   month = (date.getMonth() + 1);
   time = (date.getHours() +1) + ':' + date.getMinutes() + " EST";
   _cases.create({
@@ -130,13 +156,11 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
       } else {
         console.log("User created");
         console.log(tickt);
-
-        res
-          .status(201)
-          .json(tickt);
+        ticket.saveOnUser(tickt._id, req.body.engi_id, res);
       }
-    });
 
+    });
+    return;
 }
 
 ticket.ticketDelete2 = function (req, res, user){

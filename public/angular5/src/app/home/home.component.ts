@@ -47,21 +47,14 @@ export class HomeComponent implements OnInit {
       
     }
 
-    addCountWeek(thiscase, monday, month2): void{
-      if (this.date.getDate() == thiscase.date.date && this.date.getDay() == 1){
-        console.log("Sumo Semana por que es el primer dia de la semana");
+    addCountWeek(thiscase, monday): void{
+      var current_month = monday.getMonth() + 1;
+      var next_month = monday.getMonth() + 2;
+      if (thiscase.date.date >= monday.getDate()  && thiscase.date.month >= current_month || thiscase.date.month >= next_month){
+        console.log("Sumo Semana");
         this.countWeek++;
       }
 
-      else if(thiscase.date.date >= 26 && thiscase.date.day < 4 && thiscase.date.day != 0 && thiscase.date.month == month2){
-        console.log("Sumo Semana por que dio negativo el dia");
-        this.countWeek++;
-      }
-      else if(thiscase.date.date >= monday)
-      {
-        console.log("Sumo Semana normal el dia");
-        this.countWeek++;
-      }
     }
 
     addCountMonth(thiscase, month): void{
@@ -81,6 +74,7 @@ export class HomeComponent implements OnInit {
     filterDay(thiscase): void{
       console.log("este es el caso que se envia que se enviar dentro de la funcion Filterday ", thiscase.date.date);
       var count = [{}];
+      var monday;
       var month = this.date.getMonth() + 1;
       var month2 = this.date.getMonth();
       if(month == 0)
@@ -88,16 +82,19 @@ export class HomeComponent implements OnInit {
         console.log("Entro a month == 0");
         month2 == 12
       }
-      var monday = (this.date.getDate() - this.date.getDay()) +1;
-      console.log("monday", monday);
-      if(monday <= 0)
-      {
-        console.log("Entro a monday <= 0");
-        monday = 27;
+      
+      function getMonday(d) {
+        d = new Date(d);
+        var day = d.getDay(),
+            diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+        return new Date(d.setDate(diff));
       }
+      
+      monday = getMonday(new Date());
+  
 
       this.addCountDay(thiscase, month);
-      this.addCountWeek(thiscase, monday, month2)
+      this.addCountWeek(thiscase, monday)
       this.addCountMonth(thiscase, month);
 
 
