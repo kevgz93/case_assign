@@ -50,8 +50,11 @@ export class HomeComponent implements OnInit {
     addCountWeek(thiscase, monday): void{
       var current_month = monday.getMonth() + 1;
       var next_month = monday.getMonth() + 2;
-      if (thiscase.date.date >= monday.getDate()  && thiscase.date.month >= current_month || thiscase.date.month >= next_month){
+      if (thiscase.date.date >= monday.getDate()  && thiscase.date.month == current_month){
         console.log("Sumo Semana");
+        this.countWeek++;
+      }
+      else if(thiscase.date.month > monday.getMonth() && thiscase.date.date < 5){
         this.countWeek++;
       }
 

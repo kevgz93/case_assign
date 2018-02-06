@@ -163,7 +163,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
     return;
 }
 
-ticket.ticketDelete2 = function (req, res, user){
+ticket.ticketDelete2 = function (user){
   console.log("Entro para Editar el caso")
   var response;
   _cases.findById(user.last_case).exec(function(err, doc){
@@ -184,23 +184,21 @@ ticket.ticketDelete2 = function (req, res, user){
     }
 
     if (response.status != 200) {
-      res
-        .status(response.status)
-        .json(response.message);
+      return response;
     } else {
       doc.action = "deleted"
     };
 
     doc.save(function(err, caseUpdated) {
       if (err) {
-        res
-          .status(500)
-          .json(err);
+        response.status = 500;
+        response.message = err;
+        return response;
 
       } else {
-        res
-        .status(204)
-        .json(caseUpdated)
+        response.status = 200;
+        response.message = caseUpdated;
+        return response;
       }
     })
   });
@@ -209,28 +207,32 @@ ticket.ticketDelete2 = function (req, res, user){
 ticket.ticketDelete = function (req, res) {
 
   var _id = req.body._id;
+  var response;
   //console.log("Get hotels" + engirId);
 
   user
     .findById(_id)
     .exec(function(err, doc){
-      var response;
+      var response = {};
       if (err) {
         console.log("Error finding user");
+        response.status = 500
         response = err;
       } else if(!doc){
+        response.status = 404
         response = {"Messages": "Not user ID Found"}
       }
 
       if (response.status != 200) {
         res
           .status(response.status)
-          .json(response.message);
+          .json();
       } else {
-        ticketDelete2(doc);
+        response = ticket.ticketDelete2(doc);
       }
-
+      res.json(response)
     });
+    
 };
 
 
