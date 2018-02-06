@@ -163,7 +163,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
     return;
 }
 
-ticket.ticketDelete2 = function (user){
+ticket.ticketDelete2 = function (user, res){
   console.log("Entro para Editar el caso")
   var response;
   _cases.findById(user.last_case).exec(function(err, doc){
@@ -174,13 +174,11 @@ ticket.ticketDelete2 = function (user){
 
     if (err) {
       console.log("Error finding user");
-      response.status = 500;
-      response.message = err;
+      res.status(500)
+        .json(err);
     } else if(!doc){
-      response.status= 404;
-      response.message = {
-        "message":"User ID not found"
-      };
+      res.status(400)
+      .json("Error not document loaded");
     }
 
     if (response.status != 200) {
@@ -191,23 +189,26 @@ ticket.ticketDelete2 = function (user){
 
     doc.save(function(err, caseUpdated) {
       if (err) {
-        response.status = 500;
-        response.message = err;
-        return response;
+        res.status(404)
+        .json(err);
+
 
       } else {
-        response.status = 200;
-        response.message = caseUpdated;
-        return response;
+        res.status(201)
+        .json(caseUpdated);
+
       }
     })
+
   });
 }
 
-ticket.ticketDelete = function (req, res) {
+ticket.ticketDelete = function (req,res ) {
 
   var _id = req.body._id;
+  console.log("Id Delete",_id);
   var response;
+  var user;
   //console.log("Get hotels" + engirId);
 
   user
@@ -225,13 +226,51 @@ ticket.ticketDelete = function (req, res) {
 
       if (response.status != 200) {
         res
-          .status(response.status)
-          .json();
+          .status(400)
+          .json(response);
       } else {
-        response = ticket.ticketDelete2(doc);
+        findCase(doc);
+
       }
-      res.json(response)
     });
+
+    findcase = function(user){
+    _cases.findById(user.last_case).exec(function(err, doc){
+      var response = {
+        status: 200,
+        message: doc
+      };
+  
+      if (err) {
+        console.log("Error finding user");
+        res.status(500)
+          .json(err);
+      } else if(!doc){
+        res.status(400)
+        .json("Error not document loaded");
+      }
+  
+      if (response.status != 200) {
+        return response;
+      } else {
+        doc.action = "deleted"
+      };
+  
+      doc.save(function(err, caseUpdated) {
+        if (err) {
+          res.status(404)
+          .json(err);
+  
+  
+        } else {
+          res.status(201)
+          .json(caseUpdated);
+  
+        }
+      })
+  
+    });
+  }
     
 };
 
