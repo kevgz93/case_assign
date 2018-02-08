@@ -1,0 +1,32 @@
+
+<div class="container">
+  <h3>Tickets</h3>
+</div>
+<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead class="tablehead">
+      <tr>
+          <th>Name</th>
+          <th>Time Zone</th>
+          <th>Static/Dynamic</th>
+          <th>Max case</th>
+          <th>Schedule</th>
+          <th>Day</th>
+          <th>Week</th>
+          <th>Month</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+        <tr *ngFor="let datico of data" >
+                <td>{{datico.name}} {{datico.last_name}}</td>
+                <td>{{datico.time_zone}}</td>
+                <td>{{datico.sta_dyn}}</td>
+                <td>{{datico.max_case}}</td>
+                <td>{{datico.schedule_loaded[0].tuesday}}</td>
+                <td>{{datico.countday}}</td>
+                <td>{{datico.countweek}}</td>
+                <td>{{datico.countmonth}}</td>
+                <td><button (click)="addTicket(datico._id)">+</button> / <button (click)="deleteTicket(datico._id)">-</button></td>
+        </tr>
+  </tbody>
+</table>
