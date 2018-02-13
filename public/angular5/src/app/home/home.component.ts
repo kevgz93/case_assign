@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   public countDay = 0;
   public countWeek = 0;
   public countMonth = 0;
+  public today;
   public date = new Date();
   
 
@@ -99,8 +100,32 @@ export class HomeComponent implements OnInit {
     
       }
 
+      filterSchedule():void{
+        var today = this.date.getDay();
+        if (today === 1){
+          this.today = 'monday'
+        }
+        else if (today === 2){
+          this.today = 'tuesday'
+        }
+        else if (today === 2){
+          this.today = 'wednesday'
+        }
+        else if (today === 2){
+          this.today = 'thursday'
+        }
+        else if (today === 2){
+          this.today = 'friday'
+        }
+
+      }
+
 
     getAllEng(): Observable<engineer>{
+      var today2 = this.today;
+      var today;
+      today = today2.toString();
+      console.log(today);
       this.cleanCount();
       var count;
       this.service.getAllEngineers()
@@ -114,8 +139,11 @@ export class HomeComponent implements OnInit {
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
+          this.data[i].today = this.aux[i].schedule_loaded[0][2]
+          
           
         }
+        
         
         console.log(this.data);
       })
@@ -161,6 +189,7 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.filterSchedule();
     this.getAllEng();
   }
 
