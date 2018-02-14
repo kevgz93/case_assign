@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   public user;
   loginform: FormGroup;
+  public date: Date = new Date();
 
   constructor( private service: ApiService, private fb: FormBuilder, private router:Router,
     private cookieService: CookieService){   
@@ -30,8 +31,12 @@ export class LoginComponent implements OnInit {
     });
 
   }
+  createCookie(sessionid){
+    this.cookieService.set( 'SessionId', sessionid.sessionId, 1);
+  }
 
   login(user) {
+    let sessionid: any;
     console.log(user);
     this.service.login(user)
     .subscribe(response =>{
@@ -39,13 +44,17 @@ export class LoginComponent implements OnInit {
       let status: any = response.status;
       if(status === 'success'){
         console.log(response);
+        this.createCookie(response);
         this.router.navigate(['./home'])
       }
       else{
         console.log('error');
         this.router.navigate(['./login'])
       }
+      
     })
+    
+    
   }
 
 

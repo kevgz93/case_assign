@@ -106,13 +106,13 @@ export class HomeComponent implements OnInit {
         else if (today === 2){
           this.data[i].today = this.data[i].schedule_loaded[0].tuesday;
         }
-        else if (today === 2){
+        else if (today === 3){
           this.data[i].today = this.data[i].schedule_loaded[0].wednesday;
         }
-        else if (today === 2){
+        else if (today === 4){
           this.data[i].today = this.data[i].schedule_loaded[0].thursday;
         }
-        else if (today === 2){
+        else if (today === 5){
           this.data[i].today = this.data[i].schedule_loaded[0].friday;
         }
 
@@ -121,8 +121,6 @@ export class HomeComponent implements OnInit {
 
     getAllEng(): Observable<engineer>{
       var aux = {};
-      var today = this.today;
-      console.log(today);
       this.cleanCount();
       var count;
       this.service.getAllEngineers()

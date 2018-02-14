@@ -6,9 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const API_URL = environment.apiUrl;
+
 
 interface engineer{
 
@@ -17,11 +19,11 @@ interface engineer{
 @Injectable()
 export class ApiService {
 
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient, private cookieService: CookieService
   ) {
   }
+  public cookie = this.cookieService.get("sessionId");
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
