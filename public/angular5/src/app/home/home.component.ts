@@ -24,8 +24,6 @@ interface engineer{
 
 
 export class HomeComponent implements OnInit {
-
-  public aux = null;
   public data = null;
   public user = null;
   public status = null;
@@ -100,46 +98,45 @@ export class HomeComponent implements OnInit {
     
       }
 
-      filterSchedule():void{
+      filterSchedule(i):void{
         var today = this.date.getDay();
         if (today === 1){
-          this.today = 'monday'
+          this.data[i].today = this.data[i].schedule_loaded[0].monday;
         }
         else if (today === 2){
-          this.today = 'tuesday'
+          this.data[i].today = this.data[i].schedule_loaded[0].tuesday;
         }
         else if (today === 2){
-          this.today = 'wednesday'
+          this.data[i].today = this.data[i].schedule_loaded[0].wednesday;
         }
         else if (today === 2){
-          this.today = 'thursday'
+          this.data[i].today = this.data[i].schedule_loaded[0].thursday;
         }
         else if (today === 2){
-          this.today = 'friday'
+          this.data[i].today = this.data[i].schedule_loaded[0].friday;
         }
 
       }
 
 
     getAllEng(): Observable<engineer>{
-      var today2 = this.today;
-      var today;
-      today = today2.toString();
+      var aux = {};
+      var today = this.today;
       console.log(today);
       this.cleanCount();
       var count;
       this.service.getAllEngineers()
       .subscribe(data => {
-        this.aux = data;
+        aux = data;
         this.data = data;
-        for(let i in this.aux){
-          for(let j in this.aux[i].cases_loaded){
-            this.filterDay(this.aux[i].cases_loaded[j]);
+        for(let i in aux){
+          for(let j in aux[i].cases_loaded){
+            this.filterDay(aux[i].cases_loaded[j]);
           }
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
-          this.data[i].today = this.aux[i].schedule_loaded[0][2]
+          this.filterSchedule(i);
           
           
         }
@@ -189,7 +186,6 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.filterSchedule();
     this.getAllEng();
   }
 
