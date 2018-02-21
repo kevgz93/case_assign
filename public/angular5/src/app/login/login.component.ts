@@ -31,8 +31,9 @@ export class LoginComponent implements OnInit {
     });
 
   }
-  createCookie(sessionid){
+  createCookie(sessionid): Promise<boolean>{
     this.cookieService.set( 'SessionId', sessionid.sessionId, 1);
+    return;
   }
 
   login(user) {
@@ -41,11 +42,16 @@ export class LoginComponent implements OnInit {
     this.service.login(user)
     .subscribe(response =>{
       console.log(response);
+      
       let status: any = response.status;
       if(status === 'success'){
         console.log(response);
-        this.createCookie(response);
-        this.router.navigate(['./home'])
+        this.createCookie(response).then((response) =>
+          this.router.navigate(['./home'])
+
+        )
+        
+        
       }
       else{
         console.log('error');
