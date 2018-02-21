@@ -40,8 +40,8 @@ router
   .get(ctrlUsers.loadUsers);
 
 router
-.route('/ticket')
-.get(ctrlTicket.loadEnginner) //helpers.isAuthenticated,
+.route('/ticket/:SessionId')
+.get(helpers.isAuthenticated, ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(ctrlTicket.addTicket)
 .put(ctrlTicket.ticketDelete)
 

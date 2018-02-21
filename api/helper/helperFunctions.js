@@ -7,7 +7,8 @@ var helpers = {};
 //Function that checks if the request is authenticated or not.
 helpers.isAuthenticated = function(req, res, next){
 
-	var cookie = req.body.SessionId;
+	var cookie = req.params.SessionId;
+	console.log(cookie);
 
 	if(!cookie){
 		res.status(401);

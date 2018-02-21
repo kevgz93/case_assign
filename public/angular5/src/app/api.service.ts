@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -23,12 +23,13 @@ export class ApiService {
     private http: HttpClient, private cookieService: CookieService
   ) {
   }
-  public cookie = this.cookieService.get("sessionId");
+  public cookie = this.cookieService.get("SessionId");
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
+    let params = new HttpParams().set("SessionId",this.cookie);
     return this.http
-    .get(API_URL + '/api/ticket')
+    .get(API_URL + '/api/ticket', { params: params })
 
     .map(response => {
       return response
