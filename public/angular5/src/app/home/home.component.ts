@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
       if (thiscase.date.date >= monday.getDate()  && thiscase.date.month == current_month){
         this.countWeek++;
       }
-      else if(thiscase.date.month > monday.getMonth() && thiscase.date.date < 5){
+      else if(thiscase.date.month == next_month && thiscase.date.date < 5){
         this.countWeek++;
       }
 

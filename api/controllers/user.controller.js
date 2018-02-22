@@ -180,9 +180,9 @@ users.getUserBySessionId = function(req, res){
   var user = users.findUser(req.cookies.SessionId)
 	user.then(function(users){
     console.log(users);
-		res.send(users);
+		res.send({status:201, body:users});
 	}, function(){
-		res.send({status:'error',error:'Error occured while fetching data from database.'});
+		res.send({status:500,error:'Error occured while fetching data from database.'});
 	});
 
 }

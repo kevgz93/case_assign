@@ -27,10 +27,19 @@ export class ApiService {
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
-    let params = new HttpParams().set("SessionId",this.cookie);
+    let params = new HttpParams().set("sessionid",this.cookie);
     return this.http
-    .get(API_URL + '/api/ticket', { params: params })
+    .get(API_URL + '/api/ticket/', { params: params })
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
 
+  public getUserBySessionId(): Observable<Response> {
+    let params = new HttpParams().set("sessionid",this.cookie);
+    return this.http
+    .get(API_URL + '/api/ticket/', { params: params })
     .map(response => {
       return response
     })
@@ -42,7 +51,7 @@ export class ApiService {
   public getOneEngineers(id): Observable<Response> {
     let body = JSON.stringify({"id_engi": id})    
     return this.http
-    .post(API_URL + '/api/user', body,
+    .post(API_URL + '/api/user/', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')}
   )
     .map(response => {

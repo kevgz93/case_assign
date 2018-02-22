@@ -46,10 +46,8 @@ export class LoginComponent implements OnInit {
       let status: any = response.status;
       if(status === 'success'){
         console.log(response);
-        this.createCookie(response).then((response) =>
-          this.router.navigate(['./home'])
-
-        )
+        this.createCookie(response)
+        this.router.navigate(['./home'])
         
         
       }

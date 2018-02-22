@@ -15,6 +15,10 @@ router
   .post(ctrlUsers.register);
 
 router
+  .route('/checksession')
+  .get(ctrlUsers.getBySessionId);
+
+router
   .route('/login/schedule')
   .post(ctrlSchedule.createSchedule);
 
@@ -40,7 +44,7 @@ router
   .get(ctrlUsers.loadUsers);
 
 router
-.route('/ticket/:SessionId')
+.route('/ticket/')
 .get(helpers.isAuthenticated, ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(ctrlTicket.addTicket)
 .put(ctrlTicket.ticketDelete)
