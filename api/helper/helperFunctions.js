@@ -12,7 +12,7 @@ helpers.isAuthenticated = function(req, res, next){
 
 	if(!cookie){
 		res.status(401);
-		res.send({status:'error',error:'Not Authorized.'});
+		res.send({status:401,error:'Not Authorized.'});
 	}
 	else{
 		var user = Users.getBySessionId(cookie);
@@ -21,7 +21,7 @@ helpers.isAuthenticated = function(req, res, next){
 				next();
 			}else{
 				res.status(401);
-				res.send({status:'error',error:'Not Authorized.'});
+				res.send({status:401,error:'Not Authorized.'});
 			}
 		});
 

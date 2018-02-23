@@ -41,7 +41,7 @@ router
 
   router
   .route('/check')
-  .get(ctrlUsers.loadUsers);
+  .get(ctrlUsers.getUserBySessionId);
 
 router
 .route('/ticket/')

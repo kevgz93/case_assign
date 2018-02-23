@@ -20,8 +20,7 @@ interface engineer{
 export class ApiService {
 
   constructor(
-    private http: HttpClient, private cookieService: CookieService
-  ) {
+    private http: HttpClient, private cookieService: CookieService) {
   }
   public cookie = this.cookieService.get("SessionId");
 
@@ -39,8 +38,9 @@ export class ApiService {
   public getUserBySessionId(): Observable<Response> {
     let params = new HttpParams().set("sessionid",this.cookie);
     return this.http
-    .get(API_URL + '/api/ticket/', { params: params })
+    .get(API_URL + '/api/check/', { params: params })
     .map(response => {
+      console.log("response from check navbar", response)
       return response
     })
     .catch(this.handleError);

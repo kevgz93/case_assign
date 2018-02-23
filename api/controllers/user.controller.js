@@ -133,6 +133,7 @@ users.register = function (req, res) {
 
 };
 
+
 //Function to return users by its sessionID.
 users.getBySessionId = function(sessionId){
 	var results = q.defer();
@@ -177,10 +178,18 @@ users.getUser2 = function(){
 //catch the cookie and send the user.
 
 users.getUserBySessionId = function(req, res){
-  var user = users.findUser(req.cookies.SessionId)
-	user.then(function(users){
-    console.log(users);
-		res.send({status:201, body:users});
+  var user = users.findUser(req.query.sessionid);
+  console.log(user);
+	user.then(function(user_found){
+    console.log(user_found);
+    if(user_found.status == 401)
+    {
+      res.send({status:401});
+    }
+    else{
+      res.send(user_found)
+    }
+		
 	}, function(){
 		res.send({status:500,error:'Error occured while fetching data from database.'});
 	});
@@ -189,20 +198,22 @@ users.getUserBySessionId = function(req, res){
 
 //Find the user and send it again to getUserBySessionID
 users.findUser = function(session){
-	var results = q.defer();
+  var results = q.defer();
+  var response = {};
 
 	db.findOne({activeSession: session},function(err, dbuser) {
 		if (dbuser){
-			var response = {};
 
-				response.status = 'success';
-				response.username = dbuser.username;
+
+				response.status = 201;
+        response.name = dbuser.name;
+        response.last_name = dbuser.last_name;
 			  results.resolve(response);
 
     }  else{
-			var response = {};
-			response.status = 'error';
-			response.error = 'Invalid username or password';
+
+			response.status = 401;
+			response.error = 'SessionId not found';
 		  	results.resolve(response);
 		}
 	});

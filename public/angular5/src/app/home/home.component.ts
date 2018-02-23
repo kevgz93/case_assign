@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 interface engineer{
   _id : string;
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
   public date = new Date();
   
 
-  constructor(private service: ApiService) { }
+  constructor(private service: ApiService, private router:Router) { }
 
     // Simulate GET /todos
 
@@ -125,6 +126,10 @@ export class HomeComponent implements OnInit {
       var count;
       this.service.getAllEngineers()
       .subscribe(data => {
+        if(data.status == 401)
+        {
+          this.router.navigate(['./'])
+        }
         aux = data;
         this.data = data;
         for(let i in aux){
