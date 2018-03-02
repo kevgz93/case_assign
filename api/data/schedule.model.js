@@ -3,11 +3,16 @@ var ObjectId = mongoose.Schema.ObjectId;
 var user = new ObjectId;
 //defining schema for users table
 var scheduleSchema = new mongoose.Schema({
-    monday : String,
-    tuesday: String,
-    wednesday: String,
-	thursday : String,
-    friday: String,
+    monday_morning : String,
+    monday_afternoon : String,
+    tuesday_morning: String,
+    tuesday_afternoon: String,
+    wednesday_morning: String,
+    wednesday_afternoon: String,
+    thursday_morning : String,
+    thursday_afternoon : String,
+    friday_morning: String,
+    friday_afternoon: String,
     user_id: user
 });
 

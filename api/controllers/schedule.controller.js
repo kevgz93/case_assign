@@ -9,19 +9,25 @@ var schedule = {};
 schedule.createSchedule = function (req, res) {
     console.log(req.body.user_id);
 
-    if(!req.body.user_id || !req.body.monday || !req.body.tuesday || !req.body.wednesday || !req.body.thursday
-    || !req.body.friday)
+    if(!req.body.user_id || !req.body.monday_morning || !req.body.monday_afternoon || !req.body.tuesday_morning || !req.body.tuesday_afternoon || 
+    !req.body.wednesday_morning|| !req.body.wednesday_afternoon || !req.body.thursday_morning || !req.body.thursday_afternoon || !req.body.friday_morning
+    || !req.body.friday_afternoon)
     {
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
     }
 
     db.create({ 
-        monday : req.body.monday,
-        tuesday : req.body.tuesday,
-        wednesday: req.body.wednesday,
-        thursday: req.body.thursday,
-        friday: req.body.friday,
+        monday_morning : req.body.monday_morning,
+        monday_afternoon : req.body.monday_afternoon,
+        tuesday_morning: req.body.tuesday_morning,
+        tuesday_afternoon: req.body.tuesday_afternoon,
+        wednesday_morning: req.body.wednesday_morning,
+        wednesday_afternoon: req.body.wednesday_afternoon,
+        thursday_morning : req.body.thursday_morning,
+        thursday_afternoon : req.body.thursday_afternoon,
+        friday_morning: req.body.friday_morning,
+        friday_afternoon: req.body.friday_afternoon,
         user_id: req.body.user_id
     }, function(err, user) { //this will run when create is completed
       if(err) {

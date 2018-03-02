@@ -23,14 +23,10 @@ function makeSessionId()
 // controller that handles user login request
 users.auth = function (req, res) {
   var date = new Date();
-  var cookie = req.cookies.day;
   console.log(cookie);
   if(!cookie){
     var datecookie =  date.getDate() + "-" +date.getMonth() +"-" +date.getFullYear();
-    console.log("first time cookies")
-    res.cookie('day', date.getDay());
-    res.cookie('date', datecookie.toString());
-    res.cookie('month', date.getMonth());
+
   }
 
 	if(!req.body.username || !req.body.password)
@@ -41,7 +37,6 @@ users.auth = function (req, res) {
 
   var user = users.authUser(req.body.username, req.body.password);
 	user.then(function(users){
-    res.cookie('SessionId' , users.sessionId, {domain: '127.0.0.1', httpOnly: true});
     res.status(201)
 		.json(users);
 	}, function(){
