@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   public data;
   public mjs;
   myform: FormGroup;
+  message:Object;
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
@@ -29,12 +30,16 @@ export class RegisterComponent implements OnInit {
       console.log(msj);
       if(msj.status == 201){
         alert('User Added');
-        this.router.navigate(['./home]']);
+        this.service.changeUserId(msj);
+        
+        
       }
       else{
         alert('User Failed');
+        this.router.navigate(['./login/register]']);
       }
     })
+    
   }
 
   ngOnInit() {

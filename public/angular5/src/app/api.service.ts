@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Router} from '@angular/router';
 
 
 const API_URL = environment.apiUrl;
@@ -20,9 +22,17 @@ interface engineer{
 export class ApiService {
 
   constructor(
-    private http: HttpClient, private cookieService: CookieService) {
+    private http: HttpClient, private cookieService: CookieService, private router:Router) {
   }
   public cookie = this.cookieService.get("SessionId");
+  private user_id = new BehaviorSubject<object>({});
+  currentMessage = this.user_id.asObservable();
+
+  //share user Id
+  changeUserId(message: Object) {
+    this.user_id.next(message);
+    this.router.navigate(['./schedule]']);
+  }
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
