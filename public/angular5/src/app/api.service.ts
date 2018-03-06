@@ -31,7 +31,7 @@ export class ApiService {
   //share user Id
   changeUserId(message: Object) {
     this.user_id.next(message);
-    this.router.navigate(['./schedule]']);
+ 
   }
 
   // API: GET /todos
@@ -97,6 +97,17 @@ export class ApiService {
     let body = JSON.stringify(data)
     return this.http
     .post(API_URL + '/api/login/register', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+  public addSchedule(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    return this.http
+    .post(API_URL + '/api/schedule', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response

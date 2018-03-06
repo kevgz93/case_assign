@@ -31,12 +31,12 @@ export class RegisterComponent implements OnInit {
       if(msj.status == 201){
         alert('User Added');
         this.service.changeUserId(msj);
-        
+        this.router.navigate(['./schedule']);
         
       }
       else{
         alert('User Failed');
-        this.router.navigate(['./login/register]']);
+        this.router.navigate(['./login/register']);
       }
     })
     

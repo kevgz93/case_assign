@@ -5,20 +5,22 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 
 interface engineer{
-  _id : string;
-	eng_name : String,
-  last_name : String,
-  email: String,
-  city : String,
-  work_start: Number,
-  work_end: Number,
-  time_zone: Number,
-  sta_dyn: Number,
-  max_case: Number,
-  status: Boolean,
-  day: Number,
-  week: Number,
-  month: Number
+	name : String,
+	last_name : String,
+	username: String,
+	password: String,
+	email: String,
+	city : String,
+	time_zone: Number,
+	sta_dyn: Number,
+	max_case: Number,
+	status: Boolean,
+	activeSession: String,
+	role: String,
+	day_off: String,
+	day_on: String,
+	days_working: Number,
+	last_case: String
 };
 
 @Component({

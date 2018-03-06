@@ -20,42 +20,40 @@ export class ScheduleComponent implements OnInit {
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
   addSchedule(data){
-    data.time = +data.time;
-    data.sta_dyn = +data.sta_dyn;
-    data.max = +data.max;
+    data.user_id = this.user.user._id;
 
     console.log(data);
-    this.service.addUser(data)
+    this.service.addSchedule(data)
     .subscribe(msj => {
       console.log(msj);
       if(msj.status == 201){
         alert('Schedule Added');
+        this.router.navigate(['./home']);
         
       }
       else{
         alert('schedule Failed');
-        this.router.navigate(['./schedule]']);
+        this.router.navigate(['./schedule']);
       }
     })
-    this.router.navigate(['./home]']);
+    
   }
 
   ngOnInit() {
 
     this.service.currentMessage.subscribe(message => this.user = message);
-    console.log("user_id ",this.user._id);
 
     this.myform= this.fb.group({
-      lunes_morning: '',
-      lunes_afternoon: '',
-      martes_morning: '',
-      martes_afternoon : '',
-      miercoles_morning: '',
-      miercoles_afternoon: '',
-      jueves_morning: '',
-      jueves_afternoon: '',
-      viernes_morning: '',
-      viernes_afternoon: '',
+      monday_morning: '',
+      monday_afternoon: '',
+      tuesday_morning: '',
+      tuesday_afternoon : '',
+      wednesday_morning: '',
+      wednesday_afternoon: '',
+      thursday_morning: '',
+      thursday_afternoon: '',
+      friday_morning: '',
+      friday_afternoon: '',
 
     });
   }

@@ -102,19 +102,19 @@ export class HomeComponent implements OnInit {
       filterSchedule(i):void{
         var today = this.date.getDay();
         if (today === 1){
-          this.data[i].today = this.data[i].schedule_loaded[0].monday;
+          this.data[i].today = this.data[i].schedule_loaded[0].monday_morning + ":00-" + this.data[i].schedule_loaded[0].monday_afternoon + ":00";
         }
         else if (today === 2){
-          this.data[i].today = this.data[i].schedule_loaded[0].tuesday;
+          this.data[i].today = this.data[i].schedule_loaded[0].tuesday_morning + ":00-" + this.data[i].schedule_loaded[0].tuesday_afternoon + ":00";
         }
         else if (today === 3){
-          this.data[i].today = this.data[i].schedule_loaded[0].wednesday;
+          this.data[i].today = this.data[i].schedule_loaded[0].wednesday_morning + ":00-" + this.data[i].schedule_loaded[0].wednesday_afternoon + ":00";
         }
         else if (today === 4){
-          this.data[i].today = this.data[i].schedule_loaded[0].thursday;
+          this.data[i].today = this.data[i].schedule_loaded[0].thursday_morning + ":00-" + this.data[i].schedule_loaded[0].thursday_afternoon + ":00";
         }
         else if (today === 5){
-          this.data[i].today = this.data[i].schedule_loaded[0].friday;
+          this.data[i].today = this.data[i].schedule_loaded[0].friday_morning + ":00-" + this.data[i].schedule_loaded[0].friday_afternoon + ":00";
         }
 
       }
