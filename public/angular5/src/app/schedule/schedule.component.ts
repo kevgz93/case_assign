@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import {IMyDpOptions} from 'mydatepicker';
 
 @Component({
   selector: 'app-schedule',
@@ -12,6 +13,10 @@ import {Router} from '@angular/router';
 })
 export class ScheduleComponent implements OnInit {
 
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+};
   public data;
   public user;
   public mjs;
@@ -22,7 +27,7 @@ export class ScheduleComponent implements OnInit {
   addSchedule(data){
     data.user_id = this.user.user._id;
 
-    console.log(data);
+    console.log("schedule ", data);
     this.service.addSchedule(data)
     .subscribe(msj => {
       console.log(msj);
@@ -39,6 +44,7 @@ export class ScheduleComponent implements OnInit {
     
   }
 
+
   ngOnInit() {
 
     this.service.currentMessage.subscribe(message => this.user = message);
@@ -54,8 +60,11 @@ export class ScheduleComponent implements OnInit {
       thursday_afternoon: '',
       friday_morning: '',
       friday_afternoon: '',
+      day_on:[null, Validators.required],
+      day_off: [null, Validators.required]
 
     });
+    
   }
 
 }

@@ -57,8 +57,6 @@ export class RegisterComponent implements OnInit {
       role: '',
       username: '',
       password: '',
-      day_off: '',
-      day_on: ''
     });
   }
 

@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { MyDatePickerModule } from 'mydatepicker';
 
 
 
@@ -31,7 +32,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MyDatePickerModule
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

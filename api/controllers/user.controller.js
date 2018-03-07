@@ -102,8 +102,6 @@ users.register = function (req, res) {
       last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
-      day_off: "",
-	    day_on: "",
       days_working: 365,
       last_case:""
       

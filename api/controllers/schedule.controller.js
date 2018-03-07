@@ -28,6 +28,8 @@ schedule.createSchedule = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
+        day_off: req.body.day_off,
+        day_on: req.body.day_on,
         user_id: req.body.user_id
     }, function(err, user) { //this will run when create is completed
       if(err) {
@@ -107,12 +109,18 @@ console.log("Get User" + user_id);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.user_id = req.body.user_id,
-            doc.monday = req.body.monday,
-            doc.tuesday = req.body.tuesday,
-            doc.wednesday = req.body.wednesday,
-            doc.thursday = req.body.thursday,
-            doc.friday = req.body.friday
+            doc.monday_morning = req.body.monday_morning,
+            doc.monday_afternoon = req.body.monday_afternoon,
+            doc.tuesday_morning= req.body.tuesday_morning,
+            doc.tuesday_afternoon= req.body.tuesday_afternoon,
+            doc.wednesday_morning= req.body.wednesday_morning,
+            doc.wednesday_afternoon= req.body.wednesday_afternoon,
+            doc.thursday_morning = req.body.thursday_morning,
+            doc.thursday_afternoon = req.body.thursday_afternoon,
+            doc.friday_morning= req.body.friday_morning,
+            doc.friday_afternoon= req.body.friday_afternoon,
+            doc.day_off= req.body.day_off,
+            doc.day_on= req.body.day_on
 
         };
 

@@ -13,6 +13,8 @@ var scheduleSchema = new mongoose.Schema({
     thursday_afternoon : String,
     friday_morning: String,
     friday_afternoon: String,
+    day_off: String,
+    day_on : String,
     user_id: user
 });
 

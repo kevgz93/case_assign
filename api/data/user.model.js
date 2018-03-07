@@ -14,8 +14,6 @@ var userSchema = new mongoose.Schema({
 	status: Boolean,
 	activeSession: String,
 	role: String,
-	day_off: String,
-	day_on: String,
 	days_working: Number,
 	last_case: String
 });
