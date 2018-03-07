@@ -26,6 +26,8 @@ export class ScheduleComponent implements OnInit {
 
   addSchedule(data){
     data.user_id = this.user.user._id;
+    data.day_off = data.day_off.formatted;
+    data.day_on = data.day_on.formatted;
 
     console.log("schedule ", data);
     this.service.addSchedule(data)

@@ -283,7 +283,7 @@ var h;
 
 users.usersUpdateOne = function (req, res) {
 
-  var userId = req.params.id;
+  var userId = req.body._id;
   console.log("Get User" + userId);
 
   db
@@ -320,6 +320,7 @@ users.usersUpdateOne = function (req, res) {
         doc.name= req.body.name,
         doc.lastName= req.body.lastName,
         doc.role= req.body.role
+        doc.status= req.body.status
 
       };
 
@@ -332,7 +333,7 @@ users.usersUpdateOne = function (req, res) {
         } else {
           res
           .status(204)
-          .json(userUpdated)
+          .json(response)
         }
       })
     });

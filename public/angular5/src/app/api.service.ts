@@ -58,10 +58,10 @@ export class ApiService {
 
 
   // API: GET one engineer
-  public getOneEngineers(id): Observable<Response> {
-    let body = JSON.stringify({"id_engi": id})    
+  public getOneEngineer(data): Observable<Response> {
+    let body = JSON.stringify({data})    
     return this.http
-    .post(API_URL + '/api/user/', body,
+    .put(API_URL + '/api/user/', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')}
   )
     .map(response => {

@@ -17,8 +17,6 @@ interface engineer{
 	status: Boolean,
 	activeSession: String,
 	role: String,
-	day_off: String,
-	day_on: String,
 	days_working: Number,
 	last_case: String
 };
@@ -46,27 +44,17 @@ export class EngineerComponent implements OnInit {
     });*/
   }
 
-  getAllEngi(): Observable<engineer>{
-    this.service.getAllEngineers()
-    .subscribe(eng => {
-      this.eng = eng;
-    })
-    
-    return;
-  }
 
-  getOneEng(id): Observable<engineer>{
-    console.log("este es el ID "+ id);
-    this.service.getOneEngineers(id)
+  getOneEng(data): Observable<engineer>{
+    console.log("Engineer "+ data);
+    this.service.getOneEngineer(data)
     .subscribe(data => {
       console.log(data);
       if(data.status){
-        this.data = data;
-        this.data.status = 'available';
+        
     }
     else{
-      this.data = data;
-      this.data.status = 'unavailable';
+
     }
 })
     
@@ -78,7 +66,7 @@ export class EngineerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllEngi();
+
   }
 
 }
