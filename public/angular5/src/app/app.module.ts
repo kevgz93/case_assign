@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 
 
 
@@ -25,7 +26,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     EngineerComponent,
     LoginComponent,
     RegisterComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ScheduleeditComponent
   ],
   imports: [
     BrowserModule,

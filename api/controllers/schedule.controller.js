@@ -51,12 +51,12 @@ schedule.createSchedule = function (req, res) {
 }
 
 schedule.getScheduleId = function(req, res){
-var schedu = schedule.findUser(req.body.user_id)
+var schedu = schedule.findUser(req.query.id)
 schedu.then(function(sched){
     console.log(sched);
-        res.send(sched);
+        res.send({status: 200, body: sched});
     }, function(){
-        res.send({status:'error',error:'Error occured while fetching data from database.'});
+        res.send({status: 404,error:'Error occured while fetching data from database.'});
     });
 
 }

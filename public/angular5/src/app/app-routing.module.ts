@@ -4,6 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { EngineerComponent } from './EditEngineer/EditEngineer.component';
+import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 
 
 const routes: Routes = [
@@ -11,7 +13,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login/register', component: RegisterComponent },
-  { path: 'schedule', component: ScheduleComponent }
+  { path: 'schedule', component: ScheduleComponent },
+  { path: 'edituser', component: EngineerComponent },
+  { path: 'editschedule', component: ScheduleeditComponent }
 
 
 ];

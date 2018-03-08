@@ -46,6 +46,20 @@ export class NavbarComponent implements OnInit {
     return
   }
 
+  goEditUser(){
+    this.user._id;
+    this.service.changeUserId(this.user._id);
+    this.router.navigate(['./edituser'])
+    return
+  }
+
+  goEditSchedule(){
+    this.user._id;
+    this.service.changeUserId(this.user._id);
+    this.router.navigate(['./editschedule'])
+    return
+  }
+
   ngOnInit() {
     this.show = false;
     this.checkSessionId()

@@ -201,6 +201,7 @@ users.findUser = function(session){
 				response.status = 201;
         response.name = dbuser.name;
         response.last_name = dbuser.last_name;
+        response._id = dbuser._id;
 			  results.resolve(response);
 
     }  else{
@@ -250,8 +251,7 @@ users.logoutUser = function(req){
 
 users.userGetOne = function(req, res) {
 
-var h;
-  var userId = req.params.userId;
+  var userId = req.query.id;
   console.log("Get user " + userId);
 
   db
@@ -275,8 +275,7 @@ var h;
         };
       }
       res
-        .status(response.status)
-        .json(response.message);
+        .send({status: response.status, body: response.message});
 
     });
 };
@@ -284,59 +283,33 @@ var h;
 users.usersUpdateOne = function (req, res) {
 
   var userId = req.body._id;
+  var doc = {};
+  doc.email = req.body.email,
+  doc.city = req.body.city,
+  doc.time_zone= req.body.time,
+  doc.sta_dyn= req.body.sta_dyn,
+  doc.max_case= req.body.max,
+  doc.username= req.body.username,
+  doc.password= req.body.password,
+  doc.name= req.body.name,
+  doc.lastName= req.body.lastName,
+  doc.role= req.body.role
+  doc.status= req.body.status
   console.log("Get User" + userId);
 
   db
-    .findById(userId)
-    .exec(function(err, doc){
-      var response = {
-        status: 200,
-        message: doc
-      };
+    .findByIdAndUpdate(userId, doc, {new:true}, function(err, user){
 
-      if (err) {
-        console.log("Error finding user");
-        response.status = 500;
-        response.message = err;
-      } else if(!doc){
-        response.status= 404;
-        response.message = {
-          "message":"User ID not found"
-        };
+      if(err){
+        res.status(404);
       }
-
-      if (response.status != 200) {
+      else{
         res
-          .status(response.status)
-          .json(response.message);
-      } else {
-        doc.email = req.body.email,
-        doc.city = req.body.city,
-        doc.time_zone= req.body.time,
-        doc.sta_dyn= req.body.sta_dyn,
-        doc.max_case= req.body.max,
-        doc.username= req.body.username,
-        doc.password= req.body.password,
-        doc.name= req.body.name,
-        doc.lastName= req.body.lastName,
-        doc.role= req.body.role
-        doc.status= req.body.status
+        .status(204)
+        .json(user);
+      }
+    })
 
-      };
-
-      doc.save(function(err, userUpdated) {
-        if (err) {
-          res
-            .status(500)
-            .json(err);
-
-        } else {
-          res
-          .status(204)
-          .json(response)
-        }
-      })
-    });
 };
 
 users.usersDeleteOne = function(req, res) {

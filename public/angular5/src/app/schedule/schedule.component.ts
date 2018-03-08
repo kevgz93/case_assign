@@ -49,7 +49,7 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
 
-    this.service.currentMessage.subscribe(message => this.user = message);
+    this.service.currentObject.subscribe(message => this.user = message);
 
     this.myform= this.fb.group({
       monday_morning: '',

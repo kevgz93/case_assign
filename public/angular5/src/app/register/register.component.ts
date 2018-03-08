@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       console.log(msj);
       if(msj.status == 201){
         alert('User Added');
-        this.service.changeUserId(msj);
+        this.service.changeObject(msj);
         this.router.navigate(['./schedule']);
         
       }

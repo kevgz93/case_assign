@@ -14,9 +14,6 @@ import {Router} from '@angular/router';
 const API_URL = environment.apiUrl;
 
 
-interface engineer{
-
-}
 
 @Injectable()
 export class ApiService {
@@ -25,12 +22,19 @@ export class ApiService {
     private http: HttpClient, private cookieService: CookieService, private router:Router) {
   }
   public cookie = this.cookieService.get("SessionId");
-  private user_id = new BehaviorSubject<object>({});
-  currentMessage = this.user_id.asObservable();
+  private user = new BehaviorSubject<object>({});
+  currentObject = this.user.asObservable();
+  private id = new BehaviorSubject<String>('');
+  currentId = this.id.asObservable();
 
   //share user Id
-  changeUserId(message: Object) {
-    this.user_id.next(message);
+  changeObject(message: Object) {
+    this.user.next(message);
+ 
+  }
+
+  changeUserId(message: String) {
+    this.id.next(message);
  
   }
 
@@ -58,12 +62,20 @@ export class ApiService {
 
 
   // API: GET one engineer
-  public getOneEngineer(data): Observable<Response> {
-    let body = JSON.stringify({data})    
+  public getOneEngineer(id): Observable<Response> {
+    let params = new HttpParams().set("id",id);    
     return this.http
-    .put(API_URL + '/api/user/', body,
-    {headers: new HttpHeaders().set('Content-Type','application/json')}
-  )
+    .get(API_URL + '/api/user/', { params: params })
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+  
+  public getSchedule(id): Observable<Response> {
+    let params = new HttpParams().set("id",id);    
+    return this.http
+    .get(API_URL + '/api/schedule/', { params: params })
     .map(response => {
       return response
     })
@@ -104,10 +116,31 @@ export class ApiService {
     .catch(this.handleError);
   }
 
+  public updateUser(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    return this.http
+    .put(API_URL + '/api/user', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
   public addSchedule(data): Observable<Response> {
     let body = JSON.stringify(data)
     return this.http
     .post(API_URL + '/api/schedule', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+  public updateSchedule(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    return this.http
+    .put(API_URL + '/api/schedule', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
@@ -130,25 +163,5 @@ export class ApiService {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);
   }
-/*
-  // API: POST /todos
-  public createTodo(todo: Todo) {
-    // will use this.http.post()
-  }
 
-  // API: GET /todos/:id
-  public getTodoById(todoId: number) {
-    // will use this.http.get()
-  }
-
-  // API: PUT /todos/:id
-  public updateTodo(todo: Todo) {
-    // will use this.http.put()
-  }
-
-  // DELETE /todos/:id
-  public deleteTodoById(todoId: number) {
-    // will use this.http.delete()
-  }
-*/
 }
