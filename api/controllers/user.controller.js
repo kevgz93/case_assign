@@ -301,13 +301,10 @@ users.usersUpdateOne = function (req, res) {
     .findByIdAndUpdate(userId, doc, {new:true}, function(err, user){
 
       if(err){
-        res.status(404);
+        res.send({status: 404});
       }
-      else{
         res
-        .status(204)
-        .json(user);
-      }
+        .send({status:204, body:user});
     })
 
 };

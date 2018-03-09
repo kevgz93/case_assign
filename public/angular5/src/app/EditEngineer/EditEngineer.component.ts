@@ -46,7 +46,7 @@ export class EngineerComponent implements OnInit {
 
 
   getOneSchedule(): Observable<engineer>{
-    this.service.getSchedule(this.id)
+    this.service.getOneEngineer(this.id)
     .subscribe(user => {
       console.log(user);
       if(user.status != 200){
@@ -72,7 +72,7 @@ export class EngineerComponent implements OnInit {
       }
       else{
         alert("User updated");
-        this.router.navigate(['./edituser'])
+        this.router.navigate(['./home'])
       }
   })
 

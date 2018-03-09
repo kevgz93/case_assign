@@ -40,15 +40,15 @@ export class ScheduleeditComponent implements OnInit {
 
   updateSchedule(data){
     data._id = this.id;
-    this.service.updateUser(data)
+    this.service.updateSchedule(data)
     .subscribe(response => {
       console.log(response.status);
       if(response.status != 204){
         alert("error finding user");
       }
       else{
-        alert("User updated");
-        this.router.navigate(['./edituser'])
+        alert("Schedule updated");
+        this.router.navigate(['./home'])
       }
   })
 
@@ -59,16 +59,16 @@ export class ScheduleeditComponent implements OnInit {
 
     this.myform= this.fb.group({
       
-      monday_morning : this.schedule.body.monday_morning.toString(),
-      monday_afternoon : this.schedule.body.monday_afternoon.toString(),
-      tuesday_morning: this.schedule.body.tuesday_morning.toString(),
-      tuesday_afternoon: this.schedule.body.tuesday_afternoon.toString(),
-      wednesday_morning: this.schedule.body.wednesday_morning.toString(),
-      wednesday_afternoon: this.schedule.body.wednesday_afternoon.toString(),
-      thursday_morning : this.schedule.body.thursday_morning.toString(),
-      thursday_afternoon : this.schedule.body.thursday_afternoon.toString(),
-      friday_morning: this.schedule.body.friday_morning.toString(),
-      friday_afternoon: this.schedule.body.friday_afternoon.toString(),
+      monday_morning : this.schedule.body.monday_morning,
+      monday_afternoon : this.schedule.body.monday_afternoon,
+      tuesday_morning: this.schedule.body.tuesday_morning,
+      tuesday_afternoon: this.schedule.body.tuesday_afternoon,
+      wednesday_morning: this.schedule.body.wednesday_morning,
+      wednesday_afternoon: this.schedule.body.wednesday_afternoon,
+      thursday_morning : this.schedule.body.thursday_morning,
+      thursday_afternoon : this.schedule.body.thursday_afternoon,
+      friday_morning: this.schedule.body.friday_morning,
+      friday_afternoon: this.schedule.body.friday_afternoon,
       day_off: this.schedule.body.day_off,
       day_on : this.schedule.body.day_on,
     });

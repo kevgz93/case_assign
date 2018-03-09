@@ -82,11 +82,11 @@ schedule.findUser = function(id){
 
 schedule.updateSchedule = function (req, res) {
 
-var user_id = req.params.user_id;
+var user_id = req.body._id;
 console.log("Get User" + user_id);
 
     db
-        .findById(user_id)
+        .findOne({user_id : user_id})
         .exec(function(err, doc){
         var response = {
             status: 200,
@@ -127,13 +127,12 @@ console.log("Get User" + user_id);
         doc.save(function(err, Updated) {
             if (err) {
             res
-                .status(500)
-                .json(err);
+                .send({status: 500});
 
             } else {
             res
-            .status(204)
-            .json(Updated)
+            .send({status:204});
+
             }
         })
     })
