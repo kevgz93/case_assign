@@ -19,7 +19,6 @@ var scheduleSchema = new mongoose.Schema({
 });
 
 
-
 //MODEL for Users using SCHEMA HOTELS
 
 mongoose.model('schedule', scheduleSchema, 'schedules')

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,28 +13,21 @@ export class NavbarComponent implements OnInit {
 
   public user;
   public show:boolean;
+  private cookie;
 
-  constructor(private service: ApiService, private router:Router) { }
+  constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
-  checkSessionId(): Observable<any>{
-    this.service.getUserBySessionId()
-    .subscribe(user => {
-      console.log("user", user);
-      if(user.status != 201)
-      {
-        this.router.navigate(['./login'])
-        
-      }
-      else{
-        console.log(user.status);
-        this.user = user;
-        this.show = true;
-
-      }
-      ;
-    })
-   
-    return;
+  checkSessionId(){
+    let cookie = this.cookieService.get('SessionId');
+    console.log("cookie", cookie);
+    console.log("session id", this.user.sessionid);
+    if (this.user.sessionid != cookie) 
+    {
+      this.router.navigate(['./login'])
+    }
+    else{
+      this.show = true;
+    }
   }
 
   goHome(){
@@ -62,7 +56,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.show = false;
-    this.checkSessionId()
+    this.service.currentObject.subscribe(message => {
+      this.user = message;
+      console.log("mensaje recibido ", this.user);
+      this.checkSessionId();
+      setTimeout(() => 
+      {
+        this.router.navigate(['./home']);
+
+      },
+      1300);
+
+    });
+    
 
   }
 

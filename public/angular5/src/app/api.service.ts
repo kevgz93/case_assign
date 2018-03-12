@@ -29,6 +29,7 @@ export class ApiService {
 
   //share user Id
   changeObject(message: Object) {
+    console.log("aqui va el mensaje", message);
     this.user.next(message);
  
   }
@@ -38,9 +39,11 @@ export class ApiService {
  
   }
 
+
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
     let params = new HttpParams().set("sessionid",this.cookie);
+    console.log("aqui va el cookie para traerse los usuarios", this.cookie);
     return this.http
     .get(API_URL + '/api/ticket/', { params: params })
     .map(response => {
@@ -50,6 +53,7 @@ export class ApiService {
   }
 
   public getUserBySessionId(): Observable<Response> {
+
     let params = new HttpParams().set("sessionid",this.cookie);
     return this.http
     .get(API_URL + '/api/check/', { params: params })

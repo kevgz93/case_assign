@@ -11,7 +11,6 @@ helpers.isAuthenticated = function(req, res, next){
 	console.log(cookie);
 
 	if(!cookie){
-		res.status(401);
 		res.send({status:401,error:'Not Authorized.'});
 	}
 	else{
@@ -20,7 +19,6 @@ helpers.isAuthenticated = function(req, res, next){
 			if(dbuser){
 				next();
 			}else{
-				res.status(401);
 				res.send({status:401,error:'Not Authorized.'});
 			}
 		});

@@ -31,10 +31,12 @@ export class LoginComponent implements OnInit {
     });
 
   }
-  createCookie(sessionid): Promise<boolean>{
-    this.cookieService.set( 'SessionId', sessionid.sessionId, 1);
+  createCookie(sessionid): Observable<Boolean>{
+    this.cookieService.set( 'SessionId', sessionid.sessionid, 1);
     return;
   }
+
+
 
   login(user) {
     let sessionid: any;
@@ -46,8 +48,10 @@ export class LoginComponent implements OnInit {
       let status: any = response.status;
       if(status === 'success'){
         console.log(response);
-        this.createCookie(response)
-        this.router.navigate(['./home'])
+        this.createCookie(response);
+          console.log("entro para intercambiar user");
+          this.service.changeObject(response);
+
         
         
       }

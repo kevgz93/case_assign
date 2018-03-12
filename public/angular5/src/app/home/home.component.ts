@@ -25,9 +25,10 @@ interface engineer{
 
 
 export class HomeComponent implements OnInit {
-  public data = null;
-  public user = null;
-  public status = null;
+  private data = null;
+  private user = null;
+  private status = null;
+  public showhtml:Boolean=false;
   public countDay = 0;
   public countWeek = 0;
   public countMonth = 0;
@@ -124,6 +125,7 @@ export class HomeComponent implements OnInit {
       var aux = {};
       this.cleanCount();
       var count;
+      console.log("va a empezar el metodo getalleng");
       this.service.getAllEngineers()
       .subscribe(data => {
         if(data.status == 401)
@@ -143,7 +145,7 @@ export class HomeComponent implements OnInit {
           
           
         }
-        
+        this.showhtml = true;
         
         console.log(this.data);
       })

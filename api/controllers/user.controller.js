@@ -23,25 +23,18 @@ function makeSessionId()
 // controller that handles user login request
 users.auth = function (req, res) {
   var date = new Date();
-  console.log(cookie);
-  if(!cookie){
-    var datecookie =  date.getDate() + "-" +date.getMonth() +"-" +date.getFullYear();
-
-  }
 
 	if(!req.body.username || !req.body.password)
 	{
-		res.status(400);
 		res.send({status:"error",error:'Username or password is missing.'});
 	}
 
   var user = users.authUser(req.body.username, req.body.password);
 	user.then(function(users){
-    res.status(201)
-		.json(users);
+    res.send(users);
 	}, function(){
     res.status(500)
-		.json({status:"error", error:'Error occured while fetching data from database.'});
+		.send(users);
 	});
 
 };
@@ -63,8 +56,9 @@ users.authUser = function(username, password){
 			dbuser.save(function(err, dbuser){
 				var response = {};
         response.status = 'success'
-				response.sessionId = dbuser.activeSession;
-        response.username = dbuser.username;
+				response.sessionid = dbuser.activeSession;
+        response.name = dbuser.name;
+        response.last_name = dbuser.last_name;
 			  results.resolve(response);
 
 			});
@@ -171,8 +165,17 @@ users.getUser2 = function(){
 //catch the cookie and send the user.
 
 users.getUserBySessionId = function(req, res){
-  var user = users.findUser(req.query.sessionid);
-  console.log(user);
+  let sessionid;
+  let user;
+  if(!req.query.sessionid)
+  {
+    sessionid = "k3v1n1gg3";
+  }
+  else{
+    sessionid = req.query.sessionid;
+  }
+  user = users.findUser(sessionid);
+  console.log(sessionid);
 	user.then(function(user_found){
     console.log(user_found);
     if(user_found.status == 401)
@@ -180,7 +183,7 @@ users.getUserBySessionId = function(req, res){
       res.send({status:401});
     }
     else{
-      res.send(user_found)
+      res.send({status:201,body:user_found})
     }
 		
 	}, function(){
@@ -197,8 +200,6 @@ users.findUser = function(session){
 	db.findOne({activeSession: session},function(err, dbuser) {
 		if (dbuser){
 
-
-				response.status = 201;
         response.name = dbuser.name;
         response.last_name = dbuser.last_name;
         response._id = dbuser._id;
