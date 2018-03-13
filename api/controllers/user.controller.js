@@ -59,6 +59,7 @@ users.authUser = function(username, password){
 				response.sessionid = dbuser.activeSession;
         response.name = dbuser.name;
         response.last_name = dbuser.last_name;
+        response.action = "login";
 			  results.resolve(response);
 
 			});

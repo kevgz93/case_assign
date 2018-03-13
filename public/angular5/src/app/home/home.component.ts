@@ -191,7 +191,6 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.getAllEng();
+    this.getAllEng()
   }
-
 }

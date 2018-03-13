@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { EngineerComponent } from './EditEngineer/EditEngineer.component';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'login/register', component: RegisterComponent },
   { path: 'schedule', component: ScheduleComponent },
   { path: 'edituser', component: EngineerComponent },
-  { path: 'editschedule', component: ScheduleeditComponent }
+  { path: 'editschedule', component: ScheduleeditComponent },
+  { path: 'navbar', component: NavbarComponent }
 
 
 ];

@@ -21,7 +21,8 @@ export class ApiService {
   constructor(
     private http: HttpClient, private cookieService: CookieService, private router:Router) {
   }
-  public cookie = this.cookieService.get("SessionId");
+  public cookie;
+
   private user = new BehaviorSubject<object>({});
   currentObject = this.user.asObservable();
   private id = new BehaviorSubject<String>('');
@@ -39,9 +40,16 @@ export class ApiService {
  
   }
 
+  checkCookie():Observable<boolean>{
+  let cookie;
+   cookie = this.cookieService.get("SessionId");
+   return cookie;
+  }
+
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
+    this.cookie = this.checkCookie();
     let params = new HttpParams().set("sessionid",this.cookie);
     console.log("aqui va el cookie para traerse los usuarios", this.cookie);
     return this.http
@@ -53,7 +61,7 @@ export class ApiService {
   }
 
   public getUserBySessionId(): Observable<Response> {
-
+    this.cookie = this.checkCookie();
     let params = new HttpParams().set("sessionid",this.cookie);
     return this.http
     .get(API_URL + '/api/check/', { params: params })

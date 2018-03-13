@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     });
 
   }
-  createCookie(sessionid): Observable<Boolean>{
+  createCookie(sessionid): Observable<String>{
     this.cookieService.set( 'SessionId', sessionid.sessionid, 1);
     return;
   }
@@ -47,22 +47,17 @@ export class LoginComponent implements OnInit {
       
       let status: any = response.status;
       if(status === 'success'){
-        console.log(response);
         this.createCookie(response);
-          console.log("entro para intercambiar user");
-          this.service.changeObject(response);
+        this.service.changeUserId("login");
+        console.log("entro para intercambiar user");
+        this.router.navigate(['./navbar']);
 
+    }
+
+    });
+    
         
         
-      }
-      else{
-        console.log('error');
-        this.router.navigate(['./login'])
-      }
-      
-    })
-    
-    
   }
 
 

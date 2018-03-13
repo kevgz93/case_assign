@@ -12,22 +12,44 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavbarComponent implements OnInit {
 
   public user;
-  public show:boolean;
+  public shownav:boolean = false;
   private cookie;
 
   constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
-  checkSessionId(){
+  checkSessionId(login){
     let cookie = this.cookieService.get('SessionId');
+    let url;
     console.log("cookie", cookie);
-    console.log("session id", this.user.sessionid);
-    if (this.user.sessionid != cookie) 
-    {
-      this.router.navigate(['./login'])
+    if(!cookie){
+      console.log("no hay cookie");
+      this.shownav = false;
+      url = "login";
     }
-    else{
-      this.show = true;
+    else if(login === "login"){
+      this.service.getUserBySessionId().subscribe(response =>{
+        console.log(this);
+        
+        this.user = response.body;
+        url = "home";
+        this.shownav = true;
+        
+        console.log("show html", this.shownav);
+        console.log("Session user: ",this.user);
+        
+       
+      });
+      
+      
     }
+    this.redirect(url);
+
+  }
+
+  redirect(url){
+    console.log("url", url);
+    this.router.navigate(['./'+url]);
+    return
   }
 
   goHome(){
@@ -55,21 +77,13 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.show = false;
-    this.service.currentObject.subscribe(message => {
-      this.user = message;
-      console.log("mensaje recibido ", this.user);
-      this.checkSessionId();
-      setTimeout(() => 
-      {
-        this.router.navigate(['./home']);
-
-      },
-      1300);
-
-    });
+    let login;
+    this.service.currentId.subscribe(message => login = message);
+    //this.shownav = true;
+    this.checkSessionId(login);
     
-
+    
   }
-
 }
+
+
