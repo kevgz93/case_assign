@@ -25,30 +25,30 @@ export class NavbarComponent implements OnInit {
       console.log("no hay cookie");
       this.shownav = false;
       url = "login";
+      this.redirect(url);
     }
-    else if(login === "login"){
-      this.service.getUserBySessionId().subscribe(response =>{
-        console.log(this);
-        
-        this.user = response.body;
-        url = "home";
-        this.shownav = true;
-        
-        console.log("show html", this.shownav);
-        console.log("Session user: ",this.user);
-        
-       
-      });
-      
-      
+      else{
+        this.service.getUserBySessionId().subscribe(response =>{
+          console.log(this);
+          
+          this.user = response.body;
+          this.shownav = true;
+          
+         
+        });
     }
-    this.redirect(url);
+    
 
   }
 
   redirect(url){
     console.log("url", url);
-    this.router.navigate(['./'+url]);
+    if(url === 'login')
+    this.router.navigate(['/'+url]);
+    else if(url === 'home'){
+      
+      this.router.navigate([url]);
+    }
     return
   }
 
@@ -73,6 +73,11 @@ export class NavbarComponent implements OnInit {
     this.user._id;
     this.service.changeUserId(this.user._id);
     this.router.navigate(['./editschedule'])
+    return
+  }
+
+  goLogout(){
+    this.router.navigate(['./logout'])
     return
   }
 

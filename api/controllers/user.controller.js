@@ -220,11 +220,12 @@ users.findUser = function(session){
 
 //Logout main
 users.logout = function(req, res){
-  var user = users.logoutUser(req);
+  var sessionId = req.body.SessionId;
+  var user = users.logoutUser(sessionId);
   user.then(function(users){
     console.log(users);
     console.log("logout success")
-		res.send({status: 'successful'});
+		res.send({status: 'success'});
 	}, function(){
 		res.send({status:'error',error:'Error occured while fetching data from database.'});
 	});
@@ -232,9 +233,9 @@ users.logout = function(req, res){
 
 
 //Function to logout user.
-users.logoutUser = function(req){
+users.logoutUser = function(sessionId){
 	var results = q.defer();
-  var sessionId = req.cookies.SessionId;
+  
   	console.log('helper cookie ' + sessionId);
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){

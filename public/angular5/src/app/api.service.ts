@@ -171,6 +171,19 @@ export class ApiService {
     .catch(this.handleError);
   }
 
+  public logout(): Observable<Response> {
+    let data =  this.cookieService.get("SessionId");
+    let body = JSON.stringify({"SessionId": data})
+    console.log("cuerpo", body);
+    return this.http
+    .post(API_URL + '/api/logout', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);

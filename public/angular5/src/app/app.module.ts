@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -27,7 +28,8 @@ import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
     LoginComponent,
     RegisterComponent,
     ScheduleComponent,
-    ScheduleeditComponent
+    ScheduleeditComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

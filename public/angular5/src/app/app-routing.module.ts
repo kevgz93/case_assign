@@ -7,6 +7,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { EngineerComponent } from './EditEngineer/EditEngineer.component';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'schedule', component: ScheduleComponent },
   { path: 'edituser', component: EngineerComponent },
   { path: 'editschedule', component: ScheduleeditComponent },
-  { path: 'navbar', component: NavbarComponent }
+  { path: 'navbar', component: NavbarComponent },
+  { path: 'logout', component: LogoutComponent }
 
 
 ];

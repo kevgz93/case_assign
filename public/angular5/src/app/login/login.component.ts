@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
         this.createCookie(response);
         this.service.changeUserId("login");
         console.log("entro para intercambiar user");
-        this.router.navigate(['./navbar']);
+        //this.router.navigate(['./navbar']);
+        window.location.replace('/home');
 
     }
 

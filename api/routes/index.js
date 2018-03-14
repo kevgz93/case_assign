@@ -33,6 +33,10 @@ router
   .route('/login')
   .post(ctrlUsers.auth);
 
+  router
+  .route('/logout')
+  .post(ctrlUsers.logout);
+
 router
   .route('/user')
   .get(ctrlUsers.userGetOne)
