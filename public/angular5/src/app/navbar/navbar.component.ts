@@ -20,9 +20,7 @@ export class NavbarComponent implements OnInit {
   checkSessionId(login){
     let cookie = this.cookieService.get('SessionId');
     let url;
-    console.log("cookie", cookie);
     if(!cookie){
-      console.log("no hay cookie");
       this.shownav = false;
       url = "login";
       this.redirect(url);
@@ -42,7 +40,6 @@ export class NavbarComponent implements OnInit {
   }
 
   redirect(url){
-    console.log("url", url);
     if(url === 'login')
     this.router.navigate(['/'+url]);
     else if(url === 'home'){

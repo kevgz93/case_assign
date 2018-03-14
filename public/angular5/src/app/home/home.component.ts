@@ -125,7 +125,6 @@ export class HomeComponent implements OnInit {
       var aux = {};
       this.cleanCount();
       var count;
-      console.log("va a empezar el metodo getalleng");
       this.service.getAllEngineers()
       .subscribe(data => {
         if(data.status == 401)
@@ -155,19 +154,10 @@ export class HomeComponent implements OnInit {
     }
 
 
-    addTicket(id): Observable<any>{
+    async addTicket(id){
       console.log(id);
-      this.service.addTickets(id)
-      .subscribe(msj => {
-        if(msj.status != 204)
-        {
-          console.log(msj);
-        }
-        else{
-          console.log(msj)
-        }
-        this.getAllEng();
-      })
+      await this.service.addTickets(id);
+      this.getAllEng();
      
       return;
     }

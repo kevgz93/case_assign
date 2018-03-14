@@ -22,7 +22,7 @@ export class ApiService {
     private http: HttpClient, private cookieService: CookieService, private router:Router) {
   }
   public cookie;
-
+  //private user_id;
   private user = new BehaviorSubject<object>({});
   currentObject = this.user.asObservable();
   private id = new BehaviorSubject<String>('');
@@ -51,7 +51,6 @@ export class ApiService {
   public getAllEngineers(): Observable<Response> {
     this.cookie = this.checkCookie();
     let params = new HttpParams().set("sessionid",this.cookie);
-    console.log("aqui va el cookie para traerse los usuarios", this.cookie);
     return this.http
     .get(API_URL + '/api/ticket/', { params: params })
     .map(response => {
@@ -67,6 +66,7 @@ export class ApiService {
     .get(API_URL + '/api/check/', { params: params })
     .map(response => {
       console.log("response from check navbar", response)
+      //this.user_id = response;
       return response
     })
     .catch(this.handleError);
@@ -94,15 +94,24 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public addTickets(id): Observable<Response> {
-    let body = JSON.stringify({"engi_id": id, "user_id": id})
-    return this.http
+  public async addTickets(engi_id){
+    let user;
+    let user_id;
+    user = await this.getUserBySessionId().toPromise();
+    user_id = user.body;
+    let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
+    console.log("Send user to ticket ", user_id);
+
+     await this.http
     .post(API_URL + '/api/ticket', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
     })
     .catch(this.handleError);
+  
+
+    return;
   }
 
   public deleteTickets(id): Observable<Response> {
