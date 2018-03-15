@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import { promise } from 'protractor';
 
 interface engineer{
   _id : string;
@@ -154,10 +155,17 @@ export class HomeComponent implements OnInit {
     }
 
 
-    async addTicket(id){
+    addTicket(id):Promise<Response>{
       console.log(id);
-      await this.service.addTickets(id);
-      this.getAllEng();
+      this.service.addTickets(id).then(response =>{
+        let user;
+        user = response;
+        if (user.action === "added"){
+          this.getAllEng();
+        }
+        else
+          alert("cases not added");
+      });
      
       return;
     }

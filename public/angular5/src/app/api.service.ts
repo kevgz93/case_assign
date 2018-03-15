@@ -102,16 +102,15 @@ export class ApiService {
     let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
     console.log("Send user to ticket ", user_id);
 
-     await this.http
+    this.http
     .post(API_URL + '/api/ticket', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
+      console.log("entro a devolver el response", response);
       return response
     })
     .catch(this.handleError);
   
-
-    return;
   }
 
   public deleteTickets(id): Observable<Response> {
@@ -120,6 +119,7 @@ export class ApiService {
     .put(API_URL + '/api/ticket', body,
      {headers: new HttpHeaders().set('Content-Type','application/json')}) //{headers: new HttpHeaders().set('Content-Type','application/json')}
     .map(response => {
+      
       return response
     })
     .catch(this.handleError);
