@@ -27,7 +27,6 @@ interface engineer{
 
 export class HomeComponent implements OnInit {
   private data = null;
-  private user = null;
   private status = null;
   public showhtml:Boolean=false;
   public countDay = 0;
@@ -155,9 +154,9 @@ export class HomeComponent implements OnInit {
     }
 
 
-    addTicket(id):Promise<Response>{
+    addTicket(id):Observable<Response>{
       console.log(id);
-      this.service.addTickets(id).then(response =>{
+      this.service.addTickets(id).subscribe(response =>{
         let user;
         user = response;
         if (user.action === "added"){

@@ -94,23 +94,28 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public async addTickets(engi_id){
+  public addTickets(engi_id): Observable<Response>{
     let user;
     let user_id;
-    user = await this.getUserBySessionId().toPromise();
-    user_id = user.body;
-    let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
-    console.log("Send user to ticket ", user_id);
+    let ticket;
+    this.getUserBySessionId().subscribe(response => {
+      user = response;
+      user_id = user.body;
+      let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
 
-    this.http
+     return this.http
     .post(API_URL + '/api/ticket', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       console.log("entro a devolver el response", response);
-      return response
+      return response;
     })
     .catch(this.handleError);
-  
+    });
+
+    return;
+
+    //console.log("Send user to ticket ", user_id);
   }
 
   public deleteTickets(id): Observable<Response> {
