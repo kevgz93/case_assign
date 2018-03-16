@@ -157,9 +157,9 @@ export class HomeComponent implements OnInit {
     addTicket(id):Observable<Response>{
       console.log(id);
       this.service.addTickets(id).subscribe(response =>{
-        let user;
-        user = response;
-        if (user.action === "added"){
+        let ticket;
+        ticket = response;
+        if (ticket.action === "added"){
           this.getAllEng();
         }
         else

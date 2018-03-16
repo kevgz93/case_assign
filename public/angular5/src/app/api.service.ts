@@ -98,12 +98,14 @@ export class ApiService {
     let user;
     let user_id;
     let ticket;
-    this.getUserBySessionId().subscribe(response => {
+    /*this.getUserBySessionId().subscribe(response => {
       user = response;
       user_id = user.body;
       let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
-
-     return this.http
+      
+      });*/
+    let body = JSON.stringify({"engi_id": engi_id, "user_id": engi_id});
+    return this.http
     .post(API_URL + '/api/ticket', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
@@ -111,9 +113,9 @@ export class ApiService {
       return response;
     })
     .catch(this.handleError);
-    });
+    
 
-    return;
+    //return;
 
     //console.log("Send user to ticket ", user_id);
   }
