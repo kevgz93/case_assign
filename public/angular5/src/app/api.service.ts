@@ -61,15 +61,14 @@ export class ApiService {
 
   public getUserBySessionId(): Observable<Response> {
     this.cookie = this.checkCookie();
-    let params = new HttpParams().set("sessionid",this.cookie);
+    let parameter = new HttpParams().set("sessionid",this.cookie);
     return this.http
-    .get(API_URL + '/api/check/', { params: params })
+    .get(API_URL + '/api/check/', { params: parameter })
     .map(response => {
       console.log("response from check navbar", response)
       //this.user_id = response;
       return response
-    })
-    .catch(this.handleError);
+    }) .catch(this.handleError);
   }
 
 
@@ -94,30 +93,12 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public addTickets(engi_id): Observable<Response>{
-    let user;
-    let user_id;
-    let ticket;
-    /*this.getUserBySessionId().subscribe(response => {
-      user = response;
-      user_id = user.body;
-      let body = JSON.stringify({"engi_id": engi_id, "user_id": user_id._id});
-      
-      });*/
-    let body = JSON.stringify({"engi_id": engi_id, "user_id": engi_id});
-    return this.http
-    .post(API_URL + '/api/ticket', body,
-    {headers: new HttpHeaders().set('Content-Type','application/json')})
-    .map(response => {
-      console.log("entro a devolver el response", response);
-      return response;
-    })
-    .catch(this.handleError);
-    
-
-    //return;
-
-    //console.log("Send user to ticket ", user_id);
+  public addTickets(body): Observable<any>{
+    console.log('post....');
+    return this.http.post(API_URL + '/api/ticket', body,{headers: new HttpHeaders().set('Content-Type','application/json')}).map(tickt => {
+      console.log("entro a devolver el response", tickt);
+      return tickt;
+    }).catch(this.handleError);
   }
 
   public deleteTickets(id): Observable<Response> {

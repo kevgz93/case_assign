@@ -141,6 +141,7 @@ export class HomeComponent implements OnInit {
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
           this.filterSchedule(i);
+          this.cleanCount();
           
           
         }
@@ -154,19 +155,24 @@ export class HomeComponent implements OnInit {
     }
 
 
-    addTicket(id):Observable<Response>{
-      console.log(id);
-      this.service.addTickets(id).subscribe(response =>{
-        let ticket;
-        ticket = response;
-        if (ticket.action === "added"){
-          this.getAllEng();
-        }
-        else
-          alert("cases not added");
+    addTicket(id):void{
+      let user;
+      this.service.getUserBySessionId().subscribe(response => {
+        console.log('response 1: ',response);
+        user = response.body;
+        const body = JSON.stringify({"engi_id": id, "user_id": user._id});
+
+        this.service.addTickets(body).subscribe(response =>{
+          console.log('response 2: ', response);
+          let ticket;
+          ticket = response;
+          if (ticket.action === "added"){
+            this.getAllEng();
+          }
+          else
+            alert("cases not added");
+        });
       });
-     
-      return;
     }
 
 

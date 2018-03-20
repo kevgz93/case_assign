@@ -117,14 +117,9 @@ ticket.saveOnUser = function (ticket_id, engi_id, res){
 
     doc.save(function(err, caseUpdated) {
       if (err) {
-        res
-        .status(400)
-        .json(err)
-
+        console.log(err);
       } else {
-        res
-        .status(201)
-        .json(caseUpdated)
+        console.log(caseUpdated);
       }
     })
   });
@@ -157,6 +152,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
         console.log("User created");
         console.log(tickt);
         ticket.saveOnUser(tickt._id, req.body.engi_id, res);
+        res.send(tickt);
       }
 
     });
