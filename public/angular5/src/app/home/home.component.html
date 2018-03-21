@@ -26,7 +26,7 @@
                 <td>{{datico.countday}}</td>
                 <td>{{datico.countweek}}</td>
                 <td>{{datico.countmonth}}</td>
-                <td><button (click)="addTicket(datico._id)">+</button> / <button (click)="deleteTicket(datico._id)">-</button></td>
+                <td><button (click)="addTicket(datico._id)">+</button> / <button (click)="deleteTicket(datico._id)" ngDisabled={disableAddButton()} >-</button></td>
         </tr>
   </tbody>
 </table>

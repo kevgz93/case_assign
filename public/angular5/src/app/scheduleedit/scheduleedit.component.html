@@ -61,15 +61,19 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <my-date-picker name="day_off" [options]="myDatePickerOptions"
-        formControlName="day_off"></my-date-picker>
-</div>
+        
+    <label><input type="checkbox" ng-model="isChecked" ng-change="showCalendar()">add Time Off</label>
+        <div *ngIf="showdivcalendar">      
+        <div class="col-md-4">
+            <my-date-picker name="day_off" [options]="myDatePickerOptions"
+            formControlName="day_off"></my-date-picker>
+        </div>
 
-<div class="col-md-4">
-    <my-date-picker name="day_on" [options]="myDatePickerOptions"
-    formControlName="day_on"></my-date-picker>
-</div>
+        <div class="col-md-4">
+            <my-date-picker name="day_on" [options]="myDatePickerOptions"
+            formControlName="day_on"></my-date-picker>
+        </div>
+    </div>
 
   <div>
       <div class="cont-button">

@@ -141,6 +141,7 @@ export class HomeComponent implements OnInit {
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
           this.filterSchedule(i);
+          this.disableAddButton(this.data[i].max_case, this.countDay);
           this.cleanCount();
           
           
@@ -191,6 +192,17 @@ export class HomeComponent implements OnInit {
       })
      
       return;
+    }
+
+    disableAddButton(max, countday): boolean{
+      console.log("max y days", max + " " + countday);
+      if (max <=countday){
+        return false;
+      }
+      else{
+        true;
+      }
+      
     }
 
   ngOnInit() {

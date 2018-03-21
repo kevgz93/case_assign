@@ -20,6 +20,7 @@ export class ScheduleComponent implements OnInit {
   public data;
   public user;
   public mjs;
+  private showcalen = false;
   myform: FormGroup;
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
@@ -44,6 +45,11 @@ export class ScheduleComponent implements OnInit {
       }
     })
     
+  }
+
+  showCalendar():Boolean {
+    this.showcalen = true;
+    return
   }
 
 

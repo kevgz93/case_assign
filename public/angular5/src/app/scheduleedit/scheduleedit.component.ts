@@ -16,6 +16,7 @@ export class ScheduleeditComponent implements OnInit {
   public id;
   public schedule;
   private showhtml;
+  private showdivcalendar;
   rForm: FormGroup;
   myform: FormGroup;
 
@@ -53,6 +54,12 @@ export class ScheduleeditComponent implements OnInit {
   })
 
   return;
+}
+
+showCalendar():Boolean {
+  if(this)// incomplete
+  this.showdivcalendar = true;
+  return
 }
 
   fillForm(){
