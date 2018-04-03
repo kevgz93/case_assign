@@ -204,6 +204,7 @@ users.findUser = function(session){
         response.name = dbuser.name;
         response.last_name = dbuser.last_name;
         response._id = dbuser._id;
+        response.role = dbuser.role;
 			  results.resolve(response);
 
     }  else{
@@ -282,6 +283,49 @@ users.userGetOne = function(req, res) {
 
     });
 };
+
+users.getUsersWithNamesOnly = function(req, res, next) {
+
+  var engineer = users.loadEnginners2()
+  engineer.then(function(engineers){
+    console.log(engineers);
+    //jso = engineers;
+    //next()
+    res.send(engineers);
+  }, function(){
+    res.send({status:'error',error:'Error occured while fetching data from database.'});
+  });
+
+};
+
+users.loadEnginners2 = function(){
+  var results = q.defer();
+
+
+  db.aggregate(
+    [
+      {
+        $match:{
+          "status":true
+        }
+      },  
+        { "$project": {
+          "name":1,
+          "last_name":1
+        }
+      }
+    ],function(err, engi) {
+      
+      if (err){
+        results.reject(err);
+      }
+      results.resolve(engi);
+      
+    });
+    
+    return results.promise;
+
+  }
 
 users.usersUpdateOne = function (req, res) {
 

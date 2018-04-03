@@ -16,6 +16,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ReportComponent } from './report/report.component';
 
 
 
@@ -29,7 +30,8 @@ import { LogoutComponent } from './logout/logout.component';
     RegisterComponent,
     ScheduleComponent,
     ScheduleeditComponent,
-    LogoutComponent
+    LogoutComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

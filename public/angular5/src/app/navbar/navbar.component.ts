@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavbarComponent implements OnInit {
 
   public user;
+  private showMaintenance = false;
   public shownav:boolean = false;
   private cookie;
 
@@ -27,10 +28,13 @@ export class NavbarComponent implements OnInit {
     }
       else{
         this.service.getUserBySessionId().subscribe(response =>{
-          console.log(this);
+          console.log("when check session on navbar",response);
           
           this.user = response.body;
           this.shownav = true;
+          if (this.user.role === 'admin'){
+            this.showMaintenance = true;
+          }
           
          
         });
@@ -51,6 +55,11 @@ export class NavbarComponent implements OnInit {
 
   goHome(){
     this.router.navigate(['./home'])
+    return
+  }
+
+  goReport(){
+    this.router.navigate(['./report'])
     return
   }
 

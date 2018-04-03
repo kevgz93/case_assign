@@ -44,6 +44,10 @@ router
   .delete(ctrlUsers.usersDeleteOne);
 
   router
+  .route('/engineers')
+  .get(ctrlUsers.getUsersWithNamesOnly);
+
+  router
   .route('/check')
   .get(ctrlUsers.getUserBySessionId);
 

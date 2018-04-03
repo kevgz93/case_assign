@@ -71,7 +71,17 @@ export class ApiService {
     }) .catch(this.handleError);
   }
 
+  public getAllUsers(): Observable<Response> {
+    return this.http
+    .get(API_URL + '/api/engineers')
+    .map(response => {
+      console.log("response from check navbar", response)
+      //this.user_id = response;
+      return response
+    }) .catch(this.handleError);
+  }
 
+  
   // API: GET one engineer
   public getOneEngineer(id): Observable<Response> {
     let params = new HttpParams().set("id",id);    

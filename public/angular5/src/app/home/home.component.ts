@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
   public countDay = 0;
   public countWeek = 0;
   public countMonth = 0;
+  private condition;
   public today;
   public date = new Date();
   
@@ -133,6 +134,9 @@ export class HomeComponent implements OnInit {
         }
         aux = data;
         this.data = data;
+        // this.data.forEach(element => {
+        //   element.countday = this.c
+        // }); 
         for(let i in aux){
           for(let j in aux[i].cases_loaded){
             this.filterDay(aux[i].cases_loaded[j]);
@@ -141,7 +145,8 @@ export class HomeComponent implements OnInit {
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
           this.filterSchedule(i);
-          this.disableAddButton(this.data[i].max_case, this.countDay);
+          this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
+          this.data[i].disableLessButton = this.disableLessButton();
           this.cleanCount();
           
           
@@ -158,13 +163,12 @@ export class HomeComponent implements OnInit {
 
     addTicket(id):void{
       let user;
+      this.condition = false;
       this.service.getUserBySessionId().subscribe(response => {
-        console.log('response 1: ',response);
         user = response.body;
         const body = JSON.stringify({"engi_id": id, "user_id": user._id});
 
         this.service.addTickets(body).subscribe(response =>{
-          console.log('response 2: ', response);
           let ticket;
           ticket = response;
           if (ticket.action === "added"){
@@ -178,7 +182,7 @@ export class HomeComponent implements OnInit {
 
 
     deleteTicket(id): Observable<any>{
-      console.log(id);
+      this.condition = true;
       this.service.deleteTickets(id)
       .subscribe(msj => {
         if(msj.status != 200)
@@ -195,15 +199,20 @@ export class HomeComponent implements OnInit {
     }
 
     disableAddButton(max, countday): boolean{
-      console.log("max y days", max + " " + countday);
-      if (max <=countday){
-        return false;
+      if (countday >= max && max !== 0){
+        return true;
       }
-      else{
-        true;
-      }
-      
+      return false;
     }
+
+    disableLessButton(): boolean{
+      if (this.condition){
+        return true;
+      }
+
+      return false;
+    }
+
 
   ngOnInit() {
     this.getAllEng()

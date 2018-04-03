@@ -8,6 +8,7 @@ import { EngineerComponent } from './EditEngineer/EditEngineer.component';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ReportComponent } from './report/report.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'edituser', component: EngineerComponent },
   { path: 'editschedule', component: ScheduleeditComponent },
   { path: 'navbar', component: NavbarComponent },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  { path: 'report', component: ReportComponent }
 
 
 ];
