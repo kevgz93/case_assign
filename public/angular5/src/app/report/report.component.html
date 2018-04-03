@@ -1,3 +1,46 @@
-<p>
-  report works!
-</p>
+<form class="form-horizontal ibox-content" [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form">
+<div>
+  <p>User</p>
+  <select>
+      <option value="all">
+          All
+        </option>
+    <option *ngFor="let user of users" value={{user._id}}>
+      {{user.name}} {{user.last_name}}
+    </option>
+  </select>
+</div>
+<div>
+  <p>month</p>
+  <select>
+      <option value="all">
+          All
+        </option>
+    <option *ngFor="let month of months" value={{month.id}}>
+      {{month.name}}
+    </option>
+  </select>
+</div>
+<div>
+    <p>Cases Status</p>
+    <select>
+      <option value="all">
+          All
+      </option>
+      <option value="added">
+        Added
+      </option>
+      <option value="deleted">
+          deleted
+      </option>
+    </select>
+  </div>
+<div>
+    <div class="cont-button">
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </div>
+</div>
+
+</form>
