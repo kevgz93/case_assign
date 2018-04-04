@@ -28,10 +28,10 @@ export class ReportComponent implements OnInit {
   
   getTickets(form){
     console.log(form);
-    /* this.service.getAllEngineers()
+    this.service.getReport(form)
       .subscribe(data => {
 
-      }) */
+      }) 
   }
 
   ngOnInit() {
@@ -40,9 +40,9 @@ export class ReportComponent implements OnInit {
     {"id": 10, "name":"October"},{"id": 11, "name":"November"},{"id": 12, "name":"December"}];
     this.getUsers();
     this.myform= this.fb.group({
-      user: '',
-      month: '',
-      case_status: '',
+      user: 'all',
+      month: 'all',
+      case_status: 'added',
 
     });
   }

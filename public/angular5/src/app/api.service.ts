@@ -46,6 +46,8 @@ export class ApiService {
    return cookie;
   }
 
+  
+
 
   // API: GET /todos
   public getAllEngineers(): Observable<Response> {
@@ -165,6 +167,18 @@ export class ApiService {
       return response
     })
     .catch(this.handleError);
+  }
+
+  public getReport(values): Observable<Response> {
+    let body = JSON.stringify(values)
+    return this.http
+    .post(API_URL + '/api/engineers', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      console.log("response from check navbar", response)
+      //this.user_id = response;
+      return response
+    }) .catch(this.handleError);
   }
 
   public login(data): Observable<Response> {

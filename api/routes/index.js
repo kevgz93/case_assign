@@ -5,7 +5,7 @@ var helpers = require('../helper/helperFunctions');
 
 var ctrlTicket = require('../controllers/ticket.controller.js');
 var ctrlUsers = require('../controllers/user.controller.js');
-var ctrlBitacora = require('../controllers/bitacora.controller.js');
+var ctrlReport = require('../controllers/report.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 
 
@@ -59,7 +59,7 @@ router
 
 router
 .route('/reports')
-.post(ctrlBitacora.generateReports)
+.post(ctrlReport.generateReports)
 
 
 /*

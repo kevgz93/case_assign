@@ -1,18 +1,18 @@
 <form class="form-horizontal ibox-content" [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form">
 <div>
   <p>User</p>
-  <select>
+  <select formControlName="user">
       <option value="all">
           All
         </option>
-    <option *ngFor="let user of users" value={{user._id}}>
+    <option *ngFor="let user of users" value={{user._id}} >
       {{user.name}} {{user.last_name}}
     </option>
   </select>
 </div>
 <div>
   <p>month</p>
-  <select>
+  <select formControlName="month">
       <option value="all">
           All
         </option>
@@ -23,7 +23,7 @@
 </div>
 <div>
     <p>Cases Status</p>
-    <select>
+    <select formControlName="case_status">
       <option value="all">
           All
       </option>
