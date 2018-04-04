@@ -11,7 +11,7 @@ var bita = {};
 var bitacora = mongoose.model('bitacora');
 var ticket = mongoose.model('case');
 
-
+var ObjectId = mongoose.Schema.ObjectId;
 
 var jso = [];
 
@@ -42,9 +42,11 @@ bita.loadReportAllStatus = function(case_status){
   }
 
 bita.loadReportMonthAll = function(month){
-	var results = q.defer();
+  var results = q.defer();
+  console.log(month);
 
-  bitacora.find({'date.month': month}, function(err, rep) {
+  bitacora.find({"date":{"$elemMatch":{"month":month}}}, function(err, rep) {
+    console.log(rep);
       if (err){
         results.reject(err);
       }
@@ -77,10 +79,12 @@ bita.loadReportMonthDelete = function(month, case_status){
     return results.promise;
   }
 
-bita.loadReportEngDate = function(name, last, period){
-	var results = q.defer();
+bita.loadReportEngSpecificAll = function(user){
+  var results = q.defer();
+  var query = {"engineer_id": user}
 
-  bitacora.find({name: name, last: last, period: period}, function(err, rep) {
+  bitacora.find(query, function(err, rep) {
+    console.log(rep);
       if (err){
         results.reject(err);
       }
@@ -89,11 +93,33 @@ bita.loadReportEngDate = function(name, last, period){
     return results.promise;
   }
 
-bita.loadReportEng = function(name, last)
+bita.loadReportEngMonthSpecific = function(user, month)
+{
+  var results = q.defer();
+  var engi = new ObjectId;
+  engi = user;
+  //var query = {"date.month": month,};
+  //console.log(query);
+
+  bitacora.aggregate([
+    {
+      $match:{
+        "engineer_id":engi
+      }
+    }], function(err, rep) {
+      if (err){
+        results.reject(err);
+      }
+      results.resolve(rep);
+    });
+    return results.promise;
+}
+
+bita.loadReportEngMonthStatusSpecific = function(user, month, case_status)
 {
   var results = q.defer();
 
-  bitacora.find({name: name, last: last}, function(err, rep) {
+  bitacora.find({"engineer_id": user, "date.month": month, "action":case_status}, function(err, rep) {
       if (err){
         results.reject(err);
       }
@@ -105,10 +131,11 @@ bita.loadReportEng = function(name, last)
 
 
 bita.generateReports = function(req, res)
-{
+{  
+  console.log(req.body);
   var user = req.body.user;
   var month = req.body.month;
-  var case_status = req.body.date;
+  var case_status = req.body.case_status;
 
   //get report for all 
   if(user === "all" && month === "all" && case_status === "all")
@@ -126,7 +153,7 @@ bita.generateReports = function(req, res)
   // get report with different status only
   else if(user === 'all' && month=== 'all' && case_status!='all')
   {
-    console.log("entro al date")
+    console.log("entro al all status")
     var report = bita.loadReportAllStatus(case_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -137,10 +164,10 @@ bita.generateReports = function(req, res)
     });
   }
 
-  // get report with different status only
+  // get report with different month only
   else if(user === 'all' && month!= 'all' && case_status==='all')
   {
-    console.log("entro al date")
+    console.log("entro al month all")
     var report = bita.loadReportMonthAll(month)
     report.then(function(reports){
       //console.log(engineers);
@@ -151,9 +178,10 @@ bita.generateReports = function(req, res)
     });
   }
 
+  // get report with different month and added status
   else if(user === 'all' && month!= 'all' && case_status=='added')
   {
-    console.log("entro al date")
+    console.log("entro al month added")
     var report = bita.loadReportMonthAdded(month, case_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -163,9 +191,11 @@ bita.generateReports = function(req, res)
       res.send({status:'error',error:'Error occured while fetching data from database.'});
     });
   }
+
+  // get report with different month and deleted status
   else if(user === 'all' && month!= 'all' && case_status=='deleted')
   {
-    console.log("entro al date")
+    console.log("entro al month deleted")
     var report = bita.loadReportMonthDeleted(month, case_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -176,11 +206,11 @@ bita.generateReports = function(req, res)
     });
   }
 
-  //then
+  // get report with different user only
   else if(user != 'all' && month=== 'all' && case_status==='all')
   {
-    console.log("entro al engineer")
-    var report = bita.loadReportEngSpecificAll(name, last)
+    console.log("entro al engineer all")
+    var report = bita.loadReportEngSpecificAll(user)
     report.then(function(reports){
       //console.log(engineers);
       res.send(reports);
@@ -189,10 +219,12 @@ bita.generateReports = function(req, res)
       res.send({status:'error',error:'Error occured while fetching data from database.'});
     });
   }
+
+  // get report with different user and month
   else if(user != 'all' && month!= 'all' && case_status==='all')
   {
-    console.log("entro al engineer")
-    var report = bita.loadReportEngMonthSpecific(name, last)
+    console.log("entro al engineer month")
+    var report = bita.loadReportEngMonthSpecific(user, month)
     report.then(function(reports){
       //console.log(engineers);
       res.send(reports);
@@ -201,10 +233,12 @@ bita.generateReports = function(req, res)
       res.send({status:'error',error:'Error occured while fetching data from database.'});
     });
   }
+
+  // get report with different user, month and status
   else
   {
-    console.log("entro al engineer")
-    var report = bita.loadReportEngMonthStatusSpecific(name, last)
+    console.log("entro al engineer month and action")
+    var report = bita.loadReportEngMonthStatusSpecific(user, month, case_status)
     report.then(function(reports){
       //console.log(engineers);
       res.send(reports);
