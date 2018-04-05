@@ -1,18 +1,18 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
-var engi = new ObjectId;
+//var engi = new ObjectId;
 //defining schema for users table
-var calendarSchema = new mongoose.Schema({
-    monday_morning : {day:String, user:engi},
-    monday_afternoon : {day:String, user:engi},
-    tuesday_morning: {day:String, user:engi},
-    tuesday_afternoon: {day:String, user:engi},
-    wednesday_morning: {day:String, user:engi},
-    wednesday_afternoon: {day:String, user:engi},
-    thursday_morning : {day:String, user:engi},
-    thursday_afternoon : {day:String, user:engi},
-    friday_morning: {day:String, user:engi},
-    friday_afternoon: {day:String, user:engi},
+var rotationSchema = new mongoose.Schema({
+    monday_morning : String,
+    monday_afternoon : String,
+    tuesday_morning: String,
+    tuesday_afternoon: String,
+    wednesday_morning: String,
+    wednesday_afternoon: String,
+    thursday_morning : String,
+    thursday_afternoon : String,
+    friday_morning: String,
+    friday_afternoon: String,
     week: Number
 });
 
