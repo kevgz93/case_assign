@@ -7,6 +7,7 @@ var ctrlTicket = require('../controllers/ticket.controller.js');
 var ctrlUsers = require('../controllers/user.controller.js');
 var ctrlReport = require('../controllers/report.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
+var ctrlRotation = require('../controllers/rotation.controller.js');
 
 
 
@@ -60,6 +61,12 @@ router
 router
 .route('/reports')
 .post(ctrlReport.generateReports)
+
+router
+.route('/rotation/')
+.get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
+.post(ctrlRotation.createRotation)
+.put(ctrlRotation.updateRotation)
 
 
 module.exports = router;
