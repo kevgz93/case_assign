@@ -26,7 +26,8 @@ rotation.createRotation = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
-        week: req.body.week
+        week: req.body.week,
+        status:req.body.status
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a Schedule");
@@ -46,6 +47,7 @@ rotation.createRotation = function (req, res) {
   })
 }
 
+<<<<<<< HEAD
 rotation.getScheduleByWeek = function(req, res){
     var rota = rotation.findWeek(req.query.week)
     rota.then(function(rotation){
@@ -62,13 +64,65 @@ rotation.findWeek = function(week){
     var results = q.defer();
 
     db.findOne({week: week},function(err, dbuser) {
+=======
+rotation.getRotationByWeek = function(req, res){
+    var rotat = rotation.findWeek(req.query.week)
+    rotat.then(function(rotati){
+        console.log(rotati);
+            res.send({status: 200, body: rotati});
+        }, function(){
+            res.send({status: 404,error:'Error occured while fetching data from database.'});
+        });
+    
+    }
+    
+//Find the user and send it again to getUserBySessionID
+rotation.findWeek = function(week){
+    var results = q.defer();
+
+    db.findOne({week: week},function(err, dbuser) {
         if (dbuser){
         results.resolve(dbuser);
 
     }  else{
             var response = {};
             response.status = 'error';
+            response.error = 'Schedule not found it';
+            results.resolve(response);
+        }
+    });
+
+    return results.promise;
+}
+
+rotation.getRotationByStatus = function(req, res){
+    var rotat = rotation.findWeekByStatus()
+    rotat.then(function(rotati){
+        console.log(rotati);
+            res.send({status: 200, body: rotati.week});
+        }, function(){
+            res.send({status: 404,error:'Error occured while fetching data from database.'});
+        });
+    
+    }
+    
+//Find the user and send it again to getUserBySessionID
+rotation.findWeekByStatus = function(){
+    var results = q.defer();
+
+    db.findOne({status: true},function(err, dbuser) {
+>>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
+        if (dbuser){
+        results.resolve(dbuser);
+
+    }  else{
+            var response = {};
+            response.status = 'error';
+<<<<<<< HEAD
             response.error = 'Rotation week not found it';
+=======
+            response.error = 'Schedule not found it';
+>>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
             results.resolve(response);
         }
     });
@@ -90,13 +144,21 @@ console.log("Get week" + week);
         };
 
         if (err) {
+<<<<<<< HEAD
             console.log("Error finding user");
+=======
+            console.log("Error finding week");
+>>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
             response.status = 500;
             response.message = err;
         } else if(!doc){
             response.status= 404;
             response.message = {
+<<<<<<< HEAD
             "message":"User ID not found"
+=======
+            "message":"week not found"
+>>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
             };
         }
 
@@ -114,7 +176,12 @@ console.log("Get week" + week);
             doc.thursday_morning = req.body.thursday_morning,
             doc.thursday_afternoon = req.body.thursday_afternoon,
             doc.friday_morning= req.body.friday_morning,
+<<<<<<< HEAD
             doc.friday_afternoon= req.body.friday_afternoon
+=======
+            doc.friday_afternoon= req.body.friday_afternoon,
+            doc.status = req.body.status
+>>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
 
         };
 

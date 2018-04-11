@@ -85,55 +85,55 @@ schedule.updateSchedule = function (req, res) {
 var user_id = req.body._id;
 console.log("Get User" + user_id);
 
-    db
-        .findOne({user_id : user_id})
-        .exec(function(err, doc){
-        var response = {
-            status: 200,
-            message: doc
-        };
+db
+    .findOne({user_id : user_id})
+    .exec(function(err, doc){
+    var response = {
+        status: 200,
+        message: doc
+    };
 
+    if (err) {
+        console.log("Error finding user");
+        response.status = 500;
+        response.message = err;
+    } else if(!doc){
+        response.status= 404;
+        response.message = {
+        "message":"User ID not found"
+        };
+    }
+
+    if (response.status != 200) {
+        res
+        .status(response.status)
+        .json(response.message);
+    } else {
+        doc.monday_morning = req.body.monday_morning,
+        doc.monday_afternoon = req.body.monday_afternoon,
+        doc.tuesday_morning= req.body.tuesday_morning,
+        doc.tuesday_afternoon= req.body.tuesday_afternoon,
+        doc.wednesday_morning= req.body.wednesday_morning,
+        doc.wednesday_afternoon= req.body.wednesday_afternoon,
+        doc.thursday_morning = req.body.thursday_morning,
+        doc.thursday_afternoon = req.body.thursday_afternoon,
+        doc.friday_morning= req.body.friday_morning,
+        doc.friday_afternoon= req.body.friday_afternoon,
+        doc.day_off= req.body.day_off,
+        doc.day_on= req.body.day_on
+
+    };
+
+    doc.save(function(err, Updated) {
         if (err) {
-            console.log("Error finding user");
-            response.status = 500;
-            response.message = err;
-        } else if(!doc){
-            response.status= 404;
-            response.message = {
-            "message":"User ID not found"
-            };
-        }
+        res
+            .send({status: 500});
 
-        if (response.status != 200) {
-            res
-            .status(response.status)
-            .json(response.message);
         } else {
-            doc.monday_morning = req.body.monday_morning,
-            doc.monday_afternoon = req.body.monday_afternoon,
-            doc.tuesday_morning= req.body.tuesday_morning,
-            doc.tuesday_afternoon= req.body.tuesday_afternoon,
-            doc.wednesday_morning= req.body.wednesday_morning,
-            doc.wednesday_afternoon= req.body.wednesday_afternoon,
-            doc.thursday_morning = req.body.thursday_morning,
-            doc.thursday_afternoon = req.body.thursday_afternoon,
-            doc.friday_morning= req.body.friday_morning,
-            doc.friday_afternoon= req.body.friday_afternoon,
-            doc.day_off= req.body.day_off,
-            doc.day_on= req.body.day_on
+        res
+        .send({status:204});
 
-        };
-
-        doc.save(function(err, Updated) {
-            if (err) {
-            res
-                .send({status: 500});
-
-            } else {
-            res
-            .send({status:204});
-
-            }
+        }
         })
     })
 }

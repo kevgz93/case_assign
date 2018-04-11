@@ -45,7 +45,8 @@ bita.loadReportMonthAll = function(month){
   var results = q.defer();
   console.log(month);
 
-  bitacora.find({"date":{"$elemMatch":{"month":month}}}, function(err, rep) {
+  //{"date":{"$elemMatch":{"month":month}}}
+  bitacora.find({"$expr":{"$eq":{"date.month": month}}},function(err, rep) {
     console.log(rep);
       if (err){
         results.reject(err);
