@@ -45,8 +45,7 @@ bita.loadReportMonthAll = function(month){
   var results = q.defer();
   console.log(month);
 
-  //{"date":{"$elemMatch":{"month":month}}}
-  bitacora.find({"$expr":{"$eq":{"date.month": month}}},function(err, rep) {
+  ticket.find({"date.month": month},function(err, rep) {
     console.log(rep);
       if (err){
         results.reject(err);
@@ -59,7 +58,7 @@ bita.loadReportMonthAll = function(month){
 bita.loadReportMonthAdded = function(month, case_status){
   var results = q.defer();
 
-  bitacora.find({'date.month': month, 'action':case_status}, function(err, rep) {
+  ticket.find({'date.month': month, 'action':case_status}, function(err, rep) {
       if (err){
         results.reject(err);
       }
@@ -71,7 +70,7 @@ bita.loadReportMonthAdded = function(month, case_status){
 bita.loadReportMonthDelete = function(month, case_status){
   var results = q.defer();
 
-  bitacora.find({'date.month': month, 'action':case_status}, function(err, rep) {
+  ticket.find({'date.month': month, 'action':case_status}, function(err, rep) {
       if (err){
         results.reject(err);
       }
@@ -84,7 +83,7 @@ bita.loadReportEngSpecificAll = function(user){
   var results = q.defer();
   var query = {"engineer_id": user}
 
-  bitacora.find(query, function(err, rep) {
+  ticket.find(query, function(err, rep) {
     console.log(rep);
       if (err){
         results.reject(err);
@@ -102,25 +101,20 @@ bita.loadReportEngMonthSpecific = function(user, month)
   //var query = {"date.month": month,};
   //console.log(query);
 
-  bitacora.aggregate([
-    {
-      $match:{
-        "engineer_id":engi
-      }
-    }], function(err, rep) {
-      if (err){
-        results.reject(err);
-      }
-      results.resolve(rep);
-    });
-    return results.promise;
+  ticket.find({'engineer_id': user, 'date.month': month}, function(err, rep) {
+    if (err){
+      results.reject(err);
+    }
+    results.resolve(rep);
+  });
+  return results.promise;
 }
 
 bita.loadReportEngMonthStatusSpecific = function(user, month, case_status)
 {
   var results = q.defer();
 
-  bitacora.find({"engineer_id": user, "date.month": month, "action":case_status}, function(err, rep) {
+  ticket.find({"engineer_id": user, "date.month": month, "action":case_status}, function(err, rep) {
       if (err){
         results.reject(err);
       }
