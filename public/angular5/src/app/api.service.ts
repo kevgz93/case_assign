@@ -181,6 +181,17 @@ export class ApiService {
     }) .catch(this.handleError);
   }
 
+  //Get week with status active
+  public getWeekByStatus(): Observable<Response> {
+    //let params = new HttpParams().set("id",id);    
+    return this.http
+    .get(API_URL + '/api/checkrotation/')
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
   public login(data): Observable<Response> {
     let body = JSON.stringify(data)
     return this.http

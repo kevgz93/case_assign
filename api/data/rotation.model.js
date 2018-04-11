@@ -13,7 +13,11 @@ var rotationSchema = new mongoose.Schema({
     thursday_afternoon : String,
     friday_morning: String,
     friday_afternoon: String,
-    week: Number
+    week: Number,
+    active: {
+        status: Boolean,
+        day: Number,
+    } 
 });
 
 

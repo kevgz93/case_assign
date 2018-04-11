@@ -26,7 +26,8 @@ rotation.createRotation = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
-        week: req.body.week
+        week: req.body.week,
+        status:req.body.status
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a Schedule");
@@ -47,7 +48,7 @@ rotation.createRotation = function (req, res) {
 }
 
 rotation.getRotationByWeek = function(req, res){
-    var rotat = rotation.findWeek(req.query.id)
+    var rotat = rotation.findWeek(req.query.week)
     rotat.then(function(rotati){
         console.log(rotati);
             res.send({status: 200, body: rotati});
@@ -58,10 +59,40 @@ rotation.getRotationByWeek = function(req, res){
     }
     
 //Find the user and send it again to getUserBySessionID
-rotation.findWeek = function(id){
+rotation.findWeek = function(week){
     var results = q.defer();
 
-    db.findOne({user_id: id},function(err, dbuser) {
+    db.findOne({week: week},function(err, dbuser) {
+        if (dbuser){
+        results.resolve(dbuser);
+
+    }  else{
+            var response = {};
+            response.status = 'error';
+            response.error = 'Schedule not found it';
+            results.resolve(response);
+        }
+    });
+
+    return results.promise;
+}
+
+rotation.getRotationByStatus = function(req, res){
+    var rotat = rotation.findWeekByStatus()
+    rotat.then(function(rotati){
+        console.log(rotati);
+            res.send({status: 200, body: rotati.week});
+        }, function(){
+            res.send({status: 404,error:'Error occured while fetching data from database.'});
+        });
+    
+    }
+    
+//Find the user and send it again to getUserBySessionID
+rotation.findWeekByStatus = function(){
+    var results = q.defer();
+
+    db.findOne({status: true},function(err, dbuser) {
         if (dbuser){
         results.resolve(dbuser);
 
@@ -114,7 +145,8 @@ console.log("Get week" + week);
             doc.thursday_morning = req.body.thursday_morning,
             doc.thursday_afternoon = req.body.thursday_afternoon,
             doc.friday_morning= req.body.friday_morning,
-            doc.friday_afternoon= req.body.friday_afternoon
+            doc.friday_afternoon= req.body.friday_afternoon,
+            doc.status = req.body.status
 
         };
 

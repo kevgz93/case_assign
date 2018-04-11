@@ -56,7 +56,7 @@ router
 .route('/ticket/')
 .get(helpers.isAuthenticated, ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(ctrlTicket.addTicket)
-.put(ctrlTicket.ticketDelete)
+.put(ctrlTicket.ticketDelete);
 
 router
 .route('/reports')
@@ -66,7 +66,12 @@ router
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
 .post(ctrlRotation.createRotation)
-.put(ctrlRotation.updateRotation)
+.put(ctrlRotation.updateRotation);
+
+router
+.route('/checkrotation/')
+.get(ctrlRotation.getRotationByStatus) //helpers.isAuthenticated,
+
 
 
 module.exports = router;

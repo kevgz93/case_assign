@@ -9,6 +9,7 @@ import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
+import { RotationComponent } from './rotation/rotation.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'editschedule', component: ScheduleeditComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'report', component: ReportComponent }
+  { path: 'report', component: ReportComponent },
+  { path: 'rotation', component: RotationComponent }
 
 
 ];
