@@ -63,12 +63,7 @@ router
 .post(ctrlReport.generateReports)
 
 router
-<<<<<<< HEAD
-.route('/rotation')
-.get(ctrlRotation.findWeek)
-.post(ctrlRotation.createRotation)
-.put(ctrlRotation.updateRotation)
-=======
+
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
 .post(ctrlRotation.createRotation)
@@ -78,7 +73,6 @@ router
 .route('/checkrotation/')
 .get(ctrlRotation.getRotationByStatus) //helpers.isAuthenticated,
 
->>>>>>> ea06745192972ade1d00c861ccdd8a41fa4f77a1
 
 
 module.exports = router;
