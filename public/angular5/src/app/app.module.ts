@@ -18,6 +18,7 @@ import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
 import { RotationComponent } from './rotation/rotation.component';
+import { RotationeditComponent } from './rotationedit/rotationedit.component';
 
 
 
@@ -33,7 +34,8 @@ import { RotationComponent } from './rotation/rotation.component';
     ScheduleeditComponent,
     LogoutComponent,
     ReportComponent,
-    RotationComponent
+    RotationComponent,
+    RotationeditComponent
   ],
   imports: [
     BrowserModule,

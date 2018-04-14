@@ -1,3 +1,27 @@
-<p>
-  rotation works!
-</p>
+<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%" *ngIf='showtable'>
+  <thead class="tablehead">
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+    </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>{{week.monday_morning}}</td>
+    <td>{{week.tuesday_morning}}</td>
+    <td>{{week.wednesday_morning}}</td>
+    <td>{{week.thursday_morning}}</td>
+    <td>{{week.friday_morning}}</td>
+  </tr>
+  <tr>
+    <td>{{week.monday_afternoon}}</td>
+    <td>{{week.tuesday_afternoon}}</td>
+    <td>{{week.wednesday_afternoon}}</td>
+    <td>{{week.thursday_afternoon}}</td>
+    <td>{{week.friday_afternoon}}</td>
+  </tr>
+  </tbody>
+</table>

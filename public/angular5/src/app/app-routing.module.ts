@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
 import { RotationComponent } from './rotation/rotation.component';
+import { RotationeditComponent } from './rotationedit/rotationedit.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'navbar', component: NavbarComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'report', component: ReportComponent },
-  { path: 'rotation', component: RotationComponent }
+  { path: 'rotation', component: RotationComponent },
+  { path: 'editrotation', component: RotationeditComponent }
 
 
 ];

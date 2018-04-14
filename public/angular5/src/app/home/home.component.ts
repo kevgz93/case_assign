@@ -161,13 +161,14 @@ export class HomeComponent implements OnInit {
     }
 
 
-    addTicket(id):void{
+    addTicket(id, engi_name, engi_last):void{
       let user;
       this.condition = false;
       this.service.getUserBySessionId().subscribe(response => {
         user = response.body;
-        const body = JSON.stringify({"engi_id": id, "user_id": user._id});
-
+        const body = JSON.stringify({"engi_id": id,"engi_name":engi_name,"engi_last_name":engi_last,
+         "user_id": user._id,"user_name":user.name,"user_last_name":user.last_name});
+        console.log(body);
         this.service.addTickets(body).subscribe(response =>{
           let ticket;
           ticket = response;

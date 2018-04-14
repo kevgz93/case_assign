@@ -172,7 +172,7 @@ export class ApiService {
   public getReport(values): Observable<Response> {
     let body = JSON.stringify(values)
     return this.http
-    .post(API_URL + '/api/engineers', body,
+    .post(API_URL + '/api/reports', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       console.log("response from check navbar", response)
@@ -181,11 +181,46 @@ export class ApiService {
     }) .catch(this.handleError);
   }
 
+  //get current week
+  public getWeek(week): Observable<Response> {
+    let params = new HttpParams().set("week",week);    
+    return this.http
+    .get(API_URL + '/api/rotation/', {params:params})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+    //get rotation table
+    public getRotation(): Observable<Response> {
+      //let params = new HttpParams().set("week",week);    
+      return this.http
+      .get(API_URL + '/api/rotations/')
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
+
   //Get week with status active
   public getWeekByStatus(): Observable<Response> {
     //let params = new HttpParams().set("id",id);    
     return this.http
     .get(API_URL + '/api/checkrotation/')
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+
+  //update date on week 
+  public updateDayOnWeek(day, week): Observable<Response> {
+    let body = JSON.stringify({"day":day, "week":week})
+    return this.http
+    .post(API_URL + '/api/updateday/', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
     })

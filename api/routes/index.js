@@ -54,7 +54,7 @@ router
 
 router
 .route('/ticket/')
-.get(helpers.isAuthenticated, ctrlTicket.loadEnginner) //helpers.isAuthenticated,
+.get( ctrlTicket.loadEnginner) //helpers.isAuthenticated,
 .post(ctrlTicket.addTicket)
 .put(ctrlTicket.ticketDelete);
 
@@ -69,8 +69,17 @@ router
 .put(ctrlRotation.updateRotation);
 
 router
+.route('/rotations/')
+.get(ctrlRotation.getAllRotation) //helpers.isAuthenticated,
+
+
+router
 .route('/checkrotation/')
-.get(ctrlRotation.getRotationByStatus) //helpers.isAuthenticated,
+.get(ctrlRotation.getRotationByStatus);
+
+router
+.route('/updateday/')
+.put(ctrlRotation.updateDayOnWeek)//helpers.isAuthenticated,
 
 
 

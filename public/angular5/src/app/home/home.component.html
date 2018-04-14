@@ -26,8 +26,8 @@
                 <td>{{datico.countday}}</td>
                 <td>{{datico.countweek}}</td>
                 <td>{{datico.countmonth}}</td>
-                <td><button (click)="addTicket(datico._id)" [disabled]="datico.disableAddButton">+</button>
-                   / <button (click)="deleteTicket(datico._id)" [disabled]="datico.disableLessButton">-</button></td>
+                <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton">+</button>
+                   / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton">-</button></td>
         </tr>
   </tbody>
 </table>

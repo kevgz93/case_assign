@@ -6,7 +6,11 @@ var user = new ObjectId;
 
 //defining schema for users table
 var caseSchema = new mongoose.Schema({
-	user_id: user,
+	user: {
+		user_id:user,
+		user_name:String,
+		user_last_name:String
+	},
 	action: String,
 	date: {
 		day: Number,
@@ -15,7 +19,11 @@ var caseSchema = new mongoose.Schema({
 		year: Number
 	},
 	time: String,
-	engineer_id: engi,
+	engineer: {
+		engineer_id:engi,
+		engi_name:String,
+		engi_last_name:String
+	}
 	});
 //MODEL for Users using SCHEMA Engineer
 

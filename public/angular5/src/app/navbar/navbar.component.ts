@@ -87,6 +87,16 @@ export class NavbarComponent implements OnInit {
     return
   }
 
+  goGetRotation(){
+    this.router.navigate(['./rotation'])
+    return
+  }
+  
+  goEditRotation(){
+    this.router.navigate(['./editrotation'])
+    return
+  }
+
   ngOnInit() {
     let login;
     this.service.currentId.subscribe(message => login = message);

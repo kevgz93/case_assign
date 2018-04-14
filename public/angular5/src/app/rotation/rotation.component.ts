@@ -10,38 +10,51 @@ import {Router} from '@angular/router';
   templateUrl: './rotation.component.html',
   styleUrls: ['./rotation.component.scss']
 })
+
 export class RotationComponent implements OnInit {
   
+  private week;
+  private showtable;
 
   constructor(private service: ApiService, private router:Router) { }
-  private changed;
 
-  CheckWeek():Observable<Response>{
+
+  checkWeek():Observable<Response>{
     let date = new Date();
+    let day = date.getDate();
     let monday = this.getMonday(new Date());
-    this.service.getWeekByStatus().subscribe(week =>{
-    if(date.getDate() === monday.getDate() && this.changed != true){
-      this.changed = true;
-      week
-      this.getWeek(week);
+    let week;
+    this.service.getWeekByStatus().subscribe(data =>{
+      console.log(data);
+    week = data;
+    if(day === monday.getDate() && week.active.day != date.getDate()){
+      this.changeDayWeek(day, week.body.week);
+      this.getWeek(week.body.week + 1);
+    }
+    else {
+      this.getWeek(week.body.week);
     }
     })
     return
   }
 
-  getWeek(week): Observable<object>{
-    
-    
-    this.service.getSchedule(week)
-    .subscribe(schedule => {
-      if(schedule.status != 200){
-        alert("error finding user");
+  changeDayWeek(day, week):Observable<Boolean>{
+    this.service.updateDayOnWeek(day, week).subscribe(response => {
+      console.log(response);
+    })
+    return
+  }
+
+  getWeek(weekNumber): Observable<object>{   
+    this.service.getWeek(weekNumber)
+    .subscribe(week => {
+      if(week.status != 200){
+        alert("error finding week");
       }
       else{
-        console.log(schedule);
-        // this.schedule = schedule;
-        // this.fillForm();
-        // this.showhtml = true;
+        console.log(week.body);
+        this.week = week.body;
+        this.showtable = true;
       }
     })
     
@@ -58,6 +71,8 @@ export class RotationComponent implements OnInit {
 
 
   ngOnInit() {
+    this.showtable = false;
+    this.checkWeek();
   }
 
 }

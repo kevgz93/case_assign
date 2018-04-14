@@ -12,8 +12,10 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 export class ReportComponent implements OnInit {
 
   myform: FormGroup;
-  public users;
-  public months;
+  private users;
+  private months;
+  private cases;
+  private showtable;
 
   constructor(private service: ApiService, private router:Router, private fb: FormBuilder) { }
 
@@ -22,6 +24,7 @@ export class ReportComponent implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.users = data;
+      
     })
     return;
   }
@@ -30,11 +33,14 @@ export class ReportComponent implements OnInit {
     console.log(form);
     this.service.getReport(form)
       .subscribe(data => {
-
+        console.log("cases",data);
+        this.cases = data;
+        this.showtable = true;
       }) 
   }
 
   ngOnInit() {
+    this.showtable = false;
     this.months = [{"id": 1, "name":"January"},{"id": 2, "name":"February"},{"id": 3, "name":"March"},{"id": 4, "name":"Abril"},
     {"id": 5, "name":"May"},{"id": 6, "name":"June"},{"id": 7, "name":"July"},{"id": 8, "name":"August"},{"id": 9, "name":"September"},
     {"id": 10, "name":"October"},{"id": 11, "name":"November"},{"id": 12, "name":"December"}];
