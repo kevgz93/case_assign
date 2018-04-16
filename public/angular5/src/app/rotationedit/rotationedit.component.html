@@ -1,11 +1,11 @@
-<form class="form-horizontal ibox-content" *ngIf="showtable"[formGroup]="myform" (ngSubmit)="updateSchedule(myform.value)" role="form">
+<form class="form-horizontal ibox-content" *ngIf="showtable" [formGroup]="myform" (ngSubmit)="updateSchedule(myform.value)" role="form">
 
   <div class="container">
       <div class="col-md-4">
           <div class="form-group">
               <label class="col-sm-2 label-form  control-label">Lunes</label>
               <div class="col-sm-4">
-                  <input type="text" class="form-control" placeholder="00" formControlName="monday_morning">
+                  <input type="text" class="form-control" placeholder="00"  formControlName="monday_morning">
               </div>
               <label class="col-sm-2 label-form control-label">:</label>
               <div class="col-sm-4">
