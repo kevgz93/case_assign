@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class RotationeditComponent implements OnInit {
 
-  public week;
+  //public week;
   public rotation;
   private showtable;
   rForm: FormGroup;
@@ -39,9 +39,9 @@ export class RotationeditComponent implements OnInit {
   }
 
 
-  updateSchedule(data){
-    data._id = this.week;
-    this.service.updateSchedule(data)
+  updateRotation(data){
+    console.log(data);
+    /* this.service.updateSchedule(data)
     .subscribe(response => {
       console.log(response.status);
       if(response.status != 204){
@@ -51,7 +51,7 @@ export class RotationeditComponent implements OnInit {
         alert("Schedule updated");
         this.router.navigate(['./home'])
       }
-    })
+    }) */
 
     return;
   }
@@ -69,7 +69,8 @@ export class RotationeditComponent implements OnInit {
       thursday_morning : this.rotation.thursday_morning,
       thursday_afternoon : this.rotation.thursday_afternoon,
       friday_morning: this.rotation.friday_morning,
-      friday_afternoon: this.rotation.friday_afternoon
+      friday_afternoon: this.rotation.friday_afternoon,
+      week: this.rotation.week
       });
     }
 

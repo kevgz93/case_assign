@@ -26,18 +26,20 @@ rotation.createRotation = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
-        week: req.body.week,
-        active:{status:req.body.status,
-        day:req.body.status}
+        active: {
+            status:req.body.status,
+            day:req.body.day
+        },
+        week: req.body.week
     }, function(err, user) { //this will run when create is completed
       if(err) {
-        console.log("Error creating a Schedule");
+        console.log("Error creating a Rotation Calendar");
         res
           .status(400)
           .json(err);
 
       } else {
-        console.log("schedule created");
+        console.log("Rotation Calendar created");
         console.log(user);
 
         res
@@ -148,6 +150,16 @@ rotation.findWeekByStatus = function(){
 rotation.updateDayOnWeek = function(req, res) {
     var day = req.body.day;
     var week = req.body.week;
+    let auxWeek;
+    if (week != 6){
+        auxWeek = week +1;
+        //console.log("nuevo week",auxWeek);
+        rotation.updateStatusOnWeek(auxWeek);
+    }
+    else {
+        auxWeek = 1;
+        rotation.updateStatusOnWeek(auxWeek);
+    }
 console.log("Get week" + week);
 
     db
@@ -174,7 +186,8 @@ console.log("Get week" + week);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.active.day = day
+            doc.active.day = day,
+            doc.active.status = false
 
         };
 
@@ -189,6 +202,47 @@ console.log("Get week" + week);
 
             }
         })
+    })
+}
+
+rotation.updateStatusOnWeek = function(week) {
+
+console.log("Get week" + week);
+
+    db
+        .findOne({week : week})
+        .exec(function(err, doc){
+        var response = {
+            status: 200,
+            message: doc
+        };
+
+        if (err) {
+            console.log("Error finding week");
+            response.status = 500;
+            response.message = err;
+        } else if(!doc){
+            response.status= 404;
+            response.message = {
+            "message":"week not found"
+            };
+        }
+
+        if (response.status != 200) {
+            console.log(response);
+        } else {
+            doc.active.status = true
+
+        };
+
+        doc.save(function(err, Updated) {
+            if (err) {
+                console.log("Status saved", updated);
+
+            } else {
+                console.log("Status not saved");
+            }
+        });
     })
 }
 

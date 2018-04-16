@@ -21,18 +21,17 @@ export class RotationComponent implements OnInit {
 
   checkWeek():Observable<Response>{
     let date = new Date();
-    let day = date.getDate();
+    let days = date.getDate();
     let monday = this.getMonday(new Date());
     let week;
     this.service.getWeekByStatus().subscribe(data =>{
-      console.log(data);
-    week = data;
-    if(day === monday.getDate() && week.active.day != date.getDate()){
-      this.changeDayWeek(day, week.body.week);
-      this.getWeek(week.body.week + 1);
+    week = data.body;
+    console.log(week.active.day);
+    if(days === monday.getDate() && week.active.day != days){
+      this.changeDayWeek(days, week.week)
     }
     else {
-      this.getWeek(week.body.week);
+      this.getWeek(week.week);
     }
     })
     return
@@ -40,6 +39,7 @@ export class RotationComponent implements OnInit {
 
   changeDayWeek(day, week):Observable<Boolean>{
     this.service.updateDayOnWeek(day, week).subscribe(response => {
+      this.getWeek(week + 1);
       console.log(response);
     })
     return

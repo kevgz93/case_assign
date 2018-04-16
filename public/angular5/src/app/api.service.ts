@@ -219,7 +219,7 @@ export class ApiService {
   public updateDayOnWeek(day, week): Observable<Response> {
     let body = JSON.stringify({"day":day, "week":week})
     return this.http
-    .post(API_URL + '/api/updateday/', body,
+    .put(API_URL + '/api/updateday/', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
