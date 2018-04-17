@@ -14,15 +14,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a class="nav-link" (click)="goHome()"> Home <span class="sr-only">(current)</span></a></li>
-        <li><a class="nav-link" (click)="goGetRotation()"> Queue Monitor <span></span></a></li>
+        <li><a class="nav-link" (click)="goHome()" style="cursor:pointer"> Home <span class="sr-only">(current)</span></a></li>
+        <li><a class="nav-link" style="cursor:pointer" (click)="goGetRotation()"> Queue Monitor <span></span></a></li>
         <li class="dropdown" *ngIf='showMaintenance'>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maintenance<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" (click)="goReport()">Reports</a></li>
+            <li><a class="nav-link" (click)="goReport()" style="cursor:pointer">Reports</a></li>
             <li role="separator" class="divider"></li>
-            <li><a class="nav-link" (click)="goAddUser()">Create User</a></li>
-            <li><a class="nav-link" (click)="goEditRotation()">Edit Week Rotation</a></li>
+            <li><a class="nav-link" (click)="goAddUser()" style="cursor:pointer">Create User</a></li>
+            <li><a class="nav-link" (click)="goEditRotation()" style="cursor:pointer">Edit Week Rotation</a></li>
           </ul>
         </li>
       </ul>
