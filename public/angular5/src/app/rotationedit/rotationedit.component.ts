@@ -40,6 +40,10 @@ export class RotationeditComponent implements OnInit {
 
 
   updateRotation(data){
+    let date = new Date();
+    let difDate = date.getTimezoneOffset();
+    console.log("date", date.getUTCMinutes());
+    console.log("diferrence", difDate);
     console.log(data);
     /* this.service.updateSchedule(data)
     .subscribe(response => {
