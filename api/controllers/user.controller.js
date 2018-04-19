@@ -96,7 +96,7 @@ users.register = function (req, res) {
       last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
-      days_working: 365,
+      working_days: 60,
       last_case:""
       
     }, function(err, user) { //this will run when create is completed

@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   public countWeek = 0;
   public countMonth = 0;
   private condition;
+  private timezone = {};
   public today;
   public date = new Date();
   
@@ -59,6 +60,8 @@ export class HomeComponent implements OnInit {
       }
 
     }
+
+
 
     addCountMonth(thiscase, month): void{
       if (month == thiscase.date.month ){

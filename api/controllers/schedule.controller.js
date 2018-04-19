@@ -16,18 +16,50 @@ schedule.createSchedule = function (req, res) {
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
     }
+    let minutes = 0;
+    //let difference = {"hour": -5, "minutes":30}
 
     db.create({ 
-        monday_morning : req.body.monday_morning,
-        monday_afternoon : req.body.monday_afternoon,
-        tuesday_morning: req.body.tuesday_morning,
-        tuesday_afternoon: req.body.tuesday_afternoon,
-        wednesday_morning: req.body.wednesday_morning,
-        wednesday_afternoon: req.body.wednesday_afternoon,
-        thursday_morning : req.body.thursday_morning,
-        thursday_afternoon : req.body.thursday_afternoon,
-        friday_morning: req.body.friday_morning,
-        friday_afternoon: req.body.friday_afternoon,
+        monday_morning : {
+            hour:req.body.monday_morning + req.body.difference.hour, //req.body.
+            minutes: minutes + req.body.difference.minutes
+        },
+        monday_afternoon : {
+            hour:req.body.monday_afternoon + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        tuesday_morning: {
+            hour:req.body.tuesday_morning + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        tuesday_afternoon: {
+            hour:req.body.tuesday_afternoon + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        wednesday_morning: {
+            hour:req.body.wednesday_morning + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        wednesday_afternoon: {
+            hour:req.body.wednesday_afternoon + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        thursday_morning : {
+            hour:req.body.thursday_morning + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        thursday_afternoon : {
+            hour:req.body.thursday_afternoon + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        friday_morning: {
+            hour:req.body.friday_morning + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
+        friday_afternoon: {
+            hour:req.body.friday_afternoon + req.body.difference.hour,
+            minutes: minutes + req.body.difference.minutes
+        },
         time_zone: req.body.time,
         //day_off: req.body.day_off,
         //day_on: req.body.day_on,

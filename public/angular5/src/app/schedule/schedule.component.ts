@@ -25,13 +25,55 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
-  getDifference(day){
-    return
+  getDifference(timezone, daylight){
+    console.log("entry to daylight");
+    let difference={"hour":0, "minutes":0};
+    let dayL:number = 0;
+    if(daylight){
+      dayL = 1;
+    }
+
+    if(timezone === "cat"){
+      difference.hour = 6;
+    }
+    else if(timezone === "pt"){
+      difference.hour = 7 + dayL;
+    }
+    else if(timezone === "ct"){
+      difference.hour = 5 + dayL;
+    }
+    else if(timezone === "et"){
+      difference.hour = 4 + dayL;
+    }
+    else if(timezone === "et"){
+      difference.hour = -1 + dayL;
+    }
+    else if(timezone === "uk"){
+      difference.hour = 0 + dayL;
+    }
+    else if(timezone === "cet"){
+      difference.hour = -1 + dayL;
+    }
+    else if(timezone === "ist"){
+      difference.hour = -5;
+      difference.minutes = 30;
+    }
+    else if(timezone === "ict"){
+      difference.hour = -7;
+    }
+    else if(timezone === "sgt"){
+      difference.hour = -8;
+    }
+    else if(timezone === "jst"){
+      difference.hour = -9;
+    }
+    return difference;
   }
 
   addSchedule(data){
-    let difference = this.getDifference(data.time)
+    let difference = this.getDifference(data.time, data.daylight)
     data.user_id = this.user.user._id;
+    data.difference = difference;
     //data.day_off = data.day_off.formatted;
     //data.day_on = data.day_on.formatted;
 
@@ -73,6 +115,8 @@ export class ScheduleComponent implements OnInit {
       thursday_afternoon: '',
       friday_morning: '',
       friday_afternoon: '',
+      time:'',
+      daylight: false
       //day_on:[null, Validators.required],
       //day_off: [null, Validators.required]
 

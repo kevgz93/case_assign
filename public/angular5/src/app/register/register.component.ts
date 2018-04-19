@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit {
       city : '',
       work_start: '',
       work_end: '',
-      time: '',
       sta_dyn: '',
       max: '',
       status: '',
