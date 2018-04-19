@@ -25,7 +25,12 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
+  getDifference(day){
+    return
+  }
+
   addSchedule(data){
+    let difference = this.getDifference(data.time)
     data.user_id = this.user.user._id;
     //data.day_off = data.day_off.formatted;
     //data.day_on = data.day_on.formatted;

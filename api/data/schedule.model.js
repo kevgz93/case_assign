@@ -15,6 +15,7 @@ var scheduleSchema = new mongoose.Schema({
     friday_afternoon: Number,
     day_off: String,
     day_on : String,
+    time_zone: Number,
     user_id: user
 });
 

@@ -28,6 +28,7 @@ schedule.createSchedule = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
+        time_zone: req.body.time,
         //day_off: req.body.day_off,
         //day_on: req.body.day_on,
         user_id: req.body.user_id
@@ -109,6 +110,8 @@ db
         .status(response.status)
         .json(response.message);
     } else {
+        console.log("diferrence", difDate);
+        console.log("math", 13-(-480/60));
         doc.monday_morning = req.body.monday_morning,
         doc.monday_afternoon = req.body.monday_afternoon,
         doc.tuesday_morning= req.body.tuesday_morning,
@@ -118,7 +121,8 @@ db
         doc.thursday_morning = req.body.thursday_morning,
         doc.thursday_afternoon = req.body.thursday_afternoon,
         doc.friday_morning= req.body.friday_morning,
-        doc.friday_afternoon= req.body.friday_afternoon
+        doc.friday_afternoon= req.body.friday_afternoon,
+        time_zone= req.body.time
         //doc.day_off= req.body.day_off,
         //doc.day_on= req.body.day_on
 

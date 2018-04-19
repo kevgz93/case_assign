@@ -87,7 +87,6 @@ users.register = function (req, res) {
   db.create({
     email : req.body.email,
   		city : req.body.city,
-  	  time_zone: req.body.time,
       sta_dyn: req.body.sta_dyn,
       max_case: req.body.max,
       status: req.body.status,
@@ -333,7 +332,6 @@ users.usersUpdateOne = function (req, res) {
   var doc = {};
   doc.email = req.body.email,
   doc.city = req.body.city,
-  doc.time_zone= req.body.time,
   doc.sta_dyn= req.body.sta_dyn,
   doc.max_case= req.body.max,
   doc.username= req.body.username,
