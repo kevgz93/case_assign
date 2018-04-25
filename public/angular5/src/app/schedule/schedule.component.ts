@@ -45,9 +45,6 @@ export class ScheduleComponent implements OnInit {
     else if(timezone === "et"){
       difference.hour = 4 + dayL;
     }
-    else if(timezone === "et"){
-      difference.hour = -1 + dayL;
-    }
     else if(timezone === "uk"){
       difference.hour = 0 + dayL;
     }
@@ -92,11 +89,6 @@ export class ScheduleComponent implements OnInit {
       }
     })
     
-  }
-
-  showCalendar():Boolean {
-    this.showcalen = true;
-    return
   }
 
 

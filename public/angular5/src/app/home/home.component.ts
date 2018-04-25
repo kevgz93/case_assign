@@ -104,24 +104,42 @@ export class HomeComponent implements OnInit {
     
       }
 
-      filterSchedule(i):void{
-        var today = this.date.getDay();
-        if (today === 1){
-          this.data[i].today = this.data[i].schedule_loaded[0].monday_morning + ":00-" + this.data[i].schedule_loaded[0].monday_afternoon + ":00";
-        }
-        else if (today === 2){
-          this.data[i].today = this.data[i].schedule_loaded[0].tuesday_morning + ":00-" + this.data[i].schedule_loaded[0].tuesday_afternoon + ":00";
-        }
-        else if (today === 3){
-          this.data[i].today = this.data[i].schedule_loaded[0].wednesday_morning + ":00-" + this.data[i].schedule_loaded[0].wednesday_afternoon + ":00";
-        }
-        else if (today === 4){
-          this.data[i].today = this.data[i].schedule_loaded[0].thursday_morning + ":00-" + this.data[i].schedule_loaded[0].thursday_afternoon + ":00";
-        }
-        else if (today === 5){
-          this.data[i].today = this.data[i].schedule_loaded[0].friday_morning + ":00-" + this.data[i].schedule_loaded[0].friday_afternoon + ":00";
-        }
+      filterSchedule(data):void{
+        // modificar aca y crear un nuevo metodo para el agregar los colores
+      }
 
+      addTimeZone(time):String{
+        if (time === "cat"){
+          return "Central America Time Zone"
+        }
+        else if (time === "pt"){
+          return "Pacific Time Zone"
+        }
+        else if (time === "ct"){
+          return "Central Time Zone"
+        }
+        else if (time === "et"){
+          return "easter Time Zone"
+        }
+        else if (time === "uk"){
+          return "UK Time Zone"
+        }
+        else if(time === "cet"){
+          return "Central European Time Zone"
+        }
+        else if(time === "ist"){
+          return "Indian Standard Time Zone"
+        }
+        else if(time === "ict"){
+          return "Indochina Time Zone"
+        }
+        else if(time === "sgt"){
+          return "Singapore Time Zone";
+        }
+        else if(time === "jst"){
+          return "Japan Time Zone"
+        }
+        
       }
 
 
@@ -144,10 +162,11 @@ export class HomeComponent implements OnInit {
           for(let j in aux[i].cases_loaded){
             this.filterDay(aux[i].cases_loaded[j]);
           }
+          this.data[i].time_zone = this.addTimeZone(this.data[i].schedule_loaded[0].time_zone);
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
-          this.filterSchedule(i);
+          this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0]);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton();
           this.cleanCount();
