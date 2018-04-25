@@ -1,31 +1,40 @@
-# Angular5
+# Queue Monitor (Frontend side)
+A basic app for manual support case assigments.
 
-<<<<<<< HEAD
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
-=======
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
->>>>>>> 5991c7e41631c0eeebe613da644eb47bb119f3d4
+  - Manage the case assigment of all of your team.
+  - See which teams are online and which ones are not.
+  - Check the history of the previous case already assigned to a specific user to avoid over assigning cases.
 
-## Development server
+### Tech
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Queue Monitor uses a number of open source projects to work properly:
 
-## Code scaffolding
+* [AngularJS] - HTML enhanced for web apps!
+* [Twitter Bootstrap] - great UI boilerplate for modern web apps
+* [node.js] - evented I/O for the backend
+* [Express] - fast node.js network app framework [@tjholowaychuk]
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Queue requires [Node.js](https://nodejs.org/) v8+ to run.
 
-## Running unit tests
+Install the dependencies, seed the database :( and start the server.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Frontend 
 
-## Running end-to-end tests
+```sh
+$ cd case_assign/public/angular5
+$ npm install
+$ ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Development
 
-## Further help
+Working on this 😁
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[node.js]: <http://nodejs.org>
+[Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
+[express]: <http://expressjs.com>
+[AngularJS]: <http://angularjs.org>
+
