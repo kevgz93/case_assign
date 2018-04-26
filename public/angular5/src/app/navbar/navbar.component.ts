@@ -18,29 +18,35 @@ export class NavbarComponent implements OnInit {
 
   constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
+  checkAdmin(){
+    if (this.user.role === 'admin'){
+      this.showMaintenance = true;
+    }
+  }
+
   checkSessionId(login){
     let cookie = this.cookieService.get('SessionId');
-    let url;
+    let url = "login";
     if(!cookie){
       this.shownav = false;
-      url = "login";
       this.redirect(url);
     }
-      else{
-        this.service.getUserBySessionId().subscribe(response =>{
-          console.log("when check session on navbar",response);
-          
+    else{
+      this.service.getUserBySessionId().subscribe(response =>{
+        console.log("when check session on navbar",response);
+        if(response.status != 201) {
+          this.shownav = false;
+          this.redirect(url);
+        }
+        else{
           this.user = response.body;
           this.shownav = true;
-          if (this.user.role === 'admin'){
-            this.showMaintenance = true;
-          }
-          
-         
-        });
+          this.checkAdmin();
+        }
+        
+        
+      });
     }
-    
-
   }
 
   redirect(url){
@@ -75,10 +81,10 @@ export class NavbarComponent implements OnInit {
     return
   }
 
-  goEditSchedule(){
+  goShowSchedule(){
     this.user._id;
     this.service.changeUserId(this.user._id);
-    this.router.navigate(['./editschedule'])
+    this.router.navigate(['./showschedule'])
     return
   }
 

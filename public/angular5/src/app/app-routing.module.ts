@@ -11,6 +11,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
+import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'report', component: ReportComponent },
   { path: 'rotation', component: RotationComponent },
-  { path: 'editrotation', component: RotationeditComponent }
+  { path: 'editrotation', component: RotationeditComponent },
+  { path: 'showschedule', component: ScheduleshowComponent }
 
 
 ];

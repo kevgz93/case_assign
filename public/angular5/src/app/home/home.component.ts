@@ -104,7 +104,102 @@ export class HomeComponent implements OnInit {
     
       }
 
-      filterSchedule(data):void{
+      endDay(morning, afternoon, difference):boolean{     
+        let aft_hour = afternoon.hour - difference;
+        let morn_hour = morning.hour - difference;
+        if (morn_hour <= this.date.getHours() && aft_hour >= this.date.getHours()){
+          return true;
+        }
+        return false;
+      }
+
+      colorHour(afternoon, difference):string{
+        let aft_hour = afternoon.hour - difference;
+        let aft_minutes = afternoon.minutes;
+        let hour = aft_hour - this.date.getHours();
+        let minutes = this.date.getMinutes() - aft_minutes;
+
+        if (hour === 1 && minutes <= 30){
+          return "amarillo";
+        }
+
+        else if (hour === 1 && minutes > 30){
+          return "rojo";
+        }
+        return "white";
+      }
+
+      filterSchedule(data){
+        let today = {time:"", available:true, color:"white"};
+        let hour = {morning:0, afternoon:0};
+        let minutes= {morning:0, afternoon:0};
+        let available:any;
+        let color;
+        let difference = this.date.getTimezoneOffset() / 60; // this difference is because the times are saved on the DB as gmt+0
+        if (this.date.getDay()===1){
+          available = this.endDay(data.monday_morning, data.monday_afternoon, difference);
+          //console.log("available", available);
+          color = this.colorHour(data.monday_afternoon, difference);
+          //console.log("color", color);
+          hour.morning = data.monday_morning.hour - difference;
+          minutes.morning = data.monday_morning.minutes;
+          hour.afternoon = data.monday_afternoon.hour - difference;
+          minutes.afternoon = data.monday_afternoon.minutes;
+          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          today.available = available;
+          today.color = color;
+          return today;
+        }
+        else if (this.date.getDay()===2){
+          available = this.endDay(data.tuesday_morning, data.tuesday_afternoon, difference);
+          color = this.colorHour(data.tuesday_afternoon, difference);
+          hour.morning = data.tuesday_morning.hour - difference;
+          minutes.morning = data.tuesday_morning.minutes;
+          hour.afternoon = data.tuesday_afternoon.hour - difference;
+          minutes.afternoon = data.tuesday_afternoon.minutes;
+          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          today.available = available;
+          today.color = color;
+          return today;
+        }
+        else if (this.date.getDay()===3){
+          available = this.endDay(data.wednesday_morning, data.wednesday_afternoon, difference);
+          color = this.colorHour(data.wednesday_afternoon, difference);
+          hour.morning = data.wednesday_morning.hour - difference;
+          minutes.morning = data.wednesday_morning.minutes;
+          hour.afternoon = data.wednesday_afternoon.hour - difference;
+          minutes.afternoon = data.wednesday_afternoon.minutes;
+          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          today.available = available;
+          today.color = color;
+          return today;
+        }
+        else if (this.date.getDay()===4){
+          available = this.endDay(data.thursday_morning , data.thursday_afternoon, difference);
+          color = this.colorHour(data.thursday_afternoon, difference);
+          //console.log("color", color);
+          hour.morning = data.thursday_morning.hour - difference;
+          minutes.morning = data.thursday_morning.minutes;
+          hour.afternoon = data.thursday_afternoon.hour - difference;
+          minutes.afternoon = data.thursday_afternoon.minutes;
+          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          today.available = available;
+          today.color = color;
+          
+          return today;
+        }
+        else if (this.date.getDay()===5){
+          available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
+          color = this.colorHour(data.friday_afternoon, difference);
+          hour.morning = data.friday_morning.hour - difference;
+          minutes.morning = data.friday_morning.minutes;
+          hour.afternoon = data.friday_afternoon.hour - difference;
+          minutes.afternoon = data.friday_afternoon.minutes;
+          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          today.available = available;
+          today.color = color;
+          return today;
+        }
         // modificar aca y crear un nuevo metodo para el agregar los colores
       }
 
@@ -170,6 +265,7 @@ export class HomeComponent implements OnInit {
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton();
           this.cleanCount();
+          
           
           
         }
@@ -238,6 +334,8 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
+    //this.showhtml = false;
+    //console.log("se cambio a false");
     this.getAllEng()
   }
 }

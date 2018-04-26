@@ -48,8 +48,6 @@ export class RegisterComponent implements OnInit {
       last_name: '',
       email: '',
       city : '',
-      work_start: '',
-      work_end: '',
       sta_dyn: '',
       max: '',
       status: '',

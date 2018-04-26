@@ -7,7 +7,7 @@ var schedule = {};
 
 
 schedule.createSchedule = function (req, res) {
-    console.log(req.body.user_id);
+    console.log(req.body);
 
     if(!req.body.user_id || !req.body.monday_morning || !req.body.monday_afternoon || !req.body.tuesday_morning || !req.body.tuesday_afternoon || 
     !req.body.wednesday_morning|| !req.body.wednesday_afternoon || !req.body.thursday_morning || !req.body.thursday_afternoon || !req.body.friday_morning

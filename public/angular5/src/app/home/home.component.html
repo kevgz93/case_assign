@@ -17,17 +17,19 @@
       </tr>
   </thead>
   <tbody>
+    <!--<div > -->
         <tr *ngFor="let datico of data" >
                 <td>{{datico.name}} {{datico.last_name}}</td>
                 <td>{{datico.time_zone}}</td>
                 <td>{{datico.sta_dyn}}</td>
                 <td>{{datico.max_case}}</td>
-                <td>{{datico.today}}</td>
+                <td>{{datico.today.time}}</td>
                 <td>{{datico.countday}}</td>
                 <td>{{datico.countweek}}</td>
                 <td>{{datico.countmonth}}</td>
                 <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton">+</button>
                    / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton">-</button></td>
         </tr>
+      <!--</div> -->
   </tbody>
 </table>
