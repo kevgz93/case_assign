@@ -129,10 +129,19 @@ export class HomeComponent implements OnInit {
         return "white";
       }
 
+      checkMinutes(minutes):string{
+        if (minutes != 0){
+          return `${minutes}`;
+        }
+        return `${minutes}0`;
+      }
+
       filterSchedule(data){
         let today = {time:"", available:true, color:"white"};
         let hour = {morning:0, afternoon:0};
         let minutes= {morning:0, afternoon:0};
+        let morning_minutes;
+        let afternoon_minutes;
         let available:any;
         let color;
         let difference = this.date.getTimezoneOffset() / 60; // this difference is because the times are saved on the DB as gmt+0
@@ -145,7 +154,9 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.monday_morning.minutes;
           hour.afternoon = data.monday_afternoon.hour - difference;
           minutes.afternoon = data.monday_afternoon.minutes;
-          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           return today;
@@ -156,8 +167,10 @@ export class HomeComponent implements OnInit {
           hour.morning = data.tuesday_morning.hour - difference;
           minutes.morning = data.tuesday_morning.minutes;
           hour.afternoon = data.tuesday_afternoon.hour - difference;
-          minutes.afternoon = data.tuesday_afternoon.minutes;
-          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          minutes.afternoon = data.wednesday_afternoon.minutes;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           return today;
@@ -169,7 +182,9 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.wednesday_morning.minutes;
           hour.afternoon = data.wednesday_afternoon.hour - difference;
           minutes.afternoon = data.wednesday_afternoon.minutes;
-          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           return today;
@@ -182,8 +197,9 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.thursday_morning.minutes;
           hour.afternoon = data.thursday_afternoon.hour - difference;
           minutes.afternoon = data.thursday_afternoon.minutes;
-          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
-          today.available = available;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;          today.available = available;
           today.color = color;
           
           return today;
@@ -195,8 +211,9 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.friday_morning.minutes;
           hour.afternoon = data.friday_afternoon.hour - difference;
           minutes.afternoon = data.friday_afternoon.minutes;
-          today.time= `${hour.morning}:${minutes.morning}0 - ${hour.afternoon}:${minutes.afternoon}0`;
-          today.available = available;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;          today.available = available;
           today.color = color;
           return today;
         }

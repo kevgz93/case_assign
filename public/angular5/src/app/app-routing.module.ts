@@ -15,7 +15,7 @@ import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login/register', component: RegisterComponent },
