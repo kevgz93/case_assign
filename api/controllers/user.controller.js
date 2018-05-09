@@ -310,7 +310,8 @@ users.loadEnginners2 = function(){
       },  
         { "$project": {
           "name":1,
-          "last_name":1
+          "last_name":1,
+          "_id":1
         }
       }
     ],function(err, engi) {

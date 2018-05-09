@@ -142,18 +142,27 @@ db
         .status(response.status)
         .json(response.message);
     } else {
-        console.log("diferrence", difDate);
-        console.log("math", 13-(-480/60));
-        doc.monday_morning = req.body.monday_morning,
-        doc.monday_afternoon = req.body.monday_afternoon,
-        doc.tuesday_morning= req.body.tuesday_morning,
-        doc.tuesday_afternoon= req.body.tuesday_afternoon,
-        doc.wednesday_morning= req.body.wednesday_morning,
-        doc.wednesday_afternoon= req.body.wednesday_afternoon,
-        doc.thursday_morning = req.body.thursday_morning,
-        doc.thursday_afternoon = req.body.thursday_afternoon,
-        doc.friday_morning= req.body.friday_morning,
-        doc.friday_afternoon= req.body.friday_afternoon,
+        console.log("body", req.body);
+        doc.monday_morning.hour = req.body.monday_morning_hour + req.body.difference.hour,
+        doc.monday_morning.minutes = req.body.monday_morning_minutes,
+        doc.monday_afternoon.hour = req.body.monday_afternoon_hour + req.body.difference.hour,
+        doc.monday_afternoon.minutes = req.body.monday_afternoon_minutes,
+        doc.tuesday_morning.hour= req.body.tuesday_morning_hour + req.body.difference.hour,
+        doc.tuesday_morning.minutes= req.body.tuesday_morning_minutes,
+        doc.tuesday_afternoon.hour= req.body.tuesday_afternoon_hour + req.body.difference.hour,
+        doc.tuesday_afternoon.minutes= req.body.tuesday_afternoon_minutes,
+        doc.wednesday_morning.hour= req.body.wednesday_morning_hour + req.body.difference.hour,
+        doc.wednesday_morning.minutes= req.body.wednesday_morning_minutes,
+        doc.wednesday_afternoon.hour= req.body.wednesday_afternoon_hour + req.body.difference.hour,
+        doc.wednesday_afternoon.minutes= req.body.wednesday_afternoon_minutes,
+        doc.thursday_morning.hour = req.body.thursday_morning_hour + req.body.difference.hour,
+        doc.thursday_morning.minutes = req.body.thursday_morning_minutes,
+        doc.thursday_afternoon.hour = req.body.thursday_afternoon_hour + req.body.difference.hour,
+        doc.thursday_afternoon.minutes = req.body.thursday_afternoon_minutes,
+        doc.friday_morning.hour= req.body.friday_morning_hour + req.body.difference.hour,
+        doc.friday_morning.minutes= req.body.friday_morning_minutes,
+        doc.friday_afternoon.hour= req.body.friday_afternoon_hour + req.body.difference.hour,
+        doc.friday_afternoon.minutes= req.body.friday_afternoon_minutes,
         time_zone= req.body.time
         //doc.day_off= req.body.day_off,
         //doc.day_on= req.body.day_on

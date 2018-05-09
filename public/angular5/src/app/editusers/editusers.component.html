@@ -1,0 +1,23 @@
+<div class="container" *ngIf="showtable">
+  <h3>Schedule</h3>
+</div>
+<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead class="tablehead">
+    <tr>
+      <th>Name</th>
+      <th>Edit Schedule</th>
+      <th>Edit user</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!--<div > -->
+    <tr *ngFor="let user of users">
+      <td>{{user.name}} {{user.last_name}}</td>
+      <td><button class="btn btn-primary" (click)="goToSchedule(user._id)">Edit Schedule</button></td>
+      <td><button class="btn btn-primary" (click)="goToUser(user._id)">Edit User</button></td>
+      <td><button class="btn btn-warning" onclick="goToDelete()">Delete</button></td>
+    </tr>
+      <!--</div> -->
+  </tbody>
+</table>

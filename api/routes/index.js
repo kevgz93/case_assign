@@ -45,7 +45,7 @@ router
   .delete(ctrlUsers.usersDeleteOne);
 
   router
-  .route('/engineers')
+  .route('/getusers')
   .get(ctrlUsers.getUsersWithNamesOnly);
 
   router

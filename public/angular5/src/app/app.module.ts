@@ -20,6 +20,7 @@ import { ReportComponent } from './report/report.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
+import { EditusersComponent } from './editusers/editusers.component';
 
 
 
@@ -37,7 +38,8 @@ import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
     ReportComponent,
     RotationComponent,
     RotationeditComponent,
-    ScheduleshowComponent
+    ScheduleshowComponent,
+    EditusersComponent
   ],
   imports: [
     BrowserModule,

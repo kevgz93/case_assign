@@ -75,7 +75,7 @@ export class ApiService {
 
   public getAllUsers(): Observable<Response> {
     return this.http
-    .get(API_URL + '/api/engineers')
+    .get(API_URL + '/api/getusers')
     .map(response => {
       console.log("response from check navbar", response)
       //this.user_id = response;

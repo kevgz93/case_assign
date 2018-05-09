@@ -74,10 +74,16 @@ export class NavbarComponent implements OnInit {
     return
   }
 
-  goEditUser(){
+  goEditEngineer(){
     this.user._id;
     this.service.changeUserId(this.user._id);
-    this.router.navigate(['./edituser'])
+    this.router.navigate(['./editengineer'])
+    return
+  }
+  goEditUsers(){
+    // this.user._id;
+    // this.service.changeUserId(this.user._id);
+    this.router.navigate(['./editusers'])
     return
   }
 
