@@ -9,9 +9,9 @@ var schedule = {};
 schedule.createSchedule = function (req, res) {
     console.log(req.body);
 
-    if(!req.body.user_id || !req.body.monday_morning || !req.body.monday_afternoon || !req.body.tuesday_morning || !req.body.tuesday_afternoon || 
-    !req.body.wednesday_morning|| !req.body.wednesday_afternoon || !req.body.thursday_morning || !req.body.thursday_afternoon || !req.body.friday_morning
-    || !req.body.friday_afternoon)
+    if(!req.body.user_id || !req.body.monday_morning_hour || !req.body.monday_afternoon_hour || !req.body.tuesday_morning_hour || !req.body.tuesday_afternoon_hour || 
+    !req.body.wednesday_morning_hour|| !req.body.wednesday_afternoon_hour || !req.body.thursday_morning_hour || !req.body.thursday_afternoon_hour || !req.body.friday_morning_hour
+    || !req.body.friday_afternoon_hour)
     {
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
@@ -21,44 +21,44 @@ schedule.createSchedule = function (req, res) {
 
     db.create({ 
         monday_morning : {
-            hour:req.body.monday_morning + req.body.difference.hour, //req.body.
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.monday_morning_hour + req.body.difference.hour, //req.body.
+            minutes: req.body.monday_morning_minutes + req.body.difference.minutes
         },
         monday_afternoon : {
-            hour:req.body.monday_afternoon + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.monday_afternoon_hour + req.body.difference.hour,
+            minutes: req.body.monday_afternoon_minutes + req.body.difference.minutes
         },
         tuesday_morning: {
-            hour:req.body.tuesday_morning + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.tuesday_morning_hour + req.body.difference.hour,
+            minutes: req.body.tuesday_morning_minutes + req.body.difference.minutes
         },
         tuesday_afternoon: {
-            hour:req.body.tuesday_afternoon + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.tuesday_afternoon_hour + req.body.difference.hour,
+            minutes: req.body.tuesday_afternoon_minutes + req.body.difference.minutes
         },
         wednesday_morning: {
-            hour:req.body.wednesday_morning + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.wednesday_morning_hour + req.body.difference.hour,
+            minutes: req.body.wednesday_morning_minutes + req.body.difference.minutes
         },
         wednesday_afternoon: {
-            hour:req.body.wednesday_afternoon + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.wednesday_afternoon_hour + req.body.difference.hour,
+            minutes: req.body.wednesday_afternoon_minutes + req.body.difference.minutes
         },
         thursday_morning : {
-            hour:req.body.thursday_morning + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.thursday_morning_hour + req.body.difference.hour,
+            minutes: req.body.thursday_morning_minutes + req.body.difference.minutes
         },
         thursday_afternoon : {
-            hour:req.body.thursday_afternoon + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.thursday_afternoon_hour + req.body.difference.hour,
+            minutes: req.body.thursday_afternoon_minutes + req.body.difference.minutes
         },
         friday_morning: {
-            hour:req.body.friday_morning + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.friday_morning_hour + req.body.difference.hour,
+            minutes: req.body.friday_morning_minutes + req.body.difference.minutes
         },
         friday_afternoon: {
-            hour:req.body.friday_afternoon + req.body.difference.hour,
-            minutes: minutes + req.body.difference.minutes
+            hour:req.body.friday_afternoon_hour + req.body.difference.hour,
+            minutes: req.body.friday_afternoon_minutes + req.body.difference.minutes
         },
         time_zone: req.body.time,
         //day_off: req.body.day_off,
@@ -68,16 +68,14 @@ schedule.createSchedule = function (req, res) {
       if(err) {
         console.log("Error creating a Schedule");
         res
-          .status(400)
-          .json(err);
+          .send({status:401,body:err});
 
       } else {
         console.log("schedule created");
         console.log(user);
 
         res
-          .status(201)
-          .json({status:201,user:user});
+          .send({status:201,body:user});
 
       }
   })

@@ -115,7 +115,7 @@ rotation.findWeek = function(week){
 
 
     
-//Find the user and send it again to getUserBySessionID
+//Find the current status getRotationByStatus
 
 
 rotation.getRotationByStatus = function(req, res){

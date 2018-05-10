@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   public countWeek = 0;
   public countMonth = 0;
   private condition;
+  private qm;
   private timezone = {};
   public today;
   public date = new Date();
@@ -136,6 +137,21 @@ export class HomeComponent implements OnInit {
         return `${minutes}0`;
       }
 
+      //convert to string static and dynamic
+      convertStaDyn(value):String{
+        let string;
+        if(value === 1){
+           string = "Static";
+        }
+        else if(value === 2){
+           string = "Dynamic";
+        }
+        else {
+           string = "Both";
+        }
+        return string;
+      }
+
       filterSchedule(data){
         let today = {time:"", available:true, color:"white"};
         let hour = {morning:0, afternoon:0};
@@ -231,7 +247,7 @@ export class HomeComponent implements OnInit {
           return "Central Time Zone"
         }
         else if (time === "et"){
-          return "easter Time Zone"
+          return "Easter Time Zone"
         }
         else if (time === "uk"){
           return "UK Time Zone"
@@ -275,6 +291,7 @@ export class HomeComponent implements OnInit {
             this.filterDay(aux[i].cases_loaded[j]);
           }
           this.data[i].time_zone = this.addTimeZone(this.data[i].schedule_loaded[0].time_zone);
+          this.data[i].sta_dyn = this.convertStaDyn(this.data[i].sta_dyn);
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
@@ -333,6 +350,60 @@ export class HomeComponent implements OnInit {
      
       return;
     }
+    //add the corresponding QM 
+    currentQM(week):void{
+      console.log("current week",week);
+      let date = new Date;
+      let day = date.getDay();
+      let time = date.getHours();
+
+      if(day ===1 && time <12){
+        this.qm = week.monday_morning;
+      }
+      else if(day ===1 && time >12){
+        this.qm = week.monday_afternoon;
+      }
+      else if(day ===2 && time < 12){
+        this.qm = week.tuesday_morning;
+      }
+      else if(day ===2 && time >12){
+        this.qm = week.tuesday_afternoon;
+      }
+      else if(day ===3 && time <12){
+        this.qm = week.wednesday_morning;
+      }
+      else if(day ===3 && time >12){
+        this.qm = week.wednesday_afternoon;
+      }
+      else if(day ===4 && time <12){
+        this.qm = week.thursday_morning;
+      }
+      else if(day ===4 && time >12){
+        this.qm = week.thursday_afternoon;
+      }
+      else if(day ===5 && time <12){
+        this.qm = week.friday_morning;
+      }
+      else if(day ===5 && time >12){
+        this.qm = week.friday_afternoon;
+      }
+      
+    }
+
+    //Get the current QM
+    getQM():void{
+    let week;
+    this.service.getWeekByStatus().subscribe(data =>{
+      week = data.body;
+      if(data.status === 200){
+        this.currentQM(week)
+      }
+      else {
+        console.log("could found the current");
+      }
+        })
+      
+    }
 
     disableAddButton(max, countday): boolean{
       if (countday >= max && max !== 0){
@@ -353,6 +424,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     //this.showhtml = false;
     //console.log("se cambio a false");
-    this.getAllEng()
+    this.getQM();
+    this.getAllEng();
   }
 }
