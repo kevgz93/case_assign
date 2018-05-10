@@ -20,7 +20,7 @@ app.use(function(req, res, next){
   res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Method', 'GET, PUT, DELETE, POST');
   res.header('Access-Control-Allow-Headers', '*');
-  
+
   console.log('middleware: '+ req.method, req.url);
   next();
 });
