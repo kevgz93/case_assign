@@ -1,7 +1,7 @@
+app.js
+/public/angular5/src/environments/environments.ts
 /node_modules
 /npm-debug.log
 /.vscode
 /mongo_data
 mongo_start
-app.js
-public/angular5/src/environments/environment.ts
