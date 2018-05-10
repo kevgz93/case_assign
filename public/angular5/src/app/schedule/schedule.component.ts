@@ -15,7 +15,7 @@ export class ScheduleComponent implements OnInit {
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
-    dateFormat: 'dd/mm/yyyy',
+    //dateFormat: 'dd/mm/yyyy',
 };
   public data;
   public user;
@@ -119,6 +119,14 @@ export class ScheduleComponent implements OnInit {
       friday_afternoon_minutes: '',
       time: '',
       daylight: false,
+      day_off_day:0,
+      day_off_month:0,
+      day_off_hour:0,
+      day_off_minutes:0,
+      day_on_day:0,
+      day_on_month:0,
+      day_on_hour:0,
+      day_on_minutes:0
       //day_on:[null, Validators.required],
       //day_off: [null, Validators.required]
 

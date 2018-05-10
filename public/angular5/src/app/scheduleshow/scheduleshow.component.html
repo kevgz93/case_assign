@@ -24,4 +24,21 @@
         <!--</div> -->
     </tbody>
   </table>
+
+  <form [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value.myDateRange)" role="form">
+      <div class="col-md-6">
+          <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
+          formControlName="myDateRange"></my-date-range-picker>
+    <!-- other controls are here... -->
+  </div>
+  <div>
+      <div class="cont-button">
+          <div class="form-group">
+              <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
+                  <i class="fa fa-times-circle-o"></i> Cancel</button>
+              <button class="btn btn-primary" type="submit">Continue</button>
+          </div>
+      </div>
+  </div>
+  </form>
   

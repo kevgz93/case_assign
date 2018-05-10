@@ -5,7 +5,7 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
-
+import {IMyDrpOptions} from 'mydaterangepicker';
 @Component({
   selector: 'app-scheduleshow',
   templateUrl: './scheduleshow.component.html',
@@ -19,8 +19,14 @@ export class ScheduleshowComponent implements OnInit {
   "wednesday_morning":0,"wednesday_afternoon":0,"thursday_morning":0,"thursday_afternoon":0,"friday_morning":0,
   "friday_afternoon":0};
   private id;
+  private myform: FormGroup;
+  public myDateRangePickerOptions: IMyDrpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+};
 
-  constructor(private service: ApiService, private router:Router) { }
+
+  constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
   //minutes on 00 or 30
   checkMinutes(minutes):string{
@@ -105,8 +111,38 @@ export class ScheduleshowComponent implements OnInit {
     return;
   }
 
+  //add the timeZone from calendars
+  addTimeOff(data): Observable<object>{
+    console.log("begin Date", data.beginDate);
+    console.log("end Date", data.endDate);
+    return
+  }
+
+ //set time for calendar
+ setDateRange(): void {
+  // Set date range (today) using the patchValue function
+  let date = new Date();
+  this.myform.patchValue({myDateRange: {
+      beginDate: {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate()
+      },
+      endDate: {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate()
+      }
+  }});
+}
+
 
   ngOnInit() {
+    this.myform = this.fb.group({
+
+      myDateRange: ['', Validators.required]
+
+  });
     this.showschedule = false;
     this.service.currentId.subscribe(message => this.id = message);
     this.getSchedule();

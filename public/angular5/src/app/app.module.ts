@@ -13,7 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { MyDatePickerModule } from 'mydatepicker';
+import { MyDateRangePickerModule  } from 'mydaterangepicker';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
@@ -47,7 +47,7 @@ import { EditusersComponent } from './editusers/editusers.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDatePickerModule
+    MyDateRangePickerModule
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

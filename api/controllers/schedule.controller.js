@@ -61,8 +61,18 @@ schedule.createSchedule = function (req, res) {
             minutes: req.body.friday_afternoon_minutes + req.body.difference.minutes
         },
         time_zone: req.body.time,
-        //day_off: req.body.day_off,
-        //day_on: req.body.day_on,
+        day_off:{
+            day:req.body.day_off_day,
+            month: req.body.day_off_month,
+            hour: req.body.day_off_hour,
+            minutes: req.body.day_off_minutes
+        },
+        day_on: {
+            day:req.body.day_on_day,
+            month: req.body.day_on_month,
+            hour: req.body.day_on_hour,
+            minutes: req.body.day_on_minutes
+        },
         user_id: req.body.user_id
     }, function(err, user) { //this will run when create is completed
       if(err) {
