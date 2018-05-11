@@ -3,3 +3,4 @@
 /.vscode
 /mongo_data
 mongo_start
+ng_server
