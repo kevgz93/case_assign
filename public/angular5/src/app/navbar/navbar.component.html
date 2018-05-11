@@ -8,7 +8,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">FORTIFY</a>
+      <a class="navbar-brand" href="#">
+        <img src="../assets/mf_fortify_bluesquare_logo.png" alt="Micro Focus logo"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,7 +18,7 @@
         <li><a class="nav-link" (click)="goHome()" style="cursor:pointer"> Home <span class="sr-only">(current)</span></a></li>
         <li><a class="nav-link" style="cursor:pointer" (click)="goGetRotation()"> Queue Monitor <span></span></a></li>
         <li class="dropdown" *ngIf='showMaintenance'>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maintenance<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maintenance&nbsp;<i class="fas fa-angle-down"></i></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" (click)="goReport()" style="cursor:pointer">Reports</a></li>
             <li role="separator" class="divider"></li>
@@ -29,12 +30,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.name}} {{user.last_name}}<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.name}} {{user.last_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" (click)="goEditEngineer()">Edit Info</a></li>
             <li><a class="nav-link" (click)="goShowSchedule()">Schedule</a></li>
             <li role="separator" class="divider"></li>
-            <li><a class="nav-link" (click)="goLogout()">Logout</a></li>
+            <li><a class="nav-link" (click)="goLogout()"><i class="fas fa-sign-out-alt pull-right" style="color:#e5004c;"></i>Logout</a></li>
           </ul>
         </li>
       </ul>

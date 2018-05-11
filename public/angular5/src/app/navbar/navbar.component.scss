@@ -1,18 +1,58 @@
 
- .principal_image{
-    height: 150px;
-    width: 120px;
-    margin-top: -2px;
-    margin-left: 50px;
+$primary-color: #0073E7;
+$bright-grey: #ECEEEF;
+
+ .navbar{
+  border-radius: 0px;
+ }
+ 
+.navbar-default{
+  background-color: $primary-color;
+  border-color: $primary-color;
+  a{
+   color: $bright-grey !important;
+   &:hover{
+    color: white !important;
+   }
   }
- 
- .navcustom{
-   background-color: white!important;
-   height: 170px;
+  
+  .navbar-default .navbar-nav > .open > a, .navbar-nav > .open > a:focus, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:active{
+   color: white !important;
+   background-color: transparent !important;
+  }
+  
+  .dropdown-menu > li > a{
+   color: #333 !important;
+   cursor: pointer;
+  }
+}
+
+// Fortify icon on the navbar
+.navbar-brand{
+ padding: 0 0;
+ img{
+  height: 51px;
  }
- 
- .navmenu{
-   float: right!important;
-   font-size: 20px;
+}
+
+@media (min-width: 768px) { 
+ .navbar > .container-fluid .navbar-brand{
+  margin-left: -16px;
  }
- 
+}
+
+//Mobile toogle
+
+.navbar-toogle{
+ transition: all ease 0.2s;
+ border: 0px solid transparent !important;
+ &:hover, &:focus{
+  background-color: transparent !important;
+ }
+ .icon-bar{
+  background-color: $bright-grey;
+  &:hover, &:focus{
+   background-color: white;
+  }
+ }
+}

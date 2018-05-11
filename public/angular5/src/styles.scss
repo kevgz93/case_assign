@@ -1,2 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+$navbar-default-toggle-border-color: transparent;
+$navbar-default-toggle-hover-bg: transparent;
+
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+/***** Micro Focus color pallete *****/
+
+$primary-color: #0073E7;
+$primary-light: lighten($primary-color, 20%);
+$dark-blue: #231CA5;
+$pink: #C6179D;
+$purple: #7425AD;
+$aqua: #C6179D;
+$aquamarine: #2FD6C3;
+$slightly-grey: #F5F7F8;
+$bright-grey: #ECEEEF;
+$grey: #DCDEDF;
+$silver: #BDBEC0;
+$dim-grey: #656668;
+$dark-grey: #323435;
+
+// Alerts colors
+$danger: #e5004c;
+$warning: #fcdb1f;
+$success: #1aac60;
+
+$background-layer: #F1F2F3;
+
+body{
+    background-color: $background-layer;
+}
+
+/* Texts */
+.text-dark-blue{
+    color: $dark-blue;
+}
+.text-purple{
+    color: $purple;
+}
+
+.text-pink{
+    color: $pink;
+}
+
+.text-aqua{
+    color: $aqua;
+}
+
+.text-aquamarine{
+    color: $aquamarine;
+}
+
+.text-brand-blue{
+    color: $primary-color;
+}
+
+/* Backgrounds */
+
+.brand-blue{
+    background-color: $primary-color;
+}
+
+/* Nice transitions for buttons and links animations */
+.btn, a{
+    transition: all ease 0.2s;
+}
+
+/* Custom buttons */
+
+.btn{
+    border-radius: 2px;
+    
+    &.btn-primary{
+        background-color: $primary-color !important;
+        border-color: $primary-color !important;
+        &:hover{
+            background-color: $primary-light !important;
+            border-color: $primary-light !important;
+        }
+    }
+}
+
+/* Custom panels */
+.panel{
+    border-radius: 2px;
+}
+
+
+/* Form styles */
+// Cuando enfoca un form
+.form-control{
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    &:focus, &:active, &:hover {
+      border-bottom: 1px solid $primary-light;
+      box-shadow: none !important;
+    }
+}
