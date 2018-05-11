@@ -3,4 +3,4 @@
 /.vscode
 /mongo_data
 mongo_start
-ng_server
+/public/angular5/ng_server
