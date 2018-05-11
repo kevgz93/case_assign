@@ -1,0 +1,17 @@
+[
+    { 
+        "name" : "Jesus Guillermo", 
+        "last_name": "Ruiz", 
+        "username": "chuz", 
+        "password": "007Beefcake.", 
+        "email": "jesus-guillermo.ruiz@hpe.com", 
+        "city": "Heredia", 
+        "sta_dyn": 3, 
+        "max_case": 0, 
+        "status": true, 
+        "activeSession": "", 
+        "role": "admin", 
+        "days_working": 60, 
+        "last_case": "" 
+    }
+]
