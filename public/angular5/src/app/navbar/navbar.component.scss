@@ -9,6 +9,7 @@ $bright-grey: #ECEEEF;
 .navbar-default{
   background-color: $primary-color;
   border-color: $primary-color;
+  cursor: pointer;
   a{
    color: $bright-grey !important;
    &:hover{

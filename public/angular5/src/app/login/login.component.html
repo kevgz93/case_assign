@@ -1,25 +1,25 @@
 <div class="row" style="margin-top:10%;">
-<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h1 class="text-center">FORTIFY</h1>
-            <h3 class="text-center">Queue monitoring tool</h3>
-            <br/>
-            <form [formGroup]="loginform" (ngSubmit)="login(loginform.value)">
-                <div class="form-group" >
-                    <input type="text" class="form-control" name="username" formControlName="username" placeholder="Username" />
-                    <!--<<div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>-->
-                </div>
-                <div class="form-group" >
-                    <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password" />
-                    <!--<div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>-->
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary pull-right">Login</button>
-                    <img *ngIf="loading" src="../../assets/loading.gif" />
-                </div>
-            </form>
+    <div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1 class="text-center">FORTIFY</h1>
+                <h3 class="text-center">Case assignment tool</h3>
+                <br/>
+                <form [formGroup]="loginform" (ngSubmit)="login(loginform.value)">
+                    <div class="form-group" >
+                        <input type="text" class="form-control" name="username" formControlName="username" placeholder="Username" />
+                        <!--<<div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>-->
+                    </div>
+                    <div class="form-group" >
+                        <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password" />
+                        <!--<div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>-->
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary pull-right">Login</button>
+                        <img *ngIf="loading" src="../../assets/loading.gif" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>

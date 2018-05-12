@@ -102,3 +102,27 @@ body{
       box-shadow: none !important;
     }
 }
+
+// Micro Focus font (MetricNEW)
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-Regular.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Black.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-BlackItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Bold.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-BoldItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Light.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-LightItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Medium.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-MediumItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-RegularItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Semibold.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-SemiboldItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Thin.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-ThinItalic.woff") format("woff");
+}
+
+*{
+    font-family: MetricNEW,"Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    //font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
