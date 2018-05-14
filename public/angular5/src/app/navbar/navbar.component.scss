@@ -1,4 +1,4 @@
-
+/*
 $primary-color: #0073E7;
 $bright-grey: #ECEEEF;
 $grey: #DCDEDF;
@@ -6,7 +6,7 @@ $grey: #DCDEDF;
 .navbar{
  border-radius: 0px;
 }
- 
+
 .navbar-default{
   background-color: $primary-color;
   border-color: $primary-color;
@@ -23,13 +23,13 @@ $grey: #DCDEDF;
     font-weight: 600;
    }
   }
-  
-  
+
+
   .navbar-default .navbar-nav > .open > a, .navbar-nav > .open > a:focus, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:active{
    color: white;
    background-color: transparent;
   }
-  
+
   .dropdown-menu > li > a{
    color: #333;
    cursor: pointer;
@@ -45,7 +45,7 @@ $grey: #DCDEDF;
  }
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
  .navbar > .container-fluid .navbar-brand{
   margin-left: -16px;
  }
@@ -66,3 +66,4 @@ $grey: #DCDEDF;
   }
  }
 }
+*/

@@ -1,9 +1,9 @@
 /* The styles of the project are based on the guide available here: http://m.everythingux.net/ for Micro Focus products*/
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
+//@import '~bootstrap/dist/css/bootstrap.min.css';
 
 /***** Micro Focus color pallete *****/
-
+/*
 $primary-color: #0073E7;
 $primary-light: lighten($primary-color, 10%);
 $dark-blue: #231CA5;
@@ -33,13 +33,12 @@ body{
     font-family: MetricNEW,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-
-/* Nice transitions for buttons and links animations */
+// Nice transitions for buttons and links animations
 .btn, a{
     transition: all ease 0.2s;
 }
 
-/* Micro Focus buttons */
+// Micro Focus buttons
 
 .btn{
     font-size: 14px;
@@ -59,7 +58,7 @@ body{
             border-color: $cerulean;
         }
     }
-    
+
     &.btn-danger{
         background-color: $danger;
         border-color: $danger;
@@ -68,14 +67,14 @@ body{
             border-color: $plum;
         }
     }
-    
-    
+
+
     &.btn-danger:disabled, &.btn-primary:disabled{
         color: rgba(0,0,0,0.2);
         background-color: rgba(0,0,0,0.05);
         border-color: rgba(0,0,0,0.05);
     }
-    
+
     &.btn-default{
         background-color: white;
         color: black;
@@ -90,14 +89,14 @@ body{
             border: 2px solid rgba(0,0,0,0.2);
         }
     }
-    
+
     &:hover{
         box-shadow: 3px 3px rgba(0,0,0,0.15);
     }
 }
 
 
-/* Form styles */
+// Form styles
 input.form-control{
     font-size: 16px;
     padding-left: 5px;
@@ -170,7 +169,7 @@ h2{
     text-transform: uppercase;
 }
 
-/* Texts */
+// Texts
 .text-dark-blue{
     color: $dark-blue;
 }
@@ -204,3 +203,5 @@ h2{
 .panel-default{
     border: 1px solid rgba(0,0,0,0.08);
 }
+
+*/

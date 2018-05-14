@@ -21,7 +21,10 @@
       "styles": [
 
         "styles.scss",
-        "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "../../../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/@micro-focus/quantum-ux-bootstrap/dist/common/css/qtm-fonts.css",
+        "../node_modules/@micro-focus/quantum-ux-bootstrap/dist/common/css/qtm-text.css",
+        "../node_modules/@micro-focus/quantum-ux-bootstrap/dist/bootstrap3/css/qtm-bs3.css"
       ],
       "scripts": [
         "../../../node_modules/jquery/dist/jquery.min.js",
