@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   private timezone = {};
   public today;
   public date = new Date();
-  
+
 
   constructor(private service: ApiService, private router:Router) { }
 
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       if (this.date.getDate() == thiscase.date.date && month == thiscase.date.month){
         this.countDay++;
       }
-      
+
     }
 
     addCountWeek(thiscase, monday): void{
@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
       if (month == thiscase.date.month ){
         this.countMonth++;
       }
-      
+
     }
 
   cleanCount():void{
@@ -86,23 +86,23 @@ export class HomeComponent implements OnInit {
       {
         month2 == 12
       }
-      
+
       function getMonday(d) {
         d = new Date(d);
         var day = d.getDay(),
             diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
         return new Date(d.setDate(diff));
       }
-      
+
       monday = getMonday(new Date());
-  
+
 
       this.addCountDay(thiscase, month);
       this.addCountWeek(thiscase, monday)
       this.addCountMonth(thiscase, month);
 
 
-    
+
       }
       //Check the shift and unable if is out
       endDay(morning, afternoon, difference):boolean{     
@@ -125,13 +125,13 @@ export class HomeComponent implements OnInit {
         let minutes = this.date.getMinutes() - aft_minutes;
 
         if (hour === 1 && minutes <= 30){
-          return "amarillo";
+          return "warning";
         }
 
         else if (hour === 1 && minutes > 30){
-          return "rojo";
+          return "danger";
         }
-        return "white";
+        return "";
       }
 
       //see if have time off
@@ -357,7 +357,7 @@ export class HomeComponent implements OnInit {
         else if(time === "jst"){
           return "Japan Time Zone"
         }
-        
+
       }
 
 
@@ -375,7 +375,7 @@ export class HomeComponent implements OnInit {
         this.data = data;
         // this.data.forEach(element => {
         //   element.countday = this.c
-        // }); 
+        // });
         for(let i in aux){
           for(let j in aux[i].cases_loaded){
             this.filterDay(aux[i].cases_loaded[j]);
@@ -389,16 +389,16 @@ export class HomeComponent implements OnInit {
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton();
           this.cleanCount();
-          
-          
-          
+
+
+
         }
         this.showhtml = true;
-        
+
         console.log(this.data);
       })
 
-      
+
       return;
     }
 
@@ -437,10 +437,10 @@ export class HomeComponent implements OnInit {
         }
         this.getAllEng();
       })
-     
+
       return;
     }
-    //add the corresponding QM 
+    //add the corresponding QM
     currentQM(week):void{
       console.log("current week",week);
       let date = new Date;
@@ -477,7 +477,7 @@ export class HomeComponent implements OnInit {
       else if(day ===5 && time >12){
         this.qm = week.friday_afternoon;
       }
-      
+
     }
 
     //Get the current QM
@@ -492,7 +492,7 @@ export class HomeComponent implements OnInit {
         console.log("could found the current");
       }
         })
-      
+
     }
 
     disableAddButton(max, countday): boolean{
@@ -516,5 +516,6 @@ export class HomeComponent implements OnInit {
     //console.log("se cambio a false");
     this.getQM();
     this.getAllEng();
+    $('#queue_monitors_tab').removeClass('active');
   }
 }

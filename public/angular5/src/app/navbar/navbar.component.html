@@ -10,7 +10,7 @@
       <ul class="nav navbar-nav">
         <li id="queue_monitors_tab"><a role="tab" data-toggle="tab" title="Queue monitors"(click)="goGetRotation()">Queue Monitors</a></li>
         <li class="dropdown" *ngIf='showMaintenance'>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Maintenance" role="button" aria-haspopup="true" aria-expanded="false">Maintenance&nbsp;<i class="fas fa-angle-down"></i></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Maintenance" role="button" aria-haspopup="true" aria-expanded="false">Maintenance&nbsp;<i class="qtm-font-icon qtm-icon-small-10 qtm-icon-caret-down qtm-icon-default" aria-hidden="true" style="color:inherit;"></i></a>
           <ul class="dropdown-menu" style="margin-top:5px">
             <li><a  (click)="goReport()">Reports</a></li>
             <li role="separator" class="divider"></li>
@@ -23,13 +23,13 @@
       <div class="nav navbar-nav navbar-right">
         <div class="dropdown">
           <button type="button" class="btn btn-secondary btn-flat btn-icon-only btn-no-caret dropdown-toggle" id="dropdown_user_preferences" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Personal settings">
-            <i class="qtm-font-icon qtm-icon-user--16"></i><span>{{user.name}} {{user.last_name}}&nbsp;<i class="fas fa-angle-down"></i></span>
+            <i class="qtm-font-icon qtm-icon-user--16"></i><span>{{user.name}} {{user.last_name}}&nbsp;<i class="qtm-font-icon qtm-icon-small-10 qtm-icon-caret-down qtm-icon-default" aria-hidden="true" style="color:inherit;"></i></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdown_user_preferences" data-toggle="dropdown_user_preferences">
             <li><a (click)="goEditEngineer()" role="tab" data-toggle="tab" title="My info" >My info</a></li>
             <li><a (click)="goShowSchedule()" role="tab" data-toggle="tab" title="My Schedule" >My schedule</a></li>
             <li role="separator" class="divider"></li>
-            <li><a (click)="goLogout()" role="tab" data-toggle="tab" title="Log out" ><i class="fas fa-sign-out-alt pull-right" style="color:#e5004c;"></i>Log out</a></li>
+            <li><a (click)="goLogout()" role="tab" data-toggle="tab" title="Log out" ><i class="qtm-font-icon qtm-icon-logout qtm-icon-default pull-right" aria-hidden="true" style="color:#e5004c;"></i>Log out</a></li>
           </ul>
         </div>
       </div>

@@ -1,46 +1,44 @@
-<div class="container-fluid">
-  <div class="row" style="margin-top:-20px;">
-    <div class="col-sm-12">
-      <h1>Tickets&nbsp;<small>Queue Monitor: {{qm}}</small></h1>
-    </div>
+<div class="row" style="margin-top:-20px;">
+  <div class="col-sm-12">
+    <h1>Tickets&nbsp;<small>Queue Monitor: {{qm}}</small></h1>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <table id="ticket" class="table table-hovered" cellspacing="0">
-  <thead>
-      <tr>
-          <th>Name</th>
-          <th>Time Zone</th>
-          <th>Static/Dynamic</th>
-          <th>Max cases per day</th>
-          <th>Schedule ( local time )</th>
-          <th>Email</th>
-          <th>Day</th>
-          <th>Week</th>
-          <th>Month</th>
-          <th>Action</th>
-      </tr>
-  </thead>
-  <tbody *ngFor="let datico of data">
-    <!--<div > -->
-        <tr *ngIf="datico.today.available && datico.today.timeoff">
-                <td>{{datico.name}} {{datico.last_name}}</td>
-                <td>{{datico.time_zone}}</td>
-                <td>{{datico.sta_dyn}}</td>
-                <td>{{datico.max_case}}</td>
-                <td>{{datico.today.time}}</td>
-                <td>{{datico.email}}</td>
-                <td>{{datico.countday}}</td>
-                <td>{{datico.countweek}}</td>
-                <td>{{datico.countmonth}}</td>
-                <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton">+</button>
-                   / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton">-</button></td>
-        </tr>
-      <!--</div> -->
-  </tbody>
-</table>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <table id="ticket" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Time Zone</th>
+            <th>Static/Dynamic</th>
+            <th>Max cases per day</th>
+            <th>Schedule ( local time )</th>
+            <th>Email</th>
+            <th>Day</th>
+            <th>Week</th>
+            <th>Month</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container  *ngFor="let datico of data">
+            <tr *ngIf="datico.today.available" class="{{datico.today.color}}">
+              <td>{{datico.name}} {{datico.last_name}}</td>
+              <td>{{datico.time_zone}}</td>
+              <td>{{datico.sta_dyn}}</td>
+              <td>{{datico.max_case}}</td>
+              <td>{{datico.today.time}}</td>
+              <td>{{datico.email}}</td>
+              <td>{{datico.countday}}</td>
+              <td>{{datico.countweek}}</td>
+              <td>{{datico.countmonth}}</td>
+              <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>
+                / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>

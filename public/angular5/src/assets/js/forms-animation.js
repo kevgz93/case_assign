@@ -12,3 +12,7 @@ function onBlur(event) {
     event.target.parentNode.classList.add('empty-value');
   }
 }
+
+$(document).ready(function(){
+  
+});
