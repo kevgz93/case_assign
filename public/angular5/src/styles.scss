@@ -1,16 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
-
-$navbar-default-toggle-border-color: transparent;
-$navbar-default-toggle-hover-bg: transparent;
+/* The styles of the project are based on the guide available here: http://m.everythingux.net/ for Micro Focus products*/
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 /***** Micro Focus color pallete *****/
 
 $primary-color: #0073E7;
-$primary-light: lighten($primary-color, 20%);
+$primary-light: lighten($primary-color, 10%);
 $dark-blue: #231CA5;
+$cerulean: #1668c1;
 $pink: #C6179D;
 $purple: #7425AD;
 $aqua: #C6179D;
@@ -24,6 +21,7 @@ $dark-grey: #323435;
 
 // Alerts colors
 $danger: #e5004c;
+$plum: #b21646;
 $warning: #fcdb1f;
 $success: #1aac60;
 
@@ -31,6 +29,145 @@ $background-layer: #F1F2F3;
 
 body{
     background-color: $background-layer;
+    font-size: 16px;
+    font-family: MetricNEW,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+/* Nice transitions for buttons and links animations */
+.btn, a{
+    transition: all ease 0.2s;
+}
+
+/* Micro Focus buttons */
+
+.btn{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 1px;
+    padding: 7px 16px;
+    border: 2px solid transparent;
+    line-height: 14px;
+    height: 32px;
+    min-width: 96px;
+    &.btn-primary{
+        background-color: $primary-color;
+        border-color: $primary-color;
+        &:focus{
+            background-color: $cerulean;
+            border-color: $cerulean;
+        }
+    }
+    
+    &.btn-danger{
+        background-color: $danger;
+        border-color: $danger;
+        &:focus{
+            background-color: $plum;
+            border-color: $plum;
+        }
+    }
+    
+    
+    &.btn-danger:disabled, &.btn-primary:disabled{
+        color: rgba(0,0,0,0.2);
+        background-color: rgba(0,0,0,0.05);
+        border-color: rgba(0,0,0,0.05);
+    }
+    
+    &.btn-default{
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        &:focus{
+            background-color: rgba(0,0,0,0.1);
+            border-color: black;
+        }
+        &:disabled{
+            color: rgba(0,0,0,0.2);
+            background-color: white;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+    }
+    
+    &:hover{
+        box-shadow: 3px 3px rgba(0,0,0,0.15);
+    }
+}
+
+
+/* Form styles */
+input.form-control{
+    font-size: 16px;
+    padding-left: 5px;
+    padding: 8px 5px;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    &:focus {
+      border-bottom: 1px solid $primary-color !important;
+      box-shadow: none;
+    }
+    &:hover{
+      border-bottom: 1px solid $dim-grey;
+      box-shadow: none;
+    }
+}
+
+// Micro Focus font (MetricNEW)
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-Regular.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Black.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-BlackItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Light.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-LightItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-MediumItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-RegularItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Semibold.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-SemiboldItalic.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-Thin.woff") format("woff"),
+         url("/assets/fonts/MetricNEW-Web-ThinItalic.woff") format("woff");
+}
+
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-Bold.woff") format("woff");
+    font-weight: bold;
+}
+
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-BoldItalic.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-Medium.woff") format("woff");
+    font-weight: 400;
+}
+
+@font-face{
+    font-family: MetricNEW;
+    src: url("/assets/fonts/MetricNEW-Web-Semibold.woff") format("woff");
+    font-weight: 600;
+}
+
+h1{
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+h2{
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 /* Texts */
@@ -57,72 +194,13 @@ body{
     color: $primary-color;
 }
 
-/* Backgrounds */
 
-.brand-blue{
-    background-color: $primary-color;
-}
+// Micro Focus' panels
 
-/* Nice transitions for buttons and links animations */
-.btn, a{
-    transition: all ease 0.2s;
-}
-
-/* Custom buttons */
-
-.btn{
-    border-radius: 2px;
-    
-    &.btn-primary{
-        background-color: $primary-color !important;
-        border-color: $primary-color !important;
-        &:hover{
-            background-color: $primary-light !important;
-            border-color: $primary-light !important;
-        }
-    }
-}
-
-/* Custom panels */
 .panel{
     border-radius: 2px;
+    box-shadow: 3px 3px rgba(0,0,0,0.15);
 }
-
-
-/* Form styles */
-// Cuando enfoca un form
-.form-control{
-    box-shadow: none !important;
-    border-radius: 0px !important;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    &:focus, &:active, &:hover {
-      border-bottom: 1px solid $primary-light;
-      box-shadow: none !important;
-    }
-}
-
-// Micro Focus font (MetricNEW)
-@font-face{
-    font-family: MetricNEW;
-    src: url("/assets/fonts/MetricNEW-Web-Regular.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Black.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-BlackItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Bold.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-BoldItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Light.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-LightItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Medium.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-MediumItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-RegularItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Semibold.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-SemiboldItalic.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-Thin.woff") format("woff"),
-         url("/assets/fonts/MetricNEW-Web-ThinItalic.woff") format("woff");
-}
-
-*{
-    font-family: MetricNEW,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    //font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.panel-default{
+    border: 1px solid rgba(0,0,0,0.08);
 }
