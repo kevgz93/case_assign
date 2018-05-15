@@ -3,65 +3,163 @@
   <div class="container">
       <div class="col-md-4">
           <div class="form-group">
-              <label class="col-sm-2 label-form  control-label">Lunes</label>
-              <div class="col-sm-4">
-                  <input type="text" class="form-control" placeholder="00" formControlName="monday_morning">
-              </div>
-              <label class="col-sm-2 label-form control-label">:</label>
-              <div class="col-sm-4">
-                  <input type="text" class="form-control" placeholder="00" formControlName="monday_afternoon">
-              </div>
+                <label class="col-sm-4 label-form control-label">Daylight</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" value="true" formControlName="daylight"/>
+                </div>
           </div>
+
       </div>
-      <div class="col-md-4">
-        <div class="form-group">
-            <label class="col-sm-2 label-form  control-label">Martes</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="tuesday_morning">
+        <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 label-form control-label">Time Zone</label>
+                    <div class="col-sm-8">
+                            <select type="text" value='3' class="form-control" formControlName="time">
+                                <option value='cat'>Central America Time Zone</option>
+                                <option value='pt'>Pacific Time Zone</option>
+                                <option value='ct'>Central Time Zone</option>
+                                <option value='et'>Easter Time Zone</option>
+                                <option value='uk'>Uk Time Zone</option>
+                                <option value='cet'>Central European Time Zone</option>
+                                <option value='ist'>Indian Standard Time Zone</option>
+                                <option value='ict'>Indochina Time Zone</option>
+                                <option value='sgt'>Singapore Time Zone</option>
+                                <option value='jst'>Japan Standard Time Zone</option>
+                            </select>
+                    </div>
+                </div>
             </div>
-            <label class="col-sm-2 label-form control-label">:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="tuesday_afternoon">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="col-sm-2 label-form  control-label">Monday</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="monday_morning_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="monday_morning_minutes">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">-</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="monday_afternoon_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="monday_afternoon_minutes">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="col-sm-2 label-form  control-label">Miercoles</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="wednesday_morning">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="col-sm-2 label-form  control-label">Tuesday</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="tuesday_morning_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="tuesday_morning_minutes">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">-</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="tuesday_afternoon_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="tuesday_afternoon_minutes">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <label class="col-sm-2 label-form control-label">:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="wednesday_afternoon">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="col-sm-2 label-form  control-label">Wednesday</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="wednesday_morning_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="wednesday_morning_minutes">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">-</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="wednesday_afternoon_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="wednesday_afternoon_minutes">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="col-sm-2 label-form  control-label">Jueves</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="thursday_morning">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">Thursday</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" placeholder="00" formControlName="thursday_morning_hour">
+                            </div>
+                            <label class="col-sm-2 label-form control-label">:</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" placeholder="00" formControlName="thursday_morning_minutes">
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">-</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="thursday_afternoon_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="thursday_afternoon_minutes">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <label class="col-sm-2 label-form control-label">:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="thursday_afternoon">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">Friday</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" placeholder="00" formControlName="friday_morning_hour">
+                            </div>
+                            <label class="col-sm-2 label-form control-label">:</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" placeholder="00" formControlName="friday_morning_minutes">
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="col-sm-2 label-form  control-label">-</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="friday_afternoon_hour">
+                        </div>
+                        <label class="col-sm-2 label-form control-label">:</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" placeholder="00" formControlName="friday_afternoon_minutes">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="col-sm-2 label-form  control-label">Viernes</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="friday_morning">
-            </div>
-            <label class="col-sm-2 label-form control-label">:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="00" formControlName="friday_afternoon">
-            </div>
-        </div>
-    </div>
-    <div *ngIf="showcalen">
+   <!--  <div *ngIf="showcalen">
         <input type="checkbox" (click)="showCalendar()">
         <label>add Time Off</label>
         <div class="col-md-4">
@@ -73,7 +171,7 @@
             <my-date-picker name="day_on" [options]="myDatePickerOptions"
             formControlName="day_on"></my-date-picker>
         </div>
-    </div>
+    </div> -->
   <div>
       <div class="cont-button">
           <div class="form-group">

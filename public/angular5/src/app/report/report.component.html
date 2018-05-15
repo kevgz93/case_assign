@@ -1,6 +1,6 @@
 <form class="form-horizontal ibox-content" [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form">
 <div>
-  <p>User</p>
+  <p>Engineer</p>
   <select formControlName="user">
       <option value="all">
           All
@@ -44,3 +44,24 @@
 </div>
 
 </form>
+
+<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%" *ngIf='showtable'>
+  <thead class="tablehead">
+      <tr>
+        <th>Engineer Name</th>
+        <th>Action</th>
+        <th>Time</th>
+        <th>Date</th>
+        <th>User</th>
+    </tr>
+</thead>
+<tbody>
+      <tr *ngFor="let case of cases" >
+              <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
+              <td>{{case.action}}</td>
+              <td>{{case.time}}</td>
+              <td>{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
+              <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
+            </tr>
+  </tbody>
+</table>

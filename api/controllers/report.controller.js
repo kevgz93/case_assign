@@ -45,7 +45,7 @@ bita.loadReportMonthAll = function(month){
   var results = q.defer();
   console.log(month);
 
-  //{"date":{"$elemMatch":{"month":month}}}
+
   ticket.find({"date.month": month},function(err, rep) {
     console.log(rep);
       if (err){
@@ -68,7 +68,7 @@ bita.loadReportMonthAdded = function(month, case_status){
     return results.promise;
   }
 
-bita.loadReportMonthDelete = function(month, case_status){
+bita.loadReportMonthDeleted = function(month, case_status){
   var results = q.defer();
 
   ticket.find({'date.month': month, 'action':case_status}, function(err, rep) {
@@ -82,7 +82,7 @@ bita.loadReportMonthDelete = function(month, case_status){
 
 bita.loadReportEngSpecificAll = function(user){
   var results = q.defer();
-  var query = {"engineer_id": user}
+  var query = {"engineer.engineer_id": user}
 
   ticket.find(query, function(err, rep) {
     console.log(rep);
@@ -94,6 +94,23 @@ bita.loadReportEngSpecificAll = function(user){
     return results.promise;
   }
 
+bita.loadReportEngStatusSpecific = function(user, case_status)
+{
+  var results = q.defer();
+  var engi = new ObjectId;
+  engi = user;
+  //var query = {"date.month": month,};
+  //console.log(query);
+
+  ticket.find({'engineer.engineer_id': user, 'action': case_status}, function(err, rep) {
+    if (err){
+      results.reject(err);
+    }
+    results.resolve(rep);
+  });
+  return results.promise;
+}
+
 bita.loadReportEngMonthSpecific = function(user, month)
 {
   var results = q.defer();
@@ -102,7 +119,7 @@ bita.loadReportEngMonthSpecific = function(user, month)
   //var query = {"date.month": month,};
   //console.log(query);
 
-  ticket.find({'engineer_id': user, 'date.month':month}, function(err, rep) {
+  ticket.find({'engineer.engineer_id': user, 'date.month': month}, function(err, rep) {
     if (err){
       results.reject(err);
     }
@@ -116,7 +133,8 @@ bita.loadReportEngMonthStatusSpecific = function(user, month, case_status)
 {
   var results = q.defer();
 
-  ticket.find({"engineer_id": user, "date.month": month, "action":case_status}, function(err, rep) {
+
+  ticket.find({'engineer.engineer_id': user, 'date.month': month, 'action':case_status}, function(err, rep) {
       if (err){
         results.reject(err);
       }
@@ -208,6 +226,20 @@ bita.generateReports = function(req, res)
   {
     console.log("entro al engineer all")
     var report = bita.loadReportEngSpecificAll(user)
+    report.then(function(reports){
+      //console.log(engineers);
+      res.send(reports);
+      return;
+    }, function(){
+      res.send({status:'error',error:'Error occured while fetching data from database.'});
+    });
+  }
+
+  //Get report with specific user and status
+  else if(user != 'all' && month=== 'all' && case_status!='all')
+  {
+    console.log("entro al engineer month")
+    var report = bita.loadReportEngStatusSpecific(user, case_status)
     report.then(function(reports){
       //console.log(engineers);
       res.send(reports);

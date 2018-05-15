@@ -15,7 +15,7 @@ export class ScheduleComponent implements OnInit {
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
-    dateFormat: 'dd/mm/yyyy',
+    //dateFormat: 'dd/mm/yyyy',
 };
   public data;
   public user;
@@ -25,10 +25,54 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
+  getDifference(timezone, daylight){
+    console.log("entry to daylight");
+    let difference={"hour":0, "minutes":0};
+    let dayL:number = 0;
+    if(daylight){
+      dayL = 1;
+    }
+
+    if(timezone === "cat"){
+      difference.hour = 6;
+    }
+    else if(timezone === "pt"){
+      difference.hour = 8 - dayL;
+    }
+    else if(timezone === "ct"){
+      difference.hour = 6 - dayL;
+    }
+    else if(timezone === "et"){
+      difference.hour = 5 - dayL;
+    }
+    else if(timezone === "uk"){
+      difference.hour = 0 - dayL;
+    }
+    else if(timezone === "cet"){
+      difference.hour = -1 - dayL;
+    }
+    else if(timezone === "ist"){
+      difference.hour = -5;
+      difference.minutes = 30;
+    }
+    else if(timezone === "ict"){
+      difference.hour = -7;
+    }
+    else if(timezone === "sgt"){
+      difference.hour = -8;
+    }
+    else if(timezone === "jst"){
+      difference.hour = -9;
+    }
+    return difference;
+  }
+
   addSchedule(data){
+    let difference = this.getDifference(data.time, data.daylight)
     data.user_id = this.user.user._id;
-    data.day_off = data.day_off.formatted;
-    data.day_on = data.day_on.formatted;
+    data.difference = difference;
+    //data.day_off = data.day_off.formatted;
+    //data.day_on = data.day_on.formatted;
 
     console.log("schedule ", data);
     this.service.addSchedule(data)
@@ -47,29 +91,44 @@ export class ScheduleComponent implements OnInit {
     
   }
 
-  showCalendar():Boolean {
-    this.showcalen = true;
-    return
-  }
-
 
   ngOnInit() {
 
     this.service.currentObject.subscribe(message => this.user = message);
 
     this.myform= this.fb.group({
-      monday_morning: '',
-      monday_afternoon: '',
-      tuesday_morning: '',
-      tuesday_afternoon : '',
-      wednesday_morning: '',
-      wednesday_afternoon: '',
-      thursday_morning: '',
-      thursday_afternoon: '',
-      friday_morning: '',
-      friday_afternoon: '',
-      day_on:[null, Validators.required],
-      day_off: [null, Validators.required]
+      monday_morning_hour : '',
+      monday_morning_minutes : '',
+      monday_afternoon_hour : '',
+      monday_afternoon_minutes : '',
+      tuesday_morning_hour: '',
+      tuesday_morning_minutes: '',
+      tuesday_afternoon_hour: '',
+      tuesday_afternoon_minutes: '',
+      wednesday_morning_hour: '',
+      wednesday_morning_minutes: '',
+      wednesday_afternoon_hour: '',
+      wednesday_afternoon_minutes: '',
+      thursday_morning_hour : '',
+      thursday_morning_minutes : '',
+      thursday_afternoon_hour : '',
+      thursday_afternoon_minutes : '',
+      friday_morning_hour: '',
+      friday_morning_minutes: '',
+      friday_afternoon_hour: '',
+      friday_afternoon_minutes: '',
+      time: '',
+      daylight: false,
+      day_off_day:0,
+      day_off_month:0,
+      day_off_hour:0,
+      day_off_minutes:0,
+      day_on_day:0,
+      day_on_month:0,
+      day_on_hour:0,
+      day_on_minutes:0
+      //day_on:[null, Validators.required],
+      //day_off: [null, Validators.required]
 
     });
     

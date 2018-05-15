@@ -8,13 +8,12 @@ var userSchema = new mongoose.Schema({
 	password: String,
 	email: String,
 	city : String,
-	time_zone: Number,
 	sta_dyn: Number,
 	max_case: Number,
 	status: Boolean,
 	activeSession: String,
 	role: String,
-	days_working: Number,
+	working_days: Number,
 	last_case: String
 });
 

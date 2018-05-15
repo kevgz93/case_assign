@@ -26,17 +26,21 @@ rotation.createRotation = function (req, res) {
         thursday_afternoon : req.body.thursday_afternoon,
         friday_morning: req.body.friday_morning,
         friday_afternoon: req.body.friday_afternoon,
-        week: req.body.week,
-        status:req.body.status
+        active: {
+            status:req.body.status,
+            day:req.body.day
+        },
+        week: req.body.week
     }, function(err, user) { //this will run when create is completed
       if(err) {
-        console.log("Error creating a Schedule");
+        console.log("Error creating a Rotation Calendar");
         res
           .status(400)
           .json(err);
 
       } else {
-        console.log("Rotation week created");
+
+        console.log("Rotation Calendar created");
         console.log(user);
 
         res
@@ -48,6 +52,40 @@ rotation.createRotation = function (req, res) {
 }
 
 
+//Get all rotation table
+rotation.getAllRotation = function(req, res){
+    var rotat = rotation.getRotation()
+    rotat.then(function(rotati){
+        console.log(rotati);
+            res.send({status: 200, body: rotati});
+        }, function(){
+            res.send({status: 404,error:'Error occured while fetching data from database.'});
+        });
+    
+    }
+
+rotation.getRotation = function(week){
+    var results = q.defer();
+
+    db.find({},function(err, dbuser) {
+        if (dbuser){
+        results.resolve(dbuser);
+
+    }  else{
+            var response = {};
+            response.status = 'error';
+            response.error = 'Rotation not found it';
+            results.resolve(response);
+        }
+    });
+
+    return results.promise;
+}
+
+
+    
+//Find the user and send it again to getUserBySessionID
+
 rotation.getRotationByWeek = function(req, res){
     var rotat = rotation.findWeek(req.query.week)
     rotat.then(function(rotati){
@@ -58,18 +96,51 @@ rotation.getRotationByWeek = function(req, res){
         });
     
     }
-    
-//Find the user and send it again to getUserBySessionID
 rotation.findWeek = function(week){
     var results = q.defer();
 
-    db.findOne({week: week},function(err, dbuser) {
+    db.findOne({"week": week},function(err, dbuser) {
         if (dbuser){
         results.resolve(dbuser);
 
     }  else{
             var response = {};
             response.status = 'error';
+            response.error = 'Week not found it';
+            results.resolve(response);
+        }
+    });
+
+    return results.promise;
+}
+
+
+    
+//Find the current status getRotationByStatus
+
+
+rotation.getRotationByStatus = function(req, res){
+    var rotat = rotation.findWeekByStatus()
+    rotat.then(function(rotati){
+        console.log(rotati);
+            res.send({status: 200, body: rotati});
+        }, function(){
+            res.send({status: 404,error:'Error occured while fetching data from database.'});
+        });
+    
+    }
+rotation.findWeekByStatus = function(){
+    var results = q.defer();
+
+    db.findOne({"active.status": true},function(err, dbuser) {
+        if (dbuser){
+        results.resolve(dbuser);
+
+    }  else{
+            var response = {};
+            response.status = 'error';
+
+
             response.error = 'Schedule not found it';
             results.resolve(response);
         }
@@ -78,36 +149,104 @@ rotation.findWeek = function(week){
     return results.promise;
 }
 
-rotation.getRotationByStatus = function(req, res){
-    var rotat = rotation.findWeekByStatus()
-    rotat.then(function(rotati){
-        console.log(rotati);
-            res.send({status: 200, body: rotati.week});
-        }, function(){
-            res.send({status: 404,error:'Error occured while fetching data from database.'});
-        });
-    
+//update the day on the current week
+rotation.updateDayOnWeek = function(req, res) {
+    var day = req.body.day;
+    var week = req.body.week;
+    let auxWeek;
+    if (week != 6){
+        auxWeek = week +1;
+        //console.log("nuevo week",auxWeek);
+        rotation.updateStatusOnWeek(auxWeek);
     }
-    
-//Find the user and send it again to getUserBySessionID
-rotation.findWeekByStatus = function(){
-    var results = q.defer();
+    else {
+        auxWeek = 1;
+        rotation.updateStatusOnWeek(auxWeek);
+    }
+console.log("Get week" + week);
 
-    db.findOne({status: true},function(err, dbuser) {
-        if (dbuser){
-        results.resolve(dbuser);
+    db
+        .findOne({week : week})
+        .exec(function(err, doc){
+        var response = {
+            status: 200,
+            message: doc
+        };
 
-    }  else{
-            var response = {};
-            response.status = 'error';
-
-
-            response.error = 'Schedule not found it';
-            results.resolve(response);
+        if (err) {
+            console.log("Error finding week");
+            response.status = 500;
+            response.message = err;
+        } else if(!doc){
+            response.status= 404;
+            response.message = {
+            "message":"week not found"
+            };
         }
-    });
 
-    return results.promise;
+        if (response.status != 200) {
+            res
+            .status(response.status)
+            .json(response.message);
+        } else {
+            doc.active.day = day,
+            doc.active.status = false
+
+        };
+
+        doc.save(function(err, Updated) {
+            if (err) {
+            res
+                .send({status: 500});
+
+            } else {
+            res
+            .send({status:204});
+
+            }
+        })
+    })
+}
+
+rotation.updateStatusOnWeek = function(week) {
+
+console.log("Get week" + week);
+
+    db
+        .findOne({week : week})
+        .exec(function(err, doc){
+        var response = {
+            status: 200,
+            message: doc
+        };
+
+        if (err) {
+            console.log("Error finding week");
+            response.status = 500;
+            response.message = err;
+        } else if(!doc){
+            response.status= 404;
+            response.message = {
+            "message":"week not found"
+            };
+        }
+
+        if (response.status != 200) {
+            console.log(response);
+        } else {
+            doc.active.status = true
+
+        };
+
+        doc.save(function(err, Updated) {
+            if (err) {
+                console.log("Status saved", updated);
+
+            } else {
+                console.log("Status not saved");
+            }
+        });
+    })
 }
 
 rotation.updateRotation = function (req, res) {

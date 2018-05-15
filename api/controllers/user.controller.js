@@ -87,7 +87,6 @@ users.register = function (req, res) {
   db.create({
     email : req.body.email,
   		city : req.body.city,
-  	  time_zone: req.body.time,
       sta_dyn: req.body.sta_dyn,
       max_case: req.body.max,
       status: req.body.status,
@@ -97,7 +96,7 @@ users.register = function (req, res) {
       last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
-      days_working: 365,
+      working_days: 60,
       last_case:""
       
     }, function(err, user) { //this will run when create is completed
@@ -311,7 +310,8 @@ users.loadEnginners2 = function(){
       },  
         { "$project": {
           "name":1,
-          "last_name":1
+          "last_name":1,
+          "_id":1
         }
       }
     ],function(err, engi) {
@@ -333,7 +333,6 @@ users.usersUpdateOne = function (req, res) {
   var doc = {};
   doc.email = req.body.email,
   doc.city = req.body.city,
-  doc.time_zone= req.body.time,
   doc.sta_dyn= req.body.sta_dyn,
   doc.max_case= req.body.max,
   doc.username= req.body.username,

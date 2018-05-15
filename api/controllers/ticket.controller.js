@@ -49,7 +49,7 @@ ticket.loadEnginner2 = function(){
         $lookup: {
           from: 'cases', 
           localField: '_id', 
-          foreignField: 'engineer_id', 
+          foreignField: 'engineer.engineer_id', 
           'as': 'cases_loaded'
         }
       },
@@ -131,7 +131,11 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
   month = (date.getMonth() + 1);
   time = (date.getHours() +1) + ':' + date.getMinutes() + " EST";
   _cases.create({
-    user_id: req.body.user_id,
+    user: {
+      user_id :req.body.user_id,
+      user_name:req.body.user_name,
+      user_last_name : req.body.user_last_name
+  },
     action: 'added',
     date: {
       day: date.getDay(),
@@ -140,7 +144,11 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
       year: date.getFullYear(),
     },
     time: time,
-    engineer_id: req.body.engi_id
+    engineer: {
+      engineer_id:req.body.engi_id,
+      engi_name: req.body.engi_name,
+      engi_last_name: req.body.engi_last_name
+    }
     }, function(err, tickt) { //this will run when create is completed
       if(err) {
         console.log("Error creating a User");
