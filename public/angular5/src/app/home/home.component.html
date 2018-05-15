@@ -1,6 +1,12 @@
-<div class="row" style="margin-top:-20px;">
-  <div class="col-sm-12">
+<div class="row">
+  <div class="col-sm-6">
     <h1>Tickets&nbsp;<small>Queue Monitor: {{qm}}</small></h1>
+  </div>
+  <div class="col-sm-6">
+    <span class="pull-right" style="margin-top:24px;">
+        <p class="color-note warning">Engineer leaves in less than 1 hour.</p>
+        <p class="color-note danger">Engineer leaves in less than 30 minutes.</p>
+    </span>
   </div>
 </div>
 <div class="row">
@@ -34,19 +40,12 @@
               <td>{{datico.countweek}}</td>
               <td>{{datico.countmonth}}</td>
               <td>
-                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>
-                / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button>
+                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>&nbsp;/&nbsp;<button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button>
               </td>
             </tr>
           </ng-container>
         </tbody>
       </table>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <p class="color-note warning">Engineer leaves in less than 1 hour.</p>
-    <p class="color-note danger">Engineer leaves in less than 30 minutes.</p>
   </div>
 </div>

@@ -1,6 +1,6 @@
 
 $crimson-negative: #e5004c;
-$appricot: #f48b34;
+$yellow: #fcdb1f;
 h1 small{
   font-size: 40%;
   text-transform: none;
@@ -20,7 +20,7 @@ h1 small{
 }
 
 .table > tbody> tr.warning > td:first-child{
-  box-shadow: 5px 0px 0px 0px $appricot inset;
+  box-shadow: 5px 0px 0px 0px $yellow inset;
 }
 
 .table > tbody > tr.danger > td:first-child{
@@ -39,10 +39,10 @@ p.color-note{
   padding-left: 10px;
   margin-left: 5px;
   &.danger{
-    box-shadow: 5px 0px 0px 0px #e5004c inset;
+    box-shadow: 5px 0px 0px 0px $crimson-negative inset;
 
   }
   &.warning{
-    box-shadow: 5px 0px 0px 0px #f48b34 inset;
+    box-shadow: 5px 0px 0px 0px $yellow inset;
   }
 }

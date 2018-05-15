@@ -9,8 +9,14 @@
       <a (click)="goHome()" role="tab" data-toggle="tab" class="navbar-product-name navbar-text">Cases assignment</a>
       <ul class="nav navbar-nav">
         <li id="queue_monitors_tab"><a role="tab" data-toggle="tab" title="Queue monitors"(click)="goGetRotation()">Queue Monitors</a></li>
-        <li class="dropdown" *ngIf='showMaintenance'>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Maintenance" role="button" aria-haspopup="true" aria-expanded="false">Maintenance&nbsp;<i class="qtm-font-icon qtm-icon-small-10 qtm-icon-caret-down qtm-icon-default" aria-hidden="true" style="color:inherit;"></i></a>
+      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <div class="dropdown" *ngIf='showMaintenance'>
+          <button class="btn btn-secondary btn-flat dropdown-toggle" data-toggle="dropdown" title="Maintenance" type="button" aria-haspopup="true" aria-expanded="false">
+            <i class="qtm-font-icon qtm-icon-process qtm-icon-defaul"></i>
+            Maintenance
+            <span class="caret" style="top:23px;"></span>
+          </button>
           <ul class="dropdown-menu" style="margin-top:5px">
             <li><a  (click)="goReport()">Reports</a></li>
             <li role="separator" class="divider"></li>
@@ -18,12 +24,12 @@
             <li><a (click)="goEditUsers()" >Edit Users</a></li>
             <li><a  (click)="goEditRotation()" >Edit Week Rotation</a></li>
           </ul>
-        </li>
-      </ul>
-      <div class="nav navbar-nav navbar-right">
+        </div>
         <div class="dropdown">
-          <button type="button" class="btn btn-secondary btn-flat btn-icon-only btn-no-caret dropdown-toggle" id="dropdown_user_preferences" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Personal settings">
-            <i class="qtm-font-icon qtm-icon-user--16"></i><span>{{user.name}} {{user.last_name}}&nbsp;<i class="qtm-font-icon qtm-icon-small-10 qtm-icon-caret-down qtm-icon-default" aria-hidden="true" style="color:inherit;"></i></span>
+          <button type="button" class="btn btn-secondary btn-flat dropdown-toggle" id="dropdown_user_preferences" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Personal settings">
+            <i class="qtm-font-icon qtm-icon-user--16"></i>
+            {{user.name}}&nbsp;{{user.last_name}}
+            <span class="caret" style="top:23px;"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdown_user_preferences" data-toggle="dropdown_user_preferences">
             <li><a (click)="goEditEngineer()" role="tab" data-toggle="tab" title="My profile" >My profile</a></li>
