@@ -1,5 +1,5 @@
 
-<div class="container" *ngIf="showschedule">
+<div class="container" *ngIf='showview'>
     <h3>Schedule</h3>
   </div>
   <table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -24,21 +24,84 @@
         <!--</div> -->
     </tbody>
   </table>
+    <div style="margin-left: 50%; margin-bottom: 4%">
+        <label>Add time Off</label>
+        <input type="checkbox" [(ngModel)]="isChecked" (change)="changeview(isChecked)"/>
+    </div>
 
-  <form [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value.myDateRange)" role="form">
-      <div class="col-md-6">
-          <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
-          formControlName="myDateRange"></my-date-range-picker>
-    <!-- other controls are here... -->
-  </div>
-  <div>
-      <div class="cont-button">
-          <div class="form-group">
-              <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
-                  <i class="fa fa-times-circle-o"></i> Cancel</button>
-              <button class="btn btn-primary" type="submit">Continue</button>
-          </div>
+  <div class="container" *ngIf='showcalendar'>
+    <form [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
+        <div class="col-md-4">
+            <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
+            formControlName="myDateRange"></my-date-range-picker>
+      <!-- other controls are here... -->
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label>Leaving time</label>
+        <div>
+          <select type="number" value='0' class="form-control" formControlName="start_time_hour">
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+              <option value='13'>13</option>
+              <option value='14'>14</option>
+              <option value='15'>15</option>
+              <option value='16'>16</option>
+              <option value='17'>17</option>
+              <option value='18'>18</option>
+          </select>
+        </div>
+        <label >:</label>
+        <div>
+          <select type="number" value='0' class="form-control" formControlName="start_time_minutes">
+              <option value=0>00</option>
+              <option value=30>30</option>
+          </select>
+        </div>
       </div>
+      <div class="col-md-3">
+        <label >coming time</label>
+        <div>
+            <select type="number" value='0' class="form-control" formControlName="end_time_hour">
+                <option value=6>6</option>
+                <option value=7>7</option>
+                <option value=8>8</option>
+                <option value=9>9</option>
+                <option value=10>10</option>
+                <option value=11>11</option>
+                <option value=12>12</option>
+                <option value=13>13</option>
+                <option value=14>14</option>
+                <option value=15>15</option>
+                <option value=16>16</option>
+                <option value=17>17</option>
+                <option value=18>18</option>
+            </select>
+            </div>
+        <label >:</label>
+        <div>
+            <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
+                <option value=0>00</option>
+                <option value=30>30</option>
+            </select>
+          </div>    
+        </div>
+      <!-- other controls are here... -->
+</div>
+    <div>
+        <div class="cont-button">
+            <div class="form-group">
+                <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
+                    <i class="fa fa-times-circle-o"></i> Cancel</button>
+                <button class="btn btn-primary" type="submit">Continue</button>
+            </div>
+        </div>
+    </div>
+    </form>
   </div>
-  </form>
   

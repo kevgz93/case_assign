@@ -5,7 +5,7 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
-import {IMyDrpOptions} from 'mydaterangepicker';
+import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 @Component({
   selector: 'app-scheduleshow',
   templateUrl: './scheduleshow.component.html',
@@ -13,8 +13,9 @@ import {IMyDrpOptions} from 'mydaterangepicker';
 })
 export class ScheduleshowComponent implements OnInit {
 
-  public showschedule:Boolean;
+  public showview:Boolean = false;
   public schedule;
+  private showcalendar:Boolean = false;
   public aux = {"monday_morning":0, "monday_afternoon":0,"tuesday_morning":0,"tuesday_afternoon":0,
   "wednesday_morning":0,"wednesday_afternoon":0,"thursday_morning":0,"thursday_afternoon":0,"friday_morning":0,
   "friday_afternoon":0};
@@ -103,7 +104,7 @@ export class ScheduleshowComponent implements OnInit {
         console.log(schedule);
          //this.schedule = schedule.body;
          this.schedule = this.convertToTimeZone(schedule.body);
-         this.showschedule = true;
+         this.showview = true;
       }
      
     })
@@ -113,8 +114,29 @@ export class ScheduleshowComponent implements OnInit {
 
   //add the timeZone from calendars
   addTimeOff(data): Observable<object>{
-    console.log("begin Date", data.beginDate);
-    console.log("end Date", data.endDate);
+    let sendData = {"_id":"","day_off":{"day":0, "month":0, "hour":0, "minutes":0}, 
+    "day_on":{"day":0, "month":0, "hour":0, "minutes":0}};
+    sendData._id = this.id;
+    sendData.day_off.day = data.myDateRange.beginDate.day;
+    sendData.day_off.month = data.myDateRange.beginDate.month;
+    sendData.day_off.hour = parseInt(data.start_time_hour);
+    sendData.day_off.minutes = parseInt(data.start_time_minutes);
+    sendData.day_on.day = data.myDateRange.endDate.day;
+    sendData.day_on.month = data.myDateRange.endDate.month;
+    sendData.day_on.hour = parseInt(data.end_time_hour);
+    sendData.day_on.minutes = parseInt(data.end_time_minutes);
+    console.log("Time general", sendData);
+    this.service.addTimeOff(sendData)
+    .subscribe(response => {
+      console.log(response);
+      if(response.status === 204){
+        alert("Time off added");
+        this.router.navigate(['./home'])
+      }
+      else{
+        alert("Time off not added, please contact your administrator")
+      }
+    })
     return
   }
 
@@ -122,7 +144,8 @@ export class ScheduleshowComponent implements OnInit {
  setDateRange(): void {
   // Set date range (today) using the patchValue function
   let date = new Date();
-  this.myform.patchValue({myDateRange: {
+  this.myform.patchValue({
+    myDateRange: {
       beginDate: {
           year: date.getFullYear(),
           month: date.getMonth() + 1,
@@ -133,17 +156,32 @@ export class ScheduleshowComponent implements OnInit {
           month: date.getMonth() + 1,
           day: date.getDate()
       }
-  }});
+      
+
+  },
+      start_time_hour:0,
+      start_time_minutes: 0,
+      end_time_hour:0,
+      end_time_minutes: 0
+    });
 }
 
+//show calendar from checkbox
+changeview(value):void{
+  console.log("value from checkbox",value);
+  this.showcalendar = value;
+}
 
   ngOnInit() {
     this.myform = this.fb.group({
 
-      myDateRange: ['', Validators.required]
+      myDateRange: ['', Validators.required],
+      start_time_hour:['', Validators.required],
+      start_time_minutes: ['', Validators.required],
+      end_time_hour:['', Validators.required],
+      end_time_minutes: ['', Validators.required]
 
   });
-    this.showschedule = false;
     this.service.currentId.subscribe(message => this.id = message);
     this.getSchedule();
   }

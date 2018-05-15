@@ -30,7 +30,7 @@ export class RotationeditComponent implements OnInit {
       else{
         console.log(rotation.body);
         this.rotation = rotation.body;
-        this.fillForm();
+        this.fillForm(rotation.body);
         this.showtable = true;
       }
     })
@@ -60,22 +60,22 @@ export class RotationeditComponent implements OnInit {
     return;
   }
 
-  fillForm(){
+  fillForm(rotation){
+      this.myform= this.fb.group({
+        monday_morning : this.rotation.monday_morning,
+        monday_afternoon : this.rotation.monday_afternoon,
+        tuesday_morning: this.rotation.tuesday_morning,
+        tuesday_afternoon: this.rotation.tuesday_afternoon,
+        wednesday_morning: this.rotation.wednesday_morning,
+        wednesday_afternoon: this.rotation.wednesday_afternoon,
+        thursday_morning : this.rotation.thursday_morning,
+        thursday_afternoon : this.rotation.thursday_afternoon,
+        friday_morning: this.rotation.friday_morning,
+        friday_afternoon: this.rotation.friday_afternoon,
+        week: this.rotation.week
 
-    this.myform= this.fb.group({
-      
-      monday_morning : this.rotation.monday_morning,
-      monday_afternoon : this.rotation.monday_afternoon,
-      tuesday_morning: this.rotation.tuesday_morning,
-      tuesday_afternoon: this.rotation.tuesday_afternoon,
-      wednesday_morning: this.rotation.wednesday_morning,
-      wednesday_afternoon: this.rotation.wednesday_afternoon,
-      thursday_morning : this.rotation.thursday_morning,
-      thursday_afternoon : this.rotation.thursday_afternoon,
-      friday_morning: this.rotation.friday_morning,
-      friday_afternoon: this.rotation.friday_afternoon,
-      week: this.rotation.week
-      });
+        });
+    
     }
 
   ngOnInit() {

@@ -191,4 +191,62 @@ db
     })
 }
 
+//add the time off for specific User
+schedule.createTimeOff = function (req, res) {
+
+    var user_id = req.body._id;
+    console.log("Get User" + user_id);
+    
+    db
+        .findOne({user_id : user_id})
+        .exec(function(err, doc){
+        var response = {
+            status: 204,
+            message: doc
+        };
+    
+        if (err) {
+            console.log("Error finding user");
+            response.status = 500;
+            response.message = err;
+        } else if(!doc){
+            response.status= 404;
+            response.message = {
+            "message":"User ID not found"
+            };
+        }
+    
+        if (response.status === 200) {
+            console.log("send it here?");
+            res
+            .status(response.status)
+            .json(response.message);
+        } else {
+            console.log("body", req.body);
+            doc.day_off.day=req.body.day_off.day,
+            doc.day_off.month= req.body.day_off.month,
+            doc.day_off.hour= req.body.day_off.hour,
+            doc.day_offminutes= req.body.day_off.minutes,
+            doc.day_on.day=req.body.day_on.day,
+            doc.day_on.month= req.body.day_on.month,
+            doc.day_on.hour= req.body.day_on.hour,
+            doc.day_on.minutes= req.body.day_on.minutes
+
+    
+        };
+    
+        doc.save(function(err, Updated) {
+            if (err) {
+            res
+                .send({status: 500});
+    
+            } else {
+            res
+            .send({status:204, body:Updated})
+    
+            }
+            })
+        })
+    }
+
 module.exports = schedule;

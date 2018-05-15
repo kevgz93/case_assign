@@ -20,7 +20,7 @@
   </thead>
   <tbody *ngFor="let datico of data">
     <!--<div > -->
-        <tr *ngIf="datico.today.available">
+        <tr *ngIf="datico.today.available && datico.today.timeoff">
                 <td>{{datico.name}} {{datico.last_name}}</td>
                 <td>{{datico.time_zone}}</td>
                 <td>{{datico.sta_dyn}}</td>

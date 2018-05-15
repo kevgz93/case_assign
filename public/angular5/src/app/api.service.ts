@@ -251,6 +251,19 @@ export class ApiService {
     .catch(this.handleError);
   }
 
+  //send the time off to add it
+  public addTimeOff(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    console.log("cuerpo", body);
+    return this.http
+    .put(API_URL + '/api/timeoff', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);

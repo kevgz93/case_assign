@@ -81,6 +81,10 @@ router
 .route('/updateday/')
 .put(ctrlRotation.updateDayOnWeek)//helpers.isAuthenticated,
 
+router
+.route('/timeoff/')
+.put(ctrlSchedule.createTimeOff)//helpers.isAuthenticated,
+
 
 
 module.exports = router;
