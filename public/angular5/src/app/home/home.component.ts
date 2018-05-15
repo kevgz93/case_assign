@@ -133,87 +133,58 @@ export class HomeComponent implements OnInit {
         }
         return "white";
       }
-      //fill send data to setup time off on 0
-      fillSendData(id):Object{
-        let sendData = {"_id":"","day_off":{"day":0, "month":0, "hour":0, "minutes":0}, 
-        "day_on":{"day":0, "month":0, "hour":0, "minutes":0}};
-        sendData._id = id;
-        sendData.day_off.day = 0;
-        sendData.day_off.month = 0;
-        sendData.day_off.hour = 0;
-        sendData.day_off.minutes = 0;
-        sendData.day_on.day = 0;
-        sendData.day_on.month = 0;
-        sendData.day_on.hour = 0;
-        sendData.day_on.minutes = 0;
-        return sendData;
-      }
-      //compare date and hour returned
-      checkBothDateAndHour(date, hour):boolean{
-        if (date === false && hour === false){
-          return false
-        }
-        else if (date === false && hour === true){
-          return false
-        }
-        else if (date === true && hour === false){
-          return true
-        }
-        else {
-          return true;
-        }
-      }
-      //check if are between the hour
-      checkHour(day_on, day_off):boolean{
-        if(day_off.hour >= this.date.getHours() && day_off.minutes >= this.date.getMinutes()
-        && day_on.hour < this.date.getHours()&& day_on.hour < this.date.getMinutes()){
-          return false;
-        }
-        else {
-          return true;
-        } 
-      }
 
       //see if have time off
       timeoff(schedule, id):boolean{
+        let day_on = schedule.day_on;
+        let day_off = schedule.day_off;
+        let hour = this.date.getHours();
+        let minutes = this.date.getMinutes();
+        let day = this.date.getDate();
+        let month = this.date.getMonth() + 1;
         let available:boolean;
         let time:boolean;
         let avai:boolean;
-        if(schedule.day_off.day === 0){
-          console.log('entro a time off 0');
-          avai = true;
+        
+        // 'entry before to start the day_off witout time'
+        if(day < day_off.day && month <= day_off.month){
+          console.log('entry before to start the day_off witout time');
+          return  true;
         }
-        else if (schedule.day_off.day <= this.date.getDate()  && schedule.day_off.month <= (this.date.getMonth()+1)
-         && schedule.day_on.day > this.date.getDate() && schedule.day_on.day > this.date.getDate()){
-          time = this.checkHour(schedule.day_on, schedule.day_off);
-          console.log('entro a time off day_off');
-          avai = false;
-         }
+        // 'entry before to start the day_off with hour'
+        else if(day === day_off.day && month === day_off.month && hour < day_off.hour){
+          console.log('entry before to start the day_off with hour');
+          return  true;
+        }
 
+        // 'entry before to start the day_off with minutes''
+        else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes < day_off.minutes){
+          console.log('entry before to start the day_off with minutes');
+          return  true;
+        }
 
-         else if (schedule.day_off.day <= this.date.getDate()  && schedule.day_off.month <= (this.date.getMonth()+1)){
-          console.log('entro a time off day_on');
-          avai = true;
+        //'entry between the time off and without hour
+        else if(day >= day_off.day && month >= day_off.month && day < day_on.day && month <= day_on.month){
+          console.log('entry between the time off without hour' );
+          return  false;
+        }
+
+        //'entry between the time off and with hour
+        else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour < day_on.hour){
+          console.log('entry between the time off less hour' );
+          return  false;
+        }
+
+        //'entry between the time off and less minutes
+        else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour === day_on.hour &&
+        minutes < day_on.minutes){
+          console.log('entry between the time off less minutes' );
+          return  false;
         }
          else {
-          console.log('entro a time off else',this.date.getHours());
-          let sendData = this.fillSendData(id);
-          this.service.addTimeOff(sendData)
-          .subscribe(response => {
-            console.log(response);
-            if(response.status === 204){
-              console.log("Time off reset");
-              avai = true;
-            }
-            else{
-              alert("Time off not reset, please contact your administrator")
-            }
-          })
-          avai = true
-          };
-          available = this.checkBothDateAndHour(avai, time)
-          console.log("it is available?",available);
-          return available;
+          console.log('entro a  else',);
+            return true
+           }
       }
 
       checkMinutes(minutes):string{
@@ -434,7 +405,7 @@ export class HomeComponent implements OnInit {
 
     addTicket(id, engi_name, engi_last):void{
       let user;
-      this.condition = false;
+      this.condition = id;
       this.service.getUserBySessionId().subscribe(response => {
         user = response.body;
         const body = JSON.stringify({"engi_id": id,"engi_name":engi_name,"engi_last_name":engi_last,
@@ -454,7 +425,7 @@ export class HomeComponent implements OnInit {
 
 
     deleteTicket(id): Observable<any>{
-      this.condition = true;
+      this.condition = id;
       this.service.deleteTickets(id)
       .subscribe(msj => {
         if(msj.status != 200)
