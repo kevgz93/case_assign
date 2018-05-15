@@ -34,3 +34,15 @@ h1 small{
 .table > tbody > tr.danger:hover > td{
   background-color: #f2dede;
 }
+
+p.color-note{
+  padding-left: 10px;
+  margin-left: 5px;
+  &.danger{
+    box-shadow: 5px 0px 0px 0px #e5004c inset;
+
+  }
+  &.warning{
+    box-shadow: 5px 0px 0px 0px #f48b34 inset;
+  }
+}

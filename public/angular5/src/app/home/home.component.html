@@ -18,7 +18,7 @@
             <th>Day</th>
             <th>Week</th>
             <th>Month</th>
-            <th>Action</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -33,12 +33,20 @@
               <td>{{datico.countday}}</td>
               <td>{{datico.countweek}}</td>
               <td>{{datico.countmonth}}</td>
-              <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>
-                / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button></td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
+              <td>
+                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>
+                / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <p class="color-note warning">Engineer leaves in less than 1 hour.</p>
+    <p class="color-note danger">Engineer leaves in less than 30 minutes.</p>
+  </div>
+</div>

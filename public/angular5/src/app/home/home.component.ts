@@ -516,6 +516,5 @@ export class HomeComponent implements OnInit {
     //console.log("se cambio a false");
     this.getQM();
     this.getAllEng();
-    $('#queue_monitors_tab').removeClass('active');
   }
 }

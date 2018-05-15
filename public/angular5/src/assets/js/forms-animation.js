@@ -14,5 +14,11 @@ function onBlur(event) {
 }
 
 $(document).ready(function(){
-  
+  var inputs = $(".form-group > input");
+  var index;
+  for(index = 0; index < inputs.length; ++index){
+    if(inputs[index].value != ""){
+      inputs[index].parentNode.classList.remove("empty-value");
+    }
+  }
 });
