@@ -1,11 +1,11 @@
 
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
     <h1>User registration</h1>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
     <form  [formGroup]="myform" (ngSubmit)="addUser(myform.value)" role="form" class="form-flat ng-pristine ng-valid">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -102,11 +102,9 @@
         </div>
         <div class="panel-footer panel-button-footer">
           <button class="btn btn-flat btn-primary" type="submit">Continue</button>
-          <button class="btn btn-flat btn-default" (click)="cancelEditing.emit();">Cancel</button>
+          <button class="btn btn-flat btn-default" (click)="cancelEditing.emit();" type="reset">Cancel</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
-<!-- TODO: los selects ahora son por el texto y no por el valor -->

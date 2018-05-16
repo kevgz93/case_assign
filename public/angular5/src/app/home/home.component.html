@@ -18,12 +18,12 @@
             <th>Name</th>
             <th>Time Zone</th>
             <th>Static/Dynamic</th>
-            <th>Max cases per day</th>
+            <th class="text-center">Max cases per day</th>
             <th>Schedule ( local time )</th>
             <th>Email</th>
-            <th>Day</th>
-            <th>Week</th>
-            <th>Month</th>
+            <th class="text-center">Day</th>
+            <th class="text-center">Week</th>
+            <th class="text-center">Month</th>
             <th class="text-center">Action</th>
           </tr>
         </thead>
@@ -33,14 +33,14 @@
               <td>{{datico.name}} {{datico.last_name}}</td>
               <td>{{datico.time_zone}}</td>
               <td>{{datico.sta_dyn}}</td>
-              <td>{{datico.max_case}}</td>
+              <td class="text-center">{{datico.max_case}}</td>
               <td>{{datico.today.time}}</td>
               <td>{{datico.email}}</td>
-              <td>{{datico.countday}}</td>
-              <td>{{datico.countweek}}</td>
-              <td>{{datico.countmonth}}</td>
+              <td class="text-center">{{datico.countday}}</td>
+              <td class="text-center">{{datico.countweek}}</td>
+              <td class="text-center">{{datico.countmonth}}</td>
               <td>
-                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary">+</button>&nbsp;/&nbsp;<button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger">-</button>
+                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>&nbsp;/&nbsp;<button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
               </td>
             </tr>
           </ng-container>
