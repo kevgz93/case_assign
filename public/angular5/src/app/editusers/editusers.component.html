@@ -1,23 +1,27 @@
-<div class="container" *ngIf="showtable">
-  <h3>Schedule</h3>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <h1>Users</h1>
+  </div>
 </div>
-<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
-  <thead class="tablehead">
-    <tr>
-      <th>Name</th>
-      <th>Edit Schedule</th>
-      <th>Edit user</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!--<div > -->
-    <tr *ngFor="let user of users">
-      <td>{{user.name}} {{user.last_name}}</td>
-      <td><button class="btn btn-primary" (click)="goToSchedule(user._id)">Edit Schedule</button></td>
-      <td><button class="btn btn-primary" (click)="goToUser(user._id)">Edit User</button></td>
-      <td><button class="btn btn-warning" onclick="goToDelete()">Delete</button></td>
-    </tr>
-      <!--</div> -->
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <table class="table table-hover" id="ticket">
+        <thead>
+          <tr>
+            <th style="width:70%">Name</th>
+            <th class="text-center" colspan=3>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.name}} {{user.last_name}}</td>
+          <td class="text-center"><a class="btn btn-flat btn-secondary" (click)="goToSchedule(user._id)"><i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>&nbsp;Edit Schedule</a></td>
+          <td class="text-center"><a class="btn btn-flat btn-primary" (click)="goToUser(user._id)"><i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>&nbsp;Edit user</a></td>
+          <td class="text-center"><a class="btn btn-flat btn-danger" onclick="goToDelete()"><i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>&nbsp;Delete user</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
