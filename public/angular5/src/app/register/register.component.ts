@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   addUser(data){
     data.time = +data.time;
-    data.sta_dyn = +data.sta_dyn;
+    data.sta_dyn = +data.sta_dyn; // TODO: esto tiene que cambiar por el nombre y no el numero
     data.max = +data.max;
 
     console.log(data);
@@ -32,14 +32,14 @@ export class RegisterComponent implements OnInit {
         alert('User Added');
         this.service.changeObject(msj);
         this.router.navigate(['./schedule']);
-        
+
       }
       else{
         alert('User Failed');
         this.router.navigate(['./login/register']);
       }
     })
-    
+
   }
 
   ngOnInit() {
@@ -48,10 +48,10 @@ export class RegisterComponent implements OnInit {
       last_name: '',
       email: '',
       city : '',
-      sta_dyn: '',
-      max: '',
-      status: '',
-      role: '',
+      sta_dyn: 'Both',
+      max: '0',
+      status: 'Available',
+      role: 'User',
       username: '',
       password: '',
     });

@@ -13,6 +13,13 @@ function onBlur(event) {
   }
 }
 
+// Function to get the value of the selected value from a dropdown
+function changeDropdownValue(element){
+  var siblings = $(element).parent().parent().siblings();
+  var input = siblings[0];
+  $(input).val($(element).text());
+}
+
 $(document).ready(function(){
   var inputs = $(".form-group > input");
   var index;
