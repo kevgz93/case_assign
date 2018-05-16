@@ -3,7 +3,7 @@
     <h1>Queue monitors shifts&nbsp;<small>(current week)</small></h1>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="showtable">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <div class="panel panel-default">
       <table class="table" id="ticket">
@@ -17,20 +17,28 @@
             <th>Friday</th>
           </tr>
           <tr>
+            <td class="left-header">EMEA</td>
+            <td>{{week.monday.emea}}</td>
+            <td>{{week.tuesday.emea}}</td>
+            <td>{{week.wednesday.emea}}</td>
+            <td>{{week.thursday.emea}}</td>
+            <td>{{week.friday.emea}}</td>
+          </tr>
+          <tr>
             <td class="left-header">AMS East</td>
-            <td>{{week.monday_morning}}</td>
-            <td>{{week.tuesday_morning}}</td>
-            <td>{{week.wednesday_morning}}</td>
-            <td>{{week.thursday_morning}}</td>
-            <td>{{week.friday_morning}}</td>
+            <td>{{week.monday.morning}}</td>
+            <td>{{week.tuesday.morning}}</td>
+            <td>{{week.wednesday.morning}}</td>
+            <td>{{week.thursday.morning}}</td>
+            <td>{{week.friday.morning}}</td>
           </tr>
           <tr>
             <td class="left-header">AMS West</td>
-            <td>{{week.monday_afternoon}}</td>
-            <td>{{week.tuesday_afternoon}}</td>
-            <td>{{week.wednesday_afternoon}}</td>
-            <td>{{week.thursday_afternoon}}</td>
-            <td>{{week.friday_afternoon}}</td>
+            <td>{{week.monday.afternoon}}</td>
+            <td>{{week.tuesday.afternoon}}</td>
+            <td>{{week.wednesday.afternoon}}</td>
+            <td>{{week.thursday.afternoon}}</td>
+            <td>{{week.friday.afternoon}}</td>
           </tr>
         </tbody>
       </table>

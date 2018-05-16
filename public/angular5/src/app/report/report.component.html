@@ -41,6 +41,10 @@
             <button class="btn btn-primary" type="submit">Search</button>
         </div>
     </div>
+    <div style="margin-left:15%;" *ngIf="showtotal">
+      <label>Total Tickets</label>
+      <label>{{cases.total}}</label>
+    </div>
 </div>
 
 </form>

@@ -169,7 +169,7 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public getReport(values): Observable<Response> {
+  public getReport(values): Observable<Object> {
     let body = JSON.stringify(values);
     return this.http
     .post(API_URL + '/api/reports', body,
@@ -182,10 +182,10 @@ export class ApiService {
   }
 
   //get current week
-  public getWeek(week): Observable<Response> {
-    let params = new HttpParams().set("week",week);    
+  public getWeek(): Observable<Response> {
+    //let params = new HttpParams().set("week",week);    
     return this.http
-    .get(API_URL + '/api/rotation/', {params:params})
+    .get(API_URL + '/api/checkrotation/')
     .map(response => {
       return response
     })

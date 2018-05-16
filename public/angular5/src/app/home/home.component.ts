@@ -155,41 +155,34 @@ export class HomeComponent implements OnInit {
         
         // 'entry before to start the day_off witout time'
         if(day < day_off.day && month <= day_off.month){
-          console.log('entry before to start the day_off witout time');
           return  true;
         }
         // 'entry before to start the day_off with hour'
         else if(day === day_off.day && month === day_off.month && hour < day_off.hour){
-          console.log('entry before to start the day_off with hour');
           return  true;
         }
 
         // 'entry before to start the day_off with minutes''
         else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes < day_off.minutes){
-          console.log('entry before to start the day_off with minutes');
           return  true;
         }
 
         //'entry between the time off and without hour
         else if(day >= day_off.day && month >= day_off.month && day < day_on.day && month <= day_on.month){
-          console.log('entry between the time off without hour' );
           return  false;
         }
 
         //'entry between the time off and with hour
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour < day_on.hour){
-          console.log('entry between the time off less hour' );
           return  false;
         }
 
         //'entry between the time off and less minutes
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour === day_on.hour &&
         minutes < day_on.minutes){
-          console.log('entry between the time off less minutes' );
           return  false;
         }
          else {
-          console.log('entro a  else',);
             return true
            }
       }
@@ -229,9 +222,7 @@ export class HomeComponent implements OnInit {
         if (this.date.getDay()===1){
           available = this.endDay(data.monday_morning, data.monday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("Timeoff", timeoff);
           color = this.colorHour(data.monday_afternoon, difference);
-          //console.log("color", color);
           hour.morning = data.monday_morning.hour - difference;
           minutes.morning = data.monday_morning.minutes;
           hour.afternoon = data.monday_afternoon.hour - difference;
@@ -248,7 +239,6 @@ export class HomeComponent implements OnInit {
           available = this.endDay(data.tuesday_morning, data.tuesday_afternoon, difference);
           color = this.colorHour(data.tuesday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("available", timeoff);
           hour.morning = data.tuesday_morning.hour - difference;
           minutes.morning = data.tuesday_morning.minutes;
           hour.afternoon = data.tuesday_afternoon.hour - difference;
@@ -264,7 +254,6 @@ export class HomeComponent implements OnInit {
         else if (this.date.getDay()===3){
           available = this.endDay(data.wednesday_morning, data.wednesday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("available", timeoff);
           color = this.colorHour(data.wednesday_afternoon, difference);
           hour.morning = data.wednesday_morning.hour - difference;
           minutes.morning = data.wednesday_morning.minutes;
@@ -281,9 +270,7 @@ export class HomeComponent implements OnInit {
         else if (this.date.getDay()===4){
           available = this.endDay(data.thursday_morning , data.thursday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("available", timeoff);
           color = this.colorHour(data.thursday_afternoon, difference);
-          //console.log("color", color);
           hour.morning = data.thursday_morning.hour - difference;
           minutes.morning = data.thursday_morning.minutes;
           hour.afternoon = data.thursday_afternoon.hour - difference;
@@ -299,7 +286,6 @@ export class HomeComponent implements OnInit {
         else if (this.date.getDay()===5){
           available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("available", timeoff);
           color = this.colorHour(data.friday_afternoon, difference);
           hour.morning = data.friday_morning.hour - difference;
           minutes.morning = data.friday_morning.minutes;
@@ -316,7 +302,6 @@ export class HomeComponent implements OnInit {
         else if (this.date.getDay()===6 || this.date.getDay()===0){
           available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
           timeoff = this.timeoff(data, id);
-          console.log("available", timeoff);
           color = this.colorHour(data.friday_afternoon, difference);
           hour.morning = data.friday_morning.hour - difference;
           minutes.morning = data.friday_morning.minutes;
@@ -418,7 +403,6 @@ export class HomeComponent implements OnInit {
         user = response.body;
         const body = JSON.stringify({"engi_id": id,"engi_name":engi_name,"engi_last_name":engi_last,
          "user_id": user._id,"user_name":user.name,"user_last_name":user.last_name});
-        console.log(body);
         this.service.addTickets(body).subscribe(response =>{
           let ticket;
           ticket = response;
@@ -437,54 +421,83 @@ export class HomeComponent implements OnInit {
       this.condition.action = "disable";
       this.service.deleteTickets(id)
       .subscribe(msj => {
-        if(msj.status != 200)
-        {
-          console.log(msj);
-        }
-        else{
-          console.log(msj)
-        }
         this.getAllEng();
       })
 
       return;
     }
-    //add the corresponding QM
-    currentQM(week):void{
-      console.log("current week",week);
+    //get qm from emea
+
+    currentQmEmea(week):string{
+      let date = new Date;
+      let day = date.getDay();
+      if(day ===1 ){
+        return week.monday.emea;
+      }
+      else if(day ===1 ){
+        return week.monday.emea;
+      }
+      else if(day ===2 ){
+        return week.tuesday.emea;
+      }
+      else if(day ===3 ){
+        return week.wednesday.emea;
+      }
+      else if(day ===4 ){
+        return week.thursday.emea;
+      }
+      else if(day ===5){
+        return week.friday.emea;
+      }
+
+    }
+    //get qm from america
+    currentQmAms(week):string{
       let date = new Date;
       let day = date.getDay();
       let time = date.getHours();
-
       if(day ===1 && time <12){
-        this.qm = week.monday_morning;
+        return week.monday.morning;
       }
       else if(day ===1 && time >12){
-        this.qm = week.monday_afternoon;
+        return week.monday.afternoon;
       }
       else if(day ===2 && time < 12){
-        this.qm = week.tuesday_morning;
+        return week.tuesday.morning;
       }
       else if(day ===2 && time >12){
-        this.qm = week.tuesday_afternoon;
+        return week.tuesday.afternoon;
       }
       else if(day ===3 && time <12){
-        this.qm = week.wednesday_morning;
+        return week.wednesday.morning;
       }
       else if(day ===3 && time >12){
-        this.qm = week.wednesday_afternoon;
+        return week.wednesday.afternoon;
       }
       else if(day ===4 && time <12){
-        this.qm = week.thursday_morning;
+        return week.thursday.morning;
       }
       else if(day ===4 && time >12){
-        this.qm = week.thursday_afternoon;
+        return week.thursday.afternoon;
       }
       else if(day ===5 && time <12){
-        this.qm = week.friday_morning;
+        return week.friday.morning;
       }
       else if(day ===5 && time >12){
-        this.qm = week.friday_afternoon;
+        return week.friday.afternoon;
+      }
+
+    }
+
+    //add the corresponding QM
+    currentQM(week):void{
+      let date = new Date;
+      let timezone = date.getTimezoneOffset() / 60; 
+      if(timezone < 4){
+        this.qm = this.currentQmEmea(week);
+      }
+      else{
+        this.qm = this.currentQmAms(week);
       }
 
     }
@@ -527,7 +540,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //this.showhtml = false;
-    //console.log("se cambio a false");
     this.getQM();
     this.getAllEng();
   }

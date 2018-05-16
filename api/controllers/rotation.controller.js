@@ -9,23 +9,38 @@ var rotation = {};
 rotation.createRotation = function (req, res) {
     console.log(req.body.user_id);
 
-    if(!req.body.monday_morning)
+    if(!req.body.monday.morning)
     {
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
     }
 
     db.create({ 
-        monday_morning : req.body.monday_morning,
-        monday_afternoon : req.body.monday_afternoon,
-        tuesday_morning: req.body.tuesday_morning,
-        tuesday_afternoon: req.body.tuesday_afternoon,
-        wednesday_morning: req.body.wednesday_morning,
-        wednesday_afternoon: req.body.wednesday_afternoon,
-        thursday_morning : req.body.thursday_morning,
-        thursday_afternoon : req.body.thursday_afternoon,
-        friday_morning: req.body.friday_morning,
-        friday_afternoon: req.body.friday_afternoon,
+        monday:{
+            morning : req.body.monday.morning,
+            afternoon: req.body.monday.afternoon,
+            emea: req.body.monday.emea
+        },
+        tuesday: {
+            morning : req.body.tuesday.morning,
+            afternoon: req.body.tuesday.afternoon,
+            emea: req.body.tuesday.emea
+        },
+        wednesday:{
+            morning : req.body.wednesday.morning,
+            afternoon: req.body.wednesday.afternoon,
+            emea: req.body.wednesday.emea
+        },
+        thursday:{
+            morning : req.body.thursday.morning,
+            afternoon: req.body.thursday.afternoon,
+            emea: req.body.thursday.emea
+        },
+        friday:{
+            morning : req.body.friday.morning,
+            afternoon: req.body.friday.afternoon,
+            emea: req.body.friday.emea
+        },
         active: {
             status:req.body.status,
             day:req.body.day
@@ -153,15 +168,14 @@ rotation.findWeekByStatus = function(){
 rotation.updateDayOnWeek = function(req, res) {
     var day = req.body.day;
     var week = req.body.week;
-    let auxWeek;
-    if (week != 6){
+        if (week != 6){
         auxWeek = week +1;
         //console.log("nuevo week",auxWeek);
-        rotation.updateStatusOnWeek(auxWeek);
+        rotation.updateStatusOnWeek(auxWeek, day);
     }
     else {
         auxWeek = 1;
-        rotation.updateStatusOnWeek(auxWeek);
+        rotation.updateStatusOnWeek(auxWeek, day);
     }
 console.log("Get week" + week);
 
@@ -189,7 +203,6 @@ console.log("Get week" + week);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.active.day = day,
             doc.active.status = false
 
         };
@@ -208,7 +221,7 @@ console.log("Get week" + week);
     })
 }
 
-rotation.updateStatusOnWeek = function(week) {
+rotation.updateStatusOnWeek = function(week, day) {
 
 console.log("Get week" + week);
 
@@ -234,6 +247,7 @@ console.log("Get week" + week);
         if (response.status != 200) {
             console.log(response);
         } else {
+            doc.active.day = day,
             doc.active.status = true
 
         };
@@ -279,17 +293,21 @@ console.log("Get week" + week);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.monday_morning = req.body.monday_morning,
-            doc.monday_afternoon = req.body.monday_afternoon,
-            doc.tuesday_morning= req.body.tuesday_morning,
-            doc.tuesday_afternoon= req.body.tuesday_afternoon,
-            doc.wednesday_morning= req.body.wednesday_morning,
-            doc.wednesday_afternoon= req.body.wednesday_afternoon,
-            doc.thursday_morning = req.body.thursday_morning,
-            doc.thursday_afternoon = req.body.thursday_afternoon,
-            doc.friday_morning= req.body.friday_morning,
-
-            doc.friday_afternoon= req.body.friday_afternoon,
+            doc.monday.morning = req.body.monday.morning,
+            doc.monday.afternoon = req.body.monday.afternoon,
+            doc.monday.emea = req.body.monday.emea,
+            doc.tuesday.morning= req.body.tuesday.morning,
+            doc.tuesday.afternoon= req.body.tuesday.afternoon,
+            doc.tuesday.emea = req.body.tuesday.emea,
+            doc.wednesday.morning= req.body.wednesday.morning,
+            doc.wednesday.afternoon= req.body.wednesday.afternoon,
+            doc.wednesday.emea = req.body.wednesday.emea,
+            doc.thursday.morning = req.body.thursday.morning,
+            doc.thursday.afternoon = req.body.thursday.afternoon,
+            doc.thursday.emea = req.body.thursday.emea,
+            doc.friday.morning= req.body.friday.morning,
+            doc.friday.afternoon= req.body.friday.afternoon,
+            doc.friday.emea = req.body.friday.emea,
             doc.status = req.body.status
 
         };
