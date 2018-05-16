@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   public countDay = 0;
   public countWeek = 0;
   public countMonth = 0;
-  private condition;
+  private condition = {id:'', action:'disable'};
   private qm;
   private timezone = {};
   public today;
@@ -109,7 +109,10 @@ export class HomeComponent implements OnInit {
         let aft_hour = afternoon.hour - difference;
         let morn_hour = morning.hour - difference;
         let date = new Date;
-        if (morn_hour <= this.date.getHours() && aft_hour >= this.date.getHours()){
+        if (morn_hour <= this.date.getHours() && aft_hour > this.date.getHours()){
+          return true;
+        }
+        else if (morn_hour <= this.date.getHours() && aft_hour === this.date.getHours() && afternoon.minutes > this.date.getMinutes()){
           return true;
         }
         else if (date.getDay() === 6 || date.getDay() === 0){
@@ -129,6 +132,10 @@ export class HomeComponent implements OnInit {
         }
 
         else if (hour === 1 && minutes > 30){
+          return "danger";
+        }
+
+        else if (hour === 0 && this.date.getMinutes() < aft_minutes){
           return "danger";
         }
         return "";
@@ -245,7 +252,7 @@ export class HomeComponent implements OnInit {
           hour.morning = data.tuesday_morning.hour - difference;
           minutes.morning = data.tuesday_morning.minutes;
           hour.afternoon = data.tuesday_afternoon.hour - difference;
-          minutes.afternoon = data.wednesday_afternoon.minutes;
+          minutes.afternoon = data.tuesday_afternoon.minutes;
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
@@ -387,7 +394,7 @@ export class HomeComponent implements OnInit {
           this.data[i].countmonth = this.countMonth;
           this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], data[i]._id);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
-          this.data[i].disableLessButton = this.disableLessButton();
+          this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
           this.cleanCount();
 
 
@@ -405,7 +412,8 @@ export class HomeComponent implements OnInit {
 
     addTicket(id, engi_name, engi_last):void{
       let user;
-      this.condition = id;
+      this.condition.id = id;
+      this.condition.action = "enable";
       this.service.getUserBySessionId().subscribe(response => {
         user = response.body;
         const body = JSON.stringify({"engi_id": id,"engi_name":engi_name,"engi_last_name":engi_last,
@@ -425,7 +433,8 @@ export class HomeComponent implements OnInit {
 
 
     deleteTicket(id): Observable<any>{
-      this.condition = id;
+      this.condition.id = id;
+      this.condition.action = "disable";
       this.service.deleteTickets(id)
       .subscribe(msj => {
         if(msj.status != 200)
@@ -502,12 +511,17 @@ export class HomeComponent implements OnInit {
       return false;
     }
 
-    disableLessButton(): boolean{
-      if (this.condition){
-        return true;
-      }
+    disableLessButton(last_case, cases): boolean{
+      let value = true;
+      cases.forEach(element => {
+        if (element._id === last_case ){
+          value = false;
+        }
 
-      return false;
+      });
+      
+
+      return value;
     }
 
 
