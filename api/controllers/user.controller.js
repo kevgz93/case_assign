@@ -355,21 +355,21 @@ users.usersUpdateOne = function (req, res) {
 
 };
 
+//Delete user
 users.usersDeleteOne = function(req, res) {
-  var userId = req.params.userId;
+  var userId = req.query._id;
+  console.log("user to delete: ", userId);
 
   db
     .findByIdAndRemove(userId)
     .exec(function(err, userId){
       if (err) {
         res
-          .status(404)
-          .json(err);
+          .send({status:404});
       } else {
         console.log('user deleted ID: ', userId);
         res
-          .status(204)
-          .json(userId);
+          .send({status:204});
       }
     });
 };
@@ -546,6 +546,7 @@ users.loadUsers2 = function(){
       })
     })
   }
+
 
 
 module.exports = users;

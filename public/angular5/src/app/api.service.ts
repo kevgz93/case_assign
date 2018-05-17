@@ -94,6 +94,17 @@ export class ApiService {
     })
     .catch(this.handleError);
   }
+
+  // API: Delete one engineer
+  public deleteOneUser(id): Observable<Response> {
+    let params = new HttpParams().set("_id",id);    
+    return this.http
+    .delete(API_URL + '/api/user/', { params: params })
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
   
   public getSchedule(id): Observable<Response> {
     let params = new HttpParams().set("id",id);    

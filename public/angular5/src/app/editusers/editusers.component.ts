@@ -34,6 +34,21 @@ export class EditusersComponent implements OnInit {
     this.router.navigate(['./editengineer'])
   }
 
+  //Delete User
+  deleteUser(id){
+    console.log(id)
+    this.service.deleteOneUser(id)
+    .subscribe(response =>{
+      if(response.status != 204){
+        alert("User not deleted")
+      }
+      else{
+        this.getUsers();
+      }
+    });
+    
+  }
+
   goToSchedule(id){
     console.log(id)
     this.service.changeUserId(id);
