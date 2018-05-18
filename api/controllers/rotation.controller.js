@@ -266,7 +266,7 @@ console.log("Get week" + week);
 rotation.updateRotation = function (req, res) {
 
 var week = req.body.week;
-console.log("Get week" + week);
+console.log("Get week", req.body.week);
 
     db
         .findOne({week : week})
@@ -293,22 +293,21 @@ console.log("Get week" + week);
             .status(response.status)
             .json(response.message);
         } else {
-            doc.monday.morning = req.body.monday.morning,
-            doc.monday.afternoon = req.body.monday.afternoon,
-            doc.monday.emea = req.body.monday.emea,
-            doc.tuesday.morning= req.body.tuesday.morning,
-            doc.tuesday.afternoon= req.body.tuesday.afternoon,
-            doc.tuesday.emea = req.body.tuesday.emea,
-            doc.wednesday.morning= req.body.wednesday.morning,
-            doc.wednesday.afternoon= req.body.wednesday.afternoon,
-            doc.wednesday.emea = req.body.wednesday.emea,
-            doc.thursday.morning = req.body.thursday.morning,
-            doc.thursday.afternoon = req.body.thursday.afternoon,
-            doc.thursday.emea = req.body.thursday.emea,
-            doc.friday.morning= req.body.friday.morning,
-            doc.friday.afternoon= req.body.friday.afternoon,
-            doc.friday.emea = req.body.friday.emea,
-            doc.status = req.body.status
+            doc.monday.morning = req.body.monday_morning,
+            doc.monday.afternoon = req.body.monday_afternoon,
+            doc.monday.emea = req.body.monday_emea,
+            doc.tuesday.morning= req.body.tuesday_morning,
+            doc.tuesday.afternoon= req.body.tuesday_afternoon,
+            doc.tuesday.emea = req.body.tuesday_emea,
+            doc.wednesday.morning= req.body.wednesday_morning,
+            doc.wednesday.afternoon= req.body.wednesday_afternoon,
+            doc.wednesday.emea = req.body.wednesday_emea,
+            doc.thursday.morning = req.body.thursday_morning,
+            doc.thursday.afternoon = req.body.thursday_afternoon,
+            doc.thursday.emea = req.body.thursday_emea,
+            doc.friday.morning= req.body.friday_morning,
+            doc.friday.afternoon= req.body.friday_afternoon,
+            doc.friday.emea = req.body.friday_emea
 
         };
 
@@ -319,7 +318,7 @@ console.log("Get week" + week);
 
             } else {
             res
-            .send({status:204});
+            .send({status:204, body:req.body.week});
 
             }
         })
