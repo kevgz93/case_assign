@@ -40,7 +40,7 @@
               <div class="form-group" required>
                 <label for="types_of_cases" title="Static/Dynamic">Static/Dynamic</label>
                 <div class="dropdown">
-                  <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Both" readonly="ReadOnly" type="text"  formControlName="sta_dyn">
+                  <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text"  formControlName="sta_dyn">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="type_of_cases_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Both</a></li>
@@ -62,7 +62,7 @@
               <div class="form-group" required>
                 <label for="status_select" title="Status">Status</label>
                 <div class="dropdown">
-                  <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Available" readonly="ReadOnly" type="text" formControlName="status">
+                  <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="status">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="status_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Available</a></li>
@@ -75,7 +75,7 @@
               <div class="form-group" required>
                 <label for="role_select" title="Role">Role</label>
                 <div class="dropdown">
-                  <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="User" readonly="ReadOnly" type="text" formControlName="role">
+                  <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="role">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="role_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">User</a></li>
@@ -101,8 +101,8 @@
           </div>
         </div>
         <div class="panel-footer panel-button-footer">
-          <button class="btn btn-flat btn-primary" type="submit">Continue</button>
-          <button class="btn btn-flat btn-default" (click)="cancelEditing.emit();" type="reset">Cancel</button>
+        <button class="btn btn-default" (click)="cancelEditing.emit();" type="reset">Cancel</button>
+          <button class="btn btn-primary" type="submit">Continue</button>
         </div>
       </div>
     </form>

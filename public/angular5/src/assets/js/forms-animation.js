@@ -17,6 +17,7 @@ function onBlur(event) {
 function changeDropdownValue(element){
   var siblings = $(element).parent().parent().siblings();
   var input = siblings[0];
+  $(input).attr('value', $(element).text());
   $(input).val($(element).text());
 }
 

@@ -98,7 +98,7 @@ users.register = function (req, res) {
       role: req.body.role,
       working_days: 60,
       last_case:""
-      
+
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a User");
@@ -185,7 +185,7 @@ users.getUserBySessionId = function(req, res){
     else{
       res.send({status:201,body:user_found})
     }
-		
+
 	}, function(){
 		res.send({status:500,error:'Error occured while fetching data from database.'});
 	});
@@ -235,7 +235,7 @@ users.logout = function(req, res){
 //Function to logout user.
 users.logoutUser = function(sessionId){
 	var results = q.defer();
-  
+
   	console.log('helper cookie ' + sessionId);
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
@@ -307,7 +307,7 @@ users.loadEnginners2 = function(){
         $match:{
           "status":true
         }
-      },  
+      },
         { "$project": {
           "name":1,
           "last_name":1,
@@ -315,14 +315,14 @@ users.loadEnginners2 = function(){
         }
       }
     ],function(err, engi) {
-      
+
       if (err){
         results.reject(err);
       }
       results.resolve(engi);
-      
+
     });
-    
+
     return results.promise;
 
   }
@@ -338,7 +338,7 @@ users.usersUpdateOne = function (req, res) {
   doc.username= req.body.username,
   doc.password= req.body.password,
   doc.name= req.body.name,
-  doc.lastName= req.body.lastName,
+  doc.last_name= req.body.last_name,
   doc.role= req.body.role
   doc.status= req.body.status
   console.log("Get User" + userId);

@@ -24,28 +24,22 @@ export class RegisterComponent implements OnInit {
 
     switch(data.sta_dyn){
       case "Both":
-      data.sta_dyn = 3;
+      data.sta_dyn = "3";
       break;
       case "Dynamic":
-      data.sta_dyn = 2;
+      data.sta_dyn = "2";
       break;
       case "Static":
-      data.sta_dyn = 1;
+      data.sta_dyn = "1";
       break;
     }
-
-    switch(data.status){
-      case "Available":
-      data.status = true;
-      break;
-      case "Disable":
-      data.status = false;
-      break;
-    }
-
+    data.status = data.status == "Available" ? "true" : "false";
     data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
 
-    console.log(data);
+
+    console.log(data.sta_dyn);
+    console.log(data.status);
+    console.log(data.role);
     this.service.addUser(data)
     .subscribe(msj => {
       console.log(msj);
