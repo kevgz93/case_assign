@@ -16,6 +16,7 @@ export class ReportComponent implements OnInit {
   private months;
   private cases;
   private showtable;
+  private showtotal:Boolean = false;
 
   constructor(private service: ApiService, private router:Router, private fb: FormBuilder) { }
 
@@ -33,8 +34,9 @@ export class ReportComponent implements OnInit {
     console.log(form);
     this.service.getReport(form)
       .subscribe(data => {
-        console.log("cases",data);
         this.cases = data;
+        this.cases.total = Object.keys(data).length;
+        this.showtotal = true;
         this.showtable = true;
       }) 
   }

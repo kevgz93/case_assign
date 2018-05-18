@@ -94,6 +94,17 @@ export class ApiService {
     })
     .catch(this.handleError);
   }
+
+  // API: Delete one engineer
+  public deleteOneUser(id): Observable<Response> {
+    let params = new HttpParams().set("_id",id);    
+    return this.http
+    .delete(API_URL + '/api/user/', { params: params })
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
   
   public getSchedule(id): Observable<Response> {
     let params = new HttpParams().set("id",id);    
@@ -169,7 +180,7 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public getReport(values): Observable<Response> {
+  public getReport(values): Observable<Object> {
     let body = JSON.stringify(values);
     return this.http
     .post(API_URL + '/api/reports', body,
@@ -182,21 +193,21 @@ export class ApiService {
   }
 
   //get current week
-  public getWeek(week): Observable<Response> {
-    let params = new HttpParams().set("week",week);    
+  public getWeek(): Observable<Response> {
+    //let params = new HttpParams().set("week",week);    
     return this.http
-    .get(API_URL + '/api/rotation/', {params:params})
+    .get(API_URL + '/api/checkrotation/')
     .map(response => {
       return response
     })
     .catch(this.handleError);
   }
 
-    //get rotation table
-    public getRotation(): Observable<Response> {
-      //let params = new HttpParams().set("week",week);    
+    //get rotation by week
+    public getRotation(week): Observable<Response> {
+      let params = new HttpParams().set("week",week);    
       return this.http
-      .get(API_URL + '/api/rotations/')
+      .get(API_URL + '/api/rotation/', {params:params})
       .map(response => {
         return response
       })
@@ -220,6 +231,18 @@ export class ApiService {
     let body = JSON.stringify({"day":day, "week":week});
     return this.http
     .put(API_URL + '/api/updateday/', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+  //update rotation 
+  public updateRotation(data): Observable<Response> {
+    let body = JSON.stringify(data);
+    return this.http
+    .put(API_URL + '/api/rotation/', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response

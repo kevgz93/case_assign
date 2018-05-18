@@ -18,6 +18,34 @@ export class NavbarComponent implements OnInit {
 
   constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
+  getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+  }
+
+  checkQM():Observable<Response>{
+    let date = new Date();
+    let day = date.getDate();
+    let monday = this.getMonday(new Date());
+    let week;
+    this.service.getWeekByStatus().subscribe(data =>{
+    week = data.body;
+    if(week.active.status === true && week.active.day != monday.getDate()){
+      this.changeDayWeek(monday.getDate(), week.week)
+    }
+    })
+    return
+  }
+
+  changeDayWeek(day, week):Observable<Boolean>{
+    this.service.updateDayOnWeek(day, week).subscribe(response => {
+      console.log(response);
+    })
+    return
+  }
+
   checkAdmin(){
     if (this.user.role === 'admin'){
       this.showMaintenance = true;
@@ -113,6 +141,7 @@ export class NavbarComponent implements OnInit {
     let login;
     this.service.currentId.subscribe(message => login = message);
     //this.shownav = true;
+    this.checkQM();
     this.checkSessionId(login);
     
     
