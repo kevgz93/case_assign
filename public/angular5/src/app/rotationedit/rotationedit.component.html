@@ -1,80 +1,116 @@
 
-  <div class="container" *ngFor="let rota of rotation">
-    <form class="form-horizontal ibox-content" *ngIf="showtable" [formGroup]="myform" (ngSubmit)="updateRotation(myform.value)" role="form">
+            <div class="display:inline-block;">
+                <button type="button" (click)="getWeek(1)">Week 1</button>
 
-  
-        <div class="container"> 
+                <button type="button" (click)="getWeek(2)">Week 2</button>
+
+                <button type="button" (click)="getWeek(3)">Week 3</button>
+
+                <button type="button" (click)="getWeek(4)">Week 4</button>
+
+                <button type="button" (click)="getWeek(5)">Week 5</button>
+
+                <button type="button" (click)="getWeek(6)">Week 6</button>
+            </div>
+
+            
+            
+            
+
+
+        <form class="form-horizontal ibox-content" *ngIf="showtable" [formGroup]="myform" (ngSubmit)="updateRotation(myform.value)" role="form">
                 <div>
-                        <label class="col-sm-2 label-form  control-label">Week {{rota.week}}</label>
-
-                </div>
-            <br>
-            <br>    
-            <div class="form-group">
-                <input type="hidden" [value]="rota.week" [name]="rota.week" formControlName="week">
-                <label class="col-sm-2 label-form  control-label">Monday Morning</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" [name]="rota.monday_morning" [value]="rota.monday_morning" formControlName="monday_morning">
-                </div>
-                <label class="col-sm-2 label-form control-label">Monday Afternoon</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" [name]="rota.monday_afternoon" [value]="rota.monday_afternoon" formControlName="monday_afternoon">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 label-form  control-label">Tuesday</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.tuesday_morning}}" formControlName="tuesday_morning">
-                </div>
-                <label class="col-sm-2 label-form control-label">:</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.tuesday_afternoon}}" formControlName="tuesday_afternoon">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 label-form  control-label">Wednesday</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.wednesday_morning}}" formControlName="wednesday_morning">
-                </div>
-                <label class="col-sm-2 label-form control-label">:</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.wednesday_afternoon}}" formControlName="wednesday_afternoon">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 label-form  control-label">Thursday</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.thursday_morning}}" formControlName="thursday_morning">
-                </div>
-                <label class="col-sm-2 label-form control-label">:</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.thursday_afternoon}}" formControlName="thursday_afternoon">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 label-form  control-label">Friday</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.friday_morning}}" formControlName="friday_morning">
-                </div>
-                <label class="col-sm-2 label-form control-label">:</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" value="{{rota.friday_afternoon}}" formControlName="friday_afternoon">
-                </div>
-            </div>
-            <div>
-                <div class="cont-button" style="float: right;">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Update</button>
+                        <label class="col-md-2 label-form  control-label">Week {{rotation.week}}</label>
+        
                     </div>
+                    <br>
+                    <br>
+                    <br>
+            <div class="form-group" >
+                <input type="hidden" formControlName="week">
+                <label class="col-md-2 label-form  control-label">Monday Morning</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="monday_morning">
                 </div>
+                <label class="col-md-2 label-form control-label">Monday Afternoon</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"   formControlName="monday_afternoon">
+                </div>
+                <label class="col-md-2 label-form control-label">Monday EMEA</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="monday_emea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 label-form  control-label">Tuesday Morning</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="tuesday_morning">
+                </div>
+                <label class="col-md-2 label-form control-label">Tuesday Afternoon</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="tuesday_afternoon">
+                </div>
+                <label class="col-md-2 label-form control-label">Tuesday EMEA</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"   formControlName="tuesday_emea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 label-form  control-label">Wednesday Morning</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="wednesday_morning">
+                </div>
+                <label class="col-md-2 label-form control-label">Wednesday Afternoon</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="wednesday_afternoon">
+                </div>
+                <label class="col-md-2 label-form control-label">Wednesday EMEA</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"   formControlName="wednesday_emea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 label-form  control-label">Thursday Morning</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="thursday_morning">
+                </div>
+                <label class="col-md-2 label-form control-label">Thursday Afternoon</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" formControlName="thursday_afternoon">
+                </div>
+                <label class="col-md-2 label-form control-label">Thursday EMEA</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="thursday_emea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 label-form  control-label">Friday Morning</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="friday_morning">
+                </div>
+                <label class="col-md-2 label-form control-label">Friday Afternoon</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"  formControlName="friday_afternoon">
+                </div>
+                <label class="col-md-2 label-form control-label">Friday EMEA</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control"   formControlName="friday_emea">
+                </div>
+            </div>
+        <div>
+
+        </div>
+        <div class="cont-button" style="float: right;">
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </div>
-
     </form>
 
 
 
-</div>
+
+
 
 
 
@@ -87,12 +123,12 @@
 
         <div class="col-md-4">
           <div class="form-group">
-              <label class="col-sm-2 label-form  control-label">Lunes</label>
-              <div class="col-sm-4">
+              <label class="col-md-2 label-form  control-label">Lunes</label>
+              <div class="col-md-4">
                   <input type="text" class="form-control" placeholder="00"  formControlName="monday_morning">
               </div>
-              <label class="col-sm-2 label-form control-label">:</label>
-              <div class="col-sm-4">
+              <label class="col-md-2 label-form control-label">:</label>
+              <div class="col-md-4">
                   <input type="text" class="form-control" placeholder="00" formControlName="monday_afternoon">
               </div>
           </div>

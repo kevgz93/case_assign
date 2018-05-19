@@ -13,12 +13,14 @@ import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './register/register.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { MyDatePickerModule } from 'mydatepicker';
+import { MyDateRangePickerModule  } from 'mydaterangepicker';
 import { ScheduleeditComponent } from './scheduleedit/scheduleedit.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReportComponent } from './report/report.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
+import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
+import { EditusersComponent } from './editusers/editusers.component';
 
 
 
@@ -35,7 +37,9 @@ import { RotationeditComponent } from './rotationedit/rotationedit.component';
     LogoutComponent,
     ReportComponent,
     RotationComponent,
-    RotationeditComponent
+    RotationeditComponent,
+    ScheduleshowComponent,
+    EditusersComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,7 @@ import { RotationeditComponent } from './rotationedit/rotationedit.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDatePickerModule
+    MyDateRangePickerModule
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

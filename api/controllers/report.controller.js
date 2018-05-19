@@ -45,6 +45,7 @@ bita.loadReportMonthAll = function(month){
   var results = q.defer();
   console.log(month);
 
+
   ticket.find({"date.month": month},function(err, rep) {
     console.log(rep);
       if (err){
@@ -125,11 +126,13 @@ bita.loadReportEngMonthSpecific = function(user, month)
     results.resolve(rep);
   });
   return results.promise;
+
 }
 
 bita.loadReportEngMonthStatusSpecific = function(user, month, case_status)
 {
   var results = q.defer();
+
 
   ticket.find({'engineer.engineer_id': user, 'date.month': month, 'action':case_status}, function(err, rep) {
       if (err){

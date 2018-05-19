@@ -75,7 +75,7 @@ export class ApiService {
 
   public getAllUsers(): Observable<Response> {
     return this.http
-    .get(API_URL + '/api/engineers')
+    .get(API_URL + '/api/getusers')
     .map(response => {
       console.log("response from check navbar", response)
       //this.user_id = response;
@@ -89,6 +89,17 @@ export class ApiService {
     let params = new HttpParams().set("id",id);    
     return this.http
     .get(API_URL + '/api/user/', { params: params })
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+  // API: Delete one engineer
+  public deleteOneUser(id): Observable<Response> {
+    let params = new HttpParams().set("_id",id);    
+    return this.http
+    .delete(API_URL + '/api/user/', { params: params })
     .map(response => {
       return response
     })
@@ -114,7 +125,7 @@ export class ApiService {
   }
 
   public deleteTickets(id): Observable<Response> {
-    let body = JSON.stringify({"engi_id": id})
+    let body = JSON.stringify({"engi_id": id});
     return this.http
     .put(API_URL + '/api/ticket', body,
      {headers: new HttpHeaders().set('Content-Type','application/json')}) //{headers: new HttpHeaders().set('Content-Type','application/json')}
@@ -127,7 +138,7 @@ export class ApiService {
   
 
   public addUser(data): Observable<Response> {
-    let body = JSON.stringify(data)
+    let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/login/register', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -138,7 +149,7 @@ export class ApiService {
   }
 
   public updateUser(data): Observable<Response> {
-    let body = JSON.stringify(data)
+    let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/user', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -149,7 +160,7 @@ export class ApiService {
   }
 
   public addSchedule(data): Observable<Response> {
-    let body = JSON.stringify(data)
+    let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/schedule', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -159,7 +170,7 @@ export class ApiService {
     .catch(this.handleError);
   }
   public updateSchedule(data): Observable<Response> {
-    let body = JSON.stringify(data)
+    let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/schedule', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -169,8 +180,8 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public getReport(values): Observable<Response> {
-    let body = JSON.stringify(values)
+  public getReport(values): Observable<Object> {
+    let body = JSON.stringify(values);
     return this.http
     .post(API_URL + '/api/reports', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -182,21 +193,21 @@ export class ApiService {
   }
 
   //get current week
-  public getWeek(week): Observable<Response> {
-    let params = new HttpParams().set("week",week);    
+  public getWeek(): Observable<Response> {
+    //let params = new HttpParams().set("week",week);    
     return this.http
-    .get(API_URL + '/api/rotation/', {params:params})
+    .get(API_URL + '/api/checkrotation/')
     .map(response => {
       return response
     })
     .catch(this.handleError);
   }
 
-    //get rotation table
-    public getRotation(): Observable<Response> {
-      //let params = new HttpParams().set("week",week);    
+    //get rotation by week
+    public getRotation(week): Observable<Response> {
+      let params = new HttpParams().set("week",week);    
       return this.http
-      .get(API_URL + '/api/rotations/')
+      .get(API_URL + '/api/rotation/', {params:params})
       .map(response => {
         return response
       })
@@ -217,7 +228,7 @@ export class ApiService {
 
   //update date on week 
   public updateDayOnWeek(day, week): Observable<Response> {
-    let body = JSON.stringify({"day":day, "week":week})
+    let body = JSON.stringify({"day":day, "week":week});
     return this.http
     .put(API_URL + '/api/updateday/', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -227,8 +238,20 @@ export class ApiService {
     .catch(this.handleError);
   }
 
+  //update rotation 
+  public updateRotation(data): Observable<Response> {
+    let body = JSON.stringify(data);
+    return this.http
+    .put(API_URL + '/api/rotation/', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
   public login(data): Observable<Response> {
-    let body = JSON.stringify(data)
+    let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/login', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -244,6 +267,19 @@ export class ApiService {
     console.log("cuerpo", body);
     return this.http
     .post(API_URL + '/api/logout', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+  //send the time off to add it
+  public addTimeOff(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    console.log("cuerpo", body);
+    return this.http
+    .put(API_URL + '/api/timeoff', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response

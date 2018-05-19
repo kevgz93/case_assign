@@ -1,33 +1,55 @@
-
-<div class="container" *ngIf="showhtml">
-  <h3>Tickets</h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Tickets&nbsp;<small>Queue Monitor: {{qm}}</small></h1>
+  </div>
+  <div class="col-sm-6">
+    <span class="pull-right" style="margin-top:24px;">
+        <p class="color-note warning">Engineer leaves in less than 1 hour.</p>
+        <p class="color-note danger">Engineer leaves in less than 30 minutes.</p>
+    </span>
+  </div>
 </div>
-<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
-  <thead class="tablehead">
-      <tr>
-          <th>Name</th>
-          <th>Time Zone</th>
-          <th>Static/Dynamic</th>
-          <th>Max case</th>
-          <th>Schedule</th>
-          <th>Day</th>
-          <th>Week</th>
-          <th>Month</th>
-          <th>Action</th>
-      </tr>
-  </thead>
-  <tbody>
-        <tr *ngFor="let datico of data" >
-                <td>{{datico.name}} {{datico.last_name}}</td>
-                <td>{{datico.time_zone}}</td>
-                <td>{{datico.sta_dyn}}</td>
-                <td>{{datico.max_case}}</td>
-                <td>{{datico.today}}</td>
-                <td>{{datico.countday}}</td>
-                <td>{{datico.countweek}}</td>
-                <td>{{datico.countmonth}}</td>
-                <td><button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton">+</button>
-                   / <button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton">-</button></td>
-        </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <table id="ticket" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Time Zone</th>
+            <th>Static/Dynamic</th>
+            <th class="text-center">Max cases per day</th>
+            <th>Schedule ( local time )</th>
+            <th>Email</th>
+            <th class="text-center">Day</th>
+            <th class="text-center">Week</th>
+            <th class="text-center">Month</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container  *ngFor="let datico of data">
+            <tr *ngIf="datico.today.available" class="{{datico.today.color}}">
+              <td>{{datico.name}} {{datico.last_name}}</td>
+              <td>{{datico.time_zone}}</td>
+              <td>{{datico.sta_dyn}}</td>
+              <td class="text-center">{{datico.max_case}}</td>
+              <td>{{datico.today.time}}</td>
+              <td>{{datico.email}}</td>
+              <td class="text-center">{{datico.countday}}</td>
+              <td class="text-center">{{datico.countweek}}</td>
+              <td class="text-center">{{datico.countmonth}}</td>
+              <td>
+                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>&nbsp;/&nbsp;<button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#queue_monitors_tab").removeClass('active');
+</script>

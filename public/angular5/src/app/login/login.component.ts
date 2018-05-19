@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   public date: Date = new Date();
 
   constructor( private service: ApiService, private fb: FormBuilder, private router:Router,
-    private cookieService: CookieService){   
+    private cookieService: CookieService){
     }
 
     cookieValue:CookieService;
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.service.login(user)
     .subscribe(response =>{
       console.log(response);
-      
+
       let status: any = response.status;
       if(status === 'success'){
         this.createCookie(response);
@@ -56,9 +56,9 @@ export class LoginComponent implements OnInit {
     }
 
     });
-    
-        
-        
+
+
+
   }
 
 

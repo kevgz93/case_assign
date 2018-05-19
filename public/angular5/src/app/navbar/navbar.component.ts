@@ -18,29 +18,63 @@ export class NavbarComponent implements OnInit {
 
   constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
+  getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+  }
+
+  checkQM():Observable<Response>{
+    let date = new Date();
+    let day = date.getDate();
+    let monday = this.getMonday(new Date());
+    let week;
+    this.service.getWeekByStatus().subscribe(data =>{
+    week = data.body;
+    if(week.active.status === true && week.active.day != monday.getDate()){
+      this.changeDayWeek(monday.getDate(), week.week)
+    }
+    })
+    return
+  }
+
+  changeDayWeek(day, week):Observable<Boolean>{
+    this.service.updateDayOnWeek(day, week).subscribe(response => {
+      console.log(response);
+    })
+    return
+  }
+
+  checkAdmin(){
+    if (this.user.role === 'admin'){
+      this.showMaintenance = true;
+    }
+  }
+
   checkSessionId(login){
     let cookie = this.cookieService.get('SessionId');
-    let url;
+    let url = "login";
     if(!cookie){
       this.shownav = false;
-      url = "login";
       this.redirect(url);
     }
-      else{
-        this.service.getUserBySessionId().subscribe(response =>{
-          console.log("when check session on navbar",response);
-          
+    else{
+      this.service.getUserBySessionId().subscribe(response =>{
+        console.log("when check session on navbar",response);
+        if(response.status != 201) {
+          this.shownav = false;
+          this.redirect(url);
+        }
+        else{
           this.user = response.body;
           this.shownav = true;
-          if (this.user.role === 'admin'){
-            this.showMaintenance = true;
-          }
-          
-         
-        });
+          this.checkAdmin();
+        }
+        
+        
+      });
     }
-    
-
   }
 
   redirect(url){
@@ -68,17 +102,23 @@ export class NavbarComponent implements OnInit {
     return
   }
 
-  goEditUser(){
+  goEditEngineer(){
     this.user._id;
     this.service.changeUserId(this.user._id);
-    this.router.navigate(['./edituser'])
+    this.router.navigate(['./editengineer'])
+    return
+  }
+  goEditUsers(){
+    // this.user._id;
+    // this.service.changeUserId(this.user._id);
+    this.router.navigate(['./editusers'])
     return
   }
 
-  goEditSchedule(){
+  goShowSchedule(){
     this.user._id;
     this.service.changeUserId(this.user._id);
-    this.router.navigate(['./editschedule'])
+    this.router.navigate(['./showschedule'])
     return
   }
 
@@ -101,6 +141,7 @@ export class NavbarComponent implements OnInit {
     let login;
     this.service.currentId.subscribe(message => login = message);
     //this.shownav = true;
+    this.checkQM();
     this.checkSessionId(login);
     
     

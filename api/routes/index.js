@@ -45,7 +45,7 @@ router
   .delete(ctrlUsers.usersDeleteOne);
 
   router
-  .route('/engineers')
+  .route('/getusers')
   .get(ctrlUsers.getUsersWithNamesOnly);
 
   router
@@ -63,6 +63,7 @@ router
 .post(ctrlReport.generateReports)
 
 router
+
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
 .post(ctrlRotation.createRotation)
@@ -80,6 +81,10 @@ router
 router
 .route('/updateday/')
 .put(ctrlRotation.updateDayOnWeek)//helpers.isAuthenticated,
+
+router
+.route('/timeoff/')
+.put(ctrlSchedule.createTimeOff)//helpers.isAuthenticated,
 
 
 

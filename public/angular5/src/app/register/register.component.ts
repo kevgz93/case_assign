@@ -20,9 +20,30 @@ export class RegisterComponent implements OnInit {
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
   addUser(data){
-    data.time = +data.time;
-    data.sta_dyn = +data.sta_dyn;
     data.max = +data.max;
+
+    switch(data.sta_dyn){
+      case "Both":
+      data.sta_dyn = 3;
+      break;
+      case "Dynamic":
+      data.sta_dyn = 2;
+      break;
+      case "Static":
+      data.sta_dyn = 1;
+      break;
+    }
+
+    switch(data.status){
+      case "Available":
+      data.status = true;
+      break;
+      case "Disable":
+      data.status = false;
+      break;
+    }
+
+    data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
 
     console.log(data);
     this.service.addUser(data)
@@ -32,14 +53,14 @@ export class RegisterComponent implements OnInit {
         alert('User Added');
         this.service.changeObject(msj);
         this.router.navigate(['./schedule']);
-        
+
       }
       else{
         alert('User Failed');
         this.router.navigate(['./login/register']);
       }
     })
-    
+
   }
 
   ngOnInit() {
@@ -48,12 +69,10 @@ export class RegisterComponent implements OnInit {
       last_name: '',
       email: '',
       city : '',
-      work_start: '',
-      work_end: '',
-      sta_dyn: '',
-      max: '',
-      status: '',
-      role: '',
+      sta_dyn: 'Both',
+      max: '0',
+      status: 'Available',
+      role: 'User',
       username: '',
       password: '',
     });

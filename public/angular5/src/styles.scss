@@ -1,2 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+.navbar-body{
+  a{
+    cursor: pointer;
+  }
+}
+
+.form-flat .dropdown input[type="text"]{
+  cursor: pointer !important;
+}
+
+.form-flat .dropdown ul.dropdown-menu li{
+  cursor: pointer;
+}

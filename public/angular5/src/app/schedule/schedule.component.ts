@@ -15,7 +15,7 @@ export class ScheduleComponent implements OnInit {
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
-    dateFormat: 'dd/mm/yyyy',
+    //dateFormat: 'dd/mm/yyyy',
 };
   public data;
   public user;
@@ -37,22 +37,19 @@ export class ScheduleComponent implements OnInit {
       difference.hour = 6;
     }
     else if(timezone === "pt"){
-      difference.hour = 7 + dayL;
+      difference.hour = 8 - dayL;
     }
     else if(timezone === "ct"){
-      difference.hour = 5 + dayL;
+      difference.hour = 6 - dayL;
     }
     else if(timezone === "et"){
-      difference.hour = 4 + dayL;
-    }
-    else if(timezone === "et"){
-      difference.hour = -1 + dayL;
+      difference.hour = 5 - dayL;
     }
     else if(timezone === "uk"){
-      difference.hour = 0 + dayL;
+      difference.hour = 0 - dayL;
     }
     else if(timezone === "cet"){
-      difference.hour = -1 + dayL;
+      difference.hour = -1 - dayL;
     }
     else if(timezone === "ist"){
       difference.hour = -5;
@@ -94,29 +91,42 @@ export class ScheduleComponent implements OnInit {
     
   }
 
-  showCalendar():Boolean {
-    this.showcalen = true;
-    return
-  }
-
 
   ngOnInit() {
 
     this.service.currentObject.subscribe(message => this.user = message);
 
     this.myform= this.fb.group({
-      monday_morning: '',
-      monday_afternoon: '',
-      tuesday_morning: '',
-      tuesday_afternoon : '',
-      wednesday_morning: '',
-      wednesday_afternoon: '',
-      thursday_morning: '',
-      thursday_afternoon: '',
-      friday_morning: '',
-      friday_afternoon: '',
-      time:'',
-      daylight: false
+      monday_morning_hour : '',
+      monday_morning_minutes : '',
+      monday_afternoon_hour : '',
+      monday_afternoon_minutes : '',
+      tuesday_morning_hour: '',
+      tuesday_morning_minutes: '',
+      tuesday_afternoon_hour: '',
+      tuesday_afternoon_minutes: '',
+      wednesday_morning_hour: '',
+      wednesday_morning_minutes: '',
+      wednesday_afternoon_hour: '',
+      wednesday_afternoon_minutes: '',
+      thursday_morning_hour : '',
+      thursday_morning_minutes : '',
+      thursday_afternoon_hour : '',
+      thursday_afternoon_minutes : '',
+      friday_morning_hour: '',
+      friday_morning_minutes: '',
+      friday_afternoon_hour: '',
+      friday_afternoon_minutes: '',
+      time: '',
+      daylight: false,
+      day_off_day:0,
+      day_off_month:0,
+      day_off_hour:0,
+      day_off_minutes:0,
+      day_on_day:0,
+      day_on_month:0,
+      day_on_hour:0,
+      day_on_minutes:0
       //day_on:[null, Validators.required],
       //day_off: [null, Validators.required]
 
