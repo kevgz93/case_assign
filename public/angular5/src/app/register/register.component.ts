@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-register',
@@ -71,6 +73,7 @@ export class RegisterComponent implements OnInit {
       username: '',
       password: '',
     });
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }

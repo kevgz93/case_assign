@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+declare var jquery:any;
+declare var $ :any;
+$('#queue_monitors_tab').removeClass('active');
 
 @Component({
   selector: 'app-rotationedit',
@@ -81,6 +84,7 @@ export class RotationeditComponent implements OnInit {
 
   ngOnInit() {
     //this.service.currentId.subscribe(message => this.id = message);
+$('#queue_monitors_tab').removeClass('active');
   }
 
 }

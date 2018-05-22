@@ -5,6 +5,8 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+declare var jquery:any;
+declare var $ :any;
 
 interface engineer{
 	name : String,
@@ -159,6 +161,8 @@ export class EngineerComponent implements OnInit {
 		this.service.currentId.subscribe(message => this.id = message);
 		this.getUserRole();
 		this.getOneSchedule();
+		$('#queue_monitors_tab').removeClass('active');
+		
 	}
 
 }

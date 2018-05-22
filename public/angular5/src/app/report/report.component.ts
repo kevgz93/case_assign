@@ -3,6 +3,8 @@ import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-report',
@@ -53,6 +55,7 @@ export class ReportComponent implements OnInit {
       case_status: 'added',
 
     });
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }
