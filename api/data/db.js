@@ -45,3 +45,4 @@ process.once('SIGUSR2', function() {
 require('./user.model.js');
 require('./case.model.js');
 require('./bitacora.model.js');
+require('./weekendRotation.model')

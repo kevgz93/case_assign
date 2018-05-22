@@ -23,7 +23,7 @@ Install the dependencies, seed the database :( and start the server.
 
 #### Seed the database 
 
-Install Node-mongo-seed package and then run the $ seed command
+Install Node-mongo-seed package and then run the `$ seed` command
 
 #### Server (Backend + API)
 
