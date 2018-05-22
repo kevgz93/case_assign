@@ -1,3 +1,7 @@
+<!--
+  * TODO: modificar los select para que sean como los dropdown establecidos en Quantum.
+-->
+
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <h1>Edit user</h1>
@@ -5,26 +9,26 @@
 </div>
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <form class="form-flat ng-pristine ng-valid" *ngIf="showhtml" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
+    <form class="form-flat" *ngIf="showhtml" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_name" title="Engineer's name">Name</label>
-                <input if="engineers_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="name">
+                <input id="engineers_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="name">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_last_name" title="Engineer's last name">Last Name</label>
-                <input if="engineers_last_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="last_name">
+                <input id="engineers_last_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="last_name">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_email" title="Engineer's email">Email</label>
-                <input if="engineers_email" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="email">
+                <input id="engineers_email" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="email">
               </div>
             </div>
           </div>
@@ -32,19 +36,19 @@
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_city" title="Engineer's city">City</label>
-                <input if="engineers_city" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="city">
+                <input id="engineers_city" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="city">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_username" title="Engineer's username">Username</label>
-                <input if="engineers_username" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="username">
+                <input id="engineers_username" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="username">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="engineers_password" title="Engineer's password">Password</label>
-                <input if="engineers_password" onfocus="onFocus(event);" onblur="onBlur(event);" type="password" formControlName="password">
+                <input id="engineers_password" onfocus="onFocus(event);" onblur="onBlur(event);" type="password" formControlName="password">
               </div>
             </div>
           </div>
@@ -53,41 +57,60 @@
               <div class="col-sm-4">
                 <div class="form-group" required>
                   <label for="types_of_cases" title="Static/Dynamic">Static/Dynamic</label>
+                  <select formControlName="sta_dyn" id="types_of_cases" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="1">Static</option>
+                    <option value="2">Dynamic</option>
+                    <option value="3">Both</option>
+                  </select>
+                  <!--
                   <div class="dropdown">
-                    <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  readonly="ReadOnly" type="text"  formControlName="sta_dyn">
+                    <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="sta_dyn" readonly="readonly"/>
                     <i class="caret"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="type_of_cases_dropdown">
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Both</a></li>
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Dynamic</a></li>
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Static</a></li>
                     </ul>
-                  </div>
+                  </div>-->
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group" required>
                   <label for="role_select" title="Role">Role</label>
+                  <select formControlName="role" id="role_select" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  <!--
                   <div class="dropdown">
-                    <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="User" readonly="ReadOnly" type="text" formControlName="role">
+                    <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="role" readonly="readonly"/>
                     <i class="caret"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="role_dropdown">
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">User</a></li>
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Admin</a></li>
                     </ul>
-                  </div>
+                  </div>-->
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group" required>
                   <label for="status_select" title="Status">Status</label>
+                  <select formControlName="status" id="status_select" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="true">Available</option>
+                    <option value="false">Disable</option>
+                  </select>
+                  <!--
                   <div class="dropdown">
-                    <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="status">
+                    <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="status" readonly="readonly"/>
                     <i class="caret"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="status_dropdown">
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Available</a></li>
                       <li><a tabindex="-1" onclick="changeDropdownValue(this);">Disable</a></li>
                     </ul>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>

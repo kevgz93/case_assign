@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   addUser(data){
     data.max = +data.max;
 
+    /*
     switch(data.sta_dyn){
       case "Both":
       data.sta_dyn = "3";
@@ -35,11 +36,11 @@ export class RegisterComponent implements OnInit {
     }
     data.status = data.status == "Available" ? "true" : "false";
     data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
+    */
 
-
-    console.log(data.sta_dyn);
-    console.log(data.status);
-    console.log(data.role);
+    //console.log(data.sta_dyn);
+    //console.log(data.status);
+    //console.log(data.role);
     this.service.addUser(data)
     .subscribe(msj => {
       console.log(msj);
@@ -63,10 +64,10 @@ export class RegisterComponent implements OnInit {
       last_name: '',
       email: '',
       city : '',
-      sta_dyn: 'Both',
+      sta_dyn: '',
       max: '0',
-      status: 'Available',
-      role: 'User',
+      status: '',
+      role: '',
       username: '',
       password: '',
     });

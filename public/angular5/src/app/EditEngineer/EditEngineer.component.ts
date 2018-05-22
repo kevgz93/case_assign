@@ -5,6 +5,7 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+
 interface engineer{
 	name : String,
 	last_name : String,
@@ -67,7 +68,7 @@ export class EngineerComponent implements OnInit {
 		console.log("Info del form: ", data);
 		data._id = this.id;
 		data.max = +data.max;
-
+		/*
 		switch(data.sta_dyn){
 			case "Both":
 			data.sta_dyn = 3;
@@ -78,10 +79,14 @@ export class EngineerComponent implements OnInit {
 			case "Static":
 			data.sta_dyn = 1;
 			break;
+			default:
+			data.sta_dyn = 3;
+			break;
 		}
 		data.status = data.status == "Available" ? true : false;
 		data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
-		console.log(data.role);
+		*/
+		console.log("Info a enviar: ",data);
 		this.service.updateUser(data)
 		.subscribe(response => {
 			console.log(response.status);
@@ -98,7 +103,9 @@ export class EngineerComponent implements OnInit {
 	}
 
 	fillForm(){
-
+		
+		var sta_dyn_tmp = this.user.body.sta_dyn; // Change to "" if enabling the option bellow.
+		/*
 		var sta_dyn_tmp = "";
 		switch(this.user.body.sta_dyn){
 			case 1:
@@ -110,9 +117,12 @@ export class EngineerComponent implements OnInit {
 			case 3:
 			sta_dyn_tmp = "Both";
 			break;
-		}
+		}*/
 
-
+		//var status_tmp = this.user.body.status ? "Available" : "Disable"
+		var status_tmp = this.user.body.status;
+		//var role_tmp = this.user.body.role == "admin" ? "Admin" : "User";
+		var role_tmp = this.user.body.role;
 		this.myform= this.fb.group({
 			name: this.user.body.name,
 			last_name: this.user.body.last_name,
@@ -120,8 +130,8 @@ export class EngineerComponent implements OnInit {
 			city : this.user.body.city,
 			sta_dyn: sta_dyn_tmp,
 			max: this.user.body.max_case,
-			status: this.user.body.status ? "Available" : "Disable",
-			role: this.user.body.role == "admin" ? "Admin" : "User",
+			status: status_tmp,
+			role: role_tmp,
 			username: this.user.body.username,
 			password: this.user.body.password,
 		});
