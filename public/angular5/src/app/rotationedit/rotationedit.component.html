@@ -1,148 +1,91 @@
-
-            <div class="display:inline-block;">
-                <button type="button" (click)="getWeek(1)">Week 1</button>
-
-                <button type="button" (click)="getWeek(2)">Week 2</button>
-
-                <button type="button" (click)="getWeek(3)">Week 3</button>
-
-                <button type="button" (click)="getWeek(4)">Week 4</button>
-
-                <button type="button" (click)="getWeek(5)">Week 5</button>
-
-                <button type="button" (click)="getWeek(6)">Week 6</button>
-            </div>
-
-            
-            
-            
-
-
-        <form class="form-horizontal ibox-content" *ngIf="showtable" [formGroup]="myform" (ngSubmit)="updateRotation(myform.value)" role="form">
-                <div>
-                        <label class="col-md-2 label-form  control-label">Week {{rotation.week}}</label>
-        
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-            <div class="form-group" >
-                <input type="hidden" formControlName="week">
-                <label class="col-md-2 label-form  control-label">Monday Morning</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="monday_morning">
-                </div>
-                <label class="col-md-2 label-form control-label">Monday Afternoon</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"   formControlName="monday_afternoon">
-                </div>
-                <label class="col-md-2 label-form control-label">Monday EMEA</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="monday_emea">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 label-form  control-label">Tuesday Morning</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="tuesday_morning">
-                </div>
-                <label class="col-md-2 label-form control-label">Tuesday Afternoon</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="tuesday_afternoon">
-                </div>
-                <label class="col-md-2 label-form control-label">Tuesday EMEA</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"   formControlName="tuesday_emea">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 label-form  control-label">Wednesday Morning</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="wednesday_morning">
-                </div>
-                <label class="col-md-2 label-form control-label">Wednesday Afternoon</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="wednesday_afternoon">
-                </div>
-                <label class="col-md-2 label-form control-label">Wednesday EMEA</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"   formControlName="wednesday_emea">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 label-form  control-label">Thursday Morning</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="thursday_morning">
-                </div>
-                <label class="col-md-2 label-form control-label">Thursday Afternoon</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" formControlName="thursday_afternoon">
-                </div>
-                <label class="col-md-2 label-form control-label">Thursday EMEA</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="thursday_emea">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 label-form  control-label">Friday Morning</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="friday_morning">
-                </div>
-                <label class="col-md-2 label-form control-label">Friday Afternoon</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"  formControlName="friday_afternoon">
-                </div>
-                <label class="col-md-2 label-form control-label">Friday EMEA</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control"   formControlName="friday_emea">
-                </div>
-            </div>
-        <div>
-
-        </div>
-        <div class="cont-button" style="float: right;">
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">Update</button>
-            </div>
-        </div>
-    </form>
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  
-    
-
-        <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-md-2 label-form  control-label">Lunes</label>
-              <div class="col-md-4">
-                  <input type="text" class="form-control" placeholder="00"  formControlName="monday_morning">
-              </div>
-              <label class="col-md-2 label-form control-label">:</label>
-              <div class="col-md-4">
-                  <input type="text" class="form-control" placeholder="00" formControlName="monday_afternoon">
-              </div>
-          </div>
-      </div>
-
-        <div class="container">
-    <div class="cont-button">
-        <div class="form-group">
-            <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
-                <i class="fa fa-times-circle-o"></i> Cancel</button>
-            <button class="btn btn-primary" type="submit">Continue</button>
+<nav class="nav-secondary navbar">
+    <ul class="nav nav-tabs nav-sm" role="tablist">
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 1" aria-expanded="false" (click)="getWeek(1)">Week 1</a>
+        </li>
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 2" aria-expanded="false" (click)="getWeek(2)">Week 2</a>
+        </li>
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 3" aria-expanded="false" (click)="getWeek(3)">Week 3</a>
+        </li>
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 4" aria-expanded="false" (click)="getWeek(4)">Week 4</a>
+        </li>
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 5" aria-expanded="false" (click)="getWeek(5)">Week 5</a>
+        </li>
+        <li role="presentation">
+            <a href="" role="tab" data-toggle="tab" title="Week 6" aria-expanded="false" (click)="getWeek(6)">Week 6</a>
+        </li>
+    </ul>
+</nav>
+<ng-container *ngIf="!showtable">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-md-offset-5">
+            <div class="alert alert-info">Select a week to edit the queue monitors</div>
         </div>
     </div>
-</div>
-
-
--->
+</ng-container>
+<form class="form-horizontal ibox-content" *ngIf="showtable" [formGroup]="myform" (ngSubmit)="updateRotation(myform.value)"
+    role="form">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <h1>Rotation <small>Week&nbsp;{{rotation.week}}</small></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-3">
+                            <h2>EMEA</h2>
+                        </div>
+                        <div class="col-sm-3">
+                            <h2>AMS Morning</h2>
+                        </div>
+                        <div class="col-sm-3">
+                            <h2>AMS Afternoon</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h2>Monday</h2></div>
+                        <div class="col-sm-3"><input type="text" formControlName="monday_emea"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="monday_morning"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="monday_afternoon"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h2>Tuesday</h2></div>
+                        <div class="col-sm-3"><input type="text" formControlName="tuesday_emea"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="tuesday_morning"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="tuesday_afternoon"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h2>Wednesday</h2></div>
+                        <div class="col-sm-3"><input type="text" formControlName="wednesday_emea"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="wednesday_morning"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="wednesday_afternoon"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h2>Thursday</h2></div>
+                        <div class="col-sm-3"><input type="text" formControlName="thursday_emea"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="thursday_morning"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="thursday_afternoon"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"><h2>Friday</h2></div>
+                        <div class="col-sm-3"><input type="text" formControlName="friday_emea"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="friday_morning"></div>
+                        <div class="col-sm-3"><input type="text" formControlName="friday_afternoon"></div>
+                    </div>
+                </div>
+                <input type="hidden" formControlName="week">
+                <div class="panel-footer panel-button-footer">
+                    <a href="#" class="btn btn-secondary">Cancel</a>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
