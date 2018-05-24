@@ -1,107 +1,171 @@
-
-<div class="container" *ngIf='showview'>
-    <h3>Schedule</h3>
+<ng-container *ngIf='showview'>
+  <div class="row">
+    <div class="col-sm-12 col-sm-10 col-sm-offset-1">
+      <h1>My Schedule</h1>
+    </div>
   </div>
-  <table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead class="tablehead">
-      <tr>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--<div > -->
-      <tr >
-        <td>{{schedule.monday_morning}} - {{schedule.monday_afternoon}}</td>
-        <td>{{schedule.tuesday_morning}} - {{schedule.tuesday_afternoon}}</td>
-        <td>{{schedule.wednesday_morning}} - {{schedule.wednesday_afternoon}}</td>
-        <td>{{schedule.thursday_morning}} - {{schedule.thursday_afternoon}}</td>
-        <td>{{schedule.friday_morning}} - {{schedule.friday_afternoon}}</td>
-      </tr>
-        <!--</div> -->
-    </tbody>
-  </table>
-    <div style="margin-left: 50%; margin-bottom: 4%">
-        <label>Add time Off</label>
-        <input type="checkbox" [(ngModel)]="isChecked" (change)="changeview(isChecked)"/>
-    </div>
-
-  <div class="container" *ngIf='showcalendar'>
-    <form [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
-        <div class="col-md-4">
-            <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
-            formControlName="myDateRange"></my-date-range-picker>
-      <!-- other controls are here... -->
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <label>Leaving time</label>
-        <div>
-          <select type="number" value='0' class="form-control" formControlName="start_time_hour">
-              <option value='6'>6</option>
-              <option value='7'>7</option>
-              <option value='8'>8</option>
-              <option value='9'>9</option>
-              <option value='10'>10</option>
-              <option value='11'>11</option>
-              <option value='12'>12</option>
-              <option value='13'>13</option>
-              <option value='14'>14</option>
-              <option value='15'>15</option>
-              <option value='16'>16</option>
-              <option value='17'>17</option>
-              <option value='18'>18</option>
-          </select>
-        </div>
-        <label >:</label>
-        <div>
-          <select type="number" value='0' class="form-control" formControlName="start_time_minutes">
-              <option value='0'>00</option>
-              <option value='30'>30</option>
-          </select>
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>
+                    <b>Monday</b>
+                  </p>
+                </div>
+                <div class="col-sm-9">
+                  <p>{{schedule.monday_morning}}&nbsp;-&nbsp;{{schedule.monday_afternoon}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>
+                    <b>Tuesday</b>
+                  </p>
+                </div>
+                <div class="col-sm-9">
+                  <p>{{schedule.tuesday_morning}}&nbsp;-&nbsp;{{schedule.tuesday_afternoon}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>
+                    <b>Wednesday</b>
+                  </p>
+                </div>
+                <div class="col-sm-9">
+                  <p>{{schedule.wednesday_morning}}&nbsp;-&nbsp;{{schedule.wednesday_afternoon}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>
+                    <b>Thursday</b>
+                  </p>
+                </div>
+                <div class="col-sm-9">
+                  <p>{{schedule.thursday_morning}}&nbsp;-&nbsp;{{schedule.thursday_afternoon}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>
+                    <b>Friday</b>
+                  </p>
+                </div>
+                <div class="col-sm-9">
+                  <p>{{schedule.friday_morning}}&nbsp;-&nbsp;{{schedule.friday_afternoon}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="checkbox inline checkbox-switch">
+                    <label>
+                      <input [(ngModel)]="isChecked" (change)="changeview(isChecked)" type="checkbox">
+                      <span>
+                        <div>Add time off?</div>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="showcalendar">
+                <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="mydaterange" title="Dates out">Days out</label>
+                        <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
+                          readonly></my-date-range-picker>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label for="">Leaving time</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <select type="number" class="form-control" formControlName="start_time_hour">
+                        <option value="" disabled>-- Select an hour --</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10</option>
+                        <option value='11'>11</option>
+                        <option value='12'>12</option>
+                        <option value='13'>13</option>
+                        <option value='14'>14</option>
+                        <option value='15'>15</option>
+                        <option value='16'>16</option>
+                        <option value='17'>17</option>
+                        <option value='18'>18</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-1 text-center">:</div>
+                    <div class="col-sm-5">
+                      <select type="number" class="form-control" formControlName="start_time_minutes">
+                        <option value="" disabled>-- Select the minutes --</option>
+                        <option value='0'>00</option>
+                        <option value='30'>30</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 15px;">
+                    <div class="col-sm-12">
+                      <label for="">Returning time</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <select type="number" value='0' class="form-control" formControlName="end_time_hour">
+                        <option value="" disabled>-- Select an hour --</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10</option>
+                        <option value='11'>11</option>
+                        <option value='12'>12</option>
+                        <option value='13'>13</option>
+                        <option value='14'>14</option>
+                        <option value='15'>15</option>
+                        <option value='16'>16</option>
+                        <option value='17'>17</option>
+                        <option value='18'>18</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-1 text-center">:</div>
+                    <div class="col-sm-5">
+                      <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
+                        <option value="" disabled>-- Select the minutes --</option>
+                        <option value='0'>00</option>
+                        <option value='30'>30</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12"><br></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-default" (click)="cancelEditing.emit();" [disabled]="loading">Cancel</button>
+                        <button class="btn btn-primary pull-right" type="submit">Continue</button>
+                    </div>
+                  </div>
+                </form>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <label >coming time</label>
-        <div>
-            <select type="number" value='0' class="form-control" formControlName="end_time_hour">
-                <option value='6'>6</option>
-                <option value='7'>7</option>
-                <option value='8'>8</option>
-                <option value='9'>9</option>
-                <option value='10'>10</option>
-                <option value='11'>11</option>
-                <option value='12'>12</option>
-                <option value='13'>13</option>
-                <option value='14'>14</option>
-                <option value='15'>15</option>
-                <option value='16'>16</option>
-                <option value='17'>17</option>
-                <option value='18'>18</option>
-            </select>
-            </div>
-        <label >:</label>
-        <div>
-            <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
-                <option value='0'>00</option>
-                <option value='30'>30</option>
-            </select>
-          </div>    
-        </div>
-      <!-- other controls are here... -->
-</div>
-    <div>
-        <div class="cont-button">
-            <div class="form-group">
-                <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
-                    <i class="fa fa-times-circle-o"></i> Cancel</button>
-                <button class="btn btn-primary" type="submit">Continue</button>
-            </div>
-        </div>
     </div>
-    </form>
   </div>
-  
+</ng-container>
