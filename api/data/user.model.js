@@ -14,11 +14,12 @@ var userSchema = new mongoose.Schema({
 	activeSession: String,
 	role: String,
 	working_days: Number,
-	last_case: String
+	last_case: String,
+	weekendRotationDates: [ Date ]
 });
 
 
 
 //MODEL for Users using SCHEMA HOTELS
 
-mongoose.model('user', userSchema, 'users')
+mongoose.model('user', userSchema, 'users');

@@ -90,7 +90,11 @@ router
 
 // weekendRotation routes
 router
-    .route('/weekendRotation/')
-    .get(weekendRotationCtrl.getWeekendRotations)//helpers.isAuthenticated,
+    .route('/weekendRotations/')
+    .get(weekendRotationCtrl.getEntries); //helpers.isAuthenticated,
+
+router
+    .route('/editWeekendRotation/')
+    .put(weekendRotationCtrl.editEntry); //helpers.isAuthenticated,
 
 module.exports = router;
