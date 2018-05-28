@@ -1,3 +1,5 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 .navbar-body{
   a{
     cursor: pointer;
@@ -10,4 +12,15 @@
 
 .form-flat .dropdown ul.dropdown-menu li{
   cursor: pointer;
+}
+
+.mydrp{
+  border: none !important;
+  .selectiongroup > input{
+    cursor: pointer;
+  }
+
+  .headerokbtn, .headerclearbtn{
+    border: none !important;
+  }
 }

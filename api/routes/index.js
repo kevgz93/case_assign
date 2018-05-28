@@ -9,6 +9,7 @@ var ctrlReport = require('../controllers/report.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 var ctrlRotation = require('../controllers/rotation.controller.js');
 
+let weekendRotationCtrl = require ('../controllers/weekendRotation.controller');
 
 
 router
@@ -87,5 +88,13 @@ router
 .put(ctrlSchedule.createTimeOff)//helpers.isAuthenticated,
 
 
+// weekendRotation routes
+router
+    .route('/weekendRotations/')
+    .get(weekendRotationCtrl.getEntries); //helpers.isAuthenticated,
+
+router
+    .route('/editWeekendRotation/')
+    .put(weekendRotationCtrl.editEntry); //helpers.isAuthenticated,
 
 module.exports = router;

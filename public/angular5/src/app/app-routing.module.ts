@@ -13,6 +13,7 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
+import { WeekendRotationComponent } from './weekendRotation/weekendRotation.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'rotation', component: RotationComponent },
   { path: 'editrotation', component: RotationeditComponent },
   { path: 'showschedule', component: ScheduleshowComponent },
-  { path: 'editusers', component: EditusersComponent }
+  { path: 'editusers', component: EditusersComponent },
+  { path: 'weekendRotation', component: WeekendRotationComponent }
 
 
 ];

@@ -6,6 +6,9 @@ import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} fr
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
 import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
+declare var jquery:any;
+declare var $ :any;
+
 @Component({
   selector: 'app-scheduleshow',
   templateUrl: './scheduleshow.component.html',
@@ -184,6 +187,7 @@ changeview(value):void{
   });
     this.service.currentId.subscribe(message => this.id = message);
     this.getSchedule();
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }

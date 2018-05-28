@@ -1,71 +1,90 @@
-<form class="form-horizontal ibox-content" [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form">
-<div>
-  <p>Engineer</p>
-  <select formControlName="user">
-      <option value="all">
-          All
-        </option>
-    <option *ngFor="let user of users" value={{user._id}} >
-      {{user.name}} {{user.last_name}}
-    </option>
-  </select>
+<div class="row">
+  <form [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form" class="form-flat">
+    <div class="col-sm-2 col-sm-offset-2">
+      <div class="form-group">
+        <label for="select_engineer">Engineer</label>
+        <select id="select_engineer" formControlName="user" class="form-control">
+          <option value="all">
+            All
+          </option>
+          <option *ngFor="let user of users" value={{user._id}}>
+            {{user.name}} {{user.last_name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="select_month">Month</label>
+        <select formControlName="month" class="form-control" id="select_month">
+          <option value="all">
+            All
+          </option>
+          <option *ngFor="let month of months" value={{month.id}}>
+            {{month.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="case_status_select">Case status</label>
+        <select formControlName="case_status" class="form-control" id="case_status_select">
+          <option value="all">
+            All
+          </option>
+          <option value="added">
+            Added
+          </option>
+          <option value="deleted">
+            Deleted
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit">
+          <i class="qtm-font-icon qtm-icon-search--16" aria-hidden="true"></i>
+          <span>Search</span>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
-<div>
-  <p>month</p>
-  <select formControlName="month">
-      <option value="all">
-          All
-        </option>
-    <option *ngFor="let month of months" value={{month.id}}>
-      {{month.name}}
-    </option>
-  </select>
-</div>
-<div>
-    <p>Cases Status</p>
-    <select formControlName="case_status">
-      <option value="all">
-          All
-      </option>
-      <option value="added">
-        Added
-      </option>
-      <option value="deleted">
-          deleted
-      </option>
-    </select>
+<div class="row" *ngIf="showtotal">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <h2>Total tickets
+      <span style="color:#777;">{{cases.total}}</span>
+    </h2>
   </div>
-<div>
-    <div class="cont-button">
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </div>
-    <div style="margin-left:15%;" *ngIf="showtotal">
-      <label>Total Tickets</label>
-      <label>{{cases.total}}</label>
-    </div>
 </div>
-
-</form>
-
-<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%" *ngIf='showtable'>
-  <thead class="tablehead">
-      <tr>
-        <th>Engineer Name</th>
-        <th>Action</th>
-        <th>Time</th>
-        <th>Date</th>
-        <th>User</th>
-    </tr>
-</thead>
-<tbody>
-      <tr *ngFor="let case of cases" >
-              <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
-              <td>{{case.action}}</td>
-              <td>{{case.time}}</td>
-              <td>{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
-              <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
-            </tr>
-  </tbody>
-</table>
+<div class="row" *ngIf="showtable && cases.total > 0">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <table id="ticket" class="table">
+        <tbody>
+          <tr>
+            <th>Engineer name</th>
+            <th class="text-center">Action</th>
+            <th class="text-center">Time</th>
+            <th class="text-center">Date</th>
+            <th>User</th>
+          </tr>
+          <tr *ngFor="let case of cases">
+            <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
+            <td class="text-center">{{case.action}}</td>
+            <td class="text-center">{{case.time}}</td>
+            <td class="text-center">{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
+            <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="showtotal && cases.total == 0">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="alert alert-warning">No records were found</div>
+  </div>
+</div>

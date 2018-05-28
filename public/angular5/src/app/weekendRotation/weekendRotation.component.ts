@@ -9,19 +9,19 @@ declare var $ :any;
 
 @Component({
   selector: 'app-rotation',
-  templateUrl: './rotation.component.html',
-  styleUrls: ['./rotation.component.scss']
+  templateUrl: './weekendRotation.component.html',
+  styleUrls: ['./weekendRotation.component.scss']
 })
 
-export class RotationComponent implements OnInit {
-  
+export class WeekendRotationComponent implements OnInit {
+
   private week;
-  public showtable:Boolean = false;
+  public showtable: Boolean = false;
 
   constructor(private service: ApiService, private router:Router) { }
 
 
-  getWeek(): Observable<object>{   
+  getWeek(): Observable<object>{
     this.service.getWeek()
     .subscribe(week => {
       if(week.status != 200){
@@ -33,12 +33,12 @@ export class RotationComponent implements OnInit {
         this.showtable = true;
       }
     })
-    
+
     return;
   }
 
 
-  
+
 
 
   ngOnInit() {

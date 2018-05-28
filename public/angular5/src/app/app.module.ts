@@ -24,6 +24,9 @@ import { EditusersComponent } from './editusers/editusers.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
+//import { CalendarModule } from 'angular-calendar';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RotationeditComponent,
     ScheduleshowComponent,
     EditusersComponent,
-    DialogComponent
+    DialogComponent,
+    WeekendRotationComponent
   ],
   entryComponents: [DialogComponent],
   imports: [
@@ -52,7 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MyDateRangePickerModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule//, CalendarModule.forRoot()
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

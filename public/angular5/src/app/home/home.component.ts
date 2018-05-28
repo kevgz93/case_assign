@@ -3,6 +3,8 @@ import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Rx';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
+declare var jquery:any;
+declare var $ :any;
 
 interface engineer{
   _id : string;
@@ -543,11 +545,12 @@ export class HomeComponent implements OnInit {
     //this.showhtml = false;
     this.getQM();
     this.getAllEng();
+
     let timer = Observable.timer(300000,300000);
     timer.subscribe(t=> {
         this.getAllEng();
     });
 
-
+    $('#queue_monitors_tab').removeClass('active');
   }
 }

@@ -7,7 +7,8 @@ import {Router} from '@angular/router';
 import { promise } from 'protractor';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogComponent} from "../dialog/dialog.component";
-
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-editusers',
@@ -58,6 +59,7 @@ export class EditusersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }
