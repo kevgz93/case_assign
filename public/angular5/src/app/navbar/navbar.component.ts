@@ -142,9 +142,7 @@ export class NavbarComponent implements OnInit {
     this.service.currentId.subscribe(message => login = message);
     //this.shownav = true;
     this.checkQM();
-    this.checkSessionId(login);
-    
-    
+    this.checkSessionId(login);   
   }
 }
 

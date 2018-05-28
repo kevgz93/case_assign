@@ -15,9 +15,15 @@ function onBlur(event) {
 
 // Function to get the value of the selected value from a dropdown
 function changeDropdownValue(element){
+  $(element).parent().siblings().removeClass('active');
+  $(element).parent().addClass('active');
   var siblings = $(element).parent().parent().siblings();
   var input = siblings[0];
-  $(input).val($(element).text());
+  var value = $(element).text();
+  $(input).attr('value', value);
+  $(input).val(value);
+  $(input).prop('value', value);
+  $(input).value = value;
 }
 
 $(document).ready(function(){

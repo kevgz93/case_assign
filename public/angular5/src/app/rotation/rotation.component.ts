@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-rotation',
@@ -41,6 +43,7 @@ export class RotationComponent implements OnInit {
 
   ngOnInit() {
     this.getWeek();
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }

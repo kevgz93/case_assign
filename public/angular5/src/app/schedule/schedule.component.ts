@@ -5,6 +5,8 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {IMyDpOptions} from 'mydatepicker';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-schedule',
@@ -131,6 +133,7 @@ export class ScheduleComponent implements OnInit {
       //day_off: [null, Validators.required]
 
     });
+    $('#queue_monitors_tab').removeClass('active');
     
   }
 

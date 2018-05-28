@@ -11,3 +11,14 @@
 .form-flat .dropdown ul.dropdown-menu li{
   cursor: pointer;
 }
+
+.mydrp{
+  border: none !important;
+  .selectiongroup > input{
+    cursor: pointer;
+  }
+
+  .headerokbtn, .headerclearbtn{
+    border: none !important;
+  }
+}

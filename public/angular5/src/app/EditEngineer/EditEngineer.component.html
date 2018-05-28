@@ -1,124 +1,140 @@
-<!--<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead class="tablehead">
-        <tr>
-            <th>Name</th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-          <tr *ngFor="let engineer of eng" >
-                  <td>{{engineer.eng_name}} {{engineer.last_name}}</td>
-                  <td><button class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg" 
-                    (click)="getOneEng(engineer._id)">Editar</button> / <button class="btn btn-danger" 
-                    (click)="deleteEng(engineer._id)">Delete</button></td>
-          </tr>
-    </tbody>
-  </table>
+<!--
+  * TODO: modificar los select para que sean como los dropdown establecidos en Quantum.
 -->
-  
 
-<form class="form-horizontal ibox-content" *ngIf="showhtml" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
-
-  <div class="container">
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form  control-label">name</label>
-              <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="Name" formControlName="name">
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <h1>Edit user</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <form class="form-flat" *ngIf="showhtml" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_name" title="Engineer's name">Name</label>
+                <input id="engineers_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="name">
               </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">Last Name</label>
-              <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">Email</label>
-              <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="email@microfocus.com" formControlName="email">
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">City</label>
-              <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="City" formControlName="city">
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">Static/Dynamic</label>
-              <div class="col-sm-8">
-                  <select type="text" value='3' class="form-control" formControlName="sta_dyn">
-                      <option value='3'>Both</option>
-                      <option value='2'>Dynamic</option>
-                      <option value='1'>Static</option>
-                  </select>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">Max case</label>
-              <div class="col-sm-8">
-                  <input type="text" class="form-control" placeholder="0" value='0' formControlName="max">
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-          <div class="form-group">
-              <label class="col-sm-4 label-form control-label">Status</label>
-              <div class="col-sm-8">
-                  <select type="text" value='1' class="form-control" formControlName="status">
-                      <option value='true'>Available</option>
-                      <option value='false'>Disable</option>
-                  </select>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-            <label class="col-sm-4 label-form control-label">Role</label>
-            <div class="col-sm-8">
-                <select type="text" value='1' class="form-control" formControlName="role">
-                    <option value='user'>User</option>
-                    <option value='admin'>Admin</option>
-                </select>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-          <label class="col-sm-4 label-form control-label">Username</label>
-          <div class="col-sm-8">
-              <input type="text" placeholder='username' class="form-control" formControlName="username"/>
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_last_name" title="Engineer's last name">Last Name</label>
+                <input id="engineers_last_name" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="last_name">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_email" title="Engineer's email">Email</label>
+                <input id="engineers_email" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="email">
+              </div>
+            </div>
           </div>
-      </div>
-  </div>
-  <div class="col-md-4">
-    <div class="form-group">
-        <label class="col-sm-4 label-form control-label">Password</label>
-        <div class="col-sm-8">
-            <input type="password" placeholder='password' class="form-control" formControlName="password"/>
-        </div>
-    </div>
-  </div>
-  </div>
-  <div>
-      <div class="cont-button">
-          <div class="form-group">
-              <button type="button" class="btn btn-standard" (click)="cancelEditing.emit();" [disabled]="loading">
-                  <i class="fa fa-times-circle-o"></i> Cancel</button>
-              <button class="btn btn-primary" type="submit">Continue</button>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_city" title="Engineer's city">City</label>
+                <input id="engineers_city" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="city">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_username" title="Engineer's username">Username</label>
+                <input id="engineers_username" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" formControlName="username">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group" required>
+                <label for="engineers_password" title="Engineer's password">Password</label>
+                <input id="engineers_password" onfocus="onFocus(event);" onblur="onBlur(event);" type="password" formControlName="password">
+              </div>
+            </div>
           </div>
+          <ng-container *ngIf="current_user_role.role == 'admin'">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group" required>
+                  <label for="types_of_cases" title="Static/Dynamic">Static/Dynamic</label>
+                  <select formControlName="sta_dyn" id="types_of_cases" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="1">Static</option>
+                    <option value="2">Dynamic</option>
+                    <option value="3">Both</option>
+                  </select>
+                  <!--
+                  <div class="dropdown">
+                    <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="sta_dyn" readonly="readonly"/>
+                    <i class="caret"></i>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="type_of_cases_dropdown">
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Both</a></li>
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Dynamic</a></li>
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Static</a></li>
+                    </ul>
+                  </div>-->
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group" required>
+                  <label for="role_select" title="Role">Role</label>
+                  <select formControlName="role" id="role_select" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  <!--
+                  <div class="dropdown">
+                    <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="role" readonly="readonly"/>
+                    <i class="caret"></i>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="role_dropdown">
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">User</a></li>
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Admin</a></li>
+                    </ul>
+                  </div>-->
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group" required>
+                  <label for="status_select" title="Status">Status</label>
+                  <select formControlName="status" id="status_select" class="form-control" type="text">
+                    <option value="4" disabled>-- Select a value --</option>
+                    <option value="true">Available</option>
+                    <option value="false">Disable</option>
+                  </select>
+                  <!--
+                  <div class="dropdown">
+                    <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="text" formControlName="status" readonly="readonly"/>
+                    <i class="caret"></i>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="status_dropdown">
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Available</a></li>
+                      <li><a tabindex="-1" onclick="changeDropdownValue(this);">Disable</a></li>
+                    </ul>
+                  </div>-->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group" required>
+                  <label for="engineers_max_cases">Max case</label>
+                  <input id="engineers_max_cases" type="number" onfocus="onFocus(event);" onblur="onBlur(event);" formControlName="max" min=0 step=1>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="current_user_role.role != 'admin'">
+          <input type="hidden" formControlname="role">
+          <input type="hidden" formControlname="sta_dyn">
+          <input type="hidden" formControlname="status">
+          <input type="hidden" formControlName="max">
+        </ng-container>
+        <div class="panel-footer panel-button-footer">
+          <a type="button" class="btn btn-default">Cancel</a> <!-- TODO: funcion para devolverse a "edit users" -->
+          <button class="btn btn-primary" type="submit">Continue</button>
+        </div>
       </div>
+    </form>
   </div>
-
-</form>
+</div>

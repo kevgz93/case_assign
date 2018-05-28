@@ -39,15 +39,22 @@
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="types_of_cases" title="Static/Dynamic">Static/Dynamic</label>
+                <select formControlName="sta_dyn" id="types_of_cases" class="form-control" type="text">
+                  <option value="" disabled>-- Select a value --</option>
+                  <option value="1">Static</option>
+                  <option value="2">Dynamic</option>
+                  <option value="3">Both</option>
+                </select>
+                <!--
                 <div class="dropdown">
-                  <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Both" readonly="ReadOnly" type="text"  formControlName="sta_dyn">
+                  <input id="types_of_cases" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text"  formControlName="sta_dyn">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="type_of_cases_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Both</a></li>
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Dynamic</a></li>
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Static</a></li>
                   </ul>
-                </div>
+                </div>-->
               </div>
             </div>
             <div class="col-sm-4">
@@ -61,27 +68,39 @@
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="status_select" title="Status">Status</label>
+                <select formControlName="status" id="status_select" class="form-control" type="text">
+                  <option value="" disabled>-- Select a value --</option>
+                  <option value="true">Available</option>
+                  <option value="false">Disable</option>
+                </select>
+                <!--
                 <div class="dropdown">
-                  <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Available" readonly="ReadOnly" type="text" formControlName="status">
+                  <input id="status_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="status">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="status_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Available</a></li>
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Disable</a></li>
                   </ul>
-                </div>
+                </div>-->
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group" required>
                 <label for="role_select" title="Role">Role</label>
+                <select formControlName="role" id="role_select" class="form-control" type="text">
+                  <option value="" disabled>-- Select a value --</option>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <!--
                 <div class="dropdown">
-                  <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="User" readonly="ReadOnly" type="text" formControlName="role">
+                  <input id="role_select" class="form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" readonly="ReadOnly" type="text" formControlName="role">
                   <i class="caret"></i>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="role_dropdown">
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">User</a></li>
                     <li><a tabindex="-1" onclick="changeDropdownValue(this);">Admin</a></li>
                   </ul>
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -101,8 +120,8 @@
           </div>
         </div>
         <div class="panel-footer panel-button-footer">
-          <button class="btn btn-flat btn-primary" type="submit">Continue</button>
-          <button class="btn btn-flat btn-default" (click)="cancelEditing.emit();" type="reset">Cancel</button>
+        <button class="btn btn-default" (click)="cancelEditing.emit();" type="reset">Cancel</button>
+          <button class="btn btn-primary" type="submit">Continue</button>
         </div>
       </div>
     </form>
