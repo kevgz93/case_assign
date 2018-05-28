@@ -21,6 +21,10 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
+import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
+
 
 
 
@@ -39,7 +43,8 @@ import { EditusersComponent } from './editusers/editusers.component';
     RotationComponent,
     RotationeditComponent,
     ScheduleshowComponent,
-    EditusersComponent
+    EditusersComponent,
+    WeekendRotationComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,8 @@ import { EditusersComponent } from './editusers/editusers.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDateRangePickerModule
+    MyDateRangePickerModule,
+    BrowserAnimationsModule, CalendarModule.forRoot()
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

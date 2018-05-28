@@ -71,8 +71,8 @@ export class NavbarComponent implements OnInit {
           this.shownav = true;
           this.checkAdmin();
         }
-        
-        
+
+
       });
     }
   }
@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit {
     if(url === 'login')
     this.router.navigate(['/'+url]);
     else if(url === 'home'){
-      
+
       this.router.navigate([url]);
     }
     return
@@ -131,9 +131,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['./rotation'])
     return
   }
-  
+
   goEditRotation(){
     this.router.navigate(['./editrotation'])
+    return
+  }
+
+  goWeekendRotation(){
+    this.router.navigate(['./weekendRotation'])
     return
   }
 
@@ -142,7 +147,7 @@ export class NavbarComponent implements OnInit {
     this.service.currentId.subscribe(message => login = message);
     //this.shownav = true;
     this.checkQM();
-    this.checkSessionId(login);   
+    this.checkSessionId(login);
   }
 }
 
