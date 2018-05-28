@@ -42,7 +42,7 @@ router
   .route('/user')
   .get(ctrlUsers.userGetOne)
   .put(ctrlUsers.usersUpdateOne)
-  .delete(ctrlUsers.usersDeleteOne);
+  .delete(ctrlUsers.deleteschedule);// usersDeleteOne
 
   router
   .route('/getusers')

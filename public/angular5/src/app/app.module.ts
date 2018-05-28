@@ -21,8 +21,9 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
-
-
+import { DialogComponent } from './dialog/dialog.component';
+import { MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,15 +40,19 @@ import { EditusersComponent } from './editusers/editusers.component';
     RotationComponent,
     RotationeditComponent,
     ScheduleshowComponent,
-    EditusersComponent
+    EditusersComponent,
+    DialogComponent
   ],
+  entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDateRangePickerModule
+    MyDateRangePickerModule,
+    MatDialogModule,
+    BrowserAnimationsModule
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

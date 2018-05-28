@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {DialogComponent} from "../dialog/dialog.component";
+
 
 @Component({
   selector: 'app-editusers',
@@ -15,7 +18,20 @@ export class EditusersComponent implements OnInit {
   private users;
   private showtable:Boolean=false;
 
-  constructor(private service: ApiService, private router:Router) { }
+  constructor(private service: ApiService, private router:Router, public dialog:MatDialog) { }
+
+  openDialog(user):void{
+    console.log("id", user);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {id:user._id, name:user.name, lastname:user.last_name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUsers();
+    });
+
+  }
 
   getUsers(): Observable<object>{
     this.service.getAllUsers()
@@ -32,21 +48,6 @@ export class EditusersComponent implements OnInit {
     console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editengineer'])
-  }
-
-  //Delete User
-  deleteUser(id){
-    console.log(id)
-    this.service.deleteOneUser(id)
-    .subscribe(response =>{
-      if(response.status != 204){
-        alert("User not deleted")
-      }
-      else{
-        this.getUsers();
-      }
-    });
-    
   }
 
   goToSchedule(id){

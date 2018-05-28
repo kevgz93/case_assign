@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
 
@@ -538,9 +538,16 @@ export class HomeComponent implements OnInit {
     }
 
 
+
   ngOnInit() {
     //this.showhtml = false;
     this.getQM();
     this.getAllEng();
+    let timer = Observable.timer(300000,300000);
+    timer.subscribe(t=> {
+        this.getAllEng();
+    });
+
+
   }
 }

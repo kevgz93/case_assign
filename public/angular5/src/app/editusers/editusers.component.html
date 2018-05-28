@@ -18,7 +18,7 @@
           <td>{{user.name}} {{user.last_name}}</td>
           <td class="text-center"><a class="btn btn-flat btn-secondary" (click)="goToSchedule(user._id)"><i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>&nbsp;Edit Schedule</a></td>
           <td class="text-center"><a class="btn btn-flat btn-primary" (click)="goToUser(user._id)"><i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>&nbsp;Edit user</a></td>
-          <td class="text-center"><a class="btn btn-flat btn-danger" (click)="deleteUser(user._id)"><i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>&nbsp;Delete user</a></td>
+          <td class="text-center"><a class="btn btn-flat btn-danger" (click)="openDialog(user)"><i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>&nbsp;Delete user</a></td>
         </tr>
         </tbody>
       </table>

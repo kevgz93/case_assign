@@ -1,7 +1,6 @@
 
 <div class="container" *ngIf='showview'>
     <h3>Schedule</h3>
-  </div>
   <table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead class="tablehead">
       <tr>
@@ -24,6 +23,7 @@
         <!--</div> -->
     </tbody>
   </table>
+</div>
     <div style="margin-left: 50%; margin-bottom: 4%">
         <label>Add time Off</label>
         <input type="checkbox" [(ngModel)]="isChecked" (change)="changeview(isChecked)"/>

@@ -1,10 +1,12 @@
 var userModel = require('../data/user.model.js');
 var mongoose = require('mongoose');
 var cookie = require('cookie-parser');
+var tick_engi = require('../data/case.model.js');
 
 var q = require('q');
 
 var db = mongoose.model('user');
+var _cases = mongoose.model('case');
 var users = {};
 
 
@@ -355,6 +357,28 @@ users.usersUpdateOne = function (req, res) {
 
 };
 
+
+
+//Delete Schedule from the deleted user
+users.deleteschedule= function(req, res){ //id
+
+  var results = q.defer();
+  
+  var userId = req.query._id;
+  var _id = mongoose.Schema.ObjectId(userId);
+      _cases.find({"user_id":userId}).remove(function(err, schedule){
+
+        if (err){
+          results.reject(err);
+          }
+          console.log(schedule);
+          results.resolve(schedule);
+
+      })  
+        
+        res.send(results.promise); 
+};
+
 //Delete user
 users.usersDeleteOne = function(req, res) {
   var userId = req.query._id;
@@ -366,11 +390,16 @@ users.usersDeleteOne = function(req, res) {
       if (err) {
         res
           .send({status:404});
-      } else {
+      } 
         console.log('user deleted ID: ', userId);
-        res
-          .send({status:204});
-      }
+        users.deleteschedule(userId._id).then(function(result){
+        console.log('return from de promise ', result);
+          res.send({status:204});
+
+        }, function(err){
+          res.send(err);
+        })
+
     });
 };
 
