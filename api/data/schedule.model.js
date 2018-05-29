@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var ObjectId = mongoose.mongo.ObjectId;
+var ObjectId = mongoose.Schema.ObjectId;
 var user = new ObjectId;
 //defining schema for users table
 var scheduleSchema = new mongoose.Schema({

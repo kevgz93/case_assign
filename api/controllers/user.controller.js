@@ -1,12 +1,12 @@
 var userModel = require('../data/user.model.js');
 var mongoose = require('mongoose');
 var cookie = require('cookie-parser');
-var tick_engi = require('../data/case.model.js');
+var _schedule = require('../data/schedule.model.js');
 
 var q = require('q');
 
 var db = mongoose.model('user');
-var _cases = mongoose.model('case');
+var schedule = mongoose.model('schedule');
 var users = {};
 
 
@@ -285,7 +285,7 @@ users.userGetOne = function(req, res) {
     });
 };
 
-users.getUsersWithNamesOnly = function(req, res, next) {
+users.getUsersNamesAndScheduleId = function(req, res, next) {
 
   var engineer = users.loadEnginners2()
   engineer.then(function(engineers){
@@ -306,14 +306,18 @@ users.loadEnginners2 = function(){
   db.aggregate(
     [
       {
-        $match:{
-          "status":true
+        $lookup: {
+          from: 'schedules', 
+          localField: '_id', 
+          foreignField: 'user_id', 
+          'as': 'schedule_loaded'
         }
       },
         { "$project": {
           "name":1,
           "last_name":1,
-          "_id":1
+          "_id":1,
+          "schedule_loaded":1
         }
       }
     ],function(err, engi) {
@@ -360,40 +364,40 @@ users.usersUpdateOne = function (req, res) {
 
 
 //Delete Schedule from the deleted user
-users.deleteschedule= function(req, res){ //id
-
-  var results = q.defer();
+users.deleteschedule= function(schedule_id){ //id
   
-  var userId = req.query._id;
-  var _id = mongoose.Schema.ObjectId(userId);
-      _cases.find({"user_id":userId}).remove(function(err, schedule){
+  //var userId = req.query._id;
+     return new Promise(function(resolve, reject){
+       var results;
+       
+       schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
 
         if (err){
-          results.reject(err);
+          reject(err);
           }
-          console.log(schedule);
-          results.resolve(schedule);
+        else{
+          resolve(schedule);
+        }
 
-      })  
-        
-        res.send(results.promise); 
+      })
+
+
+    })
 };
 
 //Delete user
 users.usersDeleteOne = function(req, res) {
-  var userId = req.query._id;
-  console.log("user to delete: ", userId);
+  var id = req.query.id;
+  var schedule_id = req.query.schedule_id;
 
   db
-    .findByIdAndRemove(userId)
-    .exec(function(err, userId){
+    .findByIdAndRemove(id)
+    .exec(function(err, user){
       if (err) {
         res
           .send({status:404});
       } 
-        console.log('user deleted ID: ', userId);
-        users.deleteschedule(userId._id).then(function(result){
-        console.log('return from de promise ', result);
+        users.deleteschedule(schedule_id).then(function(result){
           res.send({status:204});
 
         }, function(err){

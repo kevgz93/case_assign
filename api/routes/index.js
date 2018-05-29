@@ -43,11 +43,11 @@ router
   .route('/user')
   .get(ctrlUsers.userGetOne)
   .put(ctrlUsers.usersUpdateOne)
-  .delete(ctrlUsers.deleteschedule);// usersDeleteOne
+  .delete(ctrlUsers.usersDeleteOne);// usersDeleteOne
 
   router
   .route('/getusers')
-  .get(ctrlUsers.getUsersWithNamesOnly);
+  .get(ctrlUsers.getUsersNamesAndScheduleId);
 
   router
   .route('/check')

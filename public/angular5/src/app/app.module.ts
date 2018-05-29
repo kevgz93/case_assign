@@ -25,7 +25,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
-//import { CalendarModule } from 'angular-calendar';
+import { CalendarModule } from 'angular-calendar';
 
 
 @NgModule({
@@ -56,7 +56,7 @@ import { WeekendRotationComponent} from './weekendRotation/weekendRotation.compo
     ReactiveFormsModule,
     MyDateRangePickerModule,
     MatDialogModule,
-    BrowserAnimationsModule//, CalendarModule.forRoot()
+    BrowserAnimationsModule, CalendarModule.forRoot()
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

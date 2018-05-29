@@ -18,8 +18,8 @@ export class DialogComponent implements OnInit {
       this.dialogRef.close();
     }
     delete(){
-      console.log(this.data.id)
-      this.service.deleteOneUser(this.data.id)
+      console.log(this.data)
+      this.service.deleteOneUser(this.data)
       .subscribe(response =>{
         console.log("dialog", response);
         if(response.status != 204){

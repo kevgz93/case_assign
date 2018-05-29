@@ -96,10 +96,13 @@ export class ApiService {
   }
 
   // API: Delete one engineer
-  public deleteOneUser(id): Observable<Response> {
-    let params = new HttpParams().set("_id",id);    
+  public deleteOneUser(data): Observable<Response> {
+    let params = new HttpParams();
+    console.log("Schedule Id",data.schedule_id);
+    params = params.append("id",data.id);
+    params = params.append("schedule_id",data.schedule_id);
     return this.http
-    .delete(API_URL + '/api/user/', { params: params })
+    .delete(API_URL + '/api/user/' , { params: params}) //
     .map(response => {
       return response
     })

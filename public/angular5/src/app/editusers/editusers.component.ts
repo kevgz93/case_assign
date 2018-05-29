@@ -25,7 +25,7 @@ export class EditusersComponent implements OnInit {
     console.log("id", user);
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {id:user._id, name:user.name, lastname:user.last_name}
+      data: {id:user._id, name:user.name, lastname:user.last_name, schedule_id:user.schedule_loaded[0]._id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
