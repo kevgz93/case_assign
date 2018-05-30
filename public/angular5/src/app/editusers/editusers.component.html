@@ -6,20 +6,50 @@
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <div class="panel panel-default">
-      <table class="table table-hover" id="ticket">
+      <table class="table table-hover flt-table" id="ticket">
         <thead>
           <tr>
-            <th style="width:70%">Name</th>
-            <th class="text-center" colspan=3>Actions</th>
+            <th colspan="2">Engineer</th>
+            <th class="text-center" style="width:20%;">Actions</th>
           </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{user.name}} {{user.last_name}}</td>
-          <td class="text-center"><a class="btn btn-flat btn-secondary" (click)="goToSchedule(user._id)"><i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>&nbsp;Edit Schedule</a></td>
-          <td class="text-center"><a class="btn btn-flat btn-primary" (click)="goToUser(user._id)"><i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>&nbsp;Edit user</a></td>
-          <td class="text-center"><a class="btn btn-flat btn-danger" (click)="openDialog(user)"><i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>&nbsp;Delete user</a></td>
-        </tr>
+          <tr *ngFor="let user of users">
+            <td style="width: 20px;">
+              <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
+            </td>
+            <td>
+              <p>
+                <b>{{user.name}} {{user.last_name}}</b>
+                <ng-container *ngIf="user.role == 'user'">
+                  <span class="badge" title="Role" style="margin-left: 15px;">{{user.role}}</span>
+                </ng-container>
+                <ng-container *ngIf="user.role == 'admin'">
+                  <span class="badge badge-active" title="Role" style="margin-left: 15px;">{{user.role}}</span>
+                </ng-container>
+              </p>
+              <p class="engineer-info">
+                <a href="mailto:{{user.email}}">{{user.email}}</a>
+              </p>
+              <p class="engineer-info">
+                <ng-container *ngIf="user.sta_dyn == 1">Static</ng-container>
+                <ng-container *ngIf="user.sta_dyn == 2">Dynamic</ng-container>
+                <ng-container *ngIf="user.sta_dyn == 3">Static and dynamic</ng-container>
+                cases
+              </p>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-flat btn-secondary" (click)="goToSchedule(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit schedule">
+                <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
+              </a>&nbsp;
+              <a class="btn btn-flat btn-primary" (click)="goToUser(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit engineer">
+                <i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>
+              </a>&nbsp;
+              <a class="btn btn-flat btn-danger btn-icon" (click)="openDialog(user)" data-toggle="tooltip" data-placement="bottom" title="Delete engineer">
+                <i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

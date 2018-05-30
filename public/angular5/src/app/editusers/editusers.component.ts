@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {ApiService} from '../api.service';
+import { ApiService } from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
-import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { promise } from 'protractor';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogComponent} from "../dialog/dialog.component";
-declare var jquery:any;
-declare var $ :any;
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogComponent } from "../dialog/dialog.component";
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-editusers',
@@ -17,15 +17,15 @@ declare var $ :any;
 })
 export class EditusersComponent implements OnInit {
   private users;
-  private showtable:Boolean=false;
+  private showtable: Boolean = false;
 
-  constructor(private service: ApiService, private router:Router, public dialog:MatDialog) { }
+  constructor(private service: ApiService, private router: Router, public dialog: MatDialog) { }
 
-  openDialog(user):void{
+  openDialog(user): void {
     console.log("id", user);
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {id:user._id, name:user.name, lastname:user.last_name, schedule_id:user.schedule_loaded[0]._id}
+      data: { id: user._id, name: user.name, lastname: user.last_name, schedule_id: user.schedule_loaded[0]._id }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -34,24 +34,23 @@ export class EditusersComponent implements OnInit {
 
   }
 
-  getUsers(): Observable<object>{
+  getUsers(): Observable<object> {
     this.service.getAllUsers()
-    .subscribe(users => {
+      .subscribe(users => {
         console.log(users);
-         //this.schedule = schedule.body;
-         this.users = users;
-         this.showtable = true;
-     
-    })
+        //this.schedule = schedule.body;
+        this.users = users;
+        this.showtable = true;
+      })
     return;
   }
-  goToUser(id){
+  goToUser(id) {
     console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editengineer'])
   }
 
-  goToSchedule(id){
+  goToSchedule(id) {
     console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editschedule'])
@@ -62,4 +61,7 @@ export class EditusersComponent implements OnInit {
     $('#queue_monitors_tab').removeClass('active');
   }
 
+  ngAfterViewChecked(){
+    $('[data-toggle="tooltip"]').tooltip();
+  }
 }
