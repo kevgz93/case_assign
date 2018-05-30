@@ -21,11 +21,11 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
 import { CalendarModule } from 'angular-calendar';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -44,10 +44,8 @@ import { CalendarModule } from 'angular-calendar';
     RotationeditComponent,
     ScheduleshowComponent,
     EditusersComponent,
-    DialogComponent,
     WeekendRotationComponent
   ],
-  entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,7 +54,9 @@ import { CalendarModule } from 'angular-calendar';
     ReactiveFormsModule,
     MyDateRangePickerModule,
     MatDialogModule,
-    BrowserAnimationsModule, CalendarModule.forRoot()
+    BrowserAnimationsModule, 
+    CalendarModule.forRoot(),
+    ModalModule.forRoot(),
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]
