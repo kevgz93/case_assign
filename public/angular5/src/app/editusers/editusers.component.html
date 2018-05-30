@@ -31,7 +31,7 @@
               <p class="engineer-info">
                 <a href="mailto:{{user.email}}">{{user.email}}</a>
               </p>
-              <p class="engineer-info">
+              <p class="engineer-info" style="margin-bottom: -5px;">
                 <ng-container *ngIf="user.sta_dyn == 1">Static</ng-container>
                 <ng-container *ngIf="user.sta_dyn == 2">Dynamic</ng-container>
                 <ng-container *ngIf="user.sta_dyn == 3">Static and dynamic</ng-container>
