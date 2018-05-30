@@ -58,6 +58,13 @@
               <p>{{schedule.friday_morning}}&nbsp;-&nbsp;{{schedule.friday_afternoon}}</p>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-info">
+                Contact the site administrator if you need to modify your schedule.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,99 +84,99 @@
     </div>
   </div>
   <div class="row" *ngIf="showcalendar">
-      <div class="col-sm-12 col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="form-group">
-                    <label for="mydaterange" title="Dates out">Days out</label>
-                    <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
-                      readonly></my-date-range-picker>
-                  </div>
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="mydaterange" title="Dates out">Days out</label>
+                  <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
+                    readonly></my-date-range-picker>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <label for="">Leaving time</label>
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label for="">Leaving time</label>
               </div>
-              <div class="row">
-                <div class="col-sm-5">
-                  <select type="number" class="form-control" formControlName="start_time_hour">
-                    <option value="" disabled>-- Select an hour --</option>
-                    <option value='6'>6</option>
-                    <option value='7'>7</option>
-                    <option value='8'>8</option>
-                    <option value='9'>9</option>
-                    <option value='10'>10</option>
-                    <option value='11'>11</option>
-                    <option value='12'>12</option>
-                    <option value='13'>13</option>
-                    <option value='14'>14</option>
-                    <option value='15'>15</option>
-                    <option value='16'>16</option>
-                    <option value='17'>17</option>
-                    <option value='18'>18</option>
-                  </select>
-                </div>
-                <div class="col-sm-1 text-center">:</div>
-                <div class="col-sm-5">
-                  <select type="number" class="form-control" formControlName="start_time_minutes">
-                    <option value="" disabled>-- Select the minutes --</option>
-                    <option value='0'>00</option>
-                    <option value='30'>30</option>
-                  </select>
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <select type="number" class="form-control" formControlName="start_time_hour">
+                  <option value="" disabled>-- Select an hour --</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                </select>
               </div>
-              <div class="row" style="margin-top: 15px;">
-                <div class="col-sm-12">
-                  <label for="">Returning time</label>
-                </div>
+              <div class="col-sm-1 text-center">:</div>
+              <div class="col-sm-5">
+                <select type="number" class="form-control" formControlName="start_time_minutes">
+                  <option value="" disabled>-- Select the minutes --</option>
+                  <option value='0'>00</option>
+                  <option value='30'>30</option>
+                </select>
               </div>
-              <div class="row">
-                <div class="col-sm-5">
-                  <select type="number" value='0' class="form-control" formControlName="end_time_hour">
-                    <option value="" disabled>-- Select an hour --</option>
-                    <option value='6'>6</option>
-                    <option value='7'>7</option>
-                    <option value='8'>8</option>
-                    <option value='9'>9</option>
-                    <option value='10'>10</option>
-                    <option value='11'>11</option>
-                    <option value='12'>12</option>
-                    <option value='13'>13</option>
-                    <option value='14'>14</option>
-                    <option value='15'>15</option>
-                    <option value='16'>16</option>
-                    <option value='17'>17</option>
-                    <option value='18'>18</option>
-                  </select>
-                </div>
-                <div class="col-sm-1 text-center">:</div>
-                <div class="col-sm-5">
-                  <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
-                    <option value="" disabled>-- Select the minutes --</option>
-                    <option value='0'>00</option>
-                    <option value='30'>30</option>
-                  </select>
-                </div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+              <div class="col-sm-12">
+                <label for="">Returning time</label>
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <br>
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <select type="number" value='0' class="form-control" formControlName="end_time_hour">
+                  <option value="" disabled>-- Select an hour --</option>
+                  <option value='6'>6</option>
+                  <option value='7'>7</option>
+                  <option value='8'>8</option>
+                  <option value='9'>9</option>
+                  <option value='10'>10</option>
+                  <option value='11'>11</option>
+                  <option value='12'>12</option>
+                  <option value='13'>13</option>
+                  <option value='14'>14</option>
+                  <option value='15'>15</option>
+                  <option value='16'>16</option>
+                  <option value='17'>17</option>
+                  <option value='18'>18</option>
+                </select>
               </div>
-              <div class="row">
-                <div class="col-sm-12">
-                  <button type="button" class="btn btn-default" (click)="cancelEditing.emit();" [disabled]="loading">Cancel</button>
-                  <button class="btn btn-primary pull-right" type="submit">Continue</button>
-                </div>
+              <div class="col-sm-1 text-center">:</div>
+              <div class="col-sm-5">
+                <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
+                  <option value="" disabled>-- Select the minutes --</option>
+                  <option value='0'>00</option>
+                  <option value='30'>30</option>
+                </select>
               </div>
-            </form>
-          </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="button" class="btn btn-default" (click)="cancelEditing.emit();" [disabled]="loading">Cancel</button>
+                <button class="btn btn-primary pull-right" type="submit">Continue</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 </ng-container>

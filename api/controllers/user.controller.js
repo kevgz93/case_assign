@@ -317,7 +317,11 @@ users.loadEnginners2 = function(){
           "name":1,
           "last_name":1,
           "_id":1,
-          "schedule_loaded":1
+          "schedule_loaded":1,
+          "role": 1,
+          "time_zone": 1,
+          "sta_dyn": 1,
+          "email": 1
         }
       }
     ],function(err, engi) {

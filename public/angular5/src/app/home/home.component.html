@@ -35,12 +35,12 @@
               <td>{{datico.sta_dyn}}</td>
               <td class="text-center">{{datico.max_case}}</td>
               <td>{{datico.today.time}}</td>
-              <td>{{datico.email}}</td>
+              <td> <a href="mailto:{{datico.email}}">{{datico.email}}</a></td>
               <td class="text-center">{{datico.countday}}</td>
               <td class="text-center">{{datico.countweek}}</td>
               <td class="text-center">{{datico.countmonth}}</td>
-              <td>
-                <button (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>&nbsp;/&nbsp;<button (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
+              <td class="text-center">
+                <button data-toggle="tooltip" data-placement="left" title="Add case" (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>&nbsp;/&nbsp;<button data-toggle="tooltip" data-placement="bottom" title="Remove case" (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
               </td>
             </tr>
           </ng-container>

@@ -553,4 +553,8 @@ export class HomeComponent implements OnInit {
 
     $('#queue_monitors_tab').removeClass('active');
   }
+
+  ngAfterViewChecked(){
+    $('[data-toggle="tooltip"]').tooltip();
+  }
 }
