@@ -5,7 +5,6 @@ import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { promise } from 'protractor';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -26,9 +25,8 @@ export class EditusersComponent implements OnInit {
   constructor(private service: ApiService, private router: Router, private modalService: BsModalService) { }
 
   openModal(template: TemplateRef<any>, user) {
-    this.modalRef = this.modalService.show(template);
-    console.log("user", user);
     this.user = user;
+    this.modalRef = this.modalService.show(template);
   }
 //delete user
   delete(){
