@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 declare var jquery: any;
 declare var $: any;
 $('#queue_monitors_tab').removeClass('active');
