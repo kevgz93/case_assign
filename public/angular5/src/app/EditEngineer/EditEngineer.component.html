@@ -131,8 +131,8 @@
           <input type="hidden" formControlName="max">
         </ng-container>
         <div class="panel-footer panel-button-footer">
-          <a type="button" class="btn btn-default">Cancel</a> <!-- TODO: funcion para devolverse a "edit users" -->
-          <button class="btn btn-primary" type="submit">Continue</button>
+          <a type="button" class="btn btn-default" (click)="cancelForm()">Cancel</a> <!-- TODO: funcion para devolverse a "edit users" -->
+          <button class="btn btn-primary" type="submit">Update</button>
         </div>
       </div>
     </form>

@@ -5,6 +5,8 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import {Location} from '@angular/common';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -44,10 +46,15 @@ export class EngineerComponent implements OnInit {
 
 
 
-	constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private cookieService: CookieService) {
+	constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private cookieService: CookieService, 
+		private _location: Location) {
 
 	}
 
+
+	cancelForm(){
+		this._location.back();
+	}
 
 	getOneSchedule(): Observable<engineer>{
 		this.service.getOneEngineer(this.id)

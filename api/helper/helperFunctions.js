@@ -33,7 +33,7 @@ helpers.isAdmin = function(req, res, next){
 		//if(){}
 		user.then(function(dbuser){
 			if(dbuser.role == 'admin'){
-				res.status(201);
+				//res.status(201);
 				next();
 			}else{
 				res.status(401);

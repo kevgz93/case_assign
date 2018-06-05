@@ -20,6 +20,7 @@ var jso2 = [];
 
 
 ticket.loadEnginner = function(req, res, next) {
+  //console.log("Req", req.header);
 
   var engineer = ticket.loadEnginner2()
   engineer.then(function(engineers){

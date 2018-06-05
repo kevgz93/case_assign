@@ -41,6 +41,12 @@ export class ScheduleeditComponent implements OnInit {
   rForm: FormGroup;
   myform: FormGroup;
 
+
+  // click on cancel button
+  cancelForm(){
+    this.router.navigate(['./editusers']);
+  }
+
   constructor(private service: ApiService, private fb: FormBuilder, private router: Router) { }
   // get the time zone from the user
   getDifference(timezone, daylight) {

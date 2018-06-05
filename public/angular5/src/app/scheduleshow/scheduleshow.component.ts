@@ -171,7 +171,6 @@ export class ScheduleshowComponent implements OnInit {
 
 //show calendar from checkbox
 changeview(value):void{
-  console.log("value from checkbox",value);
   this.showcalendar = value;
 }
 

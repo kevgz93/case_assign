@@ -60,6 +60,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  // click on cancel button
+  cancelForm(){
+    this.router.navigate(['./']);
+  }
+
   ngOnInit() {
     this.myform= this.fb.group({
       name: '',
