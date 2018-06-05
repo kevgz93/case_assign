@@ -74,7 +74,6 @@ export class EngineerComponent implements OnInit {
 	}
 
 	updateUser(data){
-		console.log("Info del form: ", data);
 		data._id = this.id;
 		data.max = +data.max;
 		/*
@@ -95,10 +94,8 @@ export class EngineerComponent implements OnInit {
 		data.status = data.status == "Available" ? true : false;
 		data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
 		*/
-		console.log("Info a enviar: ",data);
 		this.service.updateUser(data)
 		.subscribe(response => {
-			console.log(response.status);
 			if(response.status != 204){
 				alert("error finding user");
 			}

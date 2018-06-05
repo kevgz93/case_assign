@@ -31,18 +31,15 @@ export class EditusersComponent implements OnInit {
 //delete user
   delete(){
     let data = {id:"", schedule_id:""};
-    console.log("schedule_loaded",this.user.schedule_loaded)
     this.user.schedule_loaded.forEach(schedule => {
       data.schedule_id = schedule._id
     });
-    console.log("id del schedule", data.schedule_id)
     
     data.id = this.user._id;
     //data.schedule_id = this.users.schedule_loaded;
 
     this.service.deleteOneUser(data)
     .subscribe(response =>{
-      console.log("dialog", response);
       if(response.status != 204){
         alert("User not deleted")
       }
@@ -54,7 +51,6 @@ export class EditusersComponent implements OnInit {
   getUsers(): Observable<object> {
     this.service.getAllUsers()
       .subscribe(users => {
-        console.log(users);
         //this.schedule = schedule.body;
         this.users = users;
         this.showtable = true;
@@ -62,13 +58,11 @@ export class EditusersComponent implements OnInit {
     return;
   }
   goToUser(id) {
-    console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editengineer'])
   }
 
   goToSchedule(id) {
-    console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editschedule'])
   }

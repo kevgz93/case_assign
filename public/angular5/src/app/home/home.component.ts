@@ -389,7 +389,6 @@ export class HomeComponent implements OnInit {
         }
         this.showhtml = true;
 
-        console.log(this.data);
       })
 
 
@@ -513,7 +512,7 @@ export class HomeComponent implements OnInit {
         this.currentQM(week)
       }
       else {
-        console.log("could found the current");
+        this.qm = "Error";
       }
         })
 

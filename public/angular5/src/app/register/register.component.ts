@@ -40,12 +40,8 @@ export class RegisterComponent implements OnInit {
     data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
     */
 
-    //console.log(data.sta_dyn);
-    //console.log(data.status);
-    //console.log(data.role);
     this.service.addUser(data)
     .subscribe(msj => {
-      console.log(msj);
       if(msj.status == 201){
         alert('User Added');
         this.service.changeObject(msj);

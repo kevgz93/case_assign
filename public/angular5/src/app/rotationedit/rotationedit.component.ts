@@ -32,7 +32,6 @@ export class RotationeditComponent implements OnInit {
           alert("error finding week");
         }
         else {
-          //console.log(rotation.body);
           this.rotation = rotation.body;
           this.fillForm(rotation.body);
           this.showtable = true;
@@ -44,10 +43,8 @@ export class RotationeditComponent implements OnInit {
 
 
   updateRotation(data) {
-    //console.log(data);
     this.service.updateRotation(data)
       .subscribe(response => {
-        //console.log(response.status);
         if (response.status != 204) {
           alert("error finding user");
         }

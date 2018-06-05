@@ -28,7 +28,6 @@ export class WeekendRotationComponent implements OnInit {
         alert("error finding week");
       }
       else{
-        console.log(week.body);
         this.week = week.body;
         this.showtable = true;
       }
