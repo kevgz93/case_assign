@@ -23,9 +23,12 @@ import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
-import { CalendarModule } from 'angular-calendar';
+// Calendar Module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, CalendarDateFormatter, CalendarEventTitleFormatter } from 'angular-calendar';
+import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { CalendarModule } from 'angular-calendar';
     ReactiveFormsModule,
     MyDateRangePickerModule,
     MatDialogModule,
-    BrowserAnimationsModule, CalendarModule.forRoot()
+    BrowserAnimationsModule,
+    CalendarModule.forRoot(),
+    CalendarWeekHoursViewModule,
+    NgbModalModule.forRoot(),
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]
