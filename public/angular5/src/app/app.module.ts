@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
 import { CalendarModule } from 'angular-calendar';
 import { ModalModule } from 'ngx-bootstrap/modal';
+//import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     MatDialogModule,
     BrowserAnimationsModule, 
     CalendarModule.forRoot(),
-    ModalModule.forRoot(),
+    ModalModule.forRoot()
+    //Ng2WebCrypto
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

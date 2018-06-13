@@ -121,8 +121,8 @@ export class ApiService {
     }).catch(this.handleError);
   }
 
-  public deleteTickets(id): Observable<Response> {
-    let body = JSON.stringify({"engi_id": id});
+  public deleteTickets(data): Observable<Response> {
+    let body = JSON.stringify({"engi_id": data.id, "delete_reason":data.delete_reason});
     return this.http
     .put(API_URL + '/api/ticket', body,
      {headers: new HttpHeaders().set('Content-Type','application/json')}) //{headers: new HttpHeaders().set('Content-Type','application/json')}
