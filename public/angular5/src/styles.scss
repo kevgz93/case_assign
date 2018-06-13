@@ -14,8 +14,11 @@
   cursor: pointer;
 }
 
+
+/* Styles for the calendar range picker */
 .mydrp{
   border: none !important;
+  font-family: inherit !important;
   .selectiongroup > input{
     cursor: pointer;
   }
@@ -23,4 +26,82 @@
   .headerokbtn, .headerclearbtn{
     border: none !important;
   }
+
+  .selectarrow, .selector{
+    border-radius: 0 !important;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    padding: 15px 15px 15px 15px !important;
+    width: 300px !important;
+    height: 300px !important;
+  }
+  .titleareatxt{
+    font-weight: bold !important;
+
+  }
+
+  .weekdaytitle{
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    color: #bdbec0 !important;
+    background-color: transparent !important;
+  }
+
+  .monthlabel:focus, .yearlabel:focus{
+    color: #0073e7 !important;
+  }
+
+
+  .daycell:hover, .dayvalue:hover, .tablesinglemonth:hover, .tablesingleyear:hover{
+    background-color: #0073e7 !important;
+    color: white !important;
+    font-weight: bold !important;
+    .currmonth, .markcurrday, .markcurrmonth{
+      color: white !important;
+      font-weight: bold !important;
+    }
+  }
+  .currmonth, .tablesinglemonth, .tablesingleyear{
+    background-color: transparent !important;
+    color: black !important;
+    &:hover{
+      background-color: #0073e7 !important;
+      color: white !important;
+      font-weight: bold !important;
+    }
+    .markcurrday, .markcurrmonth, .markcurryear{
+      background-color: transparent !important;
+      font-weight: bold !important;
+      text-decoration: none !important;
+      color: #0073e7;
+    }
+    
+  }
+
+  .yearchangebtncell{
+    background-color: transparent !important;
+  }
+  .nextmonth, .prevmonth{
+    color: #bdbec0 !important;
+    &:hover{
+      background-color: #0073e7 !important;
+      color: white !important;
+      font-weight: bold !important;
+    }
+  }
+
+  .range, .selecteddaybegin, .selecteddayend{
+    background-color: #0073e7 !important;
+    color: white !important;
+    .datevalue, .daycell, .markcurrday{
+      color: white !important;
+      font-weight: bold !important;
+    }
+  }
+
+  .selecteddayend {
+    font-weight: bold !important;
+  }
 }
+
+/* End of the styles for the date range picker */

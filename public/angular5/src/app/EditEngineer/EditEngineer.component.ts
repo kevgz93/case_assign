@@ -5,6 +5,8 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import {Location} from '@angular/common';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -44,10 +46,15 @@ export class EngineerComponent implements OnInit {
 
 
 
-	constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private cookieService: CookieService) {
+	constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private cookieService: CookieService, 
+		private _location: Location) {
 
 	}
 
+
+	cancelForm(){
+		this._location.back();
+	}
 
 	getOneSchedule(): Observable<engineer>{
 		this.service.getOneEngineer(this.id)
@@ -67,7 +74,6 @@ export class EngineerComponent implements OnInit {
 	}
 
 	updateUser(data){
-		console.log("Info del form: ", data);
 		data._id = this.id;
 		data.max = +data.max;
 		/*
@@ -88,10 +94,8 @@ export class EngineerComponent implements OnInit {
 		data.status = data.status == "Available" ? true : false;
 		data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
 		*/
-		console.log("Info a enviar: ",data);
 		this.service.updateUser(data)
 		.subscribe(response => {
-			console.log(response.status);
 			if(response.status != 204){
 				alert("error finding user");
 			}

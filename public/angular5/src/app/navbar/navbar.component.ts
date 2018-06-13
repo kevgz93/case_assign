@@ -41,7 +41,6 @@ export class NavbarComponent implements OnInit {
 
   changeDayWeek(day, week):Observable<Boolean>{
     this.service.updateDayOnWeek(day, week).subscribe(response => {
-      console.log(response);
     })
     return
   }
@@ -61,7 +60,6 @@ export class NavbarComponent implements OnInit {
     }
     else{
       this.service.getUserBySessionId().subscribe(response =>{
-        console.log("when check session on navbar",response);
         if(response.status != 201) {
           this.shownav = false;
           this.redirect(url);

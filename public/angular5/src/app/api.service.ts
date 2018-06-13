@@ -30,7 +30,6 @@ export class ApiService {
 
   //share user Id
   changeObject(message: Object) {
-    console.log("aqui va el mensaje", message);
     this.user.next(message);
  
   }
@@ -67,7 +66,6 @@ export class ApiService {
     return this.http
     .get(API_URL + '/api/check/', { params: parameter })
     .map(response => {
-      console.log("response from check navbar", response)
       //this.user_id = response;
       return response
     }) .catch(this.handleError);
@@ -77,7 +75,6 @@ export class ApiService {
     return this.http
     .get(API_URL + '/api/getusers')
     .map(response => {
-      console.log("response from check navbar", response)
       //this.user_id = response;
       return response
     }) .catch(this.handleError);
@@ -98,7 +95,6 @@ export class ApiService {
   // API: Delete one engineer
   public deleteOneUser(data): Observable<Response> {
     let params = new HttpParams();
-    console.log("Schedule Id",data.schedule_id);
     params = params.append("id",data.id);
     params = params.append("schedule_id",data.schedule_id);
     return this.http
@@ -120,9 +116,7 @@ export class ApiService {
   }
 
   public addTickets(body): Observable<any>{
-    console.log('post....');
     return this.http.post(API_URL + '/api/ticket', body,{headers: new HttpHeaders().set('Content-Type','application/json')}).map(tickt => {
-      console.log("entro a devolver el response", tickt);
       return tickt;
     }).catch(this.handleError);
   }
@@ -189,7 +183,6 @@ export class ApiService {
     .post(API_URL + '/api/reports', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
-      console.log("response from check navbar", response)
       //this.user_id = response;
       return response
     }) .catch(this.handleError);
@@ -267,7 +260,6 @@ export class ApiService {
   public logout(): Observable<Response> {
     let data =  this.cookieService.get("SessionId");
     let body = JSON.stringify({"SessionId": data})
-    console.log("cuerpo", body);
     return this.http
     .post(API_URL + '/api/logout', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -280,7 +272,6 @@ export class ApiService {
   //send the time off to add it
   public addTimeOff(data): Observable<Response> {
     let body = JSON.stringify(data)
-    console.log("cuerpo", body);
     return this.http
     .put(API_URL + '/api/timeoff', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})

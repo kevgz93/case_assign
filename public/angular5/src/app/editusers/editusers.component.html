@@ -45,7 +45,8 @@
               <a class="btn btn-flat btn-primary" (click)="goToUser(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit engineer">
                 <i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>
               </a>&nbsp;
-              <a class="btn btn-flat btn-danger btn-icon" (click)="openDialog(user)" data-toggle="tooltip" data-placement="bottom" title="Delete engineer">
+              <a class="btn btn-flat btn-danger btn-icon" (click)="openModal(template, user)" data-toggle="tooltip" data-placement="bottom"
+                title="Delete engineer">
                 <i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>
               </a>
             </td>
@@ -55,3 +56,20 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete {{user.name}}&nbsp;{{user.last_name}}</h4>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to delete the user {{user.name}}&nbsp;{{user.last_name}} from the system?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-flat btn-danger" (click)="delete()">
+            Delete
+        </button>
+      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+          Cancel
+      </button>
+  </div>
+  </ng-template>

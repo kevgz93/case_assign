@@ -76,10 +76,8 @@ export class ScheduleComponent implements OnInit {
     //data.day_off = data.day_off.formatted;
     //data.day_on = data.day_on.formatted;
 
-    console.log("schedule ", data);
     this.service.addSchedule(data)
     .subscribe(msj => {
-      console.log(msj);
       if(msj.status == 201){
         alert('Schedule Added');
         this.router.navigate(['./home']);

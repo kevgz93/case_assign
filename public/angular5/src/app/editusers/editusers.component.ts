@@ -1,12 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { promise } from 'protractor';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DialogComponent } from "../dialog/dialog.component";
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 declare var jquery: any;
 declare var $: any;
 
@@ -17,27 +18,39 @@ declare var $: any;
 })
 export class EditusersComponent implements OnInit {
   private users;
+  private user;
   private showtable: Boolean = false;
+  modalRef: BsModalRef;
 
-  constructor(private service: ApiService, private router: Router, public dialog: MatDialog) { }
+  constructor(private service: ApiService, private router: Router, private modalService: BsModalService) { }
 
-  openDialog(user): void {
-    console.log("id", user);
-    let dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { id: user._id, name: user.name, lastname: user.last_name, schedule_id: user.schedule_loaded[0]._id }
+  openModal(template: TemplateRef<any>, user) {
+    this.user = user;
+    this.modalRef = this.modalService.show(template);
+  }
+//delete user
+  delete(){
+    let data = {id:"", schedule_id:""};
+    this.user.schedule_loaded.forEach(schedule => {
+      data.schedule_id = schedule._id
     });
+    
+    data.id = this.user._id;
+    //data.schedule_id = this.users.schedule_loaded;
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getUsers();
+    this.service.deleteOneUser(data)
+    .subscribe(response =>{
+      if(response.status != 204){
+        alert("User not deleted")
+      }
+      this.modalRef.hide();
     });
-
+    
   }
 
   getUsers(): Observable<object> {
     this.service.getAllUsers()
       .subscribe(users => {
-        console.log(users);
         //this.schedule = schedule.body;
         this.users = users;
         this.showtable = true;
@@ -45,13 +58,11 @@ export class EditusersComponent implements OnInit {
     return;
   }
   goToUser(id) {
-    console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editengineer'])
   }
 
   goToSchedule(id) {
-    console.log(id)
     this.service.changeUserId(id);
     this.router.navigate(['./editschedule'])
   }

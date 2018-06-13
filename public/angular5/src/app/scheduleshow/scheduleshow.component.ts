@@ -66,7 +66,6 @@ export class ScheduleshowComponent implements OnInit {
     schedule_total.friday_morning = `${this.aux.friday_morning}:${minutes}`;
     minutes = this.checkMinutes(schedule.friday_afternoon.minutes);
     schedule_total.friday_afternoon = `${this.aux.friday_afternoon}:${minutes}`;
-    console.log('convert to string',schedule_total);
     return schedule_total;
     //this.showschedule = true;
 
@@ -74,7 +73,6 @@ export class ScheduleshowComponent implements OnInit {
 
   //converting to the current timezone
   convertToTimeZone(schedule):object{
-    console.log("convert to timezone", schedule);
     let date = new Date;
     let difference = date.getTimezoneOffset() / 60;
     this.aux.monday_morning = schedule.monday_morning.hour - difference;
@@ -88,10 +86,8 @@ export class ScheduleshowComponent implements OnInit {
     this.aux.thursday_afternoon = schedule.thursday_afternoon.hour - difference;
     this.aux.friday_morning = schedule.friday_morning.hour - difference;
     this.aux.friday_afternoon = schedule.friday_afternoon.hour - difference;
-    //console.log("convert to timezone", schedule);
     let schedule_total = this.convertToString(schedule);
     // Object.keys(schedule).forEach(function(key) {
-    //   console.log(key, schedule[key]);  
     // });
     return schedule_total;
   }
@@ -104,7 +100,6 @@ export class ScheduleshowComponent implements OnInit {
         alert("error finding user");
       }
       else{
-        console.log(schedule);
          //this.schedule = schedule.body;
          this.schedule = this.convertToTimeZone(schedule.body);
          this.showview = true;
@@ -128,10 +123,8 @@ export class ScheduleshowComponent implements OnInit {
     sendData.day_on.month = data.myDateRange.endDate.month;
     sendData.day_on.hour = parseInt(data.end_time_hour);
     sendData.day_on.minutes = parseInt(data.end_time_minutes);
-    console.log("Time general", sendData);
     this.service.addTimeOff(sendData)
     .subscribe(response => {
-      console.log(response);
       if(response.status === 204){
         alert("Time off added");
         this.router.navigate(['./home'])
@@ -171,7 +164,6 @@ export class ScheduleshowComponent implements OnInit {
 
 //show calendar from checkbox
 changeview(value):void{
-  console.log("value from checkbox",value);
   this.showcalendar = value;
 }
 

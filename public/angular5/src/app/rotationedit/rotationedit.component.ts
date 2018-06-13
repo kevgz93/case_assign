@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 declare var jquery: any;
 declare var $: any;
 $('#queue_monitors_tab').removeClass('active');
@@ -31,7 +32,6 @@ export class RotationeditComponent implements OnInit {
           alert("error finding week");
         }
         else {
-          //console.log(rotation.body);
           this.rotation = rotation.body;
           this.fillForm(rotation.body);
           this.showtable = true;
@@ -43,10 +43,8 @@ export class RotationeditComponent implements OnInit {
 
 
   updateRotation(data) {
-    //console.log(data);
     this.service.updateRotation(data)
       .subscribe(response => {
-        //console.log(response.status);
         if (response.status != 204) {
           alert("error finding user");
         }

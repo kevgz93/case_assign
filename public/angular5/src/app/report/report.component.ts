@@ -25,7 +25,6 @@ export class ReportComponent implements OnInit {
   getUsers(){
     this.service.getAllUsers()
     .subscribe(data => {
-      console.log(data);
       this.users = data;
       
     })
@@ -33,7 +32,6 @@ export class ReportComponent implements OnInit {
   }
   
   getTickets(form){
-    console.log(form);
     this.service.getReport(form)
       .subscribe(data => {
         this.cases = data;

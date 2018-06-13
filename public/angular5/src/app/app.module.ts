@@ -21,7 +21,6 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
 // Calendar Module
@@ -29,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, CalendarDateFormatter, CalendarEventTitleFormatter } from 'angular-calendar';
 import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -47,10 +47,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     RotationeditComponent,
     ScheduleshowComponent,
     EditusersComponent,
-    DialogComponent,
     WeekendRotationComponent
   ],
-  entryComponents: [DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

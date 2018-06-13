@@ -40,16 +40,13 @@ export class LoginComponent implements OnInit {
 
   login(user) {
     let sessionid: any;
-    console.log(user);
     this.service.login(user)
     .subscribe(response =>{
-      console.log(response);
 
       let status: any = response.status;
       if(status === 'success'){
         this.createCookie(response);
         this.service.changeUserId("login");
-        console.log("entro para intercambiar user");
         //this.router.navigate(['./navbar']);
         window.location.replace('/home');
 

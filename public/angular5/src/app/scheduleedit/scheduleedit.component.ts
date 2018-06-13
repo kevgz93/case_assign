@@ -41,10 +41,15 @@ export class ScheduleeditComponent implements OnInit {
   rForm: FormGroup;
   myform: FormGroup;
 
+
+  // click on cancel button
+  cancelForm(){
+    this.router.navigate(['./editusers']);
+  }
+
   constructor(private service: ApiService, private fb: FormBuilder, private router: Router) { }
   // get the time zone from the user
   getDifference(timezone, daylight) {
-    console.log("entry to daylight");
     let difference = { "hour": 0, "minutes": 0 };
     let dayL: number = 0;
     if (daylight) {
@@ -111,12 +116,6 @@ export class ScheduleeditComponent implements OnInit {
     this.schedule.friday_afternoon.minutes = schedule.friday_afternoon.minutes;
     this.fillForm();
     this.showhtml = true;
-    //console.log("convert to timezone", schedule);
-    //let schedule_total = this.convertToString(schedule);
-    // Object.keys(schedule).forEach(function(key) {
-    //   console.log(key, schedule[key]);  
-    // });
-    //return schedule_total;
   }
   getSchedule(): Observable<object> {
     this.service.getSchedule(this.id)
@@ -125,7 +124,6 @@ export class ScheduleeditComponent implements OnInit {
           alert("error finding user");
         }
         else {
-          console.log("getSchedule", schedule)
           this.schedule = schedule.body;
           this.convertToTimeZone(schedule.body);
 
@@ -141,7 +139,6 @@ export class ScheduleeditComponent implements OnInit {
     data.difference = difference;
     this.service.updateSchedule(data)
       .subscribe(response => {
-        console.log(response.status);
         if (response.status != 204) {
           alert("error finding user");
         }
@@ -191,19 +188,16 @@ export class ScheduleeditComponent implements OnInit {
       // day_on : this.schedule.day_on,
     });
 
-    console.log("Daylight: ", this.schedule.daylight);
   }
 
   getEngineer(): Observable<engineer> {
     this.service.getOneEngineer(this.id)
       .subscribe(user => {
-        console.log(user);
         if (user.status != 200) {
           alert("error finding user");
         }
         else {
           this.user = user.body;
-          //console.log("User: ", this.user);
         }
       })
 

@@ -34,10 +34,24 @@ export class WeekendRotationComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
+<<<<<<< HEAD
   modalData: {
     action: string;
     event: CalendarEvent;
   };
+=======
+  getWeek(): Observable<object>{
+    this.service.getWeek()
+    .subscribe(week => {
+      if(week.status != 200){
+        alert("error finding week");
+      }
+      else{
+        this.week = week.body;
+        this.showtable = true;
+      }
+    })
+>>>>>>> develop
 
   events: CalendarEvent[] = [
     {
