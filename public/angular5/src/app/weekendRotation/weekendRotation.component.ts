@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {ApiService} from '../api.service';
+import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { map } from 'rxjs/operators';
 // Calendar Module Imports
 import {
   startOfDay,
@@ -12,13 +15,10 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
-import {
-  CalendarEvent,
-  CalendarEventTimesChangedEvent
-} from 'angular-calendar';
 
-declare var jquery:any;
-declare var $ :any;
+import {
+  CalendarEvent
+} from 'angular-calendar';
 
 @Component({
   selector: 'app-rotation',
@@ -32,43 +32,20 @@ export class WeekendRotationComponent implements OnInit {
 
   viewDate: Date = new Date();
 
-  refresh: Subject<any> = new Subject();
-
-<<<<<<< HEAD
   modalData: {
     action: string;
     event: CalendarEvent;
   };
-=======
-  getWeek(): Observable<object>{
-    this.service.getWeek()
-    .subscribe(week => {
-      if(week.status != 200){
-        alert("error finding week");
-      }
-      else{
-        this.week = week.body;
-        this.showtable = true;
-      }
-    })
->>>>>>> develop
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: subDays(startOfDay(new Date()), 1),
-      title: 'Wilson Acuna'
-    },
-    {
-      start: addHours(startOfDay(new Date()), 10),
-      end: addHours(startOfDay(new Date()), 12),
-      title: 'Andres Bejarano'
-    }
-  ];
+  events$: Observable<Array<CalendarEvent[]>>;
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private service: ApiService) {}
+
+  getEvents(): void {
+    this.events$ = this.service.getWeekendRotations();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -84,22 +61,13 @@ export class WeekendRotationComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-      event,
-      newStart,
-      newEnd
-    }: CalendarEventTimesChangedEvent): void {
-    event.start = newStart;
-    event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
-    this.refresh.next();
-  }
-
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getEvents();
+  }
 
 }

@@ -25,10 +25,10 @@ import { MatDialogModule } from '@angular/material';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
 // Calendar Module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, CalendarDateFormatter, CalendarEventTitleFormatter } from 'angular-calendar';
+import { CalendarModule } from 'angular-calendar';
 import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -61,6 +61,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     CalendarModule.forRoot(),
     CalendarWeekHoursViewModule,
     NgbModalModule.forRoot(),
+    ModalModule.forRoot()
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]
