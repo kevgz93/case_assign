@@ -89,7 +89,7 @@
         <div class="panel-body">
           <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="addTimeOff(myform.value)" role="form">
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-5">
                 <div class="form-group">
                   <label for="mydaterange" title="Dates out">Days out</label>
                   <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
@@ -164,6 +164,15 @@
               </div>
             </div>
             <div class="row">
+                <div class="col-sm-12">
+                    <label for="">Time Off Reason</label>
+                  <select type="string" class="form-control" formControlName="time_off_reason">
+                    <option value="" disabled>-- Select an reason --</option>
+                    <option value='Vacation'>Vacation</option>
+                    <option value='Training'>Training</option>
+                    <option value='Especial'>Especial Permission</option>
+                  </select>
+                </div>
               <div class="col-sm-12">
                 <br>
               </div>
@@ -178,4 +187,37 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+          <table class="table table-hover flt-table" id="ticket">
+            <thead>
+              <tr>
+                <th colspan="2">Time Off</th>
+                <th class="text-center" style="width:20%;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let time of times">
+                <td style="width: 20px;">
+                  <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
+                </td>
+                <td>
+                  <label>{{time.day_off.day}} {{time.day_off.month}} - {{time.day_on.day}} {{time.day_on.month}}</label>
+                </td>
+                <td>
+                    <label>{{time.action}}</label>
+                  </td>
+                <td class="text-center">
+                  <a class="btn btn-flat btn-secondary" (click)="modify(time._id)" data-toggle="tooltip" data-placement="bottom" title="Edit schedule">
+                    <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
+                  </a>&nbsp;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 </ng-container>

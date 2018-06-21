@@ -180,7 +180,7 @@ export class ApiService {
   public getReport(values): Observable<Object> {
     let body = JSON.stringify(values);
     return this.http
-    .post(API_URL + '/api/reports', body,
+    .post(API_URL + '/api/reports/case', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       //this.user_id = response;
@@ -273,13 +273,24 @@ export class ApiService {
   public addTimeOff(data): Observable<Response> {
     let body = JSON.stringify(data)
     return this.http
-    .put(API_URL + '/api/timeoff', body,
+    .post(API_URL + '/api/timeoff', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       return response
     })
     .catch(this.handleError);
   }
+
+    //Get time off for specific user
+    public getTimes(): Observable<Response> {
+      //let params = new HttpParams().set("id",id);    
+      return this.http
+      .get(API_URL + '/api/timeoff/')
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);

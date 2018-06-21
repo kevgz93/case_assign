@@ -23,6 +23,7 @@ export class ScheduleshowComponent implements OnInit {
   "wednesday_morning":0,"wednesday_afternoon":0,"thursday_morning":0,"thursday_afternoon":0,"friday_morning":0,
   "friday_afternoon":0};
   private id;
+  private time;
   private myform: FormGroup;
   public myDateRangePickerOptions: IMyDrpOptions = {
     // other options...
@@ -112,9 +113,10 @@ export class ScheduleshowComponent implements OnInit {
 
   //add the timeZone from calendars
   addTimeOff(data): Observable<object>{
-    let sendData = {"_id":"","day_off":{"day":0, "month":0, "hour":0, "minutes":0}, 
+    let sendData = {"user_id":"","reason":"","day_off":{"day":0, "month":0, "hour":0, "minutes":0}, 
     "day_on":{"day":0, "month":0, "hour":0, "minutes":0}};
-    sendData._id = this.id;
+    sendData.user_id = this.id;
+    sendData.reason = data.time_off_reason;
     sendData.day_off.day = data.myDateRange.beginDate.day;
     sendData.day_off.month = data.myDateRange.beginDate.month;
     sendData.day_off.hour = parseInt(data.start_time_hour);
@@ -125,7 +127,7 @@ export class ScheduleshowComponent implements OnInit {
     sendData.day_on.minutes = parseInt(data.end_time_minutes);
     this.service.addTimeOff(sendData)
     .subscribe(response => {
-      if(response.status === 204){
+      if(response.status === 201){
         alert("Time off added");
         this.router.navigate(['./home'])
       }
@@ -155,12 +157,23 @@ export class ScheduleshowComponent implements OnInit {
       
 
   },
+      time_off_reason:"",
       start_time_hour:0,
       start_time_minutes: 0,
       end_time_hour:0,
       end_time_minutes: 0
+      
     });
 }
+
+//****************** Time off Methods *******************************
+
+//get the times for the user
+getTime():void{
+  
+}
+
+
 
 //show calendar from checkbox
 changeview(value):void{
@@ -174,7 +187,8 @@ changeview(value):void{
       start_time_hour:['', Validators.required],
       start_time_minutes: ['', Validators.required],
       end_time_hour:['', Validators.required],
-      end_time_minutes: ['', Validators.required]
+      end_time_minutes: ['', Validators.required],
+      time_off_reason:['', Validators.required]
 
   });
     this.service.currentId.subscribe(message => this.id = message);

@@ -5,7 +5,9 @@ var helpers = require('../helper/helperFunctions');
 
 var ctrlTicket = require('../controllers/ticket.controller.js');
 var ctrlUsers = require('../controllers/user.controller.js');
-var ctrlReport = require('../controllers/report.controller.js');
+var ctrlReport_case = require('../controllers/report_case.controller.js');
+var ctrlReport_time = require('../controllers/report_time.controller.js');
+var ctrlTime_off = require('../controllers/time_off.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 var ctrlRotation = require('../controllers/rotation.controller.js');
 
@@ -60,11 +62,26 @@ router
 .put(ctrlTicket.ticketDelete);
 
 router
-.route('/reports')
-.post(ctrlReport.generateReports)
+.route('/reports/case')
+.post(ctrlReport_case.generateReports)
+
 
 router
+.route('/reports/time')
+.post(ctrlReport_time.generateReports)
 
+router
+.route('/timeoff')
+.get(ctrlTime_off.getOneTime_off)
+.post(ctrlTime_off.addTime_off)
+.put(ctrlTime_off.updateTime_off)
+.delete(ctrlTime_off.deleteTime_off);
+
+router
+.route('/timeoffs')
+.get(ctrlTime_off.getUserAllTime_off)
+
+router
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
 .post(ctrlRotation.createRotation)
@@ -82,10 +99,6 @@ router
 router
 .route('/updateday/')
 .put(ctrlRotation.updateDayOnWeek)//helpers.isAuthenticated,
-
-router
-.route('/timeoff/')
-.put(ctrlSchedule.createTimeOff)//helpers.isAuthenticated,
 
 
 // weekendRotation routes

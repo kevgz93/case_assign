@@ -1,5 +1,5 @@
 var tick_engi = require('../data/case.model.js');
-var bitacora = require('./report.controller');
+var bitacora = require('./report_case.controller');
 var userModel = require('../data/user.model.js');
 
 
