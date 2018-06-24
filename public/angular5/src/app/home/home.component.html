@@ -40,7 +40,8 @@
               <td class="text-center">{{datico.countweek}}</td>
               <td class="text-center">{{datico.countmonth}}</td>
               <td class="text-center">
-                <button data-toggle="tooltip" data-placement="left" title="Add case" (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>&nbsp;/&nbsp;<button data-toggle="tooltip" data-placement="bottom" title="Remove case" (click)="deleteTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
+                <button data-toggle="tooltip" data-placement="left" title="Add case" (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>
+                &nbsp;/&nbsp;<button data-toggle="tooltip" data-placement="bottom" title="Remove case" (click)="openModal(template, datico._id)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
               </td>
             </tr>
           </ng-container>
@@ -49,3 +50,25 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Case</h4>
+  </div>
+  <form  [formGroup]="myform" (ngSubmit)="deleteTicket(myform.value)" role="form" class="form-flat ng-pristine ng-valid">
+  <div class="modal-body">
+    Please add the reason for why you are deleting this case?
+    <br>
+      <input type="hidden" formControlName="id">
+      <input type="text" formControlName="delete_reason" placeholder="please add the reason to delete this case">
+  </div>
+  <div class="modal-footer">
+      <button type="submit" class="btn btn-flat btn-danger">
+          Delete
+      </button>
+    <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+        Cancel
+    </button>
+</div>
+</form>
+</ng-template>

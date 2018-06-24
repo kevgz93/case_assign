@@ -70,6 +70,7 @@
             <th class="text-center">Time</th>
             <th class="text-center">Date</th>
             <th>User</th>
+            <th>Delete Reason</th>
           </tr>
           <tr *ngFor="let case of cases">
             <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
@@ -77,6 +78,7 @@
             <td class="text-center">{{case.time}}</td>
             <td class="text-center">{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
             <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
+            <td>{{case.delete_reason}}</td>
           </tr>
         </tbody>
       </table>

@@ -44,6 +44,7 @@ export class EditusersComponent implements OnInit {
         alert("User not deleted")
       }
       this.modalRef.hide();
+      this.ngOnInit();
     });
     
   }

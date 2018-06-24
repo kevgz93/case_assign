@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} fr
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {Location} from '@angular/common';
+import * as sjcl from 'sjcl';
 
 declare var jquery:any;
 declare var $ :any;
@@ -56,7 +57,7 @@ export class EngineerComponent implements OnInit {
 		this._location.back();
 	}
 
-	getOneSchedule(): Observable<engineer>{
+	getOneEngineer(): Observable<engineer>{
 		this.service.getOneEngineer(this.id)
 		.subscribe(user => {
 			console.log(user);
@@ -66,7 +67,6 @@ export class EngineerComponent implements OnInit {
 			else{
 				this.user = user;
 				this.fillForm();
-				this.showhtml = true;
 			}
 		})
 
@@ -76,6 +76,12 @@ export class EngineerComponent implements OnInit {
 	updateUser(data){
 		data._id = this.id;
 		data.max = +data.max;
+		if (data.password != this.user.body.password){
+			let password = data.password;
+			var out = sjcl.hash.sha256.hash(password);
+			data.password = sjcl.codec.hex.fromBits(out);
+		}
+
 		/*
 		switch(data.sta_dyn){
 			case "Both":
@@ -155,6 +161,7 @@ export class EngineerComponent implements OnInit {
 				}
 				else{
 					this.current_user_role = response.body;
+					this.showhtml = true;
 				}
 			});
 		}
@@ -163,8 +170,8 @@ export class EngineerComponent implements OnInit {
 	ngOnInit() {
 		this.showhtml = false;
 		this.service.currentId.subscribe(message => this.id = message);
+		this.getOneEngineer();
 		this.getUserRole();
-		this.getOneSchedule();
 		$('#queue_monitors_tab').removeClass('active');
 		
 	}

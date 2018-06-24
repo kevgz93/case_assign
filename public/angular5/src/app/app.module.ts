@@ -29,6 +29,7 @@ import { CalendarModule } from 'angular-calendar';
 import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
+//import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CalendarWeekHoursViewModule,
     NgbModalModule.forRoot(),
     ModalModule.forRoot()
+    //Ng2WebCrypto
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

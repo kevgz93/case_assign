@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Rx';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -39,9 +43,11 @@ export class HomeComponent implements OnInit {
   private timezone = {};
   public today;
   public date = new Date();
+  myform: FormGroup;
+  modalRef: BsModalRef;
 
 
-  constructor(private service: ApiService, private router:Router) { }
+  constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private modalService: BsModalService) { }
 
     // Simulate GET /todos
 
@@ -417,11 +423,13 @@ export class HomeComponent implements OnInit {
     }
 
 
-    deleteTicket(id): Observable<any>{
-      this.condition.id = id;
+    deleteTicket(data): Observable<any>{
+      console.log("data", data);
+      this.condition.id = data.id;
       this.condition.action = "disable";
-      this.service.deleteTickets(id)
+      this.service.deleteTickets(data)
       .subscribe(msj => {
+        this.modalRef.hide();
         this.getAllEng();
       })
 
@@ -536,6 +544,24 @@ export class HomeComponent implements OnInit {
       
 
       return value;
+    }
+
+
+
+    //Open Modal and fill from
+
+    //Open Modal
+    openModal(template: TemplateRef<any>, id) {
+      this.fillForm(id);
+      this.modalRef = this.modalService.show(template);
+    }
+
+    //Fill the form group
+    fillForm(id){
+      this.myform= this.fb.group({
+        id: id,
+        delete_reason: ''
+      });
     }
 
 

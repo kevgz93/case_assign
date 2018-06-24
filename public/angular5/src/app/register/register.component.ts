@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import * as sjcl from 'sjcl';
 declare var jquery:any;
 declare var $ :any;
 
@@ -40,6 +41,10 @@ export class RegisterComponent implements OnInit {
     data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
     */
 
+    
+    let password = data.password;
+    var out = sjcl.hash.sha256.hash(password);
+    data.password = sjcl.codec.hex.fromBits(out);
     this.service.addUser(data)
     .subscribe(msj => {
       if(msj.status == 201){
