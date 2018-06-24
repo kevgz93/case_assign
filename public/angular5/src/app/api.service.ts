@@ -9,8 +9,11 @@ import 'rxjs/add/observable/throw';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {Router} from '@angular/router';
-import {forEach} from "@angular/router/src/utils/collection";
 
+import {
+  CalendarEvent,
+  CalendarEventAction
+} from 'angular-calendar';
 
 const API_URL = environment.apiUrl;
 
@@ -26,8 +29,23 @@ export class ApiService {
   //private user_id;
   private user = new BehaviorSubject<object>({});
   currentObject = this.user.asObservable();
+
   private id = new BehaviorSubject<String>('');
   currentId = this.id.asObservable();
+
+
+  // Calendar action
+  // Redirect the user to edit the list of days were the worker will be on call.
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="qtm-font-icon qtm-icon-large qtm-icon-edit qtm-icon-default"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+          this.changeUserId(event.id.toString());
+          this.router.navigate(['./editengineer']);
+      }
+    }
+  ];
+
 
   //share user Id
   changeObject(message: Object) {
@@ -37,8 +55,8 @@ export class ApiService {
 
   changeUserId(message: String) {
     this.id.next(message);
-
   }
+
 
   checkCookie():Observable<boolean>{
   let cookie;
@@ -289,12 +307,13 @@ export class ApiService {
       .get(API_URL +'/api/weekendRotations')
       .map(response => {
         let data = [];
-        for (let user of response.body){
-          let userName = user.name;
+        for (let user of response['body']){
           for (let date of user.weekendRotationDates){
             data.push({
-              title: userName,
-              start: new Date(date)
+              title: user.name,
+              start: new Date(date),
+              id: user._id,
+              actions: this.actions
             });
           }
         }

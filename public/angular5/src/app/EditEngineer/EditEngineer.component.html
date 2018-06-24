@@ -130,6 +130,13 @@
           <input type="hidden" formControlname="status">
           <input type="hidden" formControlName="max">
         </ng-container>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12 col-md-10">
+            <h2 class="edit-oncall-dates-header">Edit On call dates</h2>
+            {{ user.body.weekendRotationDates | json }} 
+          </div>
+        </div>
         <div class="panel-footer panel-button-footer">
           <a type="button" class="btn btn-default" (click)="cancelForm()">Cancel</a> <!-- TODO: funcion para devolverse a "edit users" -->
           <button class="btn btn-primary" type="submit">Update</button>
