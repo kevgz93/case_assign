@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
 import { CalendarModule } from 'angular-calendar';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimeoffComponent } from './timeoff/timeoff.component';
 //import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
 
 
@@ -45,7 +46,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     RotationeditComponent,
     ScheduleshowComponent,
     EditusersComponent,
-    WeekendRotationComponent
+    WeekendRotationComponent,
+    TimeoffComponent
   ],
   imports: [
     BrowserModule,

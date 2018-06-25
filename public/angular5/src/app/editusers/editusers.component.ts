@@ -68,6 +68,11 @@ export class EditusersComponent implements OnInit {
     this.router.navigate(['./editschedule'])
   }
 
+  goTotimeoff(id) {
+    this.service.changeUserId(id);
+    this.router.navigate(['./edittimeoff'])
+  }
+
   ngOnInit() {
     this.getUsers();
     $('#queue_monitors_tab').removeClass('active');
