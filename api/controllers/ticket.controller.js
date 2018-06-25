@@ -1,5 +1,5 @@
 var tick_engi = require('../data/case.model.js');
-var bitacora = require('./report.controller');
+var bitacora = require('./report_case.controller');
 var userModel = require('../data/user.model.js');
 
 
@@ -76,8 +76,6 @@ ticket.loadEnginner2 = function(){
           "activeSession":1,
           "status":1,
           "role":1,
-          "day_on":1,
-          "day_off":1,
           "days_working":1,
           "last_case":1,
           "cases_loaded":{             

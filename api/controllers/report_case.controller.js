@@ -8,7 +8,7 @@ var q = require('q');
 
 var bita = {};
 
-var bitacora = mongoose.model('bitacora');
+//var bitacora = mongoose.model('bitacora');
 var ticket = mongoose.model('case');
 
 var ObjectId = mongoose.Schema.ObjectId;

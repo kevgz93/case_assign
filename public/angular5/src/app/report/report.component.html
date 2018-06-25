@@ -1,92 +1,204 @@
-<div class="row">
-  <form [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form" class="form-flat">
-    <div class="col-sm-2 col-sm-offset-2">
-      <div class="form-group">
-        <label for="select_engineer">Engineer</label>
-        <select id="select_engineer" formControlName="user" class="form-control">
-          <option value="all">
-            All
-          </option>
-          <option *ngFor="let user of users" value={{user._id}}>
-            {{user.name}} {{user.last_name}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label for="select_month">Month</label>
-        <select formControlName="month" class="form-control" id="select_month">
-          <option value="all">
-            All
-          </option>
-          <option *ngFor="let month of months" value={{month.id}}>
-            {{month.name}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label for="case_status_select">Case status</label>
-        <select formControlName="case_status" class="form-control" id="case_status_select">
-          <option value="all">
-            All
-          </option>
-          <option value="added">
-            Added
-          </option>
-          <option value="deleted">
-            Deleted
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" type="submit">
-          <i class="qtm-font-icon qtm-icon-search--16" aria-hidden="true"></i>
-          <span>Search</span>
-        </button>
-      </div>
-    </div>
-  </form>
-</div>
-<div class="row" *ngIf="showtotal">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <h2>Total tickets
-      <span style="color:#777;">{{cases.total}}</span>
-    </h2>
-  </div>
-</div>
-<div class="row" *ngIf="showtable && cases.total > 0">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <div class="panel panel-default">
-      <table id="ticket" class="table">
-        <tbody>
-          <tr>
-            <th>Engineer name</th>
-            <th class="text-center">Action</th>
-            <th class="text-center">Time</th>
-            <th class="text-center">Date</th>
-            <th>User</th>
-            <th>Delete Reason</th>
-          </tr>
-          <tr *ngFor="let case of cases">
-            <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
-            <td class="text-center">{{case.action}}</td>
-            <td class="text-center">{{case.time}}</td>
-            <td class="text-center">{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
-            <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
-            <td>{{case.delete_reason}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="container">
+    <div>
+      <button class="btn btn-primary btn-info" type="button" (click)="showCaseHtml()">
+        <span>Cases</span>
+      </button>
+      <button class="btn btn-primary btn-info" type="button" (click)="showTimeoffHtml()">
+      <span>Time off</span>
+    </button>
     </div>
   </div>
-</div>
-<div class="row" *ngIf="showtotal && cases.total == 0">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <div class="alert alert-warning">No records were found</div>
-  </div>
-</div>
+  
+<ng-container *ngIf="showReportCase">
+  <div class="row">
+    <form [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form" class="form-flat">
+            <div class="col-sm-2 col-sm-offset-2">
+              <div class="form-group">
+                <label for="select_engineer">Engineer</label>
+                <select id="select_engineer" formControlName="user" class="form-control">
+                  <option value="all">
+                    All
+                  </option>
+                  <option *ngFor="let user of users" value={{user._id}}>
+                    {{user.name}} {{user.last_name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="select_month">Month</label>
+                <select formControlName="month" class="form-control" id="select_month">
+                  <option value="all">
+                    All
+                  </option>
+                  <option *ngFor="let month of months" value={{month.id}}>
+                    {{month.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="case_status_select">Case status</label>
+                <select formControlName="case_status" class="form-control" id="case_status_select">
+                  <option value="all">
+                    All
+                  </option>
+                  <option value="added">
+                    Added
+                  </option>
+                  <option value="deleted">
+                    Deleted
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                  <i class="qtm-font-icon qtm-icon-search--16" aria-hidden="true"></i>
+                  <span>Search</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row" *ngIf="showtotalCase">
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <h2>Total tickets
+              <span style="color:#777;">{{cases.total}}</span>
+            </h2>
+          </div>
+        </div>
+        <div class="row" *ngIf="showtableCase && cases.total > 0">
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+              <table id="ticket" class="table">
+                <tbody>
+                  <tr>
+                    <th>Engineer name</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Time</th>
+                    <th class="text-center">Date</th>
+                    <th>User</th>
+                    <th>Delete Reason</th>
+                  </tr>
+                  <tr *ngFor="let case of cases">
+                    <td>{{case.engineer.engi_name}} {{case.engineer.engi_last_name}}</td>
+                    <td class="text-center">{{case.action}}</td>
+                    <td class="text-center">{{case.time}}</td>
+                    <td class="text-center">{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
+                    <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
+                    <td>{{case.delete_reason}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="showtotalCase && cases.total == 0">
+          <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <div class="alert alert-warning">No records were found</div>
+          </div>
+        </div>   
+</ng-container>
+
+
+<ng-container *ngIf="showReportTimeoff">
+  <div class="row">
+      <form [formGroup]="myform2" (ngSubmit)="getTimeoff(myform2.value)" role="form" class="form-flat">
+        <div class="col-sm-2 col-sm-offset-2">
+          <div class="form-group">
+            <label for="select_engineer">Engineer</label>
+            <select id="select_engineer" formControlName="user" class="form-control">
+              <option value="all">
+                All
+              </option>
+              <option *ngFor="let user of users" value={{user._id}}>
+                {{user.name}} {{user.last_name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="select_month">Month</label>
+            <select formControlName="month" class="form-control" id="select_month">
+              <option value="all">
+                All
+              </option>
+              <option *ngFor="let month of months" value={{month.id}}>
+                {{month.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="case_statutrues_select">Time off status</label>
+            <select formControlName="time_off_status" class="form-control" id="case_status_select">
+              <option value="all">
+                All
+              </option>
+              <option value="added">
+                Added
+              </option>
+              <option value="modified">
+                Modified
+              </option>
+              <option value="deleted">
+                Deleted
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">
+              <i class="qtm-font-icon qtm-icon-search--16" aria-hidden="true"></i>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row" *ngIf="showtotalTime">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <h2>Total Time off
+          <span style="color:#777;">{{timeoff.total}}</span>
+        </h2>
+      </div>
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+          <h2>{{user_timeoff.name}} {{user_timeoff.last_name}}
+          </h2>
+      </div>
+    </div>
+    <div class="row" *ngIf="showtableTime && timeoff.total > 0">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+          <table id="ticket" class="table">
+            <tbody>
+              <tr>
+                <th class="text-center">Date</th>
+                <th class="text-center">Reason</th>
+                <th>Action</th>
+                <th>Modify/Delete Reason</th>
+              </tr>
+              <tr *ngFor="let time of timeoff">
+                <td class="text-center">{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}}</td>
+                <td class="text-center">{{time.reason}}</td>
+                <td class="text-center">{{time.action}}</td>
+                <td>{{time.reason_delete_modify}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="showtotalTime && timeoff.total == 0">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="alert alert-warning">No records were found</div>
+      </div>
+    </div>
+  </ng-container>

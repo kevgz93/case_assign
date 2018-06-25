@@ -177,10 +177,21 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public getReport(values): Observable<Object> {
+  public getReportCase(values): Observable<Object> {
     let body = JSON.stringify(values);
     return this.http
-    .post(API_URL + '/api/reports', body,
+    .post(API_URL + '/api/reports/case', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      //this.user_id = response;
+      return response
+    }) .catch(this.handleError);
+  }
+
+  public getReportTimeoff(values): Observable<Object> {
+    let body = JSON.stringify(values);
+    return this.http
+    .post(API_URL + '/api/reports/time', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
       //this.user_id = response;
@@ -273,6 +284,18 @@ export class ApiService {
   public addTimeOff(data): Observable<Response> {
     let body = JSON.stringify(data)
     return this.http
+    .post(API_URL + '/api/timeoff', body,
+    {headers: new HttpHeaders().set('Content-Type','application/json')})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+  //update time off
+  public updateTimeOff(data): Observable<Response> {
+    let body = JSON.stringify(data)
+    return this.http
     .put(API_URL + '/api/timeoff', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
     .map(response => {
@@ -280,6 +303,29 @@ export class ApiService {
     })
     .catch(this.handleError);
   }
+
+  public deleteTimeOff(data): Observable<Response> {
+    let params = new HttpParams();
+    params = params.append("_id",data._id);
+    params = params.append("reasonMD",data.time_off_reasonMD);
+    return this.http
+    .delete(API_URL + '/api/timeoff', {params:params})
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+
+    //Get time off for specific user
+    public getTimes(id): Observable<Response> {
+      let params = new HttpParams().set("user_id",id);    
+      return this.http
+      .get(API_URL + '/api/timeoffs/',{ params: params })
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);

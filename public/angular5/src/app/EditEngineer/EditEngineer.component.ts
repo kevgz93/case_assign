@@ -40,10 +40,10 @@ export class EngineerComponent implements OnInit {
 
 	public id;
 	public user;
-	private showhtml;
+	private showhtml = false;
 	private current_user_role;
-	rForm: FormGroup;
-	myform: FormGroup;
+	private rForm: FormGroup;
+	private myform: FormGroup;
 
 
 
@@ -168,7 +168,6 @@ export class EngineerComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.showhtml = false;
 		this.service.currentId.subscribe(message => this.id = message);
 		this.getOneEngineer();
 		this.getUserRole();

@@ -60,20 +60,7 @@ schedule.createSchedule = function (req, res) {
             hour:req.body.friday_afternoon_hour + req.body.difference.hour,
             minutes: req.body.friday_afternoon_minutes + req.body.difference.minutes
         },
-        time_zone: req.body.time,
-        day_off:{
-            day:req.body.day_off_day,
-            month: req.body.day_off_month,
-            hour: req.body.day_off_hour,
-            minutes: req.body.day_off_minutes
-        },
-        day_on: {
-            day:req.body.day_on_day,
-            month: req.body.day_on_month,
-            hour: req.body.day_on_hour,
-            minutes: req.body.day_on_minutes
-        },
-        user_id: req.body.user_id
+        time_zone: req.body.time
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a Schedule");
@@ -191,62 +178,6 @@ db
     })
 }
 
-//add the time off for specific User
-schedule.createTimeOff = function (req, res) {
 
-    var user_id = req.body._id;
-    console.log("Get User" + user_id);
-    
-    db
-        .findOne({user_id : user_id})
-        .exec(function(err, doc){
-        var response = {
-            status: 204,
-            message: doc
-        };
-    
-        if (err) {
-            console.log("Error finding user");
-            response.status = 500;
-            response.message = err;
-        } else if(!doc){
-            response.status= 404;
-            response.message = {
-            "message":"User ID not found"
-            };
-        }
-    
-        if (response.status === 200) {
-            console.log("send it here?");
-            res
-            .status(response.status)
-            .json(response.message);
-        } else {
-            console.log("body", req.body);
-            doc.day_off.day=req.body.day_off.day,
-            doc.day_off.month= req.body.day_off.month,
-            doc.day_off.hour= req.body.day_off.hour,
-            doc.day_off.minutes= req.body.day_off.minutes,
-            doc.day_on.day=req.body.day_on.day,
-            doc.day_on.month= req.body.day_on.month,
-            doc.day_on.hour= req.body.day_on.hour,
-            doc.day_on.minutes= req.body.day_on.minutes
-
-    
-        };
-    
-        doc.save(function(err, Updated) {
-            if (err) {
-            res
-                .send({status: 500});
-    
-            } else {
-            res
-            .send({status:204, body:Updated})
-    
-            }
-            })
-        })
-    }
 
 module.exports = schedule;
