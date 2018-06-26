@@ -38,7 +38,7 @@ export class ApiService {
   // Redirect the user to edit the list of days were the worker will be on call.
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="qtm-font-icon qtm-icon-large qtm-icon-edit qtm-icon-default"></i>',
+      label: '<i class="qtm-font-icon qtm-icon-large qtm-icon-edit"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
           this.changeUserId(event.id.toString());
           this.router.navigate(['./editengineer']);

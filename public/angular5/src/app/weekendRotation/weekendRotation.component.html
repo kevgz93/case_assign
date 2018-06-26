@@ -1,6 +1,6 @@
 <ng-template #loading>
   <div class="text-center">
-    <i class="fa fa-spin fa-spinner fa-5x"></i>
+    <i class="loading-spinner"></i>
     <br>
     Loading events...
   </div>
@@ -8,8 +8,39 @@
 
 
 <div class="row">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
+  <div class="col-sm-12 col-md-10">
     <h1>Weekend Rotation shifts</h1>
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col-md-4 calendar-buttons-margin">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Previous
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate">
+        Today
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false">
+        Next
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 ">
+    <p class="calendar-month-title">{{ viewDate | date:'MMMM yyyy' }}</p>
   </div>
 </div>
 <div class="row" >
@@ -17,18 +48,22 @@
     <div class="panel panel-default">
       <div [ngSwitch]="view">
         <div *ngIf="events$ | async; else loading; let events">
+          {{ event }}
           <mwl-calendar-month-view
             [viewDate]="viewDate"
             [events]="events"
             [activeDayIsOpen]="activeDayIsOpen"
             (dayClicked)="dayClicked($event.day)"
-            (eventClicked)="handleEvent('Clicked', $event.event)">
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+            [weekStartsOn]="1">
           </mwl-calendar-month-view>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
 
 
 

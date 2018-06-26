@@ -2,20 +2,11 @@ import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../api.service';
 import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
-import { map } from 'rxjs/operators';
 // Calendar Module Imports
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
   isSameDay,
-  isSameMonth,
-  addHours
+  isSameMonth
 } from 'date-fns';
-
 import {
   CalendarEvent
 } from 'angular-calendar';
@@ -30,6 +21,8 @@ export class WeekendRotationComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
+  view: string = 'month';
+
   viewDate: Date = new Date();
 
   modalData: {
@@ -39,7 +32,7 @@ export class WeekendRotationComponent implements OnInit {
 
   events$: Observable<Array<CalendarEvent[]>>;
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   constructor(private modal: NgbModal, private service: ApiService) {}
 
