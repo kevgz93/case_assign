@@ -10,6 +10,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {Router} from '@angular/router';
 
+import {
+  CalendarEvent,
+  CalendarEventAction
+} from 'angular-calendar';
 
 const API_URL = environment.apiUrl;
 
@@ -25,19 +29,34 @@ export class ApiService {
   //private user_id;
   private user = new BehaviorSubject<object>({});
   currentObject = this.user.asObservable();
+
   private id = new BehaviorSubject<String>('');
   currentId = this.id.asObservable();
+
+
+  // Calendar action
+  // Redirect the user to edit the list of days were the worker will be on call.
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="qtm-font-icon qtm-icon-large qtm-icon-edit"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+          this.changeUserId(event.id.toString());
+          this.router.navigate(['./editengineer']);
+      }
+    }
+  ];
+
 
   //share user Id
   changeObject(message: Object) {
     this.user.next(message);
- 
+
   }
 
   changeUserId(message: String) {
     this.id.next(message);
- 
   }
+
 
   checkCookie():Observable<boolean>{
   let cookie;
@@ -45,7 +64,7 @@ export class ApiService {
    return cookie;
   }
 
-  
+
 
 
   // API: GET /todos
@@ -80,10 +99,10 @@ export class ApiService {
     }) .catch(this.handleError);
   }
 
-  
+
   // API: GET one engineer
   public getOneEngineer(id): Observable<Response> {
-    let params = new HttpParams().set("id",id);    
+    let params = new HttpParams().set("id",id);
     return this.http
     .get(API_URL + '/api/user/', { params: params })
     .map(response => {
@@ -104,9 +123,9 @@ export class ApiService {
     })
     .catch(this.handleError);
   }
-  
+
   public getSchedule(id): Observable<Response> {
-    let params = new HttpParams().set("id",id);    
+    let params = new HttpParams().set("id",id);
     return this.http
     .get(API_URL + '/api/schedule/', { params: params })
     .map(response => {
@@ -127,12 +146,12 @@ export class ApiService {
     .put(API_URL + '/api/ticket', body,
      {headers: new HttpHeaders().set('Content-Type','application/json')}) //{headers: new HttpHeaders().set('Content-Type','application/json')}
     .map(response => {
-      
+
       return response
     })
     .catch(this.handleError);
   }
-  
+
 
   public addUser(data): Observable<Response> {
     let body = JSON.stringify(data);
@@ -201,7 +220,7 @@ export class ApiService {
 
   //get current week
   public getWeek(): Observable<Response> {
-    //let params = new HttpParams().set("week",week);    
+    //let params = new HttpParams().set("week",week);
     return this.http
     .get(API_URL + '/api/checkrotation/')
     .map(response => {
@@ -212,7 +231,7 @@ export class ApiService {
 
     //get rotation by week
     public getRotation(week): Observable<Response> {
-      let params = new HttpParams().set("week",week);    
+      let params = new HttpParams().set("week",week);
       return this.http
       .get(API_URL + '/api/rotation/', {params:params})
       .map(response => {
@@ -223,7 +242,7 @@ export class ApiService {
 
   //Get week with status active
   public getWeekByStatus(): Observable<Response> {
-    //let params = new HttpParams().set("id",id);    
+    //let params = new HttpParams().set("id",id);
     return this.http
     .get(API_URL + '/api/checkrotation/')
     .map(response => {
@@ -233,7 +252,7 @@ export class ApiService {
   }
 
 
-  //update date on week 
+  //update date on week
   public updateDayOnWeek(day, week): Observable<Response> {
     let body = JSON.stringify({"day":day, "week":week});
     return this.http
@@ -245,7 +264,7 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  //update rotation 
+  //update rotation
   public updateRotation(data): Observable<Response> {
     let body = JSON.stringify(data);
     return this.http
@@ -326,6 +345,28 @@ export class ApiService {
       })
       .catch(this.handleError);
     }
+    
+  // Weekend Rotation API Calls
+  // Get all Weekend Rotation dates
+  public getWeekendRotations() {
+    return this.http
+      .get(API_URL +'/api/weekendRotations')
+      .map(response => {
+        let data = [];
+        for (let user of response['body']){
+          for (let date of user.weekendRotationDates){
+            data.push({
+              title: user.name,
+              start: new Date(date),
+              id: user._id,
+              actions: this.actions
+            });
+          }
+        }
+        return data;
+      })
+      .catch(this.handleError);
+  }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
