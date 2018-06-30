@@ -5,6 +5,7 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {IMyDpOptions} from 'mydatepicker';
+import { MomentTimezoneModule } from 'moment-timezone';
 declare var jquery:any;
 declare var $ :any;
 
@@ -27,11 +28,24 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
+  isDaylight():Boolean {
+    let moment = require('moment-timezone');
+    let date = new Date();
+    let NYDate = moment.tz(date, "America/New_York");
+    let offset:number = NYDate._offset;
+    if(offset != -300){
+      return true;
+    }
+    
+  }
+
   getDifference(timezone, daylight){
     console.log("entry to daylight");
     let difference={"hour":0, "minutes":0};
-    let dayL:number = 0;
-    if(daylight){
+    let dayL:number;
+
+    var today = new Date();
+    if (this.isDaylight()) { 
       dayL = 1;
     }
 

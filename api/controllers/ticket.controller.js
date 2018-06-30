@@ -62,6 +62,14 @@ ticket.loadEnginner2 = function(){
           'as': 'schedule_loaded'
         }
       },
+      {
+        $lookup: {
+          from: 'timeoffs', 
+          localField: '_id', 
+          foreignField: 'user_id', 
+          'as': 'time_off'
+        }
+      },
         { "$project": {
           "_id": 1,
           "email":1,
@@ -85,7 +93,14 @@ ticket.loadEnginner2 = function(){
               "cond": { "$eq": [ "$$case.action", "added" ] }
             }
           },
-          "schedule_loaded":1
+          "schedule_loaded":1,
+          "time_off":{
+            "$filter":{
+              "input": "$time_off",
+              "as": "time",
+              "cond": { "$ne": [ "$$time.action", "deleted" ] }
+            }
+          }
         }
       }
     ],function(err, engi) {

@@ -60,7 +60,8 @@ schedule.createSchedule = function (req, res) {
             hour:req.body.friday_afternoon_hour + req.body.difference.hour,
             minutes: req.body.friday_afternoon_minutes + req.body.difference.minutes
         },
-        time_zone: req.body.time
+        time_zone: req.body.time,
+        user_id:req.body.user_id
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a Schedule");
@@ -158,7 +159,7 @@ db
         doc.friday_morning.minutes= req.body.friday_morning_minutes,
         doc.friday_afternoon.hour= req.body.friday_afternoon_hour + req.body.difference.hour,
         doc.friday_afternoon.minutes= req.body.friday_afternoon_minutes,
-        time_zone= req.body.time
+        doc.time_zone= req.body.time
         //doc.day_off= req.body.day_off,
         //doc.day_on= req.body.day_on
 

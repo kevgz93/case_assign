@@ -40,7 +40,7 @@ export class EngineerComponent implements OnInit {
 
 	public id;
 	public user;
-	private showhtml = false;
+	private showform:boolean = false;
 	private current_user_role;
 	private rForm: FormGroup;
 	private myform: FormGroup;
@@ -60,7 +60,6 @@ export class EngineerComponent implements OnInit {
 	getOneEngineer(): Observable<engineer>{
 		this.service.getOneEngineer(this.id)
 		.subscribe(user => {
-			console.log(user);
 			if(user.status != 200){
 				alert("error finding user");
 			}
@@ -161,7 +160,7 @@ export class EngineerComponent implements OnInit {
 				}
 				else{
 					this.current_user_role = response.body;
-					this.showhtml = true;
+					this.showform = true;
 				}
 			});
 		}

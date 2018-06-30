@@ -60,7 +60,7 @@ import { TimeoffComponent } from './timeoff/timeoff.component';
     BrowserAnimationsModule, 
     CalendarModule.forRoot(),
     ModalModule.forRoot()
-    //Ng2WebCrypto
+        //Ng2WebCrypto
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

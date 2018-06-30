@@ -1,3 +1,4 @@
+<ng-container *ngIf="showhtml">
 <div class="row">
   <div class="col-sm-6">
     <h1>Tickets&nbsp;<small>Queue Monitor: {{qm}}</small></h1>
@@ -29,7 +30,7 @@
         </thead>
         <tbody>
           <ng-container  *ngFor="let datico of data">
-            <tr *ngIf="datico.today.available" class="{{datico.today.color}}">
+            <tr *ngIf="datico.today.available && datico.today.timeoff" class="{{datico.today.color}}">
               <td>{{datico.name}} {{datico.last_name}}</td>
               <td>{{datico.time_zone}}</td>
               <td>{{datico.sta_dyn}}</td>
@@ -50,6 +51,8 @@
     </div>
   </div>
 </div>
+
+
 
 <ng-template #template>
   <div class="modal-header">
@@ -72,3 +75,6 @@
 </div>
 </form>
 </ng-template>
+
+</ng-container>
+

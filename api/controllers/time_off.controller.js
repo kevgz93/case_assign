@@ -23,15 +23,15 @@ time_report.addTime_off = function(req, res){
             day:data.day_off.day,
             month: data.day_off.month,
             year:data.day_off.year,
-            hour:data.day_off.hour,
-            minutes:data.day_off.minutes
+            hour:data.day_off.hour + data.difference.hour,
+            minutes:data.day_off.minutes + data.difference.minutes
         },
         day_on : {
             day:data.day_on.day,
             month: data.day_on.month,
             year:data.day_off.year,
-            hour:data.day_on.hour,
-            minutes:data.day_on.minutes
+            hour:data.day_on.hour + data.difference.hour,
+            minutes:data.day_on.minutes+ data.difference.minutes
         }
         
         }, function(err, time) { //this will run when create is completed
@@ -147,13 +147,13 @@ time_report.updateTime_off = function (req, res) {
           doc.day_off.day = data.day_off.day,
           doc.day_off.month = data.day_off.month,
           doc.day_off.year = data.day_off.year,
-          doc.day_off.hour = data.day_off.hour,
-          doc.day_off.minutes = data.day_off.minutes,
+          doc.day_off.hour = data.day_off.hour + data.difference.hour,
+          doc.day_off.minutes = data.day_off.minutes + data.difference.minutes,
           doc.day_on.day = data.day_on.day,
           doc.day_on.month = data.day_on.month,
           doc.day_on.year = data.day_on.year,
-          doc.day_on.hour = data.day_on.hour,
-          doc.day_on.minutes = data.day_on.minutes,
+          doc.day_on.hour = data.day_on.hour + data.difference.hour,
+          doc.day_on.minutes = data.day_on.minutes + data.difference.minutes,
           doc.reason_delete_modify = data.reason_delete_modify
       };
   

@@ -8,6 +8,7 @@ import { promise } from 'protractor';
 import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {ConvertTimeZero} from './../lib/Time_zero'
 
 declare var jquery:any;
 declare var $ :any;
@@ -25,6 +26,8 @@ export class TimeoffComponent implements OnInit {
   private times;
   private myform: FormGroup;
   private myform2: FormGroup;
+   //create instance on lib folder
+  private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
@@ -55,9 +58,15 @@ convertMonthString(times):Object{
   let months = ["Jan","Feb","Mar","Abr","May","Jun","Jul","Aug","Set","Oct","Nov","Dic"]
   times.forEach(element => {
     index = element.day_off.month - 1;
-    element.day_off.monthString = months[index]
+    element.day_off.monthString = months[index];
+    if(element.day_off.minutes === 0){
+      element.day_off.minutesString = `${element.day_off.minutes}0`
+    }
     index = element.day_on.month - 1;
-    element.day_on.monthString = months[index]
+    element.day_on.monthString = months[index];
+    if(element.day_on.minutes === 0){
+      element.day_on.minutesString = `${element.day_on.minutes}0`
+    }
     result.element = element;
     
   });
@@ -73,7 +82,8 @@ getTime():void{
       alert("Issue loading time off");
     }
     else{
-      this.times = this.convertMonthString(response.body);
+      let time = this.convertTimeZone.convertFromTimeOffLocally(response.body);
+      this.times = this.convertMonthString(time);
       this.showview = true;
       
     }
@@ -84,7 +94,9 @@ getTime():void{
 // Update time off method
 updateTimeOff(data):Observable<Object>{
   console.log("Values from the form", data);
-  let sendData = {"_id":"","reason":"","reason_delete_modify": "", "day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
+  let difference ={"hour":0,"minutes":0}
+  difference = this.convertTimeZone.getLocalDifference();
+  let sendData = {"_id":"","reason":"","reason_delete_modify": "","difference":{"hour":0,"minutes":0}, "day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
     "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
     sendData._id = this._id;
     sendData.reason = data.time_off_reason;
@@ -99,6 +111,8 @@ updateTimeOff(data):Observable<Object>{
     sendData.day_on.year = data.myDateRange.endDate.year;
     sendData.day_on.hour = parseInt(data.end_time_hour);
     sendData.day_on.minutes = parseInt(data.end_time_minutes);
+    sendData.difference.hour = difference.hour;
+    sendData.difference.minutes = difference.minutes;
     this.service.updateTimeOff(sendData)
     .subscribe(response => {
       if(response.status === 204){

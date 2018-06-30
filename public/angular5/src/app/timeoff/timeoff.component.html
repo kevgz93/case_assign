@@ -6,6 +6,7 @@
           <thead>
             <tr>
               <th colspan="2">Date</th>
+              <th colspan="2">time (Your Local Time)</th>
               <th class="text-center" style="width:20%;">Actions</th>
               <th class="text-center" style="width:20%;">Modify</th>
             </tr>
@@ -18,6 +19,9 @@
               <td>
                 <label>{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}} </label><!--{{time.day_on.year}} -->
               </td>
+              <td>
+                  <label>{{time.day_off.hour}}:{{time.day_off.minutesString}} - {{time.day_on.hour}} {{time.day_on.minutesString}}</label><!--{{time.day_on.year}} -->
+                </td>
               <td>
                   <label>{{time.action}}</label>
                 </td>

@@ -8,6 +8,7 @@ import { promise } from 'protractor';
 import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {ConvertTimeZero} from './../lib/Time_zero'
 
 declare var jquery:any;
 declare var $ :any;
@@ -22,14 +23,14 @@ export class ScheduleshowComponent implements OnInit {
   public showview:Boolean = false;
   public schedule;
   private showcalendar:Boolean = false;
-  public aux = {"monday_morning":0, "monday_afternoon":0,"tuesday_morning":0,"tuesday_afternoon":0,
-  "wednesday_morning":0,"wednesday_afternoon":0,"thursday_morning":0,"thursday_afternoon":0,"friday_morning":0,
-  "friday_afternoon":0};
   private user_id;
   private _id;
   private times;
+  private schedule_aux;
   private myform: FormGroup;
   private myform2: FormGroup;
+   //create instance on lib folder
+   private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
@@ -48,66 +49,6 @@ private modalRef: BsModalRef;
     this.modalRef = this.modalService.show(template);
   }
 
-  //minutes on 00 or 30
-  checkMinutes(minutes):string{
-    if (minutes != 0){
-      return `${minutes}`;
-    }
-    return `${minutes}0`;
-  }
-
-  //convert to string to show on the html
-  convertToString(schedule):object{
-    let minutes;
-    let schedule_total = {"monday_morning": '' , "monday_afternoon":'' ,"tuesday_morning":'' ,"tuesday_afternoon":'' ,
-    "wednesday_morning":'' ,"wednesday_afternoon":'' ,"thursday_morning":'' ,"thursday_afternoon":'' ,"friday_morning":'' ,
-    "friday_afternoon":'' };
-    minutes = this.checkMinutes(schedule.monday_morning.minutes);
-    schedule_total.monday_morning = `${this.aux.monday_morning}:${minutes}`;
-    minutes = this.checkMinutes(schedule.monday_afternoon.minutes);
-    schedule_total.monday_afternoon = `${this.aux.monday_afternoon}:${minutes}`;
-    minutes = this.checkMinutes(schedule.tuesday_morning.minutes);
-    schedule_total.tuesday_morning = `${this.aux.tuesday_morning}:${minutes}`;
-    minutes = this.checkMinutes(schedule.tuesday_afternoon.minutes);
-    schedule_total.tuesday_afternoon = `${this.aux.tuesday_afternoon}:${minutes}`;
-    minutes = this.checkMinutes(schedule.wednesday_morning.minutes);
-    schedule_total.wednesday_morning = `${this.aux.wednesday_morning}:${minutes}`;
-    minutes = this.checkMinutes(schedule.wednesday_afternoon.minutes);
-    schedule_total.wednesday_afternoon = `${this.aux.wednesday_afternoon}:${minutes}`;
-    minutes = this.checkMinutes(schedule.thursday_morning.minutes);
-    schedule_total.thursday_morning = `${this.aux.thursday_morning}:${minutes}`;
-    minutes = this.checkMinutes(schedule.thursday_afternoon.minutes);
-    schedule_total.thursday_afternoon = `${this.aux.thursday_afternoon}:${minutes}`;
-    minutes = this.checkMinutes(schedule.friday_morning.minutes);
-    schedule_total.friday_morning = `${this.aux.friday_morning}:${minutes}`;
-    minutes = this.checkMinutes(schedule.friday_afternoon.minutes);
-    schedule_total.friday_afternoon = `${this.aux.friday_afternoon}:${minutes}`;
-    return schedule_total;
-    //this.showschedule = true;
-
-  }
-
-  //converting to the current timezone
-  convertToTimeZone(schedule):object{
-    let date = new Date;
-    let difference = date.getTimezoneOffset() / 60;
-    this.aux.monday_morning = schedule.monday_morning.hour - difference;
-    
-    this.aux.monday_afternoon = schedule.monday_afternoon.hour - difference;
-    this.aux.tuesday_morning = schedule.tuesday_morning.hour - difference;
-    this.aux.tuesday_afternoon = schedule.tuesday_afternoon.hour - difference;
-    this.aux.wednesday_morning = schedule.wednesday_morning.hour - difference;
-    this.aux.wednesday_afternoon = schedule.wednesday_afternoon.hour - difference;
-    this.aux.thursday_morning = schedule.thursday_morning.hour - difference;
-    this.aux.thursday_afternoon = schedule.thursday_afternoon.hour - difference;
-    this.aux.friday_morning = schedule.friday_morning.hour - difference;
-    this.aux.friday_afternoon = schedule.friday_afternoon.hour - difference;
-    let schedule_total = this.convertToString(schedule);
-    // Object.keys(schedule).forEach(function(key) {
-    // });
-    return schedule_total;
-  }
-
 //get the schedule
   getSchedule(): Observable<object>{
     this.service.getSchedule(this.user_id)
@@ -117,8 +58,12 @@ private modalRef: BsModalRef;
       }
       else{
          //this.schedule = schedule.body;
-         this.schedule = this.convertToTimeZone(schedule.body);
-         this.showview = true;
+        this.schedule_aux = schedule.body;
+        let aux;
+        aux = this.convertTimeZone.convertFromTimeZeroLocally(schedule.body);
+        console.log(aux);
+        this.schedule = this.convertTimeZone.convertTimeToString(aux);
+        this.showview = true;
       }
      
     })
@@ -128,7 +73,8 @@ private modalRef: BsModalRef;
 
   //add the timeZone from calendars
   addTimeOff(data): Observable<object>{
-    let sendData = {"user_id":"","reason":"","day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
+    let difference = this.convertTimeZone.getDifference(this.schedule_aux.time_zone);
+    let sendData = {"user_id":"","reason":"", "difference":{"hour":0,"minutes":0},"day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
     "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
     sendData.user_id = this.user_id;
     sendData.reason = data.time_off_reason;
@@ -142,6 +88,8 @@ private modalRef: BsModalRef;
     sendData.day_on.year = data.myDateRange.endDate.year;
     sendData.day_on.hour = parseInt(data.end_time_hour);
     sendData.day_on.minutes = parseInt(data.end_time_minutes);
+    sendData.difference.hour = difference.hour;
+    sendData.difference.minutes = difference.minutes;
     this.service.addTimeOff(sendData)
     .subscribe(response => {
       if(response.status === 201){
@@ -193,8 +141,14 @@ convertMonthString(times):Object{
   times.forEach(element => {
     index = element.day_off.month - 1;
     element.day_off.monthString = months[index]
+    if(element.day_off.minutes === 0){
+      element.day_off.minutes = `${element.day_off.minutes}0`
+    }
     index = element.day_on.month - 1;
     element.day_on.monthString = months[index]
+    if(element.day_on.minutes === 0){
+      element.day_on.minutes = `${element.day_on.minutes}0`
+    }
     result.push(element);
     
   });
@@ -210,7 +164,8 @@ getTime():void{
       alert("Issue loading time off");
     }
     else{
-      this.times = this.convertMonthString(response.body);
+      let time = this.convertTimeZone.convertFromTimeOffLocally(response.body);
+      this.times = this.convertMonthString(time);
       
     }
     
@@ -219,8 +174,8 @@ getTime():void{
 
 // Update time off method
 updateTimeOff(data):Observable<Object>{
-  console.log("Values from the form", data);
-  let sendData = {"_id":"","reason":"","reason_delete_modify": "", "day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
+  let difference = this.convertTimeZone.getLocalDifference();
+  let sendData = {"_id":"","reason":"","reason_delete_modify": "","difference":{"hour":0,"minutes":0}, "day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
     "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
     sendData._id = this._id;
     sendData.reason = data.time_off_reason;
@@ -235,6 +190,8 @@ updateTimeOff(data):Observable<Object>{
     sendData.day_on.year = data.myDateRange.endDate.year;
     sendData.day_on.hour = parseInt(data.end_time_hour);
     sendData.day_on.minutes = parseInt(data.end_time_minutes);
+    sendData.difference.hour = difference.hour;
+    sendData.difference.minutes = difference.minutes;
     this.service.updateTimeOff(sendData)
     .subscribe(response => {
       if(response.status === 204){

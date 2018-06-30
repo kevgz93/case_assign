@@ -148,52 +148,62 @@ export class HomeComponent implements OnInit {
         }
         return "";
       }
-
+      
       //see if have time off
-      timeoff(schedule, id):boolean{
-        let day_on = schedule.day_on;
-        let day_off = schedule.day_off;
+      timeoff(timeoff):boolean{
+        
+        let result:boolean;
+        let day_on;
+        let day_off;
+        let length = Object.keys(timeoff).length;
         let hour = this.date.getHours();
         let minutes = this.date.getMinutes();
         let day = this.date.getDate();
         let month = this.date.getMonth() + 1;
-        let available:boolean;
-        let time:boolean;
-        let avai:boolean;
-        
+        let year = this.date.getFullYear();
+        if(length === 0){
+          result = true;
+        }
+        timeoff.forEach(element => {
+        day_off = element.day_off;
+        day_on = element.day_on;
         // 'entry before to start the day_off witout time'
         if(day < day_off.day && month <= day_off.month){
-          return  true;
-        }
-        // 'entry before to start the day_off with hour'
+          result = true;
+          }
+          // 'entry before to start the day_off with hour'
         else if(day === day_off.day && month === day_off.month && hour < day_off.hour){
-          return  true;
+        result = true;
         }
-
+        
         // 'entry before to start the day_off with minutes''
-        else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes < day_off.minutes){
-          return  true;
+        else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes < day_off.minutes ){
+        result = true;
         }
-
+        
         //'entry between the time off and without hour
         else if(day >= day_off.day && month >= day_off.month && day < day_on.day && month <= day_on.month){
-          return  false;
+        result = false;
         }
-
+        
         //'entry between the time off and with hour
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour < day_on.hour){
-          return  false;
+        result = false;
         }
-
+        
         //'entry between the time off and less minutes
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour === day_on.hour &&
         minutes < day_on.minutes){
-          return  false;
+        result = false;
         }
-         else {
-            return true
-           }
-      }
+        else {
+          result = true
+          }
+  
+      });
+      return result; 
+
+    }
 
       checkMinutes(minutes):string{
         if (minutes != 0){
@@ -217,7 +227,7 @@ export class HomeComponent implements OnInit {
         return string;
       }
 
-      filterSchedule(data, id){
+      filterSchedule(data,time_off){
         let today = {time:"", available:true, color:"white", timeoff: false};
         let hour = {morning:0, afternoon:0};
         let minutes= {morning:0, afternoon:0};
@@ -228,8 +238,8 @@ export class HomeComponent implements OnInit {
         let color;
         let difference = this.date.getTimezoneOffset() / 60; // this difference is because the times are saved on the DB as gmt+0
         if (this.date.getDay()===1){
+          timeoff = this.timeoff(time_off);
           available = this.endDay(data.monday_morning, data.monday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
           color = this.colorHour(data.monday_afternoon, difference);
           hour.morning = data.monday_morning.hour - difference;
           minutes.morning = data.monday_morning.minutes;
@@ -244,9 +254,9 @@ export class HomeComponent implements OnInit {
           return today;
         }
         else if (this.date.getDay()===2){
+          timeoff = this.timeoff(time_off);
           available = this.endDay(data.tuesday_morning, data.tuesday_afternoon, difference);
           color = this.colorHour(data.tuesday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
           hour.morning = data.tuesday_morning.hour - difference;
           minutes.morning = data.tuesday_morning.minutes;
           hour.afternoon = data.tuesday_afternoon.hour - difference;
@@ -260,8 +270,8 @@ export class HomeComponent implements OnInit {
           return today;
         }
         else if (this.date.getDay()===3){
+          timeoff = this.timeoff(time_off);
           available = this.endDay(data.wednesday_morning, data.wednesday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
           color = this.colorHour(data.wednesday_afternoon, difference);
           hour.morning = data.wednesday_morning.hour - difference;
           minutes.morning = data.wednesday_morning.minutes;
@@ -276,8 +286,8 @@ export class HomeComponent implements OnInit {
           return today;
         }
         else if (this.date.getDay()===4){
-          available = this.endDay(data.thursday_morning , data.thursday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.thursday_morning, data.thursday_afternoon, difference);
           color = this.colorHour(data.thursday_afternoon, difference);
           hour.morning = data.thursday_morning.hour - difference;
           minutes.morning = data.thursday_morning.minutes;
@@ -292,8 +302,8 @@ export class HomeComponent implements OnInit {
           return today;
         }
         else if (this.date.getDay()===5){
+          timeoff = this.timeoff(time_off);
           available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
           color = this.colorHour(data.friday_afternoon, difference);
           hour.morning = data.friday_morning.hour - difference;
           minutes.morning = data.friday_morning.minutes;
@@ -308,8 +318,8 @@ export class HomeComponent implements OnInit {
           return today;
         }
         else if (this.date.getDay()===6 || this.date.getDay()===0){
+          timeoff = this.timeoff(time_off);
           available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
-          timeoff = this.timeoff(data, id);
           color = this.colorHour(data.friday_afternoon, difference);
           hour.morning = data.friday_morning.hour - difference;
           minutes.morning = data.friday_morning.minutes;
@@ -371,6 +381,7 @@ export class HomeComponent implements OnInit {
         {
           this.router.navigate(['./'])
         }
+        
         aux = data;
         this.data = data;
         // this.data.forEach(element => {
@@ -385,7 +396,7 @@ export class HomeComponent implements OnInit {
           this.data[i].countday = this.countDay;
           this.data[i].countweek = this.countWeek;
           this.data[i].countmonth = this.countMonth;
-          this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], data[i]._id);
+          this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
           this.cleanCount();
@@ -424,7 +435,6 @@ export class HomeComponent implements OnInit {
 
 
     deleteTicket(data): Observable<any>{
-      console.log("data", data);
       this.condition.id = data.id;
       this.condition.action = "disable";
       this.service.deleteTickets(data)

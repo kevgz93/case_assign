@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {ConvertTimeZero} from './../lib/Time_zero'
 declare var jquery: any;
 declare var $: any;
 
@@ -36,8 +37,10 @@ export class ScheduleeditComponent implements OnInit {
   // "wednesday_morning":{"hour":0,"minutes":0},"wednesday_afternoon":{"hour":0,"minutes":0},"thursday_morning":{"hour":0,"minutes":0},"thursday_afternoon":{"hour":0,"minutes":0},"friday_morning":{"hour":0,"minutes":0},
   // "friday_afternoon":{"hour":0,"minutes":0}}
   public user; // Information of the owner of the schedule
-  private showhtml;
+  private showhtml:boolean = false;
   private showdivcalendar;
+  //create instance on lib folder
+  private convertTimeZone = new ConvertTimeZero();
   rForm: FormGroup;
   myform: FormGroup;
 
@@ -48,75 +51,17 @@ export class ScheduleeditComponent implements OnInit {
   }
 
   constructor(private service: ApiService, private fb: FormBuilder, private router: Router) { }
-  // get the time zone from the user
-  getDifference(timezone, daylight) {
-    let difference = { "hour": 0, "minutes": 0 };
-    let dayL: number = 0;
-    if (daylight) {
-      dayL = 1;
-    }
 
-    if (timezone === "cat") {
-      difference.hour = 6;
-    }
-    else if (timezone === "pt") {
-      difference.hour = 7 + dayL;
-    }
-    else if (timezone === "ct") {
-      difference.hour = 5 + dayL;
-    }
-    else if (timezone === "et") {
-      difference.hour = 4 + dayL;
-    }
-    else if (timezone === "uk") {
-      difference.hour = 0 + dayL;
-    }
-    else if (timezone === "cet") {
-      difference.hour = -1 + dayL;
-    }
-    else if (timezone === "ist") {
-      difference.hour = -5;
-      difference.minutes = 30;
-    }
-    else if (timezone === "ict") {
-      difference.hour = -7;
-    }
-    else if (timezone === "sgt") {
-      difference.hour = -8;
-    }
-    else if (timezone === "jst") {
-      difference.hour = -9;
-    }
-    return difference;
-  }
 
   //converting to the current timezone
   convertToTimeZone(schedule): void {
-    let date = new Date;
-    let difference = date.getTimezoneOffset() / 60;
-    this.schedule.monday_morning.hour = schedule.monday_morning.hour - difference;
-    this.schedule.monday_morning.minutes = schedule.monday_morning.minutes;
-    this.schedule.monday_afternoon.hour = schedule.monday_afternoon.hour - difference;
-    this.schedule.monday_afternoon.minutes = schedule.monday_afternoon.minutes;
-    this.schedule.tuesday_morning.hour = schedule.tuesday_morning.hour - difference;
-    this.schedule.tuesday_morning.minutes = schedule.tuesday_morning.minutes;
-    this.schedule.tuesday_afternoon.hour = schedule.tuesday_afternoon.hour - difference;
-    this.schedule.tuesday_afternoon.minutes = schedule.tuesday_afternoon.minutes;
-    this.schedule.wednesday_morning.hour = schedule.wednesday_morning.hour - difference;
-    this.schedule.wednesday_morning.minutes = schedule.wednesday_morning.minutes;
-    this.schedule.wednesday_afternoon.hour = schedule.wednesday_afternoon.hour - difference;
-    this.schedule.wednesday_afternoon.minutes = schedule.wednesday_afternoon.minutes;
-    this.schedule.thursday_morning.hour = schedule.thursday_morning.hour - difference;
-    this.schedule.thursday_morning.minutes = schedule.thursday_morning.minutes;
-    this.schedule.thursday_afternoon.hour = schedule.thursday_afternoon.hour - difference;
-    this.schedule.thursday_afternoon.minutes = schedule.thursday_afternoon.minutes;
-    this.schedule.friday_morning.hour = schedule.friday_morning.hour - difference;
-    this.schedule.friday_morning.minutes = schedule.friday_morning.minutes;
-    this.schedule.friday_afternoon.hour = schedule.friday_afternoon.hour - difference;
-    this.schedule.friday_afternoon.minutes = schedule.friday_afternoon.minutes;
+    
+    this.schedule = this.convertTimeZone.convertFromTimeZero(schedule);
+    console.log(this.schedule);
+
     this.fillForm();
-    this.showhtml = true;
   }
+
   getSchedule(): Observable<object> {
     this.service.getSchedule(this.id)
       .subscribe(schedule => {
@@ -134,7 +79,7 @@ export class ScheduleeditComponent implements OnInit {
   }
 
   updateSchedule(data) {
-    let difference = this.getDifference(data.time, data.daylight)
+    let difference = this.convertTimeZone.getDifference(data.time)
     data._id = this.id;
     data.difference = difference;
     this.service.updateSchedule(data)
@@ -183,11 +128,11 @@ export class ScheduleeditComponent implements OnInit {
       friday_afternoon_minutes: this.schedule.friday_afternoon.minutes,
       time: this.schedule.time_zone,
       daylight: this.schedule.daylight,
-
+     
       // day_off: this.schedule.day_off,
       // day_on : this.schedule.day_on,
     });
-
+    this.showhtml = true;
   }
 
   getEngineer(): Observable<engineer> {
@@ -205,7 +150,6 @@ export class ScheduleeditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showhtml = false;
     this.service.currentId.subscribe(message => this.id = message);
     this.getEngineer();
     this.getSchedule();
