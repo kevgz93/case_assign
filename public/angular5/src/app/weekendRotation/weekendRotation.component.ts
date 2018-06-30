@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../api.service';
-import { Observable } from 'rxjs/Observable';
-import { NgModel } from '@angular/forms';
-import {FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
-declare var jquery:any;
-declare var $ :any;
+import { Observable } from "rxjs/Observable";
+// Calendar Module Imports
+import {
+  isSameDay,
+  isSameMonth
+} from 'date-fns';
+import {
+  CalendarEvent
+} from 'angular-calendar';
 
 @Component({
   selector: 'app-rotation',
@@ -15,34 +19,48 @@ declare var $ :any;
 
 export class WeekendRotationComponent implements OnInit {
 
-  private week;
-  public showtable: Boolean = false;
+  @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
-  constructor(private service: ApiService, private router:Router) { }
+  view: string = 'month';
 
+  viewDate: Date = new Date();
 
-  getWeek(): Observable<object>{
-    this.service.getWeek()
-    .subscribe(week => {
-      if(week.status != 200){
-        alert("error finding week");
-      }
-      else{
-        this.week = week.body;
-        this.showtable = true;
-      }
-    })
+  modalData: {
+    action: string;
+    event: CalendarEvent;
+  };
 
-    return;
+  events$: Observable<Array<CalendarEvent[]>>;
+
+  activeDayIsOpen: boolean = false;
+
+  constructor(private modal: NgbModal, private service: ApiService) {}
+
+  getEvents(): void {
+    this.events$ = this.service.getWeekendRotations();
   }
 
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+  }
 
-
-
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = { event, action };
+    this.modal.open(this.modalContent, { size: 'lg' });
+  }
 
   ngOnInit() {
-    this.getWeek();
-    $('#queue_monitors_tab').removeClass('active');
+    this.getEvents();
   }
 
 }

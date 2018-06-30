@@ -22,9 +22,12 @@ import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
 import { MatDialogModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
+// Calendar Module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
+import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimeoffComponent } from './timeoff/timeoff.component';
 //import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
@@ -57,8 +60,10 @@ import { TimeoffComponent } from './timeoff/timeoff.component';
     ReactiveFormsModule,
     MyDateRangePickerModule,
     MatDialogModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     CalendarModule.forRoot(),
+    CalendarWeekHoursViewModule,
+    NgbModalModule.forRoot(),
     ModalModule.forRoot()
         //Ng2WebCrypto
     ],
