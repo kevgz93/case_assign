@@ -38,7 +38,7 @@ export class ApiService {
   // Redirect the user to edit the list of days were the worker will be on call.
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="qtm-font-icon qtm-icon-large qtm-icon-edit"></i>',
+      label: '<i class="qtm-font-icon qtm-icon-edit"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
           this.changeUserId(event.id.toString());
           this.router.navigate(['./editengineer']);
@@ -337,7 +337,7 @@ export class ApiService {
 
     //Get time off for specific user
     public getTimes(id): Observable<Response> {
-      let params = new HttpParams().set("user_id",id);    
+      let params = new HttpParams().set("user_id",id);
       return this.http
       .get(API_URL + '/api/timeoffs/',{ params: params })
       .map(response => {
@@ -345,7 +345,7 @@ export class ApiService {
       })
       .catch(this.handleError);
     }
-    
+
   // Weekend Rotation API Calls
   // Get all Weekend Rotation dates
   public getWeekendRotations() {

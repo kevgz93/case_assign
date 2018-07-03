@@ -6,62 +6,76 @@
   </div>
 </ng-template>
 
+<ng-template #customCellTemplate let-day="day">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+  </div>
+  <div *ngFor="let engineer of day.events">
+    <small style="margin: 5px">{{ engineer.title }}</small>
+  </div>
+  <small style="margin: 5px" *ngIf="day.badgeTotal == 0 && day.isWeekend">No engineer on call today.</small>
+</ng-template>
+
 
 <div class="row">
   <div class="col-sm-12 col-md-10">
     <h1>Weekend Rotation shifts</h1>
   </div>
 </div>
-<div class="row text-center">
-  <div class="col-md-4 calendar-buttons-margin">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="activeDayIsOpen = false">
-        Previous
-      </div>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate">
-        Today
-      </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="activeDayIsOpen = false">
-        Next
+<div class="weekend-rotation-component">
+  <div class="row text-center">
+    <div class="col-md-4 calendar-buttons-margin">
+      <div class="btn-group">
+        <div
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          Previous
+        </div>
+        <div
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate">
+          Today
+        </div>
+        <div
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          Next
+        </div>
       </div>
     </div>
+    <div class="col-md-4 ">
+      <p class="calendar-month-title">{{ viewDate | date:'MMMM yyyy' }}</p>
+    </div>
   </div>
-  <div class="col-md-4 ">
-    <p class="calendar-month-title">{{ viewDate | date:'MMMM yyyy' }}</p>
-  </div>
-</div>
-<div class="row" >
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <div class="panel panel-default">
-      <div [ngSwitch]="view">
-        <div *ngIf="events$ | async; else loading; let events">
-          {{ event }}
-          <mwl-calendar-month-view
-            [viewDate]="viewDate"
-            [events]="events"
-            [activeDayIsOpen]="activeDayIsOpen"
-            (dayClicked)="dayClicked($event.day)"
-            (eventClicked)="handleEvent('Clicked', $event.event)"
-            [weekStartsOn]="1">
-          </mwl-calendar-month-view>
+  <div class="row" >
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div [ngSwitch]="view">
+          <div *ngIf="events$ | async; else loading; let events">
+            <mwl-calendar-month-view
+              [viewDate]="viewDate"
+              [events]="events"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              [weekStartsOn]="1"
+              [cellTemplate]="customCellTemplate">
+            </mwl-calendar-month-view>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 
 
