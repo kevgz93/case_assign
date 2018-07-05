@@ -16,7 +16,7 @@ let weekendRotationCtrl = require ('../controllers/weekendRotation.controller');
 
 router
   .route('/login/register')
-  .post(ctrlUsers.register);
+  .post(helpers.isAdmin,ctrlUsers.register);
 
 router
   .route('/checksession')
@@ -29,8 +29,8 @@ router
 router
   .route('/schedule')
   .get(ctrlSchedule.getScheduleId)
-  .post(ctrlSchedule.createSchedule)
-  .put(ctrlSchedule.updateSchedule);
+  .post(helpers.isAdmin,ctrlSchedule.createSchedule)
+  .put(helpers.isAdmin, ctrlSchedule.updateSchedule);
   
 
 router
@@ -44,8 +44,8 @@ router
 router
   .route('/user')
   .get(ctrlUsers.userGetOne)
-  .put(ctrlUsers.usersUpdateOne)
-  .delete(ctrlUsers.usersDeleteOne);// usersDeleteOne
+  .put(helpers.isAdmin,ctrlUsers.usersUpdateOne)
+  .delete(helpers.isAdmin,ctrlUsers.usersDeleteOne);// usersDeleteOne
 
   router
   .route('/getusers')
@@ -63,29 +63,29 @@ router
 
 router
 .route('/reports/case')
-.post(ctrlReport_case.generateReports)
+.post(helpers.isAdmin,ctrlReport_case.generateReports)
 
 
 router
 .route('/reports/time')
-.post(ctrlReport_time.generateReports)
+.post(helpers.isAdmin,ctrlReport_time.generateReports)
 
 router
 .route('/timeoff')
 .get(ctrlTime_off.getOneTime_off)
 .post(ctrlTime_off.addTime_off)
 .put(ctrlTime_off.updateTime_off)
-.delete(ctrlTime_off.deleteTime_off);
+.delete(helpers.isAdmin,ctrlTime_off.deleteTime_off);
 
 router
 .route('/timeoffs')
-.get(ctrlTime_off.getUserAllTime_off)
+.get(helpers.isAdmin,ctrlTime_off.getUserAllTime_off)
 
 router
 .route('/rotation/')
 .get(ctrlRotation.getRotationByWeek) //helpers.isAuthenticated,
-.post(ctrlRotation.createRotation)
-.put(ctrlRotation.updateRotation);
+.post(helpers.isAdmin,ctrlRotation.createRotation)
+.put(helpers.isAdmin,ctrlRotation.updateRotation);
 
 router
 .route('/rotations/')

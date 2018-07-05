@@ -116,6 +116,7 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append("id",data.id);
     params = params.append("schedule_id",data.schedule_id);
+    params = params.append("sessionId",this.cookie);
     return this.http
     .delete(API_URL + '/api/user/' , { params: params}) //
     .map(response => {
@@ -154,6 +155,7 @@ export class ApiService {
 
 
   public addUser(data): Observable<Response> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/login/register', body,
@@ -165,6 +167,7 @@ export class ApiService {
   }
 
   public updateUser(data): Observable<Response> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/user', body,
@@ -176,6 +179,7 @@ export class ApiService {
   }
 
   public addSchedule(data): Observable<Response> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/schedule', body,
@@ -186,6 +190,7 @@ export class ApiService {
     .catch(this.handleError);
   }
   public updateSchedule(data): Observable<Response> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/schedule', body,
@@ -196,8 +201,9 @@ export class ApiService {
     .catch(this.handleError);
   }
 
-  public getReportCase(values): Observable<Object> {
-    let body = JSON.stringify(values);
+  public getReportCase(data): Observable<Object> {
+    data.sessionId = this.cookie;
+    let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/reports/case', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -207,8 +213,9 @@ export class ApiService {
     }) .catch(this.handleError);
   }
 
-  public getReportTimeoff(values): Observable<Object> {
-    let body = JSON.stringify(values);
+  public getReportTimeoff(data): Observable<Object> {
+    data.sessionId = this.cookie;
+    let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/reports/time', body,
     {headers: new HttpHeaders().set('Content-Type','application/json')})
@@ -266,6 +273,7 @@ export class ApiService {
 
   //update rotation
   public updateRotation(data): Observable<Response> {
+    data.sessionId = this.cookie;
     let body = JSON.stringify(data);
     return this.http
     .put(API_URL + '/api/rotation/', body,
@@ -327,6 +335,7 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append("_id",data._id);
     params = params.append("reasonMD",data.time_off_reasonMD);
+    params = params.append("sessionId",this.cookie);
     return this.http
     .delete(API_URL + '/api/timeoff', {params:params})
     .map(response => {
@@ -337,7 +346,9 @@ export class ApiService {
 
     //Get time off for specific user
     public getTimes(id): Observable<Response> {
-      let params = new HttpParams().set("user_id",id);    
+      let params = new HttpParams();
+      params = params.append("user_id",id);
+      params = params.append("sessionId",this.cookie);
       return this.http
       .get(API_URL + '/api/timeoffs/',{ params: params })
       .map(response => {

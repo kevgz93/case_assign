@@ -28,12 +28,17 @@ helpers.isAuthenticated = function(req, res, next){
 
 helpers.isAdmin = function(req, res, next){
 
-		var cookie = req.body.SessionId;
+		var cookie = req.body.sessionId;
+		if (!cookie){
+			cookie = req.query.sessionId;
+		}
 		var user = Users.getBySessionId(cookie);
 		//if(){}
+		
 		user.then(function(dbuser){
+			
 			if(dbuser.role == 'admin'){
-				//res.status(201);
+				console.log("Authorized");
 				next();
 			}else{
 				res.status(401);

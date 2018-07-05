@@ -123,17 +123,29 @@ users.register = function (req, res) {
 };
 
 
-//Function to return users by its sessionID.
+//Function to return users by its sessionID on Helpres
 users.getBySessionId = function(sessionId){
 	var results = q.defer();
+  let response = {};
 
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
 			results.reject(err);
 		}
+		if (dbuser){
 
+        response.name = dbuser.name;
+        response.last_name = dbuser.last_name;
+        response._id = dbuser._id;
+        response.role = dbuser.role;
+			  results.resolve(response);
 
-		results.resolve(dbuser);
+    }  else{
+
+			response.status = 401;
+      response.error = 'SessionId not found';
+		  results.resolve(response);
+		}
 	});
 
 	return results.promise;
