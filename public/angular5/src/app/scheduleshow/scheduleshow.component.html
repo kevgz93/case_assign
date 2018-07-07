@@ -98,83 +98,86 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-12">
-                <label for="">Leaving time</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-5">
-                <select type="number" class="form-control" formControlName="start_time_hour">
-                  <option value="" disabled>-- Select an hour --</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                  <option value='10'>10</option>
-                  <option value='11'>11</option>
-                  <option value='12'>12</option>
-                  <option value='13'>13</option>
-                  <option value='14'>14</option>
-                  <option value='15'>15</option>
-                  <option value='16'>16</option>
-                  <option value='17'>17</option>
-                  <option value='18'>18</option>
-                </select>
-              </div>
-              <div class="col-sm-1 text-center">:</div>
-              <div class="col-sm-5">
-                <select type="number" class="form-control" formControlName="start_time_minutes">
-                  <option value="" disabled>-- Select the minutes --</option>
-                  <option value='0'>00</option>
-                  <option value='30'>30</option>
-                </select>
-              </div>
-            </div>
-            <div class="row" style="margin-top: 15px;">
-              <div class="col-sm-12">
-                <label for="">Returning time</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-5">
-                <select type="number" value='0' class="form-control" formControlName="end_time_hour">
-                  <option value="" disabled>-- Select an hour --</option>
-                  <option value='6'>6</option>
-                  <option value='7'>7</option>
-                  <option value='8'>8</option>
-                  <option value='9'>9</option>
-                  <option value='10'>10</option>
-                  <option value='11'>11</option>
-                  <option value='12'>12</option>
-                  <option value='13'>13</option>
-                  <option value='14'>14</option>
-                  <option value='15'>15</option>
-                  <option value='16'>16</option>
-                  <option value='17'>17</option>
-                  <option value='18'>18</option>
-                </select>
-              </div>
-              <div class="col-sm-1 text-center">:</div>
-              <div class="col-sm-5">
-                <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
-                  <option value="" disabled>-- Select the minutes --</option>
-                  <option value='0'>00</option>
-                  <option value='30'>30</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <label for="">Time Off Reason</label>
-                  <select type="string" class="form-control" formControlName="time_off_reason">
-                    <option value="" disabled>-- Select an reason --</option>
-                    <option value='Vacation'>Vacation</option>
-                    <option value='Training'>Training</option>
-                    <option value='Especial'>Especial Permission</option>
-                  </select>
+              <div class="col-sm-6" style="border-right: 1px solid rgba(0, 0, 0, 0.12);">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="">Leaving time</label>
+                  </div>
                 </div>
-              <div class="col-sm-12">
-                <br>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <select type="number" class="form-control" formControlName="start_time_hour">
+                      <option value="" disabled>-- Select an hour --</option>
+                      <option value='6'>6</option>
+                      <option value='7'>7</option>
+                      <option value='8'>8</option>
+                      <option value='9'>9</option>
+                      <option value='10'>10</option>
+                      <option value='11'>11</option>
+                      <option value='12'>12</option>
+                      <option value='13'>13</option>
+                      <option value='14'>14</option>
+                      <option value='15'>15</option>
+                      <option value='16'>16</option>
+                      <option value='17'>17</option>
+                      <option value='18'>18</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-1 text-center">:</div>
+                  <div class="col-sm-5">
+                    <select type="number" class="form-control" formControlName="start_time_minutes">
+                      <option value="" disabled>-- Select the minutes --</option>
+                      <option value='0'>00</option>
+                      <option value='30'>30</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                  <div class="col-sm-12">
+                    <label for="">Returning time</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <select type="number" value='0' class="form-control" formControlName="end_time_hour">
+                      <option value="" disabled>-- Select an hour --</option>
+                      <option value='6'>6</option>
+                      <option value='7'>7</option>
+                      <option value='8'>8</option>
+                      <option value='9'>9</option>
+                      <option value='10'>10</option>
+                      <option value='11'>11</option>
+                      <option value='12'>12</option>
+                      <option value='13'>13</option>
+                      <option value='14'>14</option>
+                      <option value='15'>15</option>
+                      <option value='16'>16</option>
+                      <option value='17'>17</option>
+                      <option value='18'>18</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-1 text-center">:</div>
+                  <div class="col-sm-5">
+                    <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
+                      <option value="" disabled>-- Select the minutes --</option>
+                      <option value='0'>00</option>
+                      <option value='30'>30</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="">Time Off Reason</label>
+                    <select type="string" class="form-control" formControlName="time_off_reason">
+                      <option value="" disabled>-- Select an reason --</option>
+                      <option value='Vacation'>Vacation</option>
+                      <option value='Training'>Training</option>
+                      <option value='Especial'>Especial Permission</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -187,8 +190,8 @@
       </div>
     </div>
   </div>
-
-  <div class="row">
+  <ng-container *ngIf="times.length > 0">
+    <div class="row">
       <div class="col-sm-12 col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <table class="table table-hover flt-table" id="ticket">
@@ -206,14 +209,17 @@
                   <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
                 </td>
                 <td>
-                  <label>{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}} </label><!--{{time.day_on.year}} -->
+                  <label>{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}}
+                    {{time.day_off.year}} </label>
+                  <!--{{time.day_on.year}} -->
                 </td>
                 <td>
-                    <label>{{time.day_off.hour}} : {{time.day_off.minutes}} - {{time.day_on.hour}} : {{time.day_on.minutes}}</label><!--{{time.day_on.year}} -->
+                  <label>{{time.day_off.hour}} : {{time.day_off.minutes}} - {{time.day_on.hour}} : {{time.day_on.minutes}}</label>
+                  <!--{{time.day_on.year}} -->
                 </td>
                 <td>
-                    <label>{{time.action}}</label>
-                  </td>
+                  <label>{{time.action}}</label>
+                </td>
                 <td class="text-center">
                   <a class="btn btn-flat btn-secondary" (click)="openModal(template, time)" data-toggle="tooltip" data-placement="bottom" title="Edit Time Off">
                     <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
@@ -225,19 +231,20 @@
         </div>
       </div>
     </div>
+  </ng-container>
 </ng-container>
 
 <ng-template #template>
   <form class="form-flat" [formGroup]="myform2" novalidate (ngSubmit)="updateTimeOff(myform2.value)" role="form">
 
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modify Time Off</h4>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-sm-12 col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-body">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modify Time Off</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-body">
               <div class="row">
                 <div class="col-sm-5">
                   <div class="form-group">
@@ -314,34 +321,34 @@
                 </div>
               </div>
               <div class="row">
-                  <div class="col-sm-12">
-                      <label for="">Time Off Purpose</label>
-                    <select type="string" class="form-control" formControlName="time_off_reason">
-                      <option value="" disabled>-- Select an reason --</option>
-                      <option value='Vacation'>Vacation</option>
-                      <option value='Training'>Training</option>
-                      <option value='Especial'>Especial Permission</option>
-                    </select>
-                  </div>
+                <div class="col-sm-12">
+                  <label for="">Time Off Purpose</label>
+                  <select type="string" class="form-control" formControlName="time_off_reason">
+                    <option value="" disabled>-- Select an reason --</option>
+                    <option value='Vacation'>Vacation</option>
+                    <option value='Training'>Training</option>
+                    <option value='Especial'>Especial Permission</option>
+                  </select>
+                </div>
               </div>
               <div class="row">
-                  <div class="col-sm-12">
-                    <label for="">why is this modify</label>
-                    <input type="text" class="form-control" formControlName="time_off_reasonMD" />
-                  </div>
+                <div class="col-sm-12">
+                  <label for="">why is this modify</label>
+                  <input type="text" class="form-control" formControlName="time_off_reasonMD" />
+                </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
+    <div class="modal-footer">
       <button type="submit" class="btn btn-flat btn-info">
-          Modify
+        Modify
       </button>
-    <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
         Cancel
-    </button>
-</div>
-</form>
+      </button>
+    </div>
+  </form>
 </ng-template>
