@@ -1,14 +1,20 @@
-  <div class="container">
-    <div>
-      <button class="btn btn-primary btn-info" type="button" (click)="showCaseHtml()">
-        <span>Cases</span>
-      </button>
-      <button class="btn btn-primary btn-info" type="button" (click)="showTimeoffHtml()">
-      <span>Time off</span>
-    </button>
-    </div>
+<nav class="nav-secondary navbar">
+  <ul class="nav nav-tabs nav-sm" role="tablist">
+      <li role="presentation">
+          <a href="" role="tab" data-toggle="tab" title="Cases reports" aria-expanded="false" (click)="showCaseHtml()">Cases reports</a>
+      </li>
+      <li role="presentation">
+          <a href="" role="tab" data-toggle="tab" title="Time off reports" aria-expanded="false" (click)="showTimeoffHtml()">Time off reports</a>
+      </li>
+  </ul>
+</nav>
+<ng-container *ngIf="!showReportCase && !showReportTimeoff">
+  <div class="row">
+      <div class="col-sm-12 col-md-4 col-md-offset-5">
+          <div class="alert alert-info">Select the type of report you will like to get.</div>
+      </div>
   </div>
-  
+</ng-container>
 <ng-container *ngIf="showReportCase">
   <div class="row">
     <form [formGroup]="myform" (ngSubmit)="getTickets(myform.value)" role="form" class="form-flat">
@@ -90,7 +96,14 @@
                     <td class="text-center">{{case.time}}</td>
                     <td class="text-center">{{case.date.day}}/{{case.date.month}}/{{case.date.year}}</td>
                     <td>{{case.user.user_name}} {{case.user.user_last_name}}</td>
-                    <td>{{case.delete_reason}}</td>
+                    <td>
+                      <ng-container *ngIf="case.delete_reason">
+                        {{case.delete_reason}}
+                      </ng-container>
+                      <ng-container *ngIf="!case.delete_reason">
+                        N/A
+                      </ng-container>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -189,7 +202,14 @@
                 <td class="text-center">{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}}</td>
                 <td class="text-center">{{time.reason}}</td>
                 <td class="text-center">{{time.action}}</td>
-                <td>{{time.reason_delete_modify}}</td>
+                <td>
+                    <ng-container *ngIf="time.reason_delete_modify">
+                      {{time.reason_delete_modify}}
+                    </ng-container>
+                    <ng-container *ngIf="!time.reason_delete_modify">
+                      N/A
+                    </ng-container>
+                  </td>
               </tr>
             </tbody>
           </table>
