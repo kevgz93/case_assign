@@ -195,13 +195,13 @@
               <tr>
                 <th class="text-center">Date</th>
                 <th class="text-center">Reason</th>
-                <th>Action</th>
+                <th class="text-center">Last Action</th>
                 <th>Modify/Delete Reason</th>
               </tr>
               <tr *ngFor="let time of timeoff">
                 <td class="text-center">{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}}</td>
                 <td class="text-center">{{time.reason}}</td>
-                <td class="text-center">{{time.action}}</td>
+                <td class="text-center" style="text-transform:capitalize;">{{time.action}}</td>
                 <td>
                     <ng-container *ngIf="time.reason_delete_modify">
                       {{time.reason_delete_modify}}
