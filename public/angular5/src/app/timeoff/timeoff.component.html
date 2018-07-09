@@ -1,187 +1,200 @@
 <ng-container *ngIf='showview'>
-<div class="row">
+  <div class="row">
     <div class="col-sm-12 col-md-10 col-md-offset-1">
-      <div class="panel panel-default">
-        <table class="table table-hover flt-table" id="ticket">
-          <thead>
-            <tr>
-              <th colspan="2">Date</th>
-              <th colspan="2">time (Your Local Time)</th>
-              <th class="text-center" style="width:20%;">Actions</th>
-              <th class="text-center" style="width:20%;">Modify</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let time of times">
-              <td style="width: 20px;">
-                <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
-              </td>
-              <td>
-                <label>{{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}} {{time.day_off.year}} </label><!--{{time.day_on.year}} -->
-              </td>
-              <td>
-                  <label>{{time.day_off.hour}}:{{time.day_off.minutesString}} - {{time.day_on.hour}} {{time.day_on.minutesString}}</label><!--{{time.day_on.year}} -->
+      <h1>Edit user's time off</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <ng-container *ngIf="times.length == 0">
+        <div class="alert alert-warning">No records found.</div>
+      </ng-container>
+      <ng-container *ngIf="times.length > 0">
+        <div class="panel panel-default">
+          <table class="table table-hover flt-table" id="ticket">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th class="text-center">time (Your Local Time)</th>
+                <th class="text-center">last action</th>
+                <th>Reason delete/modify</th>
+                <th class="text-center" style="width:20%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let time of times">
+                <td>
+                  {{time.day_off.day}} {{time.day_off.monthString}} {{time.day_off.year}} / {{time.day_on.day}} {{time.day_on.monthString}}
+                  {{time.day_off.year}}
+                  <!--{{time.day_on.year}} -->
                 </td>
-              <td>
-                  <label>{{time.action}}</label>
+                <td class="text-center">
+                  {{time.day_off.hour}}:{{time.day_off.minutesString}} - {{time.day_on.hour}} {{time.day_on.minutesString}}
+                  <!--{{time.day_on.year}} -->
                 </td>
-              <td class="text-center">
-                <a class="btn btn-flat btn-secondary" (click)="openModalModify(template, time)" data-toggle="tooltip" data-placement="bottom" title="Edit Time Off">
-                  <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
-                </a>&nbsp;modify
-                <a class="btn btn-flat btn-secondary" (click)="openModalDelete(template2, time._id)" data-toggle="tooltip" data-placement="bottom" title="Delete Time Off">
-                    <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
-                  </a>&nbsp;Delete
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <td class="text-center" style="text-transform: capitalize;">
+                  {{time.action}}
+                </td>
+                <td>
+                  <ng-container *ngIf="time.reason_delete_modify">
+                    {{time.reason_delete_modify}}
+                  </ng-container>
+                  <ng-container *ngIf="!time.reason_delete_modify">
+                    N/A
+                  </ng-container>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-flat btn-primary" (click)="openModalModify(template, time)" data-toggle="tooltip" data-placement="bottom"
+                    title="Edit Time Off">
+                    Modify
+                  </a>
+                  <a class="btn btn-flat btn-danger" (click)="openModalDelete(template2, time._id)" data-toggle="tooltip" data-placement="bottom"
+                    title="Delete Time Off">
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
     </div>
   </div>
 </ng-container>
 
 <ng-template #template>
-    <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="updateTimeOff(myform.value)" role="form">
-  
+  <form class="form-flat" [formGroup]="myform" novalidate (ngSubmit)="updateTimeOff(myform.value)" role="form">
+
     <div class="modal-header">
       <h4 class="modal-title pull-left">Modify Time Off</h4>
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-          <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <div class="form-group">
-                      <label for="mydaterange" title="Dates out">Days out</label>
-                      <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
-                        readonly></my-date-range-picker>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <label for="">Leaving time</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <select type="number" class="form-control" formControlName="start_time_hour">
-                      <option value="" disabled>-- Select an hour --</option>
-                      <option value='6'>6</option>
-                      <option value='7'>7</option>
-                      <option value='8'>8</option>
-                      <option value='9'>9</option>
-                      <option value='10'>10</option>
-                      <option value='11'>11</option>
-                      <option value='12'>12</option>
-                      <option value='13'>13</option>
-                      <option value='14'>14</option>
-                      <option value='15'>15</option>
-                      <option value='16'>16</option>
-                      <option value='17'>17</option>
-                      <option value='18'>18</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-1 text-center">:</div>
-                  <div class="col-sm-5">
-                    <select type="number" class="form-control" formControlName="start_time_minutes">
-                      <option value="" disabled>-- Select the minutes --</option>
-                      <option value='0'>00</option>
-                      <option value='30'>30</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-sm-12">
-                    <label for="">Returning time</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <select type="number" value='0' class="form-control" formControlName="end_time_hour">
-                      <option value="" disabled>-- Select an hour --</option>
-                      <option value='6'>6</option>
-                      <option value='7'>7</option>
-                      <option value='8'>8</option>
-                      <option value='9'>9</option>
-                      <option value='10'>10</option>
-                      <option value='11'>11</option>
-                      <option value='12'>12</option>
-                      <option value='13'>13</option>
-                      <option value='14'>14</option>
-                      <option value='15'>15</option>
-                      <option value='16'>16</option>
-                      <option value='17'>17</option>
-                      <option value='18'>18</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-1 text-center">:</div>
-                  <div class="col-sm-5">
-                    <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
-                      <option value="" disabled>-- Select the minutes --</option>
-                      <option value='0'>00</option>
-                      <option value='30'>30</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label for="">Time Off Purpose</label>
-                      <select type="string" class="form-control" formControlName="time_off_reason">
-                        <option value="" disabled>-- Select an reason --</option>
-                        <option value='Vacation'>Vacation</option>
-                        <option value='Training'>Training</option>
-                        <option value='Especial'>Especial Permission</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                      <label for="">why is this modifying</label>
-                      <input type="text" class="form-control" formControlName="time_off_reasonMD" />
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label for="mydaterange" title="Dates out">Days out</label>
+            <my-date-range-picker id="mydaterange" name="mydaterange" [options]="myDateRangePickerOptions" formControlName="myDateRange"
+              readonly></my-date-range-picker>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="">Leaving time</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <select type="number" class="form-control" formControlName="start_time_hour">
+            <option value="" disabled>-- Select an hour --</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            <option value='11'>11</option>
+            <option value='12'>12</option>
+            <option value='13'>13</option>
+            <option value='14'>14</option>
+            <option value='15'>15</option>
+            <option value='16'>16</option>
+            <option value='17'>17</option>
+            <option value='18'>18</option>
+          </select>
+        </div>
+        <div class="col-sm-1 text-center">:</div>
+        <div class="col-sm-5">
+          <select type="number" class="form-control" formControlName="start_time_minutes">
+            <option value="" disabled>-- Select the minutes --</option>
+            <option value='0'>00</option>
+            <option value='30'>30</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 15px;">
+        <div class="col-sm-12">
+          <label for="">Returning time</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <select type="number" value='0' class="form-control" formControlName="end_time_hour">
+            <option value="" disabled>-- Select an hour --</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            <option value='11'>11</option>
+            <option value='12'>12</option>
+            <option value='13'>13</option>
+            <option value='14'>14</option>
+            <option value='15'>15</option>
+            <option value='16'>16</option>
+            <option value='17'>17</option>
+            <option value='18'>18</option>
+          </select>
+        </div>
+        <div class="col-sm-1 text-center">:</div>
+        <div class="col-sm-5">
+          <select type="number" value='0' class="form-control" formControlName="end_time_minutes">
+            <option value="" disabled>-- Select the minutes --</option>
+            <option value='0'>00</option>
+            <option value='30'>30</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 15px;">
+        <div class="col-sm-11">
+          <label for="">Purpose of the time off</label>
+          <select type="string" class="form-control" formControlName="time_off_reason">
+            <option value="" disabled>-- Select an reason --</option>
+            <option value='Vacation'>Vacation</option>
+            <option value='Training'>Training</option>
+            <option value='Especial'>Especial Permission</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 15px;">
+        <div class="col-sm-11">
+          <label for="">Reason of the modification</label>
+          <input type="text" class="form-control" formControlName="time_off_reasonMD" />
         </div>
       </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-flat btn-info">
-            Modify
-        </button>
-      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
-          Cancel
+      <button type="submit" class="btn btn-flat btn-primary">
+        Modify
       </button>
-  </div>
-  </form>
-  </ng-template>
-
-  <ng-template #template2>
-      <form class="form-flat" [formGroup]="myform2" novalidate (ngSubmit)="deleteTimeOff(myform2.value)" role="form">
-    
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete Time Off</h4>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" formControlName="_id" />
-          <div class="row">
-              <div class="col-sm-12">
-                <label for="">why is this deleting</label>
-                <input type="text" class="form-control" formControlName="time_off_reasonMD" />
-              </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-          <button type="submit" class="btn btn-flat btn-danger">
-            Delete
-          </button>
-        <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
-            Cancel
-        </button>
+      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+        Cancel
+      </button>
     </div>
-    </form>
-    </ng-template>
+  </form>
+</ng-template>
+
+<ng-template #template2>
+  <form class="form-flat" [formGroup]="myform2" novalidate (ngSubmit)="deleteTimeOff(myform2.value)" role="form">
+
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete Time Off</h4>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" formControlName="_id" />
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="">Reason of the deleting</label>
+          <input type="text" class="form-control" formControlName="time_off_reasonMD" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-flat btn-danger">
+        Delete
+      </button>
+      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>
