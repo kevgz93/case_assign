@@ -83,7 +83,7 @@ router
 
 router
 .route('/timeoffs')
-.get(helpers.isAdmin,ctrlTime_off.getUserAllTime_off)
+.get(ctrlTime_off.getUserAllTime_off)
 
 router
 .route('/rotation/')

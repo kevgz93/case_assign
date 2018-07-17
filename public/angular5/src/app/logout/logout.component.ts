@@ -22,7 +22,6 @@ export class LogoutComponent implements OnInit {
       
       let status: any = response.status;
       if(status === 'success'){
-        alert('logout suceessful')
         this.cookieService.delete('SessionId');
         window.location.replace('/login');
 

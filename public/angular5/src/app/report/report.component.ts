@@ -93,8 +93,14 @@ convertMonthString(times):Object{
   times.forEach(element => {
     index = element.day_off.month - 1;
     element.day_off.monthString = months[index]
+    if(element.day_off.minutes === 0){
+      element.day_off.minutes = `${element.day_off.minutes}0`
+    }
     index = element.day_on.month - 1;
     element.day_on.monthString = months[index]
+    if(element.day_on.minutes === 0){
+      element.day_on.minutes = `${element.day_on.minutes}0`
+    }
     result.push(element);
     
   });

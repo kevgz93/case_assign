@@ -6,6 +6,7 @@ import { promise } from 'protractor';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {TwentyFourFormat} from './../lib/24Format'
 
 declare var jquery:any;
 declare var $ :any;
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
   private timezone = {};
   public today;
   public date = new Date();
+  private TwentyFourFormat = new TwentyFourFormat();
   myform: FormGroup;
   modalRef: BsModalRef;
 
@@ -245,6 +247,7 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.monday_morning.minutes;
           hour.afternoon = data.monday_afternoon.hour - difference;
           minutes.afternoon = data.monday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
@@ -261,6 +264,7 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.tuesday_morning.minutes;
           hour.afternoon = data.tuesday_afternoon.hour - difference;
           minutes.afternoon = data.tuesday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
@@ -278,6 +282,7 @@ export class HomeComponent implements OnInit {
           hour.afternoon = data.wednesday_afternoon.hour - difference;
           minutes.afternoon = data.wednesday_afternoon.minutes;
           morning_minutes = this.checkMinutes(minutes.morning);
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
@@ -293,6 +298,7 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.thursday_morning.minutes;
           hour.afternoon = data.thursday_afternoon.hour - difference;
           minutes.afternoon = data.thursday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
@@ -309,6 +315,7 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.friday_morning.minutes;
           hour.afternoon = data.friday_afternoon.hour - difference;
           minutes.afternoon = data.friday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
@@ -325,6 +332,7 @@ export class HomeComponent implements OnInit {
           minutes.morning = data.friday_morning.minutes;
           hour.afternoon = data.friday_afternoon.hour - difference;
           minutes.afternoon = data.friday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;          
@@ -399,6 +407,7 @@ export class HomeComponent implements OnInit {
           this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
+          console.log("user", this.data[i]);
           this.cleanCount();
 
 

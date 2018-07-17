@@ -217,8 +217,8 @@
                 <td class="text-center"  style="text-transform:capitalize;">
                   {{time.action}}
                 </td>
-                <td class="text-center">
-                  <a class="btn btn-flat btn-primary" (click)="openModal(template, time)" data-toggle="tooltip" data-placement="bottom" title="Edit Time Off">
+                <td class="text-center" >
+                  <a *ngIf="time.disable" class="btn btn-flat btn-primary" (click)="openModal(template, time)" data-toggle="tooltip" data-placement="bottom" title="Edit Time Off">
                     <i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>
                   </a>&nbsp;
                 </td>

@@ -43,7 +43,6 @@ private modalRef: BsModalRef;
 
   //Open modal
   openModal(template: TemplateRef<any>, time) {
-    console.log("values before to open modal", time);
     this._id = time._id;
     this.fillForm2(time);
     this.modalRef = this.modalService.show(template);
@@ -61,7 +60,6 @@ private modalRef: BsModalRef;
         this.schedule_aux = schedule.body;
         let aux;
         aux = this.convertTimeZone.convertFromTimeZeroLocally(schedule.body);
-        console.log(aux);
         this.schedule = this.convertTimeZone.convertTimeToString(aux);
         this.showview = true;
       }
@@ -71,37 +69,7 @@ private modalRef: BsModalRef;
     return;
   }
 
-  //add the timeZone from calendars
-  addTimeOff(data): Observable<object>{
-    let difference = this.convertTimeZone.getDifference(this.schedule_aux.time_zone);
-    let sendData = {"user_id":"","reason":"", "difference":{"hour":0,"minutes":0},"day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
-    "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
-    sendData.user_id = this.user_id;
-    sendData.reason = data.time_off_reason;
-    sendData.day_off.day = data.myDateRange.beginDate.day;
-    sendData.day_off.month = data.myDateRange.beginDate.month;
-    sendData.day_off.year = data.myDateRange.beginDate.year;
-    sendData.day_off.hour = parseInt(data.start_time_hour);
-    sendData.day_off.minutes = parseInt(data.start_time_minutes);
-    sendData.day_on.day = data.myDateRange.endDate.day;
-    sendData.day_on.month = data.myDateRange.endDate.month;
-    sendData.day_on.year = data.myDateRange.endDate.year;
-    sendData.day_on.hour = parseInt(data.end_time_hour);
-    sendData.day_on.minutes = parseInt(data.end_time_minutes);
-    sendData.difference.hour = difference.hour;
-    sendData.difference.minutes = difference.minutes;
-    this.service.addTimeOff(sendData)
-    .subscribe(response => {
-      if(response.status === 201){
-        alert("Time off added");
-        this.router.navigate(['./home'])
-      }
-      else{
-        alert("Time off not added, please contact your administrator")
-      }
-    })
-    return
-  }
+  
 
  //set time for calendar
  setDateRange(): void {
@@ -133,6 +101,17 @@ private modalRef: BsModalRef;
 
 //****************** Time off Methods *******************************
 
+//disable if day off is today or later.
+disableModifyOption(month,day):boolean{
+  let date = new Date();
+  let dayAux = day - 1;
+  if(date.getMonth() <= month && date.getDate() < dayAux )
+  {
+    return true;
+  }
+return false;
+}
+
 //change time off month to string
 convertMonthString(times):Object{
   let result = [];
@@ -144,6 +123,8 @@ convertMonthString(times):Object{
     if(element.day_off.minutes === 0){
       element.day_off.minutes = `${element.day_off.minutes}0`
     }
+    element.disable = this.disableModifyOption(element.day_off.month, element.day_off.day);
+    console.log(element.disable);
     index = element.day_on.month - 1;
     element.day_on.monthString = months[index]
     if(element.day_on.minutes === 0){
@@ -170,6 +151,38 @@ getTime():void{
     }
     
   })
+}
+
+//add the timeZone from calendars
+addTimeOff(data): Observable<object>{
+  let difference = this.convertTimeZone.getDifference(this.schedule_aux.time_zone);
+  let sendData = {"user_id":"","reason":"", "difference":{"hour":0,"minutes":0},"day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
+  "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
+  sendData.user_id = this.user_id;
+  sendData.reason = data.time_off_reason;
+  sendData.day_off.day = data.myDateRange.beginDate.day;
+  sendData.day_off.month = data.myDateRange.beginDate.month;
+  sendData.day_off.year = data.myDateRange.beginDate.year;
+  sendData.day_off.hour = parseInt(data.start_time_hour);
+  sendData.day_off.minutes = parseInt(data.start_time_minutes);
+  sendData.day_on.day = data.myDateRange.endDate.day;
+  sendData.day_on.month = data.myDateRange.endDate.month;
+  sendData.day_on.year = data.myDateRange.endDate.year;
+  sendData.day_on.hour = parseInt(data.end_time_hour);
+  sendData.day_on.minutes = parseInt(data.end_time_minutes);
+  sendData.difference.hour = difference.hour;
+  sendData.difference.minutes = difference.minutes;
+  this.service.addTimeOff(sendData)
+  .subscribe(response => {
+    if(response.status === 201){
+      alert("Time off added");
+      this.ngOnInit();
+    }
+    else{
+      alert("Time off not added, please contact your administrator")
+    }
+  })
+  return
 }
 
 // Update time off method

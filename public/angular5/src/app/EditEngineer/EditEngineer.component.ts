@@ -151,7 +151,7 @@ export class EngineerComponent implements OnInit {
       status: status_tmp,
       role: role_tmp,
       username: this.user.body.username,
-      password: this.user.body.password,
+      password: this.user.body.password
     });
   }
 
