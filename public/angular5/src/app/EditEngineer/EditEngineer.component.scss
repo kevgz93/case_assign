@@ -30,3 +30,51 @@
 .edit-oncall-dates-header{
   margin-left: 1.4em;
 }
+
+.wkd-label {
+
+}
+
+.wkd-input {
+  float: left;
+  width: 50%;
+}
+
+.wkd-minus-button {
+  margin-left: 5px;
+  float: left;
+  padding: 4px 0 0 5px;
+  height: 35px;
+  width: 35px;
+  color: #0073E7;
+}
+
+.wkd-button:hover {
+  color: #0050c7;
+  background-color: #ddd;
+}
+
+.wkd-plus-button {
+  display: inline;
+  float: right;
+  padding: 5px;
+  color: #0073E7;
+  height: 35px;
+  width: 35px;
+}
+
+.wkd-plus-span {
+  display: inline;
+  float: left;
+  margin: 5px 0 0 15px;
+}
+
+.wkd-submit-btn-form {
+  text-align: right;
+}
+
+.wrd-nodates-title{
+  text-align: center;
+}
+
+

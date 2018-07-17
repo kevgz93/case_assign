@@ -15,7 +15,7 @@ var userSchema = new mongoose.Schema({
 	role: String,
 	working_days: Number,
 	last_case: String,
-	weekendRotationDates: [ Date ]
+	weekendRotationDates: [{ date: Date }]
 });
 
 

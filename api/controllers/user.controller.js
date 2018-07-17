@@ -123,17 +123,29 @@ users.register = function (req, res) {
 };
 
 
-//Function to return users by its sessionID.
+//Function to return users by its sessionID on Helpres
 users.getBySessionId = function(sessionId){
 	var results = q.defer();
+  let response = {};
 
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
 			results.reject(err);
 		}
+		if (dbuser){
 
+        response.name = dbuser.name;
+        response.last_name = dbuser.last_name;
+        response._id = dbuser._id;
+        response.role = dbuser.role;
+			  results.resolve(response);
 
-		results.resolve(dbuser);
+    }  else{
+
+			response.status = 401;
+      response.error = 'SessionId not found';
+		  results.resolve(response);
+		}
 	});
 
 	return results.promise;
@@ -307,9 +319,9 @@ users.loadEnginners2 = function(){
     [
       {
         $lookup: {
-          from: 'schedules', 
-          localField: '_id', 
-          foreignField: 'user_id', 
+          from: 'schedules',
+          localField: '_id',
+          foreignField: 'user_id',
           'as': 'schedule_loaded'
         }
       },
@@ -337,6 +349,22 @@ users.loadEnginners2 = function(){
 
   }
 
+  users.updateWRDates = function(req, res){
+    let userId = req.body._id;
+    let doc = {
+        weekendRotationDates: req.body.weekendRotationDates
+    };
+
+    db
+    .findByIdAndUpdate(userId, doc, { new:true }, function(err, user){
+      if(err){
+        res.send({status: 404});
+      }
+        res
+        .send({status:204, body:user});
+    })
+  };
+
 users.usersUpdateOne = function (req, res) {
 
   var userId = req.body._id;
@@ -351,7 +379,6 @@ users.usersUpdateOne = function (req, res) {
   doc.last_name= req.body.last_name,
   doc.role= req.body.role
   doc.status= req.body.status
-  console.log("Get User" + userId);
 
   db
     .findByIdAndUpdate(userId, doc, {new:true}, function(err, user){
@@ -369,11 +396,11 @@ users.usersUpdateOne = function (req, res) {
 
 //Delete Schedule from the deleted user
 users.deleteschedule= function(schedule_id){ //id
-  
+
   //var userId = req.query._id;
      return new Promise(function(resolve, reject){
        var results;
-       
+
        schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
 
         if (err){
@@ -400,7 +427,7 @@ users.usersDeleteOne = function(req, res) {
       if (err) {
         res
           .send({status:404});
-      } 
+      }
         users.deleteschedule(schedule_id).then(function(result){
           res.send({status:204});
 
