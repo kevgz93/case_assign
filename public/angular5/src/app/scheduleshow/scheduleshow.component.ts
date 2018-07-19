@@ -8,7 +8,8 @@ import { promise } from 'protractor';
 import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import {ConvertTimeZero} from './../lib/Time_zero'
+import {ConvertTimeZero} from './../lib/Time_zero';
+import {case_average} from './../lib/case_average';
 
 declare var jquery:any;
 declare var $ :any;
@@ -29,6 +30,7 @@ export class ScheduleshowComponent implements OnInit {
   private schedule_aux;
   private myform: FormGroup;
   private myform2: FormGroup;
+  private case_average = new case_average();
    //create instance on lib folder
    private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {
@@ -102,14 +104,23 @@ private modalRef: BsModalRef;
 //****************** Time off Methods *******************************
 
 //disable if day off is today or later.
-disableModifyOption(month,day):boolean{
+disableModifyOption(day_off, day_on):boolean{
   let date = new Date();
-  let dayAux = day - 1;
-  if(date.getMonth() <= month && date.getDate() < dayAux )
+  let dayAux = day_off.day - 1;
+  let current_month = date.getMonth() + 1 
+  if(current_month === day_off.month && date.getDate() === dayAux)
   {
-    return true;
+    return false;
   }
-return false;
+  if(current_month === day_off.month && date.getDate() > day_off.day && date.getDate() < day_on.day)
+  {
+    return false;
+  }
+  if(current_month >= day_on.month && date.getDate() > day_on.day)
+  {
+    return false;
+  }
+return true;
 }
 
 //change time off month to string
@@ -123,8 +134,7 @@ convertMonthString(times):Object{
     if(element.day_off.minutes === 0){
       element.day_off.minutes = `${element.day_off.minutes}0`
     }
-    element.disable = this.disableModifyOption(element.day_off.month, element.day_off.day);
-    console.log(element.disable);
+    element.disable = this.disableModifyOption(element.day_off, element.day_on);
     index = element.day_on.month - 1;
     element.day_on.monthString = months[index]
     if(element.day_on.minutes === 0){
@@ -155,9 +165,10 @@ getTime():void{
 
 //add the timeZone from calendars
 addTimeOff(data): Observable<object>{
+  
   let difference = this.convertTimeZone.getDifference(this.schedule_aux.time_zone);
   let sendData = {"user_id":"","reason":"", "difference":{"hour":0,"minutes":0},"day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
-  "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}};
+  "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, "count_days":0};
   sendData.user_id = this.user_id;
   sendData.reason = data.time_off_reason;
   sendData.day_off.day = data.myDateRange.beginDate.day;
@@ -172,11 +183,14 @@ addTimeOff(data): Observable<object>{
   sendData.day_on.minutes = parseInt(data.end_time_minutes);
   sendData.difference.hour = difference.hour;
   sendData.difference.minutes = difference.minutes;
+  sendData.count_days = this.case_average.days_between(sendData.day_off, sendData.day_on);
   this.service.addTimeOff(sendData)
   .subscribe(response => {
     if(response.status === 201){
-      alert("Time off added");
+      //alert("Time off added"); cambiarlo por un mensaje d alerta
+      $('#checkbox').click();
       this.ngOnInit();
+      
     }
     else{
       alert("Time off not added, please contact your administrator")
@@ -211,6 +225,7 @@ updateTimeOff(data):Observable<Object>{
         alert("Time off Modified");
         this.modalRef.hide();
         this.ngOnInit();
+        
       }
       else{
         alert("Time off not added, please contact your administrator")

@@ -30,17 +30,13 @@ export class ReportComponent implements OnInit {
   constructor(private service: ApiService, private router:Router, private fb: FormBuilder) { }
 
   showCaseHtml():void{
-    console.log("Cases")
     this.showReportCase = true;
     this.showReportTimeoff = false;
-    console.log("status", this.showReportCase);
   }
 
   showTimeoffHtml():void{
-    console.log("Time")
     this.showReportCase = false;
     this.showReportTimeoff = true;
-    console.log("status", this.showReportTimeoff);
   }
 
   getUsers(){
@@ -108,11 +104,9 @@ convertMonthString(times):Object{
 }
   
   getTimeoff(form){
-    console.log(form);
     this.user_timeoff = this.getUserName(form.user);
     this.service.getReportTimeoff(form)
       .subscribe(data => {
-        console.log(data);
         this.timeoff = this.convertMonthString(data);
         this.timeoff.total = Object.keys(data).length;
         this.showtotalTime = true;

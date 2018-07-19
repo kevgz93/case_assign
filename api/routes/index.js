@@ -44,7 +44,7 @@ router
 router
   .route('/user')
   .get(ctrlUsers.userGetOne)
-  .put(helpers.isAdmin,ctrlUsers.usersUpdateOne)
+  .put(ctrlUsers.usersUpdateOne)
   .delete(helpers.isAdmin,ctrlUsers.usersDeleteOne);// usersDeleteOne
 
 router

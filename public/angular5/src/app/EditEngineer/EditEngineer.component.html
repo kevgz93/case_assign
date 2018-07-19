@@ -1,7 +1,7 @@
 <!--
   * TODO: modificar los select para que sean como los dropdown establecidos en Quantum.
 -->
-
+<ng-container *ngIf="showform">
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <h1>Edit user</h1>
@@ -9,7 +9,7 @@
 </div>
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <form class="form-flat" *ngIf="showform" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
+    <form class="form-flat" [formGroup]="myform" (ngSubmit)="updateUser(myform.value)" role="form">
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
@@ -139,55 +139,58 @@
   </div>
 </div>
 <hr>
-<div class="row">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <h1>Weekend Rotation Dates</h1>
+  <ng-container *ngIf="current_user_role.role === 'admin'">  
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <h1>Weekend Rotation Dates</h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-sm-12 col-md-10 col-md-offset-1">
-    <form class="form-flat" *ngIf="showform" [formGroup]="weekendRotationForm" (ngSubmit)="updateUserWRDates(weekendRotationForm.value)" role="form">
-      <div formArrayName="weekendRotationDates" class="well well-lg">
-        <div *ngIf="userWeekendRotationDates.controls.length == 0" class="wrd-nodates-title">
-          <h3>No weekend rotation dates ☹️</h3>
-        </div>
-        <div *ngFor="let date of userWeekendRotationDates.controls; let i=index" [formGroupName]="i">
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <form class="form-flat" *ngIf="showform" [formGroup]="weekendRotationForm" (ngSubmit)="updateUserWRDates(weekendRotationForm.value)" role="form">
+        <div formArrayName="weekendRotationDates" class="well well-lg">
+          <div *ngIf="userWeekendRotationDates.controls.length == 0" class="wrd-nodates-title">
+            <h3>No weekend rotation dates ☹️</h3>
+          </div>
+          <div *ngFor="let date of userWeekendRotationDates.controls; let i=index" [formGroupName]="i">
+            <div class="row">
+              <div class="col-xs-8">
+                <label class="center-block wkd-label">Date:</label>
+                <input class="form-control wkd-input" formControlName="date">
+                <i
+                  class="qtm-font-icon qtm-icon-large qtm-icon-delete qtm-icon-default wkd-minus-button wkd-button"
+                  data-toggle="tooltip"
+                  title="Remove this date"
+                  (click)="removeDate(i)">
+                </i>
+              </div>
+            </div>
+          </div>
           <div class="row">
-            <div class="col-xs-8">
-              <label class="center-block wkd-label">Date:</label>
-              <input class="form-control wkd-input" formControlName="date">
-              <i
-                class="qtm-font-icon qtm-icon-large qtm-icon-delete qtm-icon-default wkd-minus-button wkd-button"
-                data-toggle="tooltip"
-                title="Remove this date"
-                (click)="removeDate(i)">
-              </i>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-2 col-xs-offset-10">
-            <div>
-              <span class="wkd-plus-span">
-                Add new date
-              </span>
-              <i
-                class="qtm-font-icon qtm-icon-large qtm-icon-add qtm-icon-default wkd-plus-button wkd-button"
-                data-toggle="tooltip"
-                title="Add a new date"
-                (click)="addDate()">
-              </i>
-            </div>
+            <div class="col-xs-2 col-xs-offset-10">
+              <div>
+                <span class="wkd-plus-span">
+                  Add new date
+                </span>
+                <i
+                  class="qtm-font-icon qtm-icon-large qtm-icon-add qtm-icon-default wkd-plus-button wkd-button"
+                  data-toggle="tooltip"
+                  title="Add a new date"
+                  (click)="addDate()">
+                </i>
+              </div>
 
+            </div>
+          </div>
+          <div class="panel-footer panel-button-footer wkd-submit-btn-form">
+            <button class="btn btn-primary" type="submit">Update</button>
           </div>
         </div>
-        <div class="panel-footer panel-button-footer wkd-submit-btn-form">
-          <button class="btn btn-primary" type="submit">Update</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  </ng-container>
+</ng-container>
 
 <!--&lt;!&ndash; The repeated address template &ndash;&gt;-->
 <!--<h4>Address #{{i + 1}}</h4>-->

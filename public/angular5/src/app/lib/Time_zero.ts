@@ -46,19 +46,19 @@ export class ConvertTimeZero
             difference.hour = 6;
           }
           else if (timezone === "pt") {
-            difference.hour = 7 + dLight;
+            difference.hour = 8 - dLight;
           }
           else if (timezone === "ct") {
-            difference.hour = 5 + dLight;
+            difference.hour = 6 - dLight;
           }
           else if (timezone === "et") {
-            difference.hour  = 4 + dLight;
+            difference.hour  = 5 - dLight;
           }
           else if (timezone === "uk") {
-            difference.hour  = 0 + dLight;
+            difference.hour  = 0 - dLight;
           }
           else if (timezone === "cet") {
-            difference.hour  = -1 + dLight;
+            difference.hour  = -1 - dLight;
           }
           else if (timezone === "ist") {
             difference.hour  = -5;
@@ -100,6 +100,8 @@ export class ConvertTimeZero
         schedule.friday_morning.minutes = aux.friday_morning.minutes;
         schedule.friday_afternoon.hour = aux.friday_afternoon.hour - difference.hour;
         schedule.friday_afternoon.minutes = aux.friday_afternoon.minutes;
+        schedule.time= aux.time_zone;
+        schedule.daylight= aux.daylight;
         return schedule;
     }
 
@@ -133,7 +135,6 @@ export class ConvertTimeZero
 
     convertFromTimeOffLocally(timeoff):object
     {
-        console.log("timeoff",timeoff);
         let time = [];
         let date = new Date;
         let difference = date.getTimezoneOffset() / 60;

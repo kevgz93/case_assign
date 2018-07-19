@@ -40,7 +40,6 @@ export class ScheduleComponent implements OnInit {
   }
 
   getDifference(timezone, daylight){
-    console.log("entry to daylight");
     let difference={"hour":0, "minutes":0};
     let dayL:number;
 

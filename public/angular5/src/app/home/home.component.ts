@@ -8,6 +8,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {TwentyFourFormat} from './../lib/24Format'
 
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -355,7 +356,7 @@ export class HomeComponent implements OnInit {
           return "Central Time Zone"
         }
         else if (time === "et"){
-          return "Easter Time Zone"
+          return "Eastern Time Zone"
         }
         else if (time === "uk"){
           return "UK Time Zone"
@@ -407,7 +408,6 @@ export class HomeComponent implements OnInit {
           this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
-          console.log("user", this.data[i]);
           this.cleanCount();
 
 
@@ -487,31 +487,31 @@ export class HomeComponent implements OnInit {
       if(day ===1 && time <12){
         return week.monday.morning;
       }
-      else if(day ===1 && time >12){
+      else if(day ===1){
         return week.monday.afternoon;
       }
       else if(day ===2 && time < 12){
         return week.tuesday.morning;
       }
-      else if(day ===2 && time >12){
+      else if(day ===2){
         return week.tuesday.afternoon;
       }
       else if(day ===3 && time <12){
         return week.wednesday.morning;
       }
-      else if(day ===3 && time >12){
+      else if(day ===3){
         return week.wednesday.afternoon;
       }
       else if(day ===4 && time <12){
         return week.thursday.morning;
       }
-      else if(day ===4 && time >12){
+      else if(day ===4){
         return week.thursday.afternoon;
       }
       else if(day ===5 && time <12){
         return week.friday.morning;
       }
-      else if(day ===5 && time >12){
+      else if(day ===5){
         return week.friday.afternoon;
       }
 
@@ -587,6 +587,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //this.showhtml = false;
+    
     this.getQM();
     this.getAllEng();
 

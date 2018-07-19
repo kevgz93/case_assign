@@ -8,7 +8,8 @@ import { promise } from 'protractor';
 import { IMyDrpOptions, MYDRP_VALUE_ACCESSOR } from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { ConvertTimeZero } from './../lib/Time_zero'
+import { ConvertTimeZero } from './../lib/Time_zero';
+import {case_average} from './../lib/case_average';
 
 declare var jquery: any;
 declare var $: any;
@@ -26,7 +27,9 @@ export class TimeoffComponent implements OnInit {
   private times;
   private myform: FormGroup;
   private myform2: FormGroup;
+  private myform3: FormGroup;
   //create instance on lib folder
+  private case_average = new case_average();
   private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {
     // other options...
@@ -38,7 +41,6 @@ export class TimeoffComponent implements OnInit {
 
   //Open modal for modify
   openModalModify(template: TemplateRef<any>, time) {
-    console.log("values before to open modal", time);
     this._id = time._id;
     this.fillForm(time);
     this.modalRef = this.modalService.show(template);
@@ -46,10 +48,15 @@ export class TimeoffComponent implements OnInit {
 
   //Open modal for delete
   openModalDelete(template2: TemplateRef<any>, _id) {
-    console.log("values before to open modal", _id);
     this.fillForm2(_id);
     this.modalRef = this.modalService.show(template2);
   }
+
+    //Open modal for delete
+    openModalAdd(template3: TemplateRef<any>) {
+      this.fillAddForm();
+      this.modalRef = this.modalService.show(template3);
+    }
 
   //change time off month to string
   convertMonthString(times): Object {
@@ -90,9 +97,44 @@ export class TimeoffComponent implements OnInit {
     })
   }
 
+  //add the timeZone from calendars
+addTimeOff(data): Observable<object>{
+  
+  let difference = this.convertTimeZone.getLocalDifference();
+  let sendData = {"user_id":"","reason":"", "difference":{"hour":0,"minutes":0},"day_off":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, 
+  "day_on":{"day":0, "month":0, "year":0, "hour":0, "minutes":0}, "count_days":0};
+  sendData.user_id = this.user_id;
+  sendData.reason = data.time_off_reason;
+  sendData.day_off.day = data.myDateRange.beginDate.day;
+  sendData.day_off.month = data.myDateRange.beginDate.month;
+  sendData.day_off.year = data.myDateRange.beginDate.year;
+  sendData.day_off.hour = parseInt(data.start_time_hour);
+  sendData.day_off.minutes = parseInt(data.start_time_minutes);
+  sendData.day_on.day = data.myDateRange.endDate.day;
+  sendData.day_on.month = data.myDateRange.endDate.month;
+  sendData.day_on.year = data.myDateRange.endDate.year;
+  sendData.day_on.hour = parseInt(data.end_time_hour);
+  sendData.day_on.minutes = parseInt(data.end_time_minutes);
+  sendData.difference.hour = difference.hour;
+  sendData.difference.minutes = difference.minutes;
+  //sendData.count_days = this.case_average.days_between(sendData.day_off, sendData.day_on);
+  this.service.addTimeOff(sendData)
+  .subscribe(response => {
+    if(response.status === 201){
+      //alert("Time off added"); cambiarlo por un mensaje d alerta
+      this.modalRef.hide();
+      this.ngOnInit();
+      
+    }
+    else{
+      alert("Time off not added, please contact your administrator")
+    }
+  })
+  return
+}
+
   // Update time off method
   updateTimeOff(data): Observable<Object> {
-    console.log("Values from the form", data);
     let difference = { "hour": 0, "minutes": 0 }
     difference = this.convertTimeZone.getLocalDifference();
     let sendData = {
@@ -130,7 +172,6 @@ export class TimeoffComponent implements OnInit {
 
   // Update time off method
   deleteTimeOff(data): Observable<Object> {
-    console.log("Delete from the form2", data);
 
     this.service.deleteTimeOff(data)
       .subscribe(response => {
@@ -171,7 +212,36 @@ export class TimeoffComponent implements OnInit {
       end_time_minutes: time.day_on.minutes
 
     });
+    
   }
+
+    //Fill form for modal for modify
+    fillAddForm(): void {
+      let date = new Date();
+      this.myform3.patchValue({
+        myDateRange: {
+          beginDate: {
+              year: date.getFullYear(),
+              month: date.getMonth() + 1,
+              day: date.getDate()
+          },
+          endDate: {
+              year: date.getFullYear(),
+              month: date.getMonth() + 1,
+              day: date.getDate()
+          }
+          
+    
+      },
+          time_off_reason:"",
+          start_time_hour:0,
+          start_time_minutes: 0,
+          end_time_hour:0,
+          end_time_minutes: 0
+          
+        });
+      
+    }
 
   //Fill form for modal Delet
   fillForm2(_id): void {
@@ -204,6 +274,16 @@ export class TimeoffComponent implements OnInit {
       time_off_reasonMD: ['', Validators.required],
       _id: ['', Validators.required]
 
+
+    });
+    this.myform3 = this.fb.group({
+
+      myDateRange: ['', Validators.required],
+      start_time_hour: ['', Validators.required],
+      start_time_minutes: ['', Validators.required],
+      end_time_hour: ['', Validators.required],
+      end_time_minutes: ['', Validators.required],
+      time_off_reason: ['', Validators.required]
 
     });
 

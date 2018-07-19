@@ -105,7 +105,6 @@ export class EngineerComponent implements OnInit {
         data.status = data.status == "Available" ? true : false;
         data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
         */
-    console.log(data);
     this.service.updateUser(data)
       .subscribe(response => {
         if(response.status != 204){
@@ -201,7 +200,6 @@ export class EngineerComponent implements OnInit {
 
   updateUserWRDates(data) {
     this.user.body.weekendRotationDates = data.weekendRotationDates;
-    console.log(this.user.body);
     this.service.updateUserWRDates(this.user.body)
       .subscribe(response => {
         if(response.status != 204){

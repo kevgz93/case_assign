@@ -57,7 +57,6 @@ export class ScheduleeditComponent implements OnInit {
   convertToTimeZone(schedule): void {
     
     this.schedule = this.convertTimeZone.convertFromTimeZero(schedule);
-    console.log(this.schedule);
 
     this.fillForm();
   }
@@ -69,7 +68,7 @@ export class ScheduleeditComponent implements OnInit {
           alert("error finding user");
         }
         else {
-          this.schedule = schedule.body;
+          //this.schedule = schedule.body;
           this.convertToTimeZone(schedule.body);
 
         }

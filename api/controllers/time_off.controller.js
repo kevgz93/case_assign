@@ -9,6 +9,20 @@ var time_report = {};
 var time_off = mongoose.model('timeoff');
 var ObjectId = mongoose.Schema.ObjectId;
 
+
+//reduce working_days on
+time_report.reduce_working_days = function(day_off, day_on,total_days){
+
+    let days_to_discount;
+    if(day_off.month != day_on.month){
+        days_to_discount = total_days - day_on.day;
+    }
+    else{
+        days_to_discount = total_days;
+    }
+
+}
+
 //create the time off
 time_report.addTime_off = function(req, res){
     let data = req.body;
@@ -41,7 +55,7 @@ time_report.addTime_off = function(req, res){
 
           } else {
             res.send({status:201,body:time});
-
+            //reduce_working_days(data.day_off, data.data_on, data.count_days);
           }
         });
 }
