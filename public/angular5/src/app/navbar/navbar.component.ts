@@ -18,6 +18,33 @@ export class NavbarComponent implements OnInit {
 
   constructor(private service: ApiService, private router:Router, private cookieService: CookieService) { }
 
+  getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+  }
+
+  checkQM():Observable<Response>{
+    let date = new Date();
+    let day = date.getDate();
+    let monday = this.getMonday(new Date());
+    let week;
+    this.service.getWeekByStatus().subscribe(data =>{
+    week = data.body;
+    if(week.active.status === true && week.active.day != monday.getDate()){
+      this.changeDayWeek(monday.getDate(), week.week)
+    }
+    })
+    return
+  }
+
+  changeDayWeek(day, week):Observable<Boolean>{
+    this.service.updateDayOnWeek(day, week).subscribe(response => {
+    })
+    return
+  }
+
   checkAdmin(){
     if (this.user.role === 'admin'){
       this.showMaintenance = true;
@@ -33,7 +60,6 @@ export class NavbarComponent implements OnInit {
     }
     else{
       this.service.getUserBySessionId().subscribe(response =>{
-        console.log("when check session on navbar",response);
         if(response.status != 201) {
           this.shownav = false;
           this.redirect(url);
@@ -43,8 +69,8 @@ export class NavbarComponent implements OnInit {
           this.shownav = true;
           this.checkAdmin();
         }
-        
-        
+
+
       });
     }
   }
@@ -53,7 +79,7 @@ export class NavbarComponent implements OnInit {
     if(url === 'login')
     this.router.navigate(['/'+url]);
     else if(url === 'home'){
-      
+
       this.router.navigate([url]);
     }
     return
@@ -103,9 +129,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['./rotation'])
     return
   }
-  
+
   goEditRotation(){
     this.router.navigate(['./editrotation'])
+    return
+  }
+
+  goWeekendRotation(){
+    this.router.navigate(['./weekendRotation'])
     return
   }
 
@@ -113,9 +144,8 @@ export class NavbarComponent implements OnInit {
     let login;
     this.service.currentId.subscribe(message => login = message);
     //this.shownav = true;
+    this.checkQM();
     this.checkSessionId(login);
-    
-    
   }
 }
 

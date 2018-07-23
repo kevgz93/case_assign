@@ -5,6 +5,9 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {IMyDpOptions} from 'mydatepicker';
+import { MomentTimezoneModule } from 'moment-timezone';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-schedule',
@@ -25,11 +28,23 @@ export class ScheduleComponent implements OnInit {
 
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
+  isDaylight():Boolean {
+    let moment = require('moment-timezone');
+    let date = new Date();
+    let NYDate = moment.tz(date, "America/New_York");
+    let offset:number = NYDate._offset;
+    if(offset != -300){
+      return true;
+    }
+    
+  }
+
   getDifference(timezone, daylight){
-    console.log("entry to daylight");
     let difference={"hour":0, "minutes":0};
-    let dayL:number = 0;
-    if(daylight){
+    let dayL:number;
+
+    var today = new Date();
+    if (this.isDaylight()) { 
       dayL = 1;
     }
 
@@ -74,10 +89,8 @@ export class ScheduleComponent implements OnInit {
     //data.day_off = data.day_off.formatted;
     //data.day_on = data.day_on.formatted;
 
-    console.log("schedule ", data);
     this.service.addSchedule(data)
     .subscribe(msj => {
-      console.log(msj);
       if(msj.status == 201){
         alert('Schedule Added');
         this.router.navigate(['./home']);
@@ -131,6 +144,7 @@ export class ScheduleComponent implements OnInit {
       //day_off: [null, Validators.required]
 
     });
+    $('#queue_monitors_tab').removeClass('active');
     
   }
 

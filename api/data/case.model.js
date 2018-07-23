@@ -12,6 +12,7 @@ var caseSchema = new mongoose.Schema({
 		user_last_name:String
 	},
 	action: String,
+	delete_reason:String,
 	date: {
 		day: Number,
 		date: Number,

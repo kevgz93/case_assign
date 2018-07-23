@@ -1,19 +1,80 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form [formGroup]="loginform" (ngSubmit)="login(loginform.value)">
-        <div class="form-group" >
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" formControlName="username" />
-            <!--<<div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>-->
+<div class="login-container login-alternate-1 sb-login-fullscreen-example" id="login-site">
+  <div class="graphic-panel" style="background-image: url('../assets/login-background.jpg'); background-attachement: fixed;"></div>
+  <div class="content-panel">
+    <div>
+      <div class="logo-container">
+        <img src="../assets/mf_fortify_bluesquare_logo.png" alt="Fortify logo" class="logo">
+      </div>
+      <div class="character-grid animated playing">
+        <div class="character-grid-row">
+          <span class="character-grid-col character-distance-6">+</span>
+          <span class="character-grid-col character-distance-5">+</span>
+          <span class="character-grid-col character-distance-4">+</span>
+          <span class="character-grid-col character-distance-3">+</span>
+          <span class="character-grid-col character-distance-2">+</span>
+          <span class="character-grid-col character-distance-1">+</span>
         </div>
-        <div class="form-group" >
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" formControlName="password" />
-            <!--<div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>-->
+        <div class="character-grid-row">
+          <span class="character-grid-col character-distance-6">+</span>
+          <span class="character-grid-col character-distance-5">+</span>
+          <span class="character-grid-col character-distance-4">+</span>
+          <span class="character-grid-col character-distance-3">+</span>
+          <span class="character-grid-col character-distance-2">+</span>
+          <span class="character-grid-col character-distance-1">+</span>
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary">Login</button>
-            <img *ngIf="loading" src="../../assets/loading.gif" />
+        <div class="character-grid-row">
+          <span class="character-grid-col character-distance-6">+</span>
+          <span class="character-grid-col character-distance-5">+</span>
+          <span class="character-grid-col character-distance-4">+</span>
+          <span class="character-grid-col character-distance-3">+</span>
+          <span class="character-grid-col character-distance-2">+</span>
+          <span class="character-grid-col character-distance-1">+</span>
         </div>
+        <div class="character-grid-row">
+          <span class="character-grid-col character-distance-6">+</span>
+          <span class="character-grid-col character-distance-5">+</span>
+          <span class="character-grid-col character-distance-4">+</span>
+          <span class="character-grid-col character-distance-3">+</span>
+          <span class="character-grid-col character-distance-2">+</span>
+          <span class="character-grid-col character-distance-1">+</span>
+        </div>
+        <div class="character-grid-row">
+          <span class="character-grid-col character-distance-6">+</span>
+          <span class="character-grid-col character-distance-5">+</span>
+          <span class="character-grid-col character-distance-4">+</span>
+          <span class="character-grid-col character-distance-3">+</span>
+          <span class="character-grid-col character-distance-2">+</span>
+          <span class="character-grid-col character-distance-1">+</span>
+        </div>
+      </div>
+      <div class="family-icon">S</div>
+      <div class="family-name-container">
+        <span class="family-name">Security</span>
+      </div>
+      <div class="company-logo company-logo-image"></div>
+    </div>
+  </div>
+
+  <div class="form-panel">
+    <h1 class="form-title">Fortify<br><span style="font-size:34px;">Cases assignment</span></h1>
+    <form class="form-flat ng-pristine ng-valid" [formGroup]="loginform" (ngSubmit)="login(loginform.value)">
+      <div class="form-group empty-value">
+        <label for="username" title="Username">Username</label>
+        <input id="username" onfocus="onFocus(event);" onblur="onBlur(event);" type="text" name="username" formControlName="username">
+        <!--<<div *ngIf="f.submitted && !username.valid" class="alert alert-error help-block" role="alert">Username is required</div>-->
+      </div>
+      <div class="form-group empty-value">
+        <label for="password" title="Password">Password</label>
+        <input id="password" onfocus="onFocus(event);" onblur="onBlur(event);" type="password" name="password" formControlName="password">
+        <!--<div *ngIf="f.submitted && !password.valid" class="help-block alert alert-error" role="alert">Password is required</div>-->
+      </div>
+      <div class="form-group">
+        <div class="text-right">
+          <button type="submit" id="submit_login2" class="btn btn-primary">
+            Log In
+          </button>
+        </div>
+      </div>
     </form>
+  </div>
 </div>

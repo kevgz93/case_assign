@@ -1,43 +1,43 @@
 <nav class="navbar navbar-default" *ngIf="shownav">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">FORTIFY</a>
+      <a class="navbar-brand" href="" role="tab" data-toggle="tab">
+        <img src="../assets/mf_fortify_bluesquare_logo.png" alt="Fortify logo" style="width:56px;height:56px;">
+      </a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="navbar-body">
+      <a (click)="goHome()" role="tab" data-toggle="tab" class="navbar-product-name navbar-text">Cases assignment</a>
       <ul class="nav navbar-nav">
-        <li><a class="nav-link" (click)="goHome()" style="cursor:pointer"> Home <span class="sr-only">(current)</span></a></li>
-        <li><a class="nav-link" style="cursor:pointer" (click)="goGetRotation()"> Queue Monitor <span></span></a></li>
-        <li class="dropdown" *ngIf='showMaintenance'>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maintenance<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="nav-link" (click)="goReport()" style="cursor:pointer">Reports</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a class="nav-link" (click)="goAddUser()" style="cursor:pointer">Create User</a></li>
-            <li><a class="nav-link" (click)="goEditUsers()">Edit Users</a></li>
-            <li><a class="nav-link" (click)="goEditRotation()" style="cursor:pointer">Edit Week Rotation</a></li>
-          </ul>
-        </li>
+        <li id="queue_monitors_tab"><a role="tab" data-toggle="tab" title="Queue monitors"(click)="goGetRotation()">Queue Monitors</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.name}} {{user.last_name}}<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="nav-link" (click)="goEditEngineer()">Edit Info</a></li>
-            <li><a class="nav-link" (click)="goShowSchedule()">Schedule</a></li>
+      <div class="nav navbar-nav navbar-right">
+        <div class="dropdown" *ngIf='showMaintenance'>
+          <button class="btn btn-secondary btn-flat dropdown-toggle" data-toggle="dropdown" title="Maintenance" type="button" aria-haspopup="true" aria-expanded="false">
+            <i class="qtm-font-icon qtm-icon-process qtm-icon-defaul"></i>Maintenance<span class="caret" style="top:23px;"></span>
+          </button>
+          <ul class="dropdown-menu" style="margin-top:5px">
+            <li><a  (click)="goReport()">Reports</a></li>
             <li role="separator" class="divider"></li>
-            <li><a class="nav-link" (click)="goLogout()">Logout</a></li>
+            <li><a (click)="goAddUser()" >Create User</a></li>
+            <li><a (click)="goEditUsers()" >Edit Users</a></li>
+            <li><a  (click)="goEditRotation()" >Edit Week Rotation</a></li>
+            <li><a (click)="goWeekendRotation()">Weekend Rotation (On Call Engineers)</a></li>
           </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse  -->
-  </div><!-- /.container-fluid -->
+        </div>
+        <div class="dropdown">
+          <button type="button" class="btn btn-secondary btn-flat dropdown-toggle" id="dropdown_user_preferences" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Personal settings">
+            <i class="qtm-font-icon qtm-icon-user--16"></i>
+            {{user.name}}&nbsp;{{user.last_name}}
+            <span class="caret" style="top:23px;"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdown_user_preferences" data-toggle="dropdown_user_preferences">
+            <li><a (click)="goEditEngineer()" title="My profile" >My profile</a></li>
+            <li><a (click)="goShowSchedule()" title="My Schedule" >My schedule</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a (click)="goLogout()" title="Log out" ><i class="qtm-font-icon qtm-icon-logout qtm-icon-default pull-right" aria-hidden="true" style="color:#e5004c;"></i>Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

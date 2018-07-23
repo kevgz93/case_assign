@@ -1,10 +1,12 @@
 var userModel = require('../data/user.model.js');
 var mongoose = require('mongoose');
 var cookie = require('cookie-parser');
+var _schedule = require('../data/schedule.model.js');
 
 var q = require('q');
 
 var db = mongoose.model('user');
+var schedule = mongoose.model('schedule');
 var users = {};
 
 
@@ -96,9 +98,14 @@ users.register = function (req, res) {
       last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
-      working_days: 60,
+      working_days: {
+        current_days:30,
+        next_month:0,
+        status:false,
+        dayoff:0,
+      },
       last_case:""
-      
+
     }, function(err, user) { //this will run when create is completed
       if(err) {
         console.log("Error creating a User");
@@ -121,17 +128,29 @@ users.register = function (req, res) {
 };
 
 
-//Function to return users by its sessionID.
+//Function to return users by its sessionID on Helpres
 users.getBySessionId = function(sessionId){
 	var results = q.defer();
+  let response = {};
 
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
 			results.reject(err);
 		}
+		if (dbuser){
 
+        response.name = dbuser.name;
+        response.last_name = dbuser.last_name;
+        response._id = dbuser._id;
+        response.role = dbuser.role;
+			  results.resolve(response);
 
-		results.resolve(dbuser);
+    }  else{
+
+			response.status = 401;
+      response.error = 'SessionId not found';
+		  results.resolve(response);
+		}
 	});
 
 	return results.promise;
@@ -185,7 +204,7 @@ users.getUserBySessionId = function(req, res){
     else{
       res.send({status:201,body:user_found})
     }
-		
+
 	}, function(){
 		res.send({status:500,error:'Error occured while fetching data from database.'});
 	});
@@ -235,7 +254,7 @@ users.logout = function(req, res){
 //Function to logout user.
 users.logoutUser = function(sessionId){
 	var results = q.defer();
-  
+
   	console.log('helper cookie ' + sessionId);
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
@@ -283,7 +302,7 @@ users.userGetOne = function(req, res) {
     });
 };
 
-users.getUsersWithNamesOnly = function(req, res, next) {
+users.getUsersNamesAndScheduleId = function(req, res, next) {
 
   var engineer = users.loadEnginners2()
   engineer.then(function(engineers){
@@ -304,28 +323,52 @@ users.loadEnginners2 = function(){
   db.aggregate(
     [
       {
-        $match:{
-          "status":true
+        $lookup: {
+          from: 'schedules',
+          localField: '_id',
+          foreignField: 'user_id',
+          'as': 'schedule_loaded'
         }
-      },  
+      },
         { "$project": {
           "name":1,
           "last_name":1,
-          "_id":1
+          "_id":1,
+          "schedule_loaded":1,
+          "role": 1,
+          "time_zone": 1,
+          "sta_dyn": 1,
+          "email": 1
         }
       }
     ],function(err, engi) {
-      
+
       if (err){
         results.reject(err);
       }
       results.resolve(engi);
-      
+
     });
-    
+
     return results.promise;
 
   }
+
+  users.updateWRDates = function(req, res){
+    let userId = req.body._id;
+    let doc = {
+        weekendRotationDates: req.body.weekendRotationDates
+    };
+
+    db
+    .findByIdAndUpdate(userId, doc, { new:true }, function(err, user){
+      if(err){
+        res.send({status: 404});
+      }
+        res
+        .send({status:204, body:user});
+    })
+  };
 
 users.usersUpdateOne = function (req, res) {
 
@@ -338,10 +381,9 @@ users.usersUpdateOne = function (req, res) {
   doc.username= req.body.username,
   doc.password= req.body.password,
   doc.name= req.body.name,
-  doc.lastName= req.body.lastName,
+  doc.last_name= req.body.last_name,
   doc.role= req.body.role
   doc.status= req.body.status
-  console.log("Get User" + userId);
 
   db
     .findByIdAndUpdate(userId, doc, {new:true}, function(err, user){
@@ -355,62 +397,52 @@ users.usersUpdateOne = function (req, res) {
 
 };
 
+
+
+//Delete Schedule from the deleted user
+users.deleteschedule= function(schedule_id){ //id
+
+  //var userId = req.query._id;
+     return new Promise(function(resolve, reject){
+       var results;
+
+       schedule.findByIdAndRemove(schedule_id).exec(function(err, schedule){
+
+        if (err){
+          reject(err);
+          }
+        else{
+          resolve(schedule);
+        }
+
+      })
+
+
+    })
+};
+
+//Delete user
 users.usersDeleteOne = function(req, res) {
-  var userId = req.params.userId;
+  var id = req.query.id;
+  var schedule_id = req.query.schedule_id;
 
   db
-    .findByIdAndRemove(userId)
-    .exec(function(err, userId){
+    .findByIdAndRemove(id)
+    .exec(function(err, user){
       if (err) {
         res
-          .status(404)
-          .json(err);
-      } else {
-        console.log('user deleted ID: ', userId);
-        res
-          .status(204)
-          .json(userId);
+          .send({status:404});
       }
+        users.deleteschedule(schedule_id).then(function(result){
+          res.send({status:204});
+
+        }, function(err){
+          res.send(err);
+        })
+
     });
 };
 
-users.changeDaysWorking = function(engi_id, status)
-{
-  db
-    .findById(engi_id)
-    .exec(function(err, doc){
-      var response = {
-        status: 200,
-        message: doc
-      };
-
-      if (err) {
-        console.log("Error finding user");
-        response.status = 500;
-        response.message = err;
-      } else if(!doc){
-        response.status= 404;
-        response.message = {
-          "message":"User ID not found"
-        };
-      }
-
-      if (response.status != 200) {
-        return response;
-      } else {
-        doc.days_working = 365
-      };
-
-      doc.save(function(err, statusUpdated) {
-        if (err) {
-          return "error to save status"
-
-        } else {
-          return 'saved status successful'
-        }
-      })
-    });
-}
 
 users.changeStatus = function(engi_id, status)
 {
@@ -450,57 +482,6 @@ users.changeStatus = function(engi_id, status)
     });
 }
 
-users.loadUsers = function(req, res) {
-date = new Date();
-day = date.getDate();
-month = date.getMonth()+1;
-year = date.getFullYear();
-fullday = day.toString() + month.toString() + year.toString();
-console.log(fullday);
-
-  var engineer = users.loadUsers2();
-  engineer.then(function(engineers){
-
-    for(var i in engineers)
-    {
-      console.log(engineers[i].day_off)
-      if(engineers[i].day_off == fullday)
-      {
-        console.log("status changes to false: " + engineers[i].name)
-        users.changeStatus(engineers[i].id, false);
-      }
-      else if(engineers[i].day_on == fullday)
-      {
-        console.log("status changes to true: " + engineers[i].name)
-        users.changeStatus(engineers[i].id, true)
-      }
-      else if(day == '1' & month == '1'){
-        users.changeDaysWorking(engineers[i].id);
-      }
-
-    }
-    res
-    .status(302)
-    .json({message:'succefull'});
-
-  }, function(){
-    res.send({status:'error',error:'Error occured while fetching data from database.'});
-  });
-
-};
-
-users.loadUsers2 = function(){
-  var results = q.defer();
-
-	db.find(function(err, users) {
-	  if (err){
-	  	results.reject(err);
-	  }
-	  results.resolve(users);
-	});
-	return results.promise;
-
-  }
 
   users.addTimeOff = function(res, req){
     db.findById(req.body.id)
@@ -546,6 +527,7 @@ users.loadUsers2 = function(){
       })
     })
   }
+
 
 
 module.exports = users;

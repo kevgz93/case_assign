@@ -21,7 +21,16 @@ import { RotationComponent } from './rotation/rotation.component';
 import { RotationeditComponent } from './rotationedit/rotationedit.component';
 import { ScheduleshowComponent } from './scheduleshow/scheduleshow.component';
 import { EditusersComponent } from './editusers/editusers.component';
-
+import { MatDialogModule } from '@angular/material';
+import { WeekendRotationComponent} from './weekendRotation/weekendRotation.component';
+// Calendar Module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
+import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimeoffComponent } from './timeoff/timeoff.component';
+//import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
 
 
 @NgModule({
@@ -39,7 +48,9 @@ import { EditusersComponent } from './editusers/editusers.component';
     RotationComponent,
     RotationeditComponent,
     ScheduleshowComponent,
-    EditusersComponent
+    EditusersComponent,
+    WeekendRotationComponent,
+    TimeoffComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +58,14 @@ import { EditusersComponent } from './editusers/editusers.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDateRangePickerModule
+    MyDateRangePickerModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot(),
+    CalendarWeekHoursViewModule,
+    NgbModalModule.forRoot(),
+    ModalModule.forRoot()
+        //Ng2WebCrypto
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

@@ -13,12 +13,18 @@ var userSchema = new mongoose.Schema({
 	status: Boolean,
 	activeSession: String,
 	role: String,
-	working_days: Number,
-	last_case: String
+	working_days: {
+		current_days : Number,
+		next_month : Number,
+		status:Boolean,
+		dayoff:Number,
+	},
+	last_case: String,
+	weekendRotationDates: [{ date: Date }]
 });
 
 
 
 //MODEL for Users using SCHEMA HOTELS
 
-mongoose.model('user', userSchema, 'users')
+mongoose.model('user', userSchema, 'users');

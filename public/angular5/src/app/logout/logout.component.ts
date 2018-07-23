@@ -19,11 +19,9 @@ export class LogoutComponent implements OnInit {
   ngOnInit() {
     this.service.logout()
     .subscribe(response =>{
-      console.log(response);
       
       let status: any = response.status;
       if(status === 'success'){
-        alert('logout suceessful')
         this.cookieService.delete('SessionId');
         window.location.replace('/login');
 

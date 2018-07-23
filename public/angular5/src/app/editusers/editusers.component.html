@@ -1,23 +1,78 @@
-<div class="container" *ngIf="showtable">
-  <h3>Schedule</h3>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <h1>Users</h1>
+  </div>
 </div>
-<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%">
-  <thead class="tablehead">
-    <tr>
-      <th>Name</th>
-      <th>Edit Schedule</th>
-      <th>Edit user</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!--<div > -->
-    <tr *ngFor="let user of users">
-      <td>{{user.name}} {{user.last_name}}</td>
-      <td><button class="btn btn-primary" (click)="goToSchedule(user._id)">Edit Schedule</button></td>
-      <td><button class="btn btn-primary" (click)="goToUser(user._id)">Edit User</button></td>
-      <td><button class="btn btn-warning" onclick="goToDelete()">Delete</button></td>
-    </tr>
-      <!--</div> -->
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <table class="table table-hover flt-table" id="ticket">
+        <thead>
+          <tr>
+            <th colspan="2">Engineer</th>
+            <th class="text-center" style="width:20%;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td style="width: 20px;">
+              <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
+            </td>
+            <td>
+              <p>
+                <b>{{user.name}} {{user.last_name}}</b>
+                <ng-container *ngIf="user.role == 'user'">
+                  <span class="badge" title="Role" style="margin-left: 15px;">{{user.role}}</span>
+                </ng-container>
+                <ng-container *ngIf="user.role == 'admin'">
+                  <span class="badge badge-active" title="Role" style="margin-left: 15px;">{{user.role}}</span>
+                </ng-container>
+              </p>
+              <p class="engineer-info">
+                <a href="mailto:{{user.email}}">{{user.email}}</a>
+              </p>
+              <p class="engineer-info" style="margin-bottom: -5px;">
+                <ng-container *ngIf="user.sta_dyn == 1">Static</ng-container>
+                <ng-container *ngIf="user.sta_dyn == 2">Dynamic</ng-container>
+                <ng-container *ngIf="user.sta_dyn == 3">Static and dynamic</ng-container>
+                cases
+              </p>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-flat btn-secondary" (click)="goToSchedule(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit schedule">
+                <i class="qtm-font-icon qtm-icon-calendar" aria-hidden="true"></i>
+              </a>&nbsp;
+              <a class="btn btn-flat btn-info" (click)="goTotimeoff(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit time off">
+                <i class="qtm-font-icon qtm-icon-schedule-task" aria-hidden="true"></i>
+                </a>&nbsp;
+                <a class="btn btn-flat btn-primary" (click)="goToUser(user._id)" data-toggle="tooltip" data-placement="bottom" title="Edit engineer">
+                  <i class="qtm-font-icon qtm-icon-edit" aria-hidden="true"></i>
+                </a>&nbsp;
+              <a class="btn btn-flat btn-danger btn-icon" (click)="openModal(template, user)" data-toggle="tooltip" data-placement="bottom"
+                title="Delete engineer">
+                <i class="qtm-font-icon qtm-icon-assigned-to-none" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete {{user.name}}&nbsp;{{user.last_name}}</h4>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to delete the user {{user.name}}&nbsp;{{user.last_name}} from the system?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-flat btn-danger" (click)="delete()">
+            Delete
+        </button>
+      <button type="button" class="btn btn-flat btn-default" (click)="modalRef.hide()">
+          Cancel
+      </button>
+  </div>
+  </ng-template>

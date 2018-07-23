@@ -1,27 +1,52 @@
-<table id="ticket" class="table table-striped table-bordered" cellspacing="0" width="100%" *ngIf='showtable'>
-  <thead class="tablehead">
-      <tr>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-    </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>{{week.monday_morning}}</td>
-    <td>{{week.tuesday_morning}}</td>
-    <td>{{week.wednesday_morning}}</td>
-    <td>{{week.thursday_morning}}</td>
-    <td>{{week.friday_morning}}</td>
-  </tr>
-  <tr>
-    <td>{{week.monday_afternoon}}</td>
-    <td>{{week.tuesday_afternoon}}</td>
-    <td>{{week.wednesday_afternoon}}</td>
-    <td>{{week.thursday_afternoon}}</td>
-    <td>{{week.friday_afternoon}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <h1>Queue monitors shifts&nbsp;<small>(current week)</small></h1>
+  </div>
+</div>
+<div class="row" *ngIf="showtable">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+      <table class="table" id="ticket">
+        <tbody>
+          <tr>
+            <th style="width: 120px;"></th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+          </tr>
+          <tr>
+            <td class="left-header">EMEA</td>
+            <td>{{week.monday.emea}}</td>
+            <td>{{week.tuesday.emea}}</td>
+            <td>{{week.wednesday.emea}}</td>
+            <td>{{week.thursday.emea}}</td>
+            <td>{{week.friday.emea}}</td>
+          </tr>
+          <tr>
+            <td class="left-header">AMS East</td>
+            <td>{{week.monday.morning}}</td>
+            <td>{{week.tuesday.morning}}</td>
+            <td>{{week.wednesday.morning}}</td>
+            <td>{{week.thursday.morning}}</td>
+            <td>{{week.friday.morning}}</td>
+          </tr>
+          <tr>
+            <td class="left-header">AMS West</td>
+            <td>{{week.monday.afternoon}}</td>
+            <td>{{week.tuesday.afternoon}}</td>
+            <td>{{week.wednesday.afternoon}}</td>
+            <td>{{week.thursday.afternoon}}</td>
+            <td>{{week.friday.afternoon}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <div class="alert alert-warning">Please refrain from assigning cases to engineers in the final 30 min of their shift. In rare cases where it is necessary to pass someone a case beyond that, please pop an internal note on it just explaining why it's coming to them.</div>
+  </div>
+</div>

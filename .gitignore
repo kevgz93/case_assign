@@ -1,3 +1,7 @@
 /node_modules
 /npm-debug.log
 /.vscode
+/mongo_data
+mongo_start.bat
+/public/angular5/ng_server
+/.idea

@@ -13,18 +13,6 @@ var scheduleSchema = new mongoose.Schema({
     thursday_afternoon : {hour:Number,minutes:Number},
     friday_morning: {hour:Number,minutes:Number},
     friday_afternoon: {hour:Number,minutes:Number},
-    day_off: {
-        day:Number,
-        month: Number,
-        hour:Number,
-        minutes:Number
-    },
-    day_on : {
-        day:Number,
-        month: Number,
-        hour:Number,
-        minutes:Number
-    },
     time_zone: String,
     user_id: user
 });

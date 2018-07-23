@@ -1,4 +1,48 @@
-.tablehead{
-    background-color: grey;
-    color: white;
+
+$crimson-negative: #e5004c;
+$yellow: #fcdb1f;
+h1 small{
+  font-size: 40%;
+  text-transform: none;
+  letter-spacing: 1px;
+}
+
+.table.table-hover > tbody > tr > td{
+  transition: background-color 0.12s ease-out, color 0.12s ease-out;
+}
+.table > tbody > tr.warning > td{
+  background-color: white;
+  transition: background-color 0.12s ease-out, color 0.12s ease-out;
+}
+.table > tbody > tr.warning:hover > td{
+  background-color: #fcf8e3;
+  transition: background-color 0.12s ease-out, color 0.12s ease-out;
+}
+
+.table > tbody> tr.warning > td:first-child{
+  box-shadow: 5px 0px 0px 0px $yellow inset;
+}
+
+.table > tbody > tr.danger > td:first-child{
+  box-shadow: 5px 0px 0px 0px $crimson-negative inset;
+}
+
+.table > tbody > tr.danger > td{
+  background-color: white;
+  transition: background-color 0.12s ease-out, color 0.12s ease-out;
+}
+.table > tbody > tr.danger:hover > td{
+  background-color: #f2dede;
+}
+
+p.color-note{
+  padding-left: 10px;
+  margin-left: 5px;
+  &.danger{
+    box-shadow: 5px 0px 0px 0px $crimson-negative inset;
+
+  }
+  &.warning{
+    box-shadow: 5px 0px 0px 0px $yellow inset;
+  }
 }

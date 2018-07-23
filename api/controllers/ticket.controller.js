@@ -1,5 +1,5 @@
 var tick_engi = require('../data/case.model.js');
-var bitacora = require('./report.controller');
+var bitacora = require('./report_case.controller');
 var userModel = require('../data/user.model.js');
 
 
@@ -20,6 +20,7 @@ var jso2 = [];
 
 
 ticket.loadEnginner = function(req, res, next) {
+  //console.log("Req", req.header);
 
   var engineer = ticket.loadEnginner2()
   engineer.then(function(engineers){
@@ -61,6 +62,14 @@ ticket.loadEnginner2 = function(){
           'as': 'schedule_loaded'
         }
       },
+      {
+        $lookup: {
+          from: 'timeoffs', 
+          localField: '_id', 
+          foreignField: 'user_id', 
+          'as': 'time_off'
+        }
+      },
         { "$project": {
           "_id": 1,
           "email":1,
@@ -75,9 +84,7 @@ ticket.loadEnginner2 = function(){
           "activeSession":1,
           "status":1,
           "role":1,
-          "day_on":1,
-          "day_off":1,
-          "days_working":1,
+          "working_days":1,
           "last_case":1,
           "cases_loaded":{             
             "$filter": {
@@ -86,7 +93,14 @@ ticket.loadEnginner2 = function(){
               "cond": { "$eq": [ "$$case.action", "added" ] }
             }
           },
-          "schedule_loaded":1
+          "schedule_loaded":1,
+          "time_off":{
+            "$filter":{
+              "input": "$time_off",
+              "as": "time",
+              "cond": { "$ne": [ "$$time.action", "deleted" ] }
+            }
+          }
         }
       }
     ],function(err, engi) {
@@ -137,6 +151,7 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
       user_last_name : req.body.user_last_name
   },
     action: 'added',
+    delete_reason:'',
     date: {
       day: date.getDay(),
       date: date.getDate(),
@@ -167,47 +182,8 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
     return;
 }
 
-ticket.ticketDelete2 = function (user, res){
-  console.log("Entro para Editar el caso")
-  var response;
-  _cases.findById(user.last_case).exec(function(err, doc){
-    var response = {
-      status: 200,
-      message: doc
-    };
 
-    if (err) {
-      console.log("Error finding user");
-      res.status(500)
-        .json(err);
-    } else if(!doc){
-      res.status(400)
-      .json("Error not document loaded");
-    }
-
-    if (response.status != 200) {
-      return response;
-    } else {
-      doc.action = "deleted"
-    };
-
-    doc.save(function(err, caseUpdated) {
-      if (err) {
-        res.status(404)
-        .json(err);
-
-
-      } else {
-        res.status(201)
-        .json(caseUpdated);
-
-      }
-    })
-
-  });
-}
-
-ticket.findcase = function(last_case, res){
+ticket.findcase = function(last_case,reason, res){
   console.log("entro")
   _cases.findById(last_case).exec(function(err, doc){
     var response = {
@@ -227,7 +203,8 @@ ticket.findcase = function(last_case, res){
     if (response.status != 200) {
       return response;
     } else {
-      doc.action = "deleted"
+      doc.action = "deleted",
+      doc.delete_reason = reason
     };
 
     doc.save(function(err, caseUpdated) {
@@ -249,6 +226,7 @@ ticket.findcase = function(last_case, res){
 ticket.ticketDelete = function (req,res ) {
 
   var id = req.body.engi_id;
+  var reason = req.body.delete_reason;
   console.log("Id Delete",id);
   var response;
 
@@ -275,7 +253,7 @@ ticket.ticketDelete = function (req,res ) {
         };
       }
       else{
-        ticket.findcase(doc.last_case, res);
+        ticket.findcase(doc.last_case, reason, res);
         return;
       }
       res

@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import * as sjcl from 'sjcl';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-register',
@@ -20,26 +23,47 @@ export class RegisterComponent implements OnInit {
   constructor(private service: ApiService, private fb: FormBuilder, private router:Router) { }
 
   addUser(data){
-    data.time = +data.time;
-    data.sta_dyn = +data.sta_dyn;
     data.max = +data.max;
 
-    console.log(data);
+    /*
+    switch(data.sta_dyn){
+      case "Both":
+      data.sta_dyn = "3";
+      break;
+      case "Dynamic":
+      data.sta_dyn = "2";
+      break;
+      case "Static":
+      data.sta_dyn = "1";
+      break;
+    }
+    data.status = data.status == "Available" ? "true" : "false";
+    data.role = data.role.toLowerCase();  // Changes Admin -> admin or User -> user
+    */
+
+    
+    let password = data.password;
+    var out = sjcl.hash.sha256.hash(password);
+    data.password = sjcl.codec.hex.fromBits(out);
     this.service.addUser(data)
     .subscribe(msj => {
-      console.log(msj);
       if(msj.status == 201){
         alert('User Added');
         this.service.changeObject(msj);
         this.router.navigate(['./schedule']);
-        
+
       }
       else{
         alert('User Failed');
         this.router.navigate(['./login/register']);
       }
     })
-    
+
+  }
+
+  // click on cancel button
+  cancelForm(){
+    this.router.navigate(['./']);
   }
 
   ngOnInit() {
@@ -49,12 +73,13 @@ export class RegisterComponent implements OnInit {
       email: '',
       city : '',
       sta_dyn: '',
-      max: '',
+      max: '0',
       status: '',
       role: '',
       username: '',
       password: '',
     });
+    $('#queue_monitors_tab').removeClass('active');
   }
 
 }

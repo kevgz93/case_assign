@@ -5,6 +5,9 @@ import { NgModel } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+//import * as CryptoJs from 'crypto-js';
+import * as sjcl from 'sjcl';
+
 
 @Component({
   selector: 'app-login',
@@ -17,12 +20,16 @@ export class LoginComponent implements OnInit {
   public user;
   loginform: FormGroup;
   public date: Date = new Date();
+  
 
   constructor( private service: ApiService, private fb: FormBuilder, private router:Router,
-    private cookieService: CookieService){   
+    private cookieService: CookieService){
     }
+    
 
     cookieValue:CookieService;
+
+    
 
   ngOnInit() {
     this.loginform= this.fb.group({
@@ -40,25 +47,24 @@ export class LoginComponent implements OnInit {
 
   login(user) {
     let sessionid: any;
-    console.log(user);
+    let password = user.password;
+    var out = sjcl.hash.sha256.hash(password);
+    user.password = sjcl.codec.hex.fromBits(out);
     this.service.login(user)
     .subscribe(response =>{
-      console.log(response);
-      
       let status: any = response.status;
       if(status === 'success'){
         this.createCookie(response);
         this.service.changeUserId("login");
-        console.log("entro para intercambiar user");
         //this.router.navigate(['./navbar']);
         window.location.replace('/home');
 
     }
 
     });
-    
-        
-        
+
+
+
   }
 
 
