@@ -10,6 +10,7 @@ var ctrlReport_time = require('../controllers/report_time.controller.js');
 var ctrlTime_off = require('../controllers/time_off.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 var ctrlRotation = require('../controllers/rotation.controller.js');
+var ctrlCaseAverage = require('../controllers/case_average.controller.js');
 
 let weekendRotationCtrl = require ('../controllers/weekendRotation.controller');
 
@@ -84,6 +85,12 @@ router
 router
 .route('/timeoffs')
 .get(ctrlTime_off.getUserAllTime_off)
+
+router
+.route('/caseaverage/')
+.get(ctrlCaseAverage.newMonthStart)
+.post(ctrlCaseAverage.updateWorkingDays)
+.put(ctrlCaseAverage.endTimeoff)
 
 router
 .route('/rotation/')

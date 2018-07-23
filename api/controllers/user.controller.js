@@ -98,7 +98,12 @@ users.register = function (req, res) {
       last_name: req.body.last_name,
       activeSession: "",
       role: req.body.role,
-      working_days: 30,
+      working_days: {
+        current_days:30,
+        next_month:0,
+        status:false,
+        dayoff:0,
+      },
       last_case:""
 
     }, function(err, user) { //this will run when create is completed
@@ -438,43 +443,6 @@ users.usersDeleteOne = function(req, res) {
     });
 };
 
-users.changeDaysWorking = function(engi_id, status)
-{
-  db
-    .findById(engi_id)
-    .exec(function(err, doc){
-      var response = {
-        status: 200,
-        message: doc
-      };
-
-      if (err) {
-        console.log("Error finding user");
-        response.status = 500;
-        response.message = err;
-      } else if(!doc){
-        response.status= 404;
-        response.message = {
-          "message":"User ID not found"
-        };
-      }
-
-      if (response.status != 200) {
-        return response;
-      } else {
-        doc.days_working = 365
-      };
-
-      doc.save(function(err, statusUpdated) {
-        if (err) {
-          return "error to save status"
-
-        } else {
-          return 'saved status successful'
-        }
-      })
-    });
-}
 
 users.changeStatus = function(engi_id, status)
 {
@@ -514,57 +482,6 @@ users.changeStatus = function(engi_id, status)
     });
 }
 
-users.loadUsers = function(req, res) {
-date = new Date();
-day = date.getDate();
-month = date.getMonth()+1;
-year = date.getFullYear();
-fullday = day.toString() + month.toString() + year.toString();
-console.log(fullday);
-
-  var engineer = users.loadUsers2();
-  engineer.then(function(engineers){
-
-    for(var i in engineers)
-    {
-      console.log(engineers[i].day_off)
-      if(engineers[i].day_off == fullday)
-      {
-        console.log("status changes to false: " + engineers[i].name)
-        users.changeStatus(engineers[i].id, false);
-      }
-      else if(engineers[i].day_on == fullday)
-      {
-        console.log("status changes to true: " + engineers[i].name)
-        users.changeStatus(engineers[i].id, true)
-      }
-      else if(day == '1' & month == '1'){
-        users.changeDaysWorking(engineers[i].id);
-      }
-
-    }
-    res
-    .status(302)
-    .json({message:'succefull'});
-
-  }, function(){
-    res.send({status:'error',error:'Error occured while fetching data from database.'});
-  });
-
-};
-
-users.loadUsers2 = function(){
-  var results = q.defer();
-
-	db.find(function(err, users) {
-	  if (err){
-	  	results.reject(err);
-	  }
-	  results.resolve(users);
-	});
-	return results.promise;
-
-  }
 
   users.addTimeOff = function(res, req){
     db.findById(req.body.id)

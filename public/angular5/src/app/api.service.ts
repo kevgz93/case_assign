@@ -368,6 +368,42 @@ export class ApiService {
       .catch(this.handleError);
     }
 
+    //pass to next month with case average
+    public case_average_next_month(id): Observable<Response> {
+      let params = new HttpParams();
+      params = params.append("_id",id);
+      return this.http
+      .get(API_URL + '/api/caseaverage/',{ params: params })
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
+
+    //add case average when time off start
+    public case_average_add(data): Observable<Response> {
+      let body = JSON.stringify(data)
+      return this.http
+      .post(API_URL + '/api/caseaverage', body,
+      {headers: new HttpHeaders().set('Content-Type','application/json')})
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
+
+  //update time off
+    public case_average_endTimeoff(data): Observable<Response> {
+      let body = JSON.stringify(data)
+      return this.http
+      .put(API_URL + '/api/caseaverage', body,
+      {headers: new HttpHeaders().set('Content-Type','application/json')})
+      .map(response => {
+        return response
+      })
+      .catch(this.handleError);
+    }
+
   // Weekend Rotation API Calls
   // Get all Weekend Rotation dates
   public getWeekendRotations() {

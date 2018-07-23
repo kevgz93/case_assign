@@ -6,7 +6,10 @@ import { promise } from 'protractor';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import {TwentyFourFormat} from './../lib/24Format'
+import {ConvertTimeZero} from './../lib/Time_zero'
+import {case_average} from './../lib/case_average';
+import { resolve } from 'dns';
+import { reject } from 'q';
 
 
 declare var jquery:any;
@@ -37,6 +40,7 @@ export class HomeComponent implements OnInit {
   private data = null;
   private status = null;
   public showhtml:Boolean=false;
+  public loading:Boolean=true;
   public countDay = 0;
   public countWeek = 0;
   public countMonth = 0;
@@ -45,7 +49,8 @@ export class HomeComponent implements OnInit {
   private timezone = {};
   public today;
   public date = new Date();
-  private TwentyFourFormat = new TwentyFourFormat();
+  private convertTimeZone = new ConvertTimeZero();
+  private case_average = new case_average();
   myform: FormGroup;
   modalRef: BsModalRef;
 
@@ -120,7 +125,13 @@ export class HomeComponent implements OnInit {
         let aft_hour = afternoon.hour - difference;
         let morn_hour = morning.hour - difference;
         let date = new Date;
-        if (morn_hour <= this.date.getHours() && aft_hour > this.date.getHours()){
+        if (morn_hour > this.date.getHours() || this.date.getHours() === 0){
+          return false;
+        }
+        else if (morn_hour >= this.date.getHours() && this.date.getMinutes() < morning.minutes){
+          return false;
+        }
+        else if (morn_hour <= this.date.getHours() && aft_hour > this.date.getHours()){
           return true;
         }
         else if (morn_hour <= this.date.getHours() && aft_hour === this.date.getHours() && afternoon.minutes > this.date.getMinutes()){
@@ -151,11 +162,69 @@ export class HomeComponent implements OnInit {
         }
         return "";
       }
+
+      //check and send if need to changes working days on database
+      working_days(timeoff, working_days, timeoff_status, id):Promise<object>{
+        let result:any
+        let date = new Date();
+        var promise = new Promise((resolve,reject) => {
+          //if there are timeoff with different month
+        if(date.getDate() < 3 && working_days.status === true){
+          //let result = this.case_average.case_average(timeoff);
+          //services to changes working days
+          this.service.case_average_next_month(id).subscribe(data =>{
+            if (data.status != 204){
+              alert("error with case average, please contact the administrator");
+            }
+            result =  data.body;
+            resolve(result);
+              //console.log(data);
+          })
+        }
+
+        //when a time off start on the same month
+        else if(!timeoff_status && !working_days.status){
+          console.log("entro a working days para agregar ");
+          let response = this.case_average.case_average(timeoff);
+          //services to changes working days
+          this.service.case_average_add({"_id":id,"working_days":response}).subscribe(data =>{
+            if (data.status != 204){
+              alert("error with case average, please contact the administrator");
+            }
+            result =  data.body;
+            resolve(result);
+              //console.log(data);
+          })
+        }
+        
+        //when the time off end
+        else if(timeoff_status && working_days.status){
+
+          this.service.case_average_endTimeoff({"_id":id}).subscribe(data =>{
+            if (data.status != 204){
+              alert("error with case average, please contact the administrator");
+            }
+            result =  data.body;
+            resolve(result);
+              //console.log(data);
+          })
+        }
+        
+        else{
+          result =  working_days;
+          resolve(result);
+        }
+
+        })
+        
+
+        return promise;
+      }
       
       //see if have time off
-      timeoff(timeoff):boolean{
+      timeoff(timeoff):object{
         
-        let result:boolean;
+        let result={"status": true, "timeoff":{}};
         let day_on;
         let day_off;
         let length = Object.keys(timeoff).length;
@@ -165,42 +234,48 @@ export class HomeComponent implements OnInit {
         let month = this.date.getMonth() + 1;
         let year = this.date.getFullYear();
         if(length === 0){
-          result = true;
+          result.status = true;
         }
         timeoff.forEach(element => {
         day_off = element.day_off;
         day_on = element.day_on;
         // 'entry before to start the day_off witout time'
         if(day < day_off.day && month <= day_off.month){
-          result = true;
+          result.status = true;
+          result.timeoff = element;
           }
           // 'entry before to start the day_off with hour'
         else if(day === day_off.day && month === day_off.month && hour < day_off.hour){
-        result = true;
+        result.status = true;
+        result.timeoff = element;
         }
         
         // 'entry before to start the day_off with minutes''
         else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes < day_off.minutes ){
-        result = true;
+        result.status = true;
+        result.timeoff = element;
         }
         
         //'entry between the time off and without hour
         else if(day >= day_off.day && month >= day_off.month && day < day_on.day && month <= day_on.month){
-        result = false;
+        result.status = false;
+        result.timeoff = element;
         }
         
         //'entry between the time off and with hour
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour < day_on.hour){
-        result = false;
+        result.status = false;
+        result.timeoff = element;
         }
         
         //'entry between the time off and less minutes
         else if(day >= day_off.day && month >= day_off.month && day <= day_on.day && month <= day_on.month && hour === day_on.hour &&
         minutes < day_on.minutes){
-        result = false;
+        result.status = false;
+        result.timeoff = element;
         }
         else {
-          result = true
+          result.status = true
           }
   
       });
@@ -231,13 +306,14 @@ export class HomeComponent implements OnInit {
       }
 
       filterSchedule(data,time_off){
-        let today = {time:"", available:true, color:"white", timeoff: false};
+        time_off = this.convertTimeZone.convertFromTimeOffLocally(time_off);
+        let today = {morning:0, time:"", available:true, color:"white", timeoff: false,average:{}};
         let hour = {morning:0, afternoon:0};
         let minutes= {morning:0, afternoon:0};
         let morning_minutes;
         let afternoon_minutes;
         let available:boolean;
-        let timeoff:boolean;
+        let timeoff:any;
         let color;
         let difference = this.date.getTimezoneOffset() / 60; // this difference is because the times are saved on the DB as gmt+0
         if (this.date.getDay()===1){
@@ -251,8 +327,9 @@ export class HomeComponent implements OnInit {
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.monday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
-          today.available = true;//cambiarlo a available
+          today.available = available;//cambiarlo a available
           today.color = color;
           today.timeoff = timeoff;
           return today;
@@ -268,10 +345,12 @@ export class HomeComponent implements OnInit {
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.tuesday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           today.timeoff = timeoff;
+
           return today;
         }
         else if (this.date.getDay()===3){
@@ -285,10 +364,12 @@ export class HomeComponent implements OnInit {
           morning_minutes = this.checkMinutes(minutes.morning);
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.wednesday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           today.timeoff = timeoff;
+
           return today;
         }
         else if (this.date.getDay()===4){
@@ -302,10 +383,12 @@ export class HomeComponent implements OnInit {
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.thursday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           today.timeoff = timeoff;
+
           return today;
         }
         else if (this.date.getDay()===5){
@@ -319,13 +402,15 @@ export class HomeComponent implements OnInit {
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.friday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
           today.available = available;
           today.color = color;
           today.timeoff = timeoff;
+
           return today;
         }
-        else if (this.date.getDay()===6 || this.date.getDay()===0){
+        else if (this.date.getDay()===6|| this.date.getDay()===0){
           timeoff = this.timeoff(time_off);
           available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
           color = this.colorHour(data.friday_afternoon, difference);
@@ -336,10 +421,12 @@ export class HomeComponent implements OnInit {
           //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
           morning_minutes = this.checkMinutes(minutes.morning);
           afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.friday_morning.hour - difference;
           today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;          
           today.available = available;
           today.color = color;
           today.timeoff = timeoff;
+
           return today;
         }
         // modificar aca y crear un nuevo metodo para el agregar los colores
@@ -379,13 +466,26 @@ export class HomeComponent implements OnInit {
 
       }
 
+      //show average on html
+       average(working_days,month):Object{
+        let result = {"average":0.0,"days_off":0};
+        if(month === 0){
+          result.average = +(((30 * 1)/working_days.current_days).toFixed(2));
+        }else{
+          result.average =  +(((30*month)/working_days.current_days).toFixed(2));
+        }
+        //result.average = Math.round(result.average);
+        result.days_off = 30 - working_days.current_days;
+        return result;
+      }
+
 
     getAllEng(): Observable<engineer>{
       var aux = {};
       this.cleanCount();
       var count;
       this.service.getAllEngineers()
-      .subscribe(data => {
+      .subscribe(async data => {
         if(data.status == 401)
         {
           this.router.navigate(['./'])
@@ -397,6 +497,7 @@ export class HomeComponent implements OnInit {
         //   element.countday = this.c
         // });
         for(let i in aux){
+        
           for(let j in aux[i].cases_loaded){
             this.filterDay(aux[i].cases_loaded[j]);
           }
@@ -408,13 +509,20 @@ export class HomeComponent implements OnInit {
           this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
+          let working_days = await this.working_days(this.data[i].today.timeoff.timeoff,this.data[i].working_days,this.data[i].today.timeoff.status, this.data[i]._id)
+          this.data[i].average = await this.average(working_days, this.data[i].countmonth);
           this.cleanCount();
 
-
-
+          
         }
+        //this.data = this.sortable(this.data);
+        this.data.sort(function(a, b)
+        {
+          //console.log(a.today.morning);
+          return a.today.morning-b.today.morning;
+        });
+        this.loading=false;
         this.showhtml = true;
-
       })
 
 
@@ -583,16 +691,21 @@ export class HomeComponent implements OnInit {
       });
     }
 
-
+    async delay(ms: number) {
+      await new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   ngOnInit() {
     //this.showhtml = false;
     
     this.getQM();
-    this.getAllEng();
-
+    this.delay(1000).then(any=>{
+      this.getAllEng();
+    });
+    
     let timer = Observable.timer(300000,300000);
     timer.subscribe(t=> {
+      console.log("entro para refrescar");
         this.getAllEng();
     });
 

@@ -84,7 +84,7 @@ ticket.loadEnginner2 = function(){
           "activeSession":1,
           "status":1,
           "role":1,
-          "days_working":1,
+          "working_days":1,
           "last_case":1,
           "cases_loaded":{             
             "$filter": {

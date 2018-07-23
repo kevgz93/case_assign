@@ -1,3 +1,11 @@
+<ng-container *ngIf="loading">
+  <div class="text-center">
+    <img src="../../assets/loading.gif">
+    <br>
+    Loading...
+  </div>
+</ng-container>
+
 <ng-container *ngIf="showhtml">
 <div class="row">
   <div class="col-sm-6">
@@ -22,6 +30,8 @@
             <th class="text-center">Max cases per day</th>
             <th>Schedule ( local time )</th>
             <th>Email</th>
+            <th class="text-center">Day off</th>
+            <th class="text-center">Average</th>
             <th class="text-center">Day</th>
             <th class="text-center">Week</th>
             <th class="text-center">Month</th>
@@ -30,13 +40,15 @@
         </thead>
         <tbody>
           <ng-container  *ngFor="let datico of data">
-            <tr *ngIf="datico.today.available && datico.today.timeoff" class="{{datico.today.color}}">
+            <tr *ngIf="datico.today.available && datico.today.timeoff.status" class="{{datico.today.color}}">
               <td>{{datico.name}} {{datico.last_name}}</td>
               <td>{{datico.time_zone}}</td>
               <td>{{datico.sta_dyn}}</td>
               <td class="text-center">{{datico.max_case}}</td>
               <td>{{datico.today.time}}</td>
               <td> <a href="mailto:{{datico.email}}">{{datico.email}}</a></td>
+              <td class="text-center">{{datico.average.days_off}}</td>
+              <td class="text-center">{{datico.average.average}}</td>
               <td class="text-center">{{datico.countday}}</td>
               <td class="text-center">{{datico.countweek}}</td>
               <td class="text-center">{{datico.countmonth}}</td>
