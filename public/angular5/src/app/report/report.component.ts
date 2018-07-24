@@ -18,8 +18,8 @@ export class ReportComponent implements OnInit {
   private users;
   private months;
   private cases;
-  private showReportCase:boolean = false;
-  private showReportTimeoff:boolean = false;
+  public showReportCase:boolean = false;
+  public showReportTimeoff:boolean = false;
   private showtableCase:Boolean = false;
   private showtotalCase:Boolean = false;
   private showtableTime:Boolean = false;

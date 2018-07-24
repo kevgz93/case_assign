@@ -21,7 +21,7 @@ declare var $: any;
 })
 export class TimeoffComponent implements OnInit {
 
-  private showview: boolean = false;
+  public showview: boolean = false;
   private user_id;
   private _id;
   private times;

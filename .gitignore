@@ -5,3 +5,5 @@
 mongo_start.bat
 /public/angular5/ng_server
 /.idea
+/app.js
+/public/angular5/src/environments/environment.ts

@@ -17,7 +17,7 @@ declare var $: any;
   styleUrls: ['./editusers.component.scss']
 })
 export class EditusersComponent implements OnInit {
-  private users;
+  public users;
   private user;
   private showtable: Boolean = false;
   modalRef: BsModalRef;

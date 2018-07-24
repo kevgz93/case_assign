@@ -40,7 +40,7 @@ export class EngineerComponent implements OnInit {
   // Variables
   public id;
   public user;
-  private showform: boolean = false;
+  public showform: boolean = false;
   private current_user_role;
   private myform: FormGroup;
   private weekendRotationForm: FormGroup;

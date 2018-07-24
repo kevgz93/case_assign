@@ -7,6 +7,6 @@ export const environment = {
   production: false,
 
     // URL of development API
-    apiUrl: 'http://localhost:8888'
+    apiUrl: 'http://localhost:8443'
 
 };

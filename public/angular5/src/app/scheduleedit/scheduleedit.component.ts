@@ -37,7 +37,7 @@ export class ScheduleeditComponent implements OnInit {
   // "wednesday_morning":{"hour":0,"minutes":0},"wednesday_afternoon":{"hour":0,"minutes":0},"thursday_morning":{"hour":0,"minutes":0},"thursday_afternoon":{"hour":0,"minutes":0},"friday_morning":{"hour":0,"minutes":0},
   // "friday_afternoon":{"hour":0,"minutes":0}}
   public user; // Information of the owner of the schedule
-  private showhtml:boolean = false;
+  public showhtml:boolean = false;
   private showdivcalendar;
   //create instance on lib folder
   private convertTimeZone = new ConvertTimeZero();

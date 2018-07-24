@@ -439,6 +439,9 @@ export class HomeComponent implements OnInit {
         else if (time === "pt"){
           return "Pacific Time Zone"
         }
+        else if (time === "mt"){
+          return "Mountain Time Zone"
+        }
         else if (time === "ct"){
           return "Central Time Zone"
         }
@@ -462,6 +465,9 @@ export class HomeComponent implements OnInit {
         }
         else if(time === "jst"){
           return "Japan Time Zone"
+        }
+        else{
+          return "et";
         }
 
       }
@@ -705,7 +711,7 @@ export class HomeComponent implements OnInit {
     
     let timer = Observable.timer(300000,300000);
     timer.subscribe(t=> {
-      console.log("entro para refrescar");
+      //console.log("entro para refrescar");
         this.getAllEng();
     });
 

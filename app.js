@@ -13,7 +13,7 @@ var routes = require('./api/routes');
 var app = express();
 
 app.use(cors());
-app.set('port', 8888);
+app.set('port', 8443);
 
 
 app.use(function(req, res, next){
@@ -30,6 +30,7 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use(bodyParser.urlencoded({extended: false })); //if can give access to other data type but is not common
 app.use(bodyParser.json());
 app.use(cookieParser());
+//app.use('/',express.static(path.join(__dirname, '/public/angular5/dist')));
 
 app.use('/api', routes);
 app.use('/angular', express.static(__dirname + '/node_modules/@angular'));

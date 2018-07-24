@@ -296,6 +296,7 @@ export class ApiService {
   }
 
   public login(data): Observable<Response> {
+    console.log(API_URL);
     let body = JSON.stringify(data);
     return this.http
     .post(API_URL + '/api/login', body,

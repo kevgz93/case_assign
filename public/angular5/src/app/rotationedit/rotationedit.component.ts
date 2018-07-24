@@ -18,7 +18,7 @@ export class RotationeditComponent implements OnInit {
 
   //public week;
   public rotation;
-  private showtable: Boolean = false;
+  public showtable: Boolean = false;
   rForm: FormGroup;
   myform: FormGroup;
 

@@ -48,6 +48,9 @@ export class ConvertTimeZero
           else if (timezone === "pt") {
             difference.hour = 8 - dLight;
           }
+          else if (timezone === "mt") {
+            difference.hour = 7 - dLight;
+          }
           else if (timezone === "ct") {
             difference.hour = 6 - dLight;
           }

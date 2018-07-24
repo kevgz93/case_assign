@@ -17,6 +17,7 @@
                                     <option value="" disabled="disabled">-- Select a value --</option>
                                     <option value='cat'>Central America Time Zone</option>
                                     <option value='pt'>Pacific Time Zone</option>
+                                    <option value='mt'>Mountain Time Zone</option>
                                     <option value='ct'>Central Time Zone</option>
                                     <option value='et'>Eastern Time Zone</option>
                                     <option value='uk'>Uk Time Zone</option>
@@ -167,7 +168,7 @@
                     </div>
                 </div>
                 <div class="panel-footer panel-button-footer">
-                    <button type="button" class="btn btn-default" (click)="cancelEditing.emit();" [disabled]="loading">Cancel</button>
+                    <button type="button" class="btn btn-default">Cancel</button>
                     <button class="btn btn-primary" type="submit">Continue</button>
                 </div>
             </div>
