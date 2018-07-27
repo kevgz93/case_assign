@@ -49,7 +49,7 @@
                   </ng-container>
                 </td>
                 <td class="text-center">
-                  <a class="btn btn-flat btn-primary" (click)="openModalModify(template, time)" data-toggle="tooltip" data-placement="bottom"
+                  <a *ngIf="time.disable" class="btn btn-flat btn-primary" (click)="openModalModify(template, time)" data-toggle="tooltip" data-placement="bottom"
                     title="Edit Time Off">
                     Modify
                   </a>

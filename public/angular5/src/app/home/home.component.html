@@ -40,7 +40,7 @@
         </thead>
         <tbody>
           <ng-container  *ngFor="let datico of data">
-            <tr *ngIf="datico.today.available && datico.today.timeoff.status" class="{{datico.today.color}}">
+            <tr *ngIf="datico.today.available && datico.today.timeoff.status" [ngClass]="{'warning':datico.today.color==='warning','danger':datico.today.color==='danger'}"> <!--class="{{datico.today.color}}" -->
               <td>{{datico.name}} {{datico.last_name}}</td>
               <td>{{datico.time_zone}}</td>
               <td>{{datico.sta_dyn}}</td>

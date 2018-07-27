@@ -112,11 +112,15 @@ disableModifyOption(day_off, day_on):boolean{
   {
     return false;
   }
-  if(current_month === day_off.month && date.getDate() > day_off.day && date.getDate() < day_on.day)
+  else if(current_month === day_off.month && date.getDate() === day_off.day && date.getDate() === day_on.day)
   {
     return false;
   }
-  if(current_month >= day_on.month && date.getDate() > day_on.day)
+  else if(current_month === day_off.month && date.getDate() > day_off.day && date.getDate() < day_on.day)
+  {
+    return false;
+  }
+  else if(current_month >= day_on.month && date.getDate() > day_on.day)
   {
     return false;
   }

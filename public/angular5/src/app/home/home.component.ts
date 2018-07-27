@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Rx';
+import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import { promise } from 'protractor';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
@@ -51,11 +52,23 @@ export class HomeComponent implements OnInit {
   public date = new Date();
   private convertTimeZone = new ConvertTimeZero();
   private case_average = new case_average();
+  public interval;
   myform: FormGroup;
   modalRef: BsModalRef;
 
 
-  constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private modalService: BsModalService) { }
+  constructor(private service: ApiService, private fb: FormBuilder, private router:Router, private modalService: BsModalService) { 
+    
+    // Observable.timer(30000, 30000).pipe(
+    //   take(3)).subscribe(x=>{
+    //     this.refreshHome();
+    //    })
+
+    let timer = Observable.timer(60000, 60000);
+    this.interval = timer.subscribe(t=> {
+      this.refreshHome();
+    });
+  }
 
     // Simulate GET /todos
 
@@ -94,10 +107,11 @@ export class HomeComponent implements OnInit {
   }
 
     filterDay(thiscase): void{
+      let date = new Date();
       var count = [{}];
       var monday;
-      var month = this.date.getMonth() + 1;
-      var month2 = this.date.getMonth();
+      var month = date.getMonth() + 1;
+      var month2 = date.getMonth();
       if(month == 0)
       {
         month2 == 12
@@ -125,16 +139,16 @@ export class HomeComponent implements OnInit {
         let aft_hour = afternoon.hour - difference;
         let morn_hour = morning.hour - difference;
         let date = new Date;
-        if (morn_hour > this.date.getHours() || this.date.getHours() === 0){
+        if (morn_hour > date.getHours() || date.getHours() === 0){
           return false;
         }
-        else if (morn_hour >= this.date.getHours() && this.date.getMinutes() < morning.minutes){
+        else if (morn_hour >= date.getHours() && date.getMinutes() < morning.minutes){
           return false;
         }
-        else if (morn_hour <= this.date.getHours() && aft_hour > this.date.getHours()){
+        else if (morn_hour <= date.getHours() && aft_hour > date.getHours()){
           return true;
         }
-        else if (morn_hour <= this.date.getHours() && aft_hour === this.date.getHours() && afternoon.minutes > this.date.getMinutes()){
+        else if (morn_hour <= date.getHours() && aft_hour === date.getHours() && afternoon.minutes > date.getMinutes()){
           return true;
         }
         else if (date.getDay() === 6 || date.getDay() === 0){
@@ -144,20 +158,29 @@ export class HomeComponent implements OnInit {
       }
 
       colorHour(afternoon, difference):string{
+        let date = new Date();
         let aft_hour = afternoon.hour - difference;
         let aft_minutes = afternoon.minutes;
-        let hour = aft_hour - this.date.getHours();
-        let minutes = this.date.getMinutes() - aft_minutes;
-
-        if (hour === 1 && minutes <= 30){
+        let hour = aft_hour - date.getHours();// 1
+        
+        let minutes = date.getMinutes() - aft_minutes; //30
+        if(minutes < 0){
+          minutes = -(minutes);
+        }
+        
+        if (hour === 1 && minutes < 30){
           return "warning";
         }
 
-        else if (hour === 1 && minutes > 30){
+        else if (hour === 0 && minutes > 30){
+          return "warning";
+        }
+
+        else if (hour === 1 && minutes >= 30){
           return "danger";
         }
 
-        else if (hour === 0 && this.date.getMinutes() < aft_minutes){
+        else if (hour === 0 && date.getMinutes() <= aft_minutes){
           return "danger";
         }
         return "";
@@ -178,13 +201,11 @@ export class HomeComponent implements OnInit {
             }
             result =  data.body;
             resolve(result);
-              //console.log(data);
           })
         }
 
         //when a time off start on the same month
         else if(!timeoff_status && !working_days.status){
-          console.log("entro a working days para agregar ");
           let response = this.case_average.case_average(timeoff);
           //services to changes working days
           this.service.case_average_add({"_id":id,"working_days":response}).subscribe(data =>{
@@ -193,7 +214,6 @@ export class HomeComponent implements OnInit {
             }
             result =  data.body;
             resolve(result);
-              //console.log(data);
           })
         }
         
@@ -206,7 +226,6 @@ export class HomeComponent implements OnInit {
             }
             result =  data.body;
             resolve(result);
-              //console.log(data);
           })
         }
         
@@ -223,16 +242,16 @@ export class HomeComponent implements OnInit {
       
       //see if have time off
       timeoff(timeoff):object{
-        
+        let date = new Date();
         let result={"status": true, "timeoff":{}};
         let day_on;
         let day_off;
         let length = Object.keys(timeoff).length;
-        let hour = this.date.getHours();
-        let minutes = this.date.getMinutes();
-        let day = this.date.getDate();
-        let month = this.date.getMonth() + 1;
-        let year = this.date.getFullYear();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
         if(length === 0){
           result.status = true;
         }
@@ -307,6 +326,7 @@ export class HomeComponent implements OnInit {
 
       filterSchedule(data,time_off){
         time_off = this.convertTimeZone.convertFromTimeOffLocally(time_off);
+        
         let today = {morning:0, time:"", available:true, color:"white", timeoff: false,average:{}};
         let hour = {morning:0, afternoon:0};
         let minutes= {morning:0, afternoon:0};
@@ -432,6 +452,135 @@ export class HomeComponent implements OnInit {
         // modificar aca y crear un nuevo metodo para el agregar los colores
       }
 
+      FromRefreshFilterSchedule(data,time_off){
+      //filterSchedule(data,time_off){
+        //time_off = this.convertTimeZone.convertFromTimeOffLocally(time_off);
+        let dateNow = new Date();
+        let today = {morning:0, time:"", available:true, color:"white", timeoff: false,average:{}};
+        let hour = {morning:0, afternoon:0};
+        let minutes= {morning:0, afternoon:0};
+        let morning_minutes;
+        let afternoon_minutes;
+        let available:boolean;
+        let timeoff:any;
+        let color;
+        let difference = dateNow.getTimezoneOffset() / 60;  // this difference is because the times are saved on the DB as gmt+0
+        if (dateNow.getDay()===1){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.monday_morning, data.monday_afternoon, difference);
+          color = this.colorHour(data.monday_afternoon, difference);
+          hour.morning = data.monday_morning.hour - difference;
+          minutes.morning = data.monday_morning.minutes;
+          hour.afternoon = data.monday_afternoon.hour - difference;
+          minutes.afternoon = data.monday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.monday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
+          today.available = available;//cambiarlo a available
+          today.color = color;
+          today.timeoff = timeoff;
+          return today;
+        }
+        else if (dateNow.getDay()===2){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.tuesday_morning, data.tuesday_afternoon, difference);
+          color = this.colorHour(data.tuesday_afternoon, difference);
+          hour.morning = data.tuesday_morning.hour - difference;
+          minutes.morning = data.tuesday_morning.minutes;
+          hour.afternoon = data.tuesday_afternoon.hour - difference;
+          minutes.afternoon = data.tuesday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.tuesday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
+          today.available = available;
+          today.color = color;
+          today.timeoff = timeoff;
+
+          return today;
+        }
+        else if (dateNow.getDay()===3){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.wednesday_morning, data.wednesday_afternoon, difference);
+          color = this.colorHour(data.wednesday_afternoon, difference);
+          hour.morning = data.wednesday_morning.hour - difference;
+          minutes.morning = data.wednesday_morning.minutes;
+          hour.afternoon = data.wednesday_afternoon.hour - difference;
+          minutes.afternoon = data.wednesday_afternoon.minutes;
+          morning_minutes = this.checkMinutes(minutes.morning);
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.wednesday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
+          today.available = available;
+          today.color = color;
+          today.timeoff = timeoff;
+
+          return today;
+        }
+        else if (dateNow.getDay()===4){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.thursday_morning, data.thursday_afternoon, difference);
+          color = this.colorHour(data.thursday_afternoon, difference);
+          hour.morning = data.thursday_morning.hour - difference;
+          minutes.morning = data.thursday_morning.minutes;
+          hour.afternoon = data.thursday_afternoon.hour - difference;
+          minutes.afternoon = data.thursday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.thursday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
+          today.available = available;
+          today.color = color;
+          today.timeoff = timeoff;
+
+          return today;
+        }
+        else if (dateNow.getDay()===5){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
+          color = this.colorHour(data.friday_afternoon, difference);
+          hour.morning = data.friday_morning.hour - difference;
+          minutes.morning = data.friday_morning.minutes;
+          hour.afternoon = data.friday_afternoon.hour - difference;
+          minutes.afternoon = data.friday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.friday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;
+          today.available = available;
+          today.color = color;
+          today.timeoff = timeoff;
+
+          return today;
+        }
+        else if (dateNow.getDay()===6|| dateNow.getDay()===0){
+          timeoff = this.timeoff(time_off);
+          available = this.endDay(data.friday_morning, data.friday_afternoon, difference);
+          color = this.colorHour(data.friday_afternoon, difference);
+          hour.morning = data.friday_morning.hour - difference;
+          minutes.morning = data.friday_morning.minutes;
+          hour.afternoon = data.friday_afternoon.hour - difference;
+          minutes.afternoon = data.friday_afternoon.minutes;
+          //hour.morning = this.TwentyFourFormat.checkHour(hour.morning);
+          morning_minutes = this.checkMinutes(minutes.morning);
+          afternoon_minutes = this.checkMinutes(minutes.afternoon);
+          today.morning = hour.morning = data.friday_morning.hour - difference;
+          today.time= `${hour.morning}:${morning_minutes} - ${hour.afternoon}:${afternoon_minutes}`;          
+          today.available = available;
+          today.color = color;
+          today.timeoff = timeoff;
+
+          return today;
+        }
+        // modificar aca y crear un nuevo metodo para el agregar los colores
+      }
+
       addTimeZone(time):String{
         if (time === "cat"){
           return "Central America Time Zone"
@@ -521,14 +670,7 @@ export class HomeComponent implements OnInit {
 
           
         }
-        //this.data = this.sortable(this.data);
-        this.data.sort(function(a, b)
-        {
-          //console.log(a.today.morning);
-          return a.today.morning-b.today.morning;
-        });
-        this.loading=false;
-        this.showhtml = true;
+
       })
 
 
@@ -679,6 +821,18 @@ export class HomeComponent implements OnInit {
       return value;
     }
 
+    //refres home
+    refreshHome(){
+      //this.data[0].today.color = "warning";
+        for(let i in this.data) {
+          this.data[i].today = this.FromRefreshFilterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
+        };
+        //this.data = this.sortable(this.data);
+        this.data.sort(function(a, b)
+        {
+          return a.today.morning-b.today.morning;
+        });
+    }
 
 
     //Open Modal and fill from
@@ -705,17 +859,13 @@ export class HomeComponent implements OnInit {
     //this.showhtml = false;
     
     this.getQM();
-    this.delay(1000).then(any=>{
-      this.getAllEng();
-    });
-    
-    let timer = Observable.timer(300000,300000);
-    timer.subscribe(t=> {
-      //console.log("entro para refrescar");
-        this.getAllEng();
-    });
+    this.getAllEng();
 
     $('#queue_monitors_tab').removeClass('active');
+  }
+
+  ngOnDestroy() {
+    this.interval.unsubscribe();
   }
 
   ngAfterViewChecked(){
