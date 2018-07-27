@@ -70,7 +70,6 @@ export class TimeoffComponent implements OnInit {
         element.day_off.minutesString = `${element.day_off.minutes}0`
       }
       element.disable = this.disableModifyOption(element.day_off, element.day_on);
-      console.log(element.disable);
       index = element.day_on.month - 1;
       element.day_on.monthString = months[index];
       if (element.day_on.minutes === 0) {

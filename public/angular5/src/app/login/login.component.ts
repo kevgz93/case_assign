@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   public user;
   loginform: FormGroup;
+  public msg:any = {"status":false, "msg":""};
   public date: Date = new Date();
   
 
@@ -56,9 +57,15 @@ export class LoginComponent implements OnInit {
       if(status === 'success'){
         this.createCookie(response);
         this.service.changeUserId("login");
+        this.msg.status = true;
         //this.router.navigate(['./navbar']);
         window.location.replace('/home');
 
+    }
+
+    else{
+      this.msg.status = true;
+      this.msg.msg="Invalid Username or Password";
     }
 
     });

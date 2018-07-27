@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
     //     this.refreshHome();
     //    })
 
-    let timer = Observable.timer(60000, 60000);
+    let timer = Observable.timer(30000, 30000);
     this.interval = timer.subscribe(t=> {
       this.refreshHome();
     });
@@ -670,7 +670,13 @@ export class HomeComponent implements OnInit {
 
           
         }
-
+        //this.data = this.sortable(this.data);
+        this.data.sort(function(a, b)
+        {
+          return a.today.morning-b.today.morning;
+        });
+        this.loading=false;
+        this.showhtml = true;
       })
 
 
@@ -823,7 +829,6 @@ export class HomeComponent implements OnInit {
 
     //refres home
     refreshHome(){
-      //this.data[0].today.color = "warning";
         for(let i in this.data) {
           this.data[i].today = this.FromRefreshFilterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
         };
