@@ -274,6 +274,24 @@ export class HomeComponent implements OnInit {
         result.status = true;
         result.timeoff = element;
         }
+
+        // 'entry after to start the day_off with minutes''
+        else if(day === day_off.day && month === day_off.month && hour === day_off.hour && minutes >= day_off.minutes ){
+          result.status = false;
+          result.timeoff = element;
+        }
+
+        //'entry between the time off with different months and it's on first month
+        else if(day >= day_off.day && month === day_off.month && day > day_on.day && month != day_on.month){
+          result.status = false;
+          result.timeoff = element;
+        }
+
+        //'entry between the time off with different months and it's on second month 
+        else if(day <= day_off.day && month != day_off.month && day < day_on.day && month === day_on.month){
+          result.status = false;
+          result.timeoff = element;
+        }
         
         //'entry between the time off and without hour
         else if(day >= day_off.day && month >= day_off.month && day < day_on.day && month <= day_on.month){
@@ -833,10 +851,7 @@ export class HomeComponent implements OnInit {
           this.data[i].today = this.FromRefreshFilterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
         };
         //this.data = this.sortable(this.data);
-        this.data.sort(function(a, b)
-        {
-          return a.today.morning-b.today.morning;
-        });
+
     }
 
 

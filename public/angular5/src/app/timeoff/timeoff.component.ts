@@ -24,6 +24,7 @@ export class TimeoffComponent implements OnInit {
   public showview: boolean = false;
   private user_id;
   private _id;
+  public user;
   private times;
   private myform: FormGroup;
   private myform2: FormGroup;
@@ -187,6 +188,21 @@ addTimeOff(data): Observable<object>{
     return
   }
 
+  //get user info
+  getEngineer(): Observable<Object> {
+    this.service.getOneEngineer(this.user_id)
+      .subscribe(user => {
+        if (user.status != 200) {
+          alert("error finding user");
+        }
+        else {
+          this.user = user.body;
+        }
+      })
+
+    return;
+  }
+
   //disable if day off is today or later.
 disableModifyOption(day_off, day_on):boolean{
   let date = new Date();
@@ -196,11 +212,23 @@ disableModifyOption(day_off, day_on):boolean{
   {
     return false;
   }
-  else if(current_month === day_off.month && date.getDate() > day_off.day && date.getDate() < day_on.day)
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() <= day_on.day && day_on.hour <= date.getHours())
   {
     return false;
   }
-  else if(current_month >= day_on.month && date.getDate() > day_on.day)
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() < day_on.day)
+  {
+    return false;
+  }
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() > day_on.day && current_month != day_on.month)
+  {
+    return false;
+  }
+  else if(current_month >= day_on.month && date.getDate() >= day_on.day && day_on.hour <= date.getHours() )
+  {
+    return false;
+  }
+  else if(current_month >= day_on.month && date.getDate() > day_on.day )
   {
     return false;
   }
@@ -309,6 +337,7 @@ return true;
     });
 
     this.service.currentId.subscribe(message => this.user_id = message);
+    this.getEngineer();
     this.getTime();
 
     $('#queue_monitors_tab').removeClass('active');

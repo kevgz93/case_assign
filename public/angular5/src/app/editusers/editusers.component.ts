@@ -54,6 +54,12 @@ export class EditusersComponent implements OnInit {
       .subscribe(users => {
         //this.schedule = schedule.body;
         this.users = users;
+        this.users.sort(function(a, b)
+        {
+          var x = a.name.toLowerCase();
+          var y = b.name.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+        });
         this.showtable = true;
       })
     return;
