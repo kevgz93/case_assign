@@ -108,19 +108,31 @@ disableModifyOption(day_off, day_on):boolean{
   let date = new Date();
   let dayAux = day_off.day - 1;
   let current_month = date.getMonth() + 1 
-  if(current_month === day_off.month && date.getDate() === dayAux)
+  if(current_month === day_off.month && date.getDate() === day_off.day && date.getDate() === day_on.day)
   {
     return false;
   }
-  else if(current_month === day_off.month && date.getDate() === day_off.day && date.getDate() === day_on.day)
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() <= day_on.day && day_on.hour <= date.getHours())
   {
     return false;
   }
-  else if(current_month === day_off.month && date.getDate() > day_off.day && date.getDate() < day_on.day)
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() < day_on.day)
   {
     return false;
   }
-  else if(current_month >= day_on.month && date.getDate() > day_on.day)
+  else if(current_month === day_off.month && date.getDate() >= day_off.day && date.getDate() > day_on.day && current_month != day_on.month)
+  {
+    return false;
+  }
+  else if(current_month >= day_on.month && date.getDate() >= day_on.day && day_on.hour <= date.getHours() )
+  {
+    return false;
+  }
+  else if(current_month === day_on.month && date.getDate() > day_on.day )
+  {
+    return false;
+  }
+  else if(current_month > day_on.month)
   {
     return false;
   }

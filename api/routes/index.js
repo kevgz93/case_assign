@@ -10,7 +10,7 @@ var ctrlReport_time = require('../controllers/report_time.controller.js');
 var ctrlTime_off = require('../controllers/time_off.controller.js');
 var ctrlSchedule = require('../controllers/schedule.controller.js');
 var ctrlRotation = require('../controllers/rotation.controller.js');
-var ctrlCaseAverage = require('../controllers/case_average.controller.js');
+var ctrlCaseAverage = require('../controllers/working_days.controller.js');
 
 let weekendRotationCtrl = require ('../controllers/weekendRotation.controller');
 

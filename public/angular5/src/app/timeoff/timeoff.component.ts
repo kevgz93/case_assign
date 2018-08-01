@@ -228,7 +228,11 @@ disableModifyOption(day_off, day_on):boolean{
   {
     return false;
   }
-  else if(current_month >= day_on.month && date.getDate() > day_on.day )
+  else if(current_month === day_on.month && date.getDate() > day_on.day )
+  {
+    return false;
+  }
+  else if(current_month > day_on.month)
   {
     return false;
   }
