@@ -1,6 +1,7 @@
 
 $crimson-negative: #e5004c;
 $yellow: #fcdb1f;
+$green: #4ada26;
 h1 small{
   font-size: 40%;
   text-transform: none;
@@ -34,6 +35,14 @@ h1 small{
 .table > tbody > tr.danger:hover > td{
   background-color: #f2dede;
 }
+
+// .table > tbody > tr > td.red{
+//   background-color: #e47676;
+// }
+
+// .table > tbody > tr > td.green{
+//   background-color: #4ada26;
+// }
 
 p.color-note{
   padding-left: 10px;

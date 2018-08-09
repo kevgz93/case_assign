@@ -9,7 +9,7 @@ import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {ConvertTimeZero} from './../lib/Time_zero';
-import {case_average} from './../lib/case_average';
+import {working_days} from './../lib/working_days';
 
 declare var jquery:any;
 declare var $ :any;
@@ -30,7 +30,7 @@ export class ScheduleshowComponent implements OnInit {
   private schedule_aux;
   private myform: FormGroup;
   private myform2: FormGroup;
-  private case_average = new case_average();
+  private case_average = new working_days();
    //create instance on lib folder
    private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {

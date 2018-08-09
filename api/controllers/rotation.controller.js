@@ -7,7 +7,6 @@ var rotation = {};
 
 
 rotation.createRotation = function (req, res) {
-    console.log(req.body.user_id);
 
     if(!req.body.monday.morning)
     {

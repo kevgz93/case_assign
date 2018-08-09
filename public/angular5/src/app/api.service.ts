@@ -405,7 +405,17 @@ export class ApiService {
       .catch(this.handleError);
     }
 
-  // Weekend Rotation API Calls
+  //get all the cases on the current month
+  public monthlycases(): Observable<Response> {
+    return this.http
+    .get(API_URL + '/api/monthlycases')
+    .map(response => {
+      return response
+    })
+    .catch(this.handleError);
+  }
+  
+  // Weekend Rotation API Calls  monthlycases
   // Get all Weekend Rotation dates
   public getWeekendRotations() {
     return this.http

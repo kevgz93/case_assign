@@ -8,7 +8,8 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {ConvertTimeZero} from './../lib/Time_zero'
-import {case_average} from './../lib/case_average';
+import {working_days} from './../lib/working_days';
+import { case_average } from './../lib/case_average';
 import { resolve } from 'dns';
 import { reject } from 'q';
 
@@ -51,7 +52,8 @@ export class HomeComponent implements OnInit {
   public today;
   public date = new Date();
   private convertTimeZone = new ConvertTimeZero();
-  private case_average = new case_average();
+  private workingDays = new working_days();
+  private average = new case_average(this.service);
   public interval;
   myform: FormGroup;
   modalRef: BsModalRef;
@@ -139,7 +141,7 @@ export class HomeComponent implements OnInit {
         let aft_hour = afternoon.hour - difference;
         let morn_hour = morning.hour - difference;
         let date = new Date;
-        if (morn_hour > date.getHours() || date.getHours() === 0){
+        if (morn_hour > date.getHours()){
           return false;
         }
         else if (morn_hour >= date.getHours() && date.getMinutes() < morning.minutes){
@@ -190,10 +192,16 @@ export class HomeComponent implements OnInit {
       working_days(timeoff, working_days, timeoff_status, id):Promise<object>{
         let result:any
         let date = new Date();
+        let current_month = date.getMonth()+1;
         var promise = new Promise((resolve,reject) => {
+          // if time off is null
+          if(Object.keys(timeoff).length === 0){
+            let current_month = this.date.getMonth() + 1;
+            timeoff = {"day_off":{"month":current_month},"day_on":{"day":0}};
+          }
+
           //if there are timeoff with different month
-        if(date.getDate() < 3 && working_days.status === true){
-          //let result = this.case_average.case_average(timeoff);
+        if(date.getDate() <= 3 && working_days.next_month_status){
           //services to changes working days
           this.service.case_average_next_month(id).subscribe(data =>{
             if (data.status != 204){
@@ -204,9 +212,23 @@ export class HomeComponent implements OnInit {
           })
         }
 
+      //month change and the users are still off
+      else if(timeoff.day_off.month != current_month && timeoff.day_on.day <= date.getDate() && working_days.next_month_status){
+        //let response = this.workingDays.working_days(timeoff);
+        //services to changes working days
+        this.service.case_average_next_month(id).subscribe(data =>{
+          if (data.status != 204){
+            alert("error with case average, please contact the administrator");
+          }
+          result =  data.body;
+          resolve(result);
+        })
+      }
+
         //when a time off start on the same month
         else if(!timeoff_status && !working_days.status){
-          let response = this.case_average.case_average(timeoff);
+          
+          let response = this.workingDays.working_days(timeoff);
           //services to changes working days
           this.service.case_average_add({"_id":id,"working_days":response}).subscribe(data =>{
             if (data.status != 204){
@@ -639,19 +661,6 @@ export class HomeComponent implements OnInit {
 
       }
 
-      //show average on html
-       average(working_days,month):Object{
-        let result = {"average":0.0,"days_off":0};
-        if(month === 0){
-          result.average = +(((30 * 1)/working_days.current_days).toFixed(2));
-        }else{
-          result.average =  +(((30*month)/working_days.current_days).toFixed(2));
-        }
-        //result.average = Math.round(result.average);
-        result.days_off = 30 - working_days.current_days;
-        return result;
-      }
-
 
     getAllEng(): Observable<engineer>{
       var aux = {};
@@ -682,8 +691,8 @@ export class HomeComponent implements OnInit {
           this.data[i].today = this.filterSchedule(this.data[i].schedule_loaded[0], this.data[i].time_off);
           this.data[i].disableAddButton = this.disableAddButton(this.data[i].max_case, this.countDay);
           this.data[i].disableLessButton = this.disableLessButton(this.data[i].last_case, this.data[i].cases_loaded);
-          let working_days = await this.working_days(this.data[i].today.timeoff.timeoff,this.data[i].working_days,this.data[i].today.timeoff.status, this.data[i]._id)
-          this.data[i].average = await this.average(working_days, this.data[i].countmonth);
+          let working_days = await this.working_days(this.data[i].today.timeoff.timeoff,this.data[i].working_days,this.data[i].today.timeoff.status, this.data[i]._id);
+          this.data[i].working_days = working_days;
           this.cleanCount();
 
           
@@ -693,10 +702,16 @@ export class HomeComponent implements OnInit {
         {
           return a.today.morning-b.today.morning;
         });
-        this.loading=false;
-        this.showhtml = true;
+
+        this.average.average(this.data).then(result => {
+          this.data = result;
+          this.loading=false;
+          this.showhtml = true;
+        });
+
       })
 
+      
 
       return;
     }

@@ -8,7 +8,6 @@ var helpers = {};
 helpers.isAuthenticated = function(req, res, next){
 
 	var cookie = req.query.sessionid;
-	console.log(cookie);
 
 	if(!cookie){
 		res.send({status:401,error:'Not Authorized.'});

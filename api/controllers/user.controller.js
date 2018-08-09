@@ -115,7 +115,6 @@ users.register = function (req, res) {
 
       } else {
         console.log("User created");
-        console.log(user);
 
         res
           .status(201)
@@ -161,7 +160,6 @@ users.getBySessionId = function(sessionId){
 users.getUser = function(req, res){
   var user = users.getUser2()
 	user.then(function(users){
-    console.log(users);
 		res.send(users);
 	}, function(){
 		res.send({status:'error',error:'Error occured while fetching data from database.'});
@@ -194,9 +192,7 @@ users.getUserBySessionId = function(req, res){
     sessionid = req.query.sessionid;
   }
   user = users.findUser(sessionid);
-  console.log(sessionid);
 	user.then(function(user_found){
-    console.log(user_found);
     if(user_found.status == 401)
     {
       res.send({status:401});
@@ -242,7 +238,6 @@ users.logout = function(req, res){
   var sessionId = req.body.SessionId;
   var user = users.logoutUser(sessionId);
   user.then(function(users){
-    console.log(users);
     console.log("logout success")
 		res.send({status: 'success'});
 	}, function(){
@@ -255,7 +250,6 @@ users.logout = function(req, res){
 users.logoutUser = function(sessionId){
 	var results = q.defer();
 
-  	console.log('helper cookie ' + sessionId);
 	db.findOne({activeSession: sessionId},function(err, dbuser) {
 		if (err){
 			results.reject(err);
@@ -274,7 +268,6 @@ users.logoutUser = function(sessionId){
 users.userGetOne = function(req, res) {
 
   var userId = req.query.id;
-  console.log("Get user " + userId);
 
   db
     .findById(userId)
@@ -306,7 +299,6 @@ users.getUsersNamesAndScheduleId = function(req, res, next) {
 
   var engineer = users.loadEnginners2()
   engineer.then(function(engineers){
-    console.log(engineers);
     //jso = engineers;
     //next()
     res.send(engineers);

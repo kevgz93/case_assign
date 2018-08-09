@@ -18,6 +18,7 @@ var userSchema = new mongoose.Schema({
 		next_month : Number,
 		status:Boolean,
 		dayoff:Number,
+		next_month_status:Boolean
 	},
 	last_case: String,
 	weekendRotationDates: [{ date: Date }]

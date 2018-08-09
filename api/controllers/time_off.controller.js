@@ -129,7 +129,6 @@ time_report.getUserAllTime_off = function (req, res){
 time_report.updateTime_off = function (req, res) {
 
   var _id = req.body._id;
-  console.log("Get Time_off" + _id);
   
   time_off
       .findById(_id, function(err, doc){
@@ -155,7 +154,6 @@ time_report.updateTime_off = function (req, res) {
           .json(response.message);
       } else {
         let data = req.body;
-          console.log("body", data);
           doc.action = "modified",
           doc.reason = data.reason,
           doc.day_off.day = data.day_off.day,
@@ -191,7 +189,6 @@ time_report.updateTime_off = function (req, res) {
 
     var _id = req.query._id;
     var reasonMD = req.query.reasonMD;
-    console.log("Get Time_off" + _id);
     
     time_off
         .findById(_id, function(err, doc){
@@ -201,7 +198,6 @@ time_report.updateTime_off = function (req, res) {
         };
     
         if (err) {
-            console.log("Error finding user");
             response.status = 500;
             response.message = err;
         } else if(!doc){

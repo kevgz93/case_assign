@@ -12,7 +12,6 @@ users.updateWorkingDays = function(req, res)
 {
   let _id = req.body._id;
   let working_days = req.body.working_days;
-  console.log(req.body);
   db
     .findById(_id)
     .exec(function(err, doc){
@@ -37,7 +36,9 @@ users.updateWorkingDays = function(req, res)
       } else {
         doc.working_days.current_days = doc.working_days.current_days  - working_days.current,
         doc.working_days.next_month = working_days.next,
-        doc.working_days.status = true
+        doc.working_days.dayoff = 30 - doc.working_days.current_days,
+        doc.working_days.status = true,
+        doc.working_days.next_month_status = true
       };
 
       doc.save(function(err, result) {
@@ -54,7 +55,6 @@ users.updateWorkingDays = function(req, res)
 //When start a new month
 users.newMonthStart = function(req, res)
 {
-  console.log("_id", req.query)
     let _id = req.query._id;
   db
     .findById(_id)
@@ -80,7 +80,9 @@ users.newMonthStart = function(req, res)
       } else {
         doc.working_days.current_days = 30 - doc.working_days.next_month,
         doc.working_days.next_month = 0,
+        doc.working_days.dayoff = 30 - doc.working_days.current_days,
         doc.working_days.status = false
+        doc.working_days.next_month_status = false
         
       };
 

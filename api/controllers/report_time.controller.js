@@ -16,7 +16,6 @@ report_time.loadReportAll = function(){
         results.reject(err);
       }
       results.resolve(rep);
-      console.log(rep);
     });
     return results.promise;
   }
@@ -29,18 +28,15 @@ report_time.loadReportAll = function(){
         results.reject(err);
       }
       results.resolve(rep);
-      console.log(rep);
     });
     return results.promise;
   }
 
   report_time.loadReportMonthAll = function(month){
   var results = q.defer();
-  console.log(month);
 
 
   time_off.find({"day_off.month": month},function(err, rep) {
-    console.log(rep);
       if (err){
         results.reject(err);
       }
@@ -78,7 +74,6 @@ report_time.loadReportAll = function(){
   var query = {"user_id": user}
 
   time_off.find(query, function(err, rep) {
-    console.log(rep);
       if (err){
         results.reject(err);
       }
@@ -138,7 +133,6 @@ report_time.loadReportEngMonthStatusSpecific = function(user, month, case_status
 
 report_time.generateReports = function(req, res)
 {  
-  console.log(req.body);
   var user = req.body.user;
   var month = req.body.month;
   var time_off_status = req.body.time_off_status;
@@ -146,7 +140,6 @@ report_time.generateReports = function(req, res)
   //get report for all 
   if(user === "all" && month === "all" && time_off_status === "all")
   {
-    console.log("entro al all ")
     var report = report_time.loadReportAll()
     report.then(function(reports){
       console.log(reports);
@@ -159,7 +152,6 @@ report_time.generateReports = function(req, res)
   // get report with different status only
   else if(user === 'all' && month=== 'all' && time_off_status!='all')
   {
-    console.log("entro al all status")
     var report = report_time.loadReportAllStatus(time_off_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -173,7 +165,6 @@ report_time.generateReports = function(req, res)
   // get report with different month only
   else if(user === 'all' && month!= 'all' && time_off_status==='all')
   {
-    console.log("entro al month all")
     var report = report_time.loadReportMonthAll(month)
     report.then(function(reports){
       //console.log(engineers);
@@ -187,7 +178,6 @@ report_time.generateReports = function(req, res)
   // get report with different month and added status
   else if(user === 'all' && month!= 'all' && time_off_status=='added')
   {
-    console.log("entro al month added")
     var report = report_time.loadReportMonthAdded(month, time_off_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -201,7 +191,6 @@ report_time.generateReports = function(req, res)
   // get report with different month and deleted status
   else if(user === 'all' && month!= 'all' && time_off_status=='deleted')
   {
-    console.log("entro al month deleted")
     var report = report_time.loadReportMonthDeleted(month, time_off_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -215,7 +204,6 @@ report_time.generateReports = function(req, res)
   // get report with different user only
   else if(user != 'all' && month=== 'all' && time_off_status==='all')
   {
-    console.log("entro al engineer all")
     var report = report_time.loadReportEngSpecificAll(user)
     report.then(function(reports){
       //console.log(engineers);
@@ -229,7 +217,6 @@ report_time.generateReports = function(req, res)
   //Get report with specific user and status
   else if(user != 'all' && month=== 'all' && time_off_status!='all')
   {
-    console.log("entro al engineer month")
     var report = report_time.loadReportEngStatusSpecific(user, time_off_status)
     report.then(function(reports){
       //console.log(engineers);
@@ -243,7 +230,6 @@ report_time.generateReports = function(req, res)
   // get report with different user and month
   else if(user != 'all' && month!= 'all' && time_off_status==='all')
   {
-    console.log("entro al engineer month")
     var report = report_time.loadReportEngMonthSpecific(user, month)
     report.then(function(reports){
       //console.log(engineers);
@@ -257,7 +243,6 @@ report_time.generateReports = function(req, res)
   // get report with different user, month and status
   else
   {
-    console.log("entro al Time off month and action")
     var report = report_time.loadReportEngMonthStatusSpecific(user, month, time_off_status)
     report.then(function(reports){
       //console.log(engineers);

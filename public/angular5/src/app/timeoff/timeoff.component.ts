@@ -9,7 +9,6 @@ import { IMyDrpOptions, MYDRP_VALUE_ACCESSOR } from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ConvertTimeZero } from './../lib/Time_zero';
-import {case_average} from './../lib/case_average';
 
 declare var jquery: any;
 declare var $: any;
@@ -30,7 +29,6 @@ export class TimeoffComponent implements OnInit {
   private myform2: FormGroup;
   private myform3: FormGroup;
   //create instance on lib folder
-  private case_average = new case_average();
   private convertTimeZone = new ConvertTimeZero();
   public myDateRangePickerOptions: IMyDrpOptions = {
     // other options...
@@ -119,7 +117,6 @@ addTimeOff(data): Observable<object>{
   sendData.day_on.minutes = parseInt(data.end_time_minutes);
   sendData.difference.hour = difference.hour;
   sendData.difference.minutes = difference.minutes;
-  //sendData.count_days = this.case_average.days_between(sendData.day_off, sendData.day_on);
   this.service.addTimeOff(sendData)
   .subscribe(response => {
     if(response.status === 201){

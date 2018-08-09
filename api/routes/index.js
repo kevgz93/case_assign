@@ -87,6 +87,11 @@ router
 .get(ctrlTime_off.getUserAllTime_off)
 
 router
+.route('/monthlycases')
+.get(ctrlReport_case.monthly_cases)
+
+
+router
 .route('/caseaverage/')
 .get(ctrlCaseAverage.newMonthStart)
 .post(ctrlCaseAverage.updateWorkingDays)

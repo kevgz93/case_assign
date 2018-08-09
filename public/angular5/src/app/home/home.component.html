@@ -31,7 +31,7 @@
             <th>Schedule ( local time )</th>
             <th>Email</th>
             <th class="text-center">Day off</th>
-            <!--<th class="text-center">Average</th>-->
+            <th class="text-center">Average</th>
             <th class="text-center">Day</th>
             <th class="text-center">Week</th>
             <th class="text-center">Month</th>
@@ -47,8 +47,8 @@
               <td class="text-center">{{datico.max_case}}</td>
               <td>{{datico.today.time}}</td>
               <td> <a href="mailto:{{datico.email}}">{{datico.email}}</a></td>
-              <td class="text-center">{{datico.average.days_off}}</td>
-              <!-- <td class="text-center">{{datico.average.average}}</td> -->
+              <td class="text-center">{{datico.working_days.dayoff}}</td>
+              <td class = "text-center" [ngClass]="{'red':datico.average_color==='red','green':datico.average_color==='green'}">{{datico.average}}</td>
               <td class="text-center">{{datico.countday}}</td>
               <td class="text-center">{{datico.countweek}}</td>
               <td class="text-center">{{datico.countmonth}}</td>

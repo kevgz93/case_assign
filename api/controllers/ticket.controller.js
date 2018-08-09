@@ -24,7 +24,6 @@ ticket.loadEnginner = function(req, res, next) {
 
   var engineer = ticket.loadEnginner2()
   engineer.then(function(engineers){
-    console.log(engineers);
     //jso = engineers;
     //next()
     res.send(engineers);
@@ -125,7 +124,6 @@ ticket.saveOnUser = function (ticket_id, engi_id, res){
       res.send("error to find the engineer")
     }
     else{
-      console.log(ticket_id, engi_id);
       doc.last_case = ticket_id.toString();
     }
 
@@ -173,7 +171,6 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
 
       } else {
         console.log("User created");
-        console.log(tickt);
         ticket.saveOnUser(tickt._id, req.body.engi_id, res);
         res.send(tickt);
       }
@@ -184,7 +181,6 @@ ticket.addTicket = function (req, res ) { //user_id, engi_id
 
 
 ticket.findcase = function(last_case,reason, res){
-  console.log("entro")
   _cases.findById(last_case).exec(function(err, doc){
     var response = {
       status: 200,
@@ -227,7 +223,6 @@ ticket.ticketDelete = function (req,res ) {
 
   var id = req.body.engi_id;
   var reason = req.body.delete_reason;
-  console.log("Id Delete",id);
   var response;
 
   //console.log("Get hotels" + engirId);
