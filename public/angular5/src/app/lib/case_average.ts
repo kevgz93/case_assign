@@ -130,7 +130,7 @@ export class case_average
                 user.average = user.countmonth + (difference * user.working_days.dayoff);
             }
             else if(user.working_days.dayoff != 0 && dif > 4){
-                user.average = user.countmonth - difference;
+                user.average = user.countmonth;
             }
             else if(user.working_days.dayoff != 0 && difference === 0){
                 user.average = user.countmonth + user.working_days.dayoff;
