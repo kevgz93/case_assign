@@ -2,6 +2,53 @@
 $crimson-negative: #e5004c;
 $yellow: #fcdb1f;
 $green: #4ada26;
+
+//Affix 
+// #maintable.affix {
+//   top: 0;
+//   width: 100%;
+//   z-index: 9999 !important;
+// }
+
+// #maintable.affix + #tbody {
+//   padding-top: 40px;
+// }
+
+// #header-fixed
+// {
+// 	  position: fixed;
+//     top: 0px; //display:none;
+//     //background-color:white;
+// }
+
+// thead #maintable
+// {
+// 	display: block;
+// 	width: 500px;
+// 	overflow: auto;
+// 	color: #fff;
+// 	background: #000;
+// }
+
+// tbody #tbody
+// {
+// 	display: block;
+// 	width: 500px;
+// 	height: 200px;
+// 	background: pink;
+// 	overflow: auto;
+// }
+
+// #maintable th, #tbody td
+// {
+// 	padding: .5em 1em;
+// 	text-align: left;
+// 	vertical-align: top;
+// 	border-left: 1px solid #fff;
+// }
+
+
+// ****************************
 h1 small{
   font-size: 40%;
   text-transform: none;

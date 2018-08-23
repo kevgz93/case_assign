@@ -4,12 +4,18 @@ import { Observable } from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
+declare var jquery:any;
+declare var $ :any;
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+
+
 export class NavbarComponent implements OnInit {
+  
 
   public user;
   private showMaintenance = false;
@@ -146,6 +152,8 @@ export class NavbarComponent implements OnInit {
     //this.shownav = true;
     this.checkQM();
     this.checkSessionId(login);
+    
+    
   }
 }
 

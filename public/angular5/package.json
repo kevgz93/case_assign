@@ -28,15 +28,15 @@
     "@ux-aspects/ux-aspects": "^1.5.13",
     "angular-calendar": "0.24.1",
     "core-js": "^2.4.1",
+    "date-fns": "^1.29.0",
     "moment-timezone": "^0.5.21",
     "mydatepicker": "^2.6.3",
     "mydaterangepicker": "^4.2.1",
     "ngx-cookie-service": "^1.0.10",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14",
-    "date-fns": "^1.29.0",
     "sjcl": "^1.0.7",
-    "text-encoding": "^0.6.4"
+    "text-encoding": "^0.6.4",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/animations": "^5.2.11",

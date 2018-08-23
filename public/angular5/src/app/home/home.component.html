@@ -22,7 +22,7 @@
   <div class="col-sm-12">
     <div class="panel panel-default">
       <table id="ticket" class="table table-hover table-condensed">
-        <thead>
+        <thead id="maintable" >
           <tr>
             <th>Name</th>
             <th>Time Zone</th>
@@ -31,14 +31,14 @@
             <th>Schedule ( local time )</th>
             <th>Email</th>
             <th class="text-center">Day off</th>
-            <th class="text-center">Average</th>
+            <!--<th class="text-center">Average</th>-->
             <th class="text-center">Day</th>
             <th class="text-center">Week</th>
             <th class="text-center">Month</th>
             <th class="text-center">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
           <ng-container  *ngFor="let datico of data">
             <tr *ngIf="datico.today.available && datico.today.timeoff.status" [ngClass]="{'warning':datico.today.color==='warning','danger':datico.today.color==='danger'}"> <!--class="{{datico.today.color}}" -->
               <td>{{datico.name}} {{datico.last_name}}</td>
@@ -48,8 +48,8 @@
               <td>{{datico.today.time}}</td>
               <td> <a href="mailto:{{datico.email}}">{{datico.email}}</a></td>
               <td class="text-center">{{datico.working_days.dayoff}}</td>
-              <td class = "text-center" [ngClass]="{'red':datico.average_color==='red','green':datico.average_color==='green'}">{{datico.average}}</td>
-              <td class="text-center">{{datico.countday}}</td>
+              <!--<td class = "text-center" [ngClass]="{'red':datico.average_color==='red','green':datico.average_color==='green'}">{{datico.average}}</td>
+              --><td class="text-center">{{datico.countday}}</td>
               <td class="text-center">{{datico.countweek}}</td>
               <td class="text-center">{{datico.countmonth}}</td>
               <td class="text-center">
@@ -89,4 +89,3 @@
 </ng-template>
 
 </ng-container>
-
