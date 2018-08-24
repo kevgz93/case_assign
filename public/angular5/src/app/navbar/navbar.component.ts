@@ -9,10 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-
-
 export class NavbarComponent implements OnInit {
-  
 
   public user;
   private showMaintenance = false;
@@ -149,8 +146,6 @@ export class NavbarComponent implements OnInit {
     //this.shownav = true;
     this.checkQM();
     this.checkSessionId(login);
-    
-    
   }
 }
 

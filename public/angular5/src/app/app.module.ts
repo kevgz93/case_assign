@@ -64,8 +64,8 @@ import { TimeoffComponent } from './timeoff/timeoff.component';
     CalendarModule.forRoot(),
     CalendarWeekHoursViewModule,
     NgbModalModule.forRoot(),
-    ModalModule.forRoot(),
-    
+    ModalModule.forRoot()
+        //Ng2WebCrypto
     ],
   providers: [ApiService, CookieService],
   bootstrap: [AppComponent]

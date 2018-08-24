@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, DoCheck } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {ApiService} from '../api.service';
 import { Observable } from 'rxjs/Rx';
 import {take} from 'rxjs/operators';
@@ -709,9 +709,9 @@ export class HomeComponent implements OnInit {
           this.showhtml = true;
         });
 
-        
       })
 
+      
 
       return;
     }
@@ -890,25 +890,6 @@ export class HomeComponent implements OnInit {
       await new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-//   componentDidMount() {
-//     window.addEventListener("scroll", this.handleScroll);
-// }
-
-// handleScroll = e => {
-//     let scroll = e.path[1].scrollY;
-//     let tableHead = document.getElementsByTagName("thead")[0];
-
-//     if (scroll > 193) {  // when the mouse scroll to this height
-//         let tableHead = document.getElementsByTagName("thead")[0];
-//         tableHead.setAttribute("id", "fixed");  // add a style to fixed the table header
-//     }
-
-// };
-
-// componentWillUnmount() {
-//     window.removeEventListener("scroll", this.handleScroll);
-// }
-
   ngOnInit() {
     //this.showhtml = false;
     
@@ -916,33 +897,13 @@ export class HomeComponent implements OnInit {
     this.getAllEng();
 
     $('#queue_monitors_tab').removeClass('active');
-    
   }
 
   ngOnDestroy() {
     this.interval.unsubscribe();
   }
 
-
   ngAfterViewChecked(){
     $('[data-toggle="tooltip"]').tooltip();
-    // $('#maintable').affix({ offset:{top:0 }, target:'#maintable'});
-    //console.log("entro");
-    // var tableOffset = $("#ticket").offset().top;
-    // var $header = $("#ticket > thead").clone();
-    // var $fixedHeader = $("#header-fixed").append($header);
-
-    // $(window).bind("scroll", function() {
-    //     var offset = $(this).scrollTop();
-
-    // if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
-    //     $fixedHeader.show();
-    // }
-    // else if (offset < tableOffset) {
-    //     $fixedHeader.hide();
-    // }
-  
-    // });
-    
   }
 }
