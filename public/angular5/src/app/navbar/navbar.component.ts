@@ -4,9 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
-declare var jquery:any;
-declare var $ :any;
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
