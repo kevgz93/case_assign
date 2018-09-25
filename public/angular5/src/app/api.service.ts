@@ -383,7 +383,7 @@ export class ApiService {
 
     //add case average when time off start
     public case_average_add(data): Observable<Response> {
-      let body = JSON.stringify(data)
+      let body = JSON.stringify(data);
       return this.http
       .post(API_URL + '/api/caseaverage', body,
       {headers: new HttpHeaders().set('Content-Type','application/json')})

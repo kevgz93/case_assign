@@ -17,7 +17,7 @@ export class working_days
     }
 
     checkhours(hour):number{
-      console.log("day_on hour",hour)
+      //console.log("day_on hour",hour)
       if (hour < 12){
         return 1;
       }
@@ -73,9 +73,9 @@ export class working_days
         let date1 = new Date(day_off.year,(day_off.month-1),day_off.day);
         let date2 = new Date(day_on.year,(day_on.month-1),day_on.day);
         let result = this.calcBusinessDays(date1,date2);
-        console.log("calcBusinessDays", result);
+        //console.log("calcBusinessDays", result);
         let less = this.checkDays(day_on, day_off,result);
-        console.log("less", less);
+        //console.log("less", less);
         result = result - less;
         return result;
     }
@@ -93,7 +93,7 @@ export class working_days
       else{
         working_days.current = days;
       }
-      console.log("working_days",working_days);
+      //console.log("working_days",working_days);
       return working_days;
     }
 

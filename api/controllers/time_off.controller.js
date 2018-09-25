@@ -9,20 +9,6 @@ var time_report = {};
 var time_off = mongoose.model('timeoff');
 var ObjectId = mongoose.Schema.ObjectId;
 
-
-//reduce working_days on
-time_report.reduce_working_days = function(day_off, day_on,total_days){
-
-    let days_to_discount;
-    if(day_off.month != day_on.month){
-        days_to_discount = total_days - day_on.day;
-    }
-    else{
-        days_to_discount = total_days;
-    }
-
-}
-
 //create the time off
 time_report.addTime_off = function(req, res){
     let data = req.body;
@@ -55,7 +41,6 @@ time_report.addTime_off = function(req, res){
 
           } else {
             res.send({status:201,body:time});
-            //reduce_working_days(data.day_off, data.data_on, data.count_days);
           }
         });
 }
@@ -95,9 +80,17 @@ time_report.getOneTime_off = function (req, res){
 //get all time offs for specific user
 time_report.getUserAllTime_off = function (req, res){
     user_id = req.query.user_id;
+    let date = new Date();
+    let months = [];
+    let month = date.getMonth();
+    console.log("month", month);
+    for(let i = month; i < 13; i++){
 
+        months.push(i);
+    }
+    console.log("months", months);
     time_off
-      .find({user_id : user_id,action:{$in:["added", "modified"]}},function(err, doc){
+      .find({user_id : user_id,action:{$in:["added", "modified"]}, "day_off.month":{$in:months}},function(err, doc){
       var response = {
           status: 200,
           message: doc

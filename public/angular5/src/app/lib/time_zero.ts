@@ -153,9 +153,16 @@ export class ConvertTimeZero
 
       //minutes on 00 or 30
     checkMinutes(minutes):string{
-        if (minutes != 0){
-        return `${minutes}`;
+      if(minutes === 60)
+        {
+          return `${minutes}0`
         }
+
+        else if (minutes != 0)
+        {
+          return `${minutes}`;
+        }
+        
         return `${minutes}0`;
     }
 

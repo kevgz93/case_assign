@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {ConvertTimeZero} from './../lib/Time_zero'
+import {ConvertTimeZero} from './../lib/time_zero'
 declare var jquery: any;
 declare var $: any;
 

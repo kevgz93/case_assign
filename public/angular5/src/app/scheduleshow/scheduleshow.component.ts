@@ -8,7 +8,7 @@ import { promise } from 'protractor';
 import {IMyDrpOptions, MYDRP_VALUE_ACCESSOR} from 'mydaterangepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import {ConvertTimeZero} from './../lib/Time_zero';
+import {ConvertTimeZero} from './../lib/time_zero';
 import {working_days} from './../lib/working_days';
 
 declare var jquery:any;

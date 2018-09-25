@@ -1,3 +1,4 @@
+
 var tick_engi = require('../data/case.model.js');
 var bitacora = require('./report_case.controller');
 var userModel = require('../data/user.model.js');
@@ -36,6 +37,11 @@ ticket.loadEnginner = function(req, res, next) {
 ticket.loadEnginner2 = function(){
   var results = q.defer();
   var date = new Date();
+  let months = [];
+  let lastMonth = date.getMonth();
+  for (let i = lastMonth; i < 13; i++) {
+    months.push(i);
+  }
 
 
   user.aggregate(
@@ -89,7 +95,7 @@ ticket.loadEnginner2 = function(){
             "$filter": {
               "input": "$cases_loaded",
               "as": "case",
-              "cond": { "$eq": [ "$$case.action", "added" ] }
+              "cond":  {"$in":["$$case.date.month",months] }
             }
           },
           "schedule_loaded":1,
@@ -97,7 +103,7 @@ ticket.loadEnginner2 = function(){
             "$filter":{
               "input": "$time_off",
               "as": "time",
-              "cond": { "$ne": [ "$$time.action", "deleted" ] }
+              "cond": {"$and":[ {"$ne": [ "$$time.action", "deleted" ]}, {"$in":["$$time.day_off.month",months] } ]}
             }
           }
         }

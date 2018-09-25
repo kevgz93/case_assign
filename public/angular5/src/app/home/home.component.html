@@ -39,22 +39,22 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container  *ngFor="let datico of data">
-            <tr *ngIf="datico.today.available && datico.today.timeoff.status" [ngClass]="{'warning':datico.today.color==='warning','danger':datico.today.color==='danger'}"> <!--class="{{datico.today.color}}" -->
-              <td>{{datico.name}} {{datico.last_name}}</td>
-              <td>{{datico.time_zone}}</td>
-              <td>{{datico.sta_dyn}}</td>
-              <td class="text-center">{{datico.max_case}}</td>
-              <td>{{datico.today.time}}</td>
-              <td> <a href="mailto:{{datico.email}}">{{datico.email}}</a></td>
-              <td class="text-center">{{datico.working_days.dayoff}}</td>
-              <!--<td class = "text-center" [ngClass]="{'red':datico.average_color==='red','green':datico.average_color==='green'}">{{datico.average}}</td>
-              --><td class="text-center">{{datico.countday}}</td>
-              <td class="text-center">{{datico.countweek}}</td>
-              <td class="text-center">{{datico.countmonth}}</td>
+          <ng-container  *ngFor="let engineer of data">
+            <tr *ngIf="engineer.today.available && !engineer.today.timeoff.status" [ngClass]="{'warning':engineer.today.color==='warning','danger':engineer.today.color==='danger'}"> <!--class="{{engineer.today.color}}" -->
+              <td>{{engineer.name}} {{engineer.last_name}}</td>
+              <td>{{engineer.time_zone}}</td>
+              <td>{{engineer.sta_dyn}}</td>
+              <td class="text-center">{{engineer.max_case}}</td>
+              <td>{{engineer.today.time}}</td>
+              <td> <a href="mailto:{{engineer.email}}">{{engineer.email}}</a></td>
+              <td class="text-center">{{engineer.working_days.dayoff}}</td>
+              <!--<td class = "text-center" [ngClass]="{'red':engineer.average_color==='red','green':engineer.average_color==='green'}">{{engineer.average}}</td>
+              --><td class="text-center">{{engineer.cases.day}}</td>
+              <td class="text-center">{{engineer.cases.week}}</td>
+              <td class="text-center">{{engineer.cases.month}}</td>
               <td class="text-center">
-                <button data-toggle="tooltip" data-placement="left" title="Add case" (click)="addTicket(datico._id, datico.name, datico.last_name)" [disabled]="datico.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>
-                &nbsp;/&nbsp;<button data-toggle="tooltip" data-placement="bottom" title="Remove case" (click)="openModal(template, datico._id)" [disabled]="datico.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
+                <button data-toggle="tooltip" data-placement="left" title="Add case" (click)="addTicket(engineer._id, engineer.name, engineer.last_name)" [disabled]="engineer.disableAddButton" class="btn btn-flat btn-primary"><i class="qtm-font-icon qtm-icon-add qtm-icon-small-10" aria-hidden="true"></i></button>
+                &nbsp;/&nbsp;<button data-toggle="tooltip" data-placement="bottom" title="Remove case" (click)="openModal(template, engineer._id)" [disabled]="engineer.disableLessButton" class="btn btn-flat btn-danger"><i class="qtm-font-icon qtm-icon-minus qtm-icon-small-10" aria-hidden="true"></i></button>
               </td>
             </tr>
           </ng-container>
