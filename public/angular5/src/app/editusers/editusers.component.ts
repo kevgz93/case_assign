@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs/Observable';
 import { NgModel } from '@angular/forms';
@@ -23,6 +23,7 @@ export class EditusersComponent implements OnInit {
   modalRef: BsModalRef;
 
   constructor(private service: ApiService, private router: Router, private modalService: BsModalService) { }
+
 
   openModal(template: TemplateRef<any>, user) {
     this.user = user;
@@ -52,7 +53,6 @@ export class EditusersComponent implements OnInit {
   getUsers(): Observable<object> {
     this.service.getAllUsers()
       .subscribe(users => {
-        //this.schedule = schedule.body;
         this.users = users;
         this.users.sort(function(a, b)
         {

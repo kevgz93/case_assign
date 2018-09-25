@@ -3,6 +3,12 @@
     <h1>Users</h1>
   </div>
 </div>
+<div class="row" style="margin-bottom:1%; margin-right:8%;">
+    <div class="col-sm-3 col-sm-offset-9 controls input-icon">
+        <input type="search" id="mainSearch" [(ngModel)]="searchText" placeholder="Search engineer"/>
+        <i class="qtm-font-icon qtm-icon-search" aria-hidden="true"></i>
+    </div>
+  </div>
 <div class="row">
   <div class="col-sm-12 col-md-10 col-md-offset-1">
     <div class="panel panel-default">
@@ -14,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users | filter: 'name' : searchText">
             <td style="width: 20px;">
               <i class="qtm-font-icon qtm-icon-large qtm-icon-user qtm-icon-default" aria-hidden="true"></i>
             </td>

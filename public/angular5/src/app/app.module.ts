@@ -30,7 +30,7 @@ import { CalendarWeekHoursViewModule } from 'angular-calendar-week-hours-view';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimeoffComponent } from './timeoff/timeoff.component';
-//import {Ng2WebCrypto} from './../../node_modules/ng2-web-cryptography/src/webcrypto.module';
+import { FilterPipe } from './filterPipe.pipe';
 
 
 @NgModule({
@@ -50,7 +50,8 @@ import { TimeoffComponent } from './timeoff/timeoff.component';
     ScheduleshowComponent,
     EditusersComponent,
     WeekendRotationComponent,
-    TimeoffComponent
+    TimeoffComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

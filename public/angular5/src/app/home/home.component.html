@@ -18,6 +18,12 @@
     </span>
   </div>
 </div>
+<div class="row" style="margin-bottom:1%">
+  <div class="col-sm-3 col-sm-offset-9 controls input-icon">
+      <input type="search" id="mainSearch" [(ngModel)]="searchText" placeholder="Search engineer"/>
+      <i class="qtm-font-icon qtm-icon-search" aria-hidden="true"></i>
+  </div>
+</div>
 <div class="row">
   <div class="col-sm-12">
     <div class="panel panel-default">
@@ -39,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container  *ngFor="let engineer of data">
+          <ng-container  *ngFor="let engineer of data | filter: 'name' : searchText">
             <tr *ngIf="engineer.today.available && !engineer.today.timeoff.status" [ngClass]="{'warning':engineer.today.color==='warning','danger':engineer.today.color==='danger'}"> <!--class="{{engineer.today.color}}" -->
               <td>{{engineer.name}} {{engineer.last_name}}</td>
               <td>{{engineer.time_zone}}</td>

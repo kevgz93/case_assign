@@ -290,7 +290,7 @@ export class HomeComponent implements OnInit {
         
         await this.data.sort(function(a, b)
         {
-          return a.today.morning-b.today.morning;
+          return a.today.morning - b.today.morning;
         });
 
         await this.average.average(this.data).then(result => {
