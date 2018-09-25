@@ -95,7 +95,7 @@ ticket.loadEnginner2 = function(){
             "$filter": {
               "input": "$cases_loaded",
               "as": "case",
-              "cond":  {"$in":["$$case.date.month",months] }
+              "cond": { "$and": [{"$ne":["$$case.action","deleted"] },{"$in":["$$case.date.month",months] } ] }
             }
           },
           "schedule_loaded":1,
