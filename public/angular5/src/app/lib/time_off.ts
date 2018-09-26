@@ -17,7 +17,6 @@ export class TimeOff
             return false;
         }
         else{
-            console.log("entro a true");
             return true;
         }
 

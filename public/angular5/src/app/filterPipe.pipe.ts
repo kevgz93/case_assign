@@ -15,7 +15,6 @@ export class FilterPipe implements PipeTransform {
         } else {
           return items.filter(item => {
             return filterKeys.some((keyName) => {
-              console.log(keyName);
               return new RegExp(filter[keyName], 'gi').test(item[keyName]) || filter[keyName] === "";
             });
           });
