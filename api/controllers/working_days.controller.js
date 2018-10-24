@@ -13,7 +13,6 @@ users.updateWorkingDays = function(req, res)
   let _id = req.body._id;
   let working_days = req.body.working_days;
   let reference = req.body.reference;
-  console.log("reference", reference);
 
 
   db

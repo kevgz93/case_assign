@@ -114,7 +114,6 @@ users.register = function (req, res) {
           .json(err);
 
       } else {
-        console.log("User created");
 
         res
           .status(201)
@@ -238,7 +237,6 @@ users.logout = function(req, res){
   var sessionId = req.body.SessionId;
   var user = users.logoutUser(sessionId);
   user.then(function(users){
-    console.log("logout success")
 		res.send({status: 'success'});
 	}, function(){
 		res.send({status:'error',error:'Error occured while fetching data from database.'});

@@ -12,7 +12,6 @@ var ObjectId = mongoose.Schema.ObjectId;
 //create the time off
 time_report.addTime_off = function(req, res){
     let data = req.body;
-    console.log("data", data);
     let status;
     time_off.create({
         user_id :data.user_id,
@@ -83,12 +82,10 @@ time_report.getUserAllTime_off = function (req, res){
     let date = new Date();
     let months = [];
     let month = date.getMonth();
-    console.log("month", month);
     for(let i = month; i < 13; i++){
 
         months.push(i);
     }
-    console.log("months", months);
     time_off
       .find({user_id : user_id,action:{$in:["added", "modified"]}, "day_off.month":{$in:months}},function(err, doc){
       var response = {

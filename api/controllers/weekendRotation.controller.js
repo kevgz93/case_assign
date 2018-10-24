@@ -27,7 +27,6 @@ weekendRotation.getEntries = function(req, res){
 // Function editEntry
 // Description:  Edit the WeekendRotationDates for a specific user.
 weekendRotation.editEntry = function (req, res) {
-    console.log(req.body);
     if(!req.body.userId && !req.body.weekendRotationDates){
         res.status(400);
         res.send({status:'error',error:'Values missing.'});
@@ -57,7 +56,6 @@ weekendRotation.editEntry = function (req, res) {
 let getWeekendRotations = function(){
     let results = q.defer();
     db.find({}, function(err, dbuser) {
-        console.log(dbuser);
         if (dbuser){
             results.resolve(dbuser);
         }  else{

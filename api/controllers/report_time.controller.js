@@ -142,7 +142,6 @@ report_time.generateReports = function(req, res)
   {
     var report = report_time.loadReportAll()
     report.then(function(reports){
-      console.log(reports);
       res.send(reports);
       return;
     }, function(){

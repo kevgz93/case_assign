@@ -54,8 +54,7 @@ rotation.createRotation = function (req, res) {
 
       } else {
 
-        console.log("Rotation Calendar created");
-        console.log(user);
+
 
         res
           .status(201)
@@ -70,7 +69,6 @@ rotation.createRotation = function (req, res) {
 rotation.getAllRotation = function(req, res){
     var rotat = rotation.getRotation()
     rotat.then(function(rotati){
-        console.log(rotati);
             res.send({status: 200, body: rotati});
         }, function(){
             res.send({status: 404,error:'Error occured while fetching data from database.'});
@@ -103,7 +101,6 @@ rotation.getRotation = function(week){
 rotation.getRotationByWeek = function(req, res){
     var rotat = rotation.findWeek(req.query.week)
     rotat.then(function(rotati){
-        console.log(rotati);
             res.send({status: 200, body: rotati});
         }, function(){
             res.send({status: 404,error:'Error occured while fetching data from database.'});
@@ -136,7 +133,6 @@ rotation.findWeek = function(week){
 rotation.getRotationByStatus = function(req, res){
     var rotat = rotation.findWeekByStatus()
     rotat.then(function(rotati){
-        console.log(rotati);
             res.send({status: 200, body: rotati});
         }, function(){
             res.send({status: 404,error:'Error occured while fetching data from database.'});
@@ -176,7 +172,6 @@ rotation.updateDayOnWeek = function(req, res) {
         auxWeek = 1;
         rotation.updateStatusOnWeek(auxWeek, day);
     }
-console.log("Get week" + week);
 
     db
         .findOne({week : week})
@@ -222,7 +217,6 @@ console.log("Get week" + week);
 
 rotation.updateStatusOnWeek = function(week, day) {
 
-console.log("Get week" + week);
 
     db
         .findOne({week : week})
@@ -244,7 +238,6 @@ console.log("Get week" + week);
         }
 
         if (response.status != 200) {
-            console.log(response);
         } else {
             doc.active.day = day,
             doc.active.status = true
@@ -253,7 +246,6 @@ console.log("Get week" + week);
 
         doc.save(function(err, Updated) {
             if (err) {
-                console.log("Status saved", updated);
 
             } else {
                 console.log("Status not saved");
@@ -265,7 +257,6 @@ console.log("Get week" + week);
 rotation.updateRotation = function (req, res) {
 
 var week = req.body.week;
-console.log("Get week", req.body.week);
 
     db
         .findOne({week : week})

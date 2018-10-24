@@ -163,7 +163,6 @@ bita.generateReports = function(req, res)
   {
     var report = bita.loadReportAll()
     report.then(function(reports){
-      console.log(reports);
       res.send(reports);
       return;
     }, function(){
@@ -299,8 +298,7 @@ bita.addBitacora = function(sessionId, action, id_engi, name, last)
           console.log(jso);
 
         } else {
-          console.log("Bitacora created");
-          console.log(bita);
+
 
         }
       });

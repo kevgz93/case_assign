@@ -68,8 +68,7 @@ schedule.createSchedule = function (req, res) {
           .send({status:401,body:err});
 
       } else {
-        console.log("schedule created");
-        console.log(user);
+
 
         res
           .send({status:201,body:user});
@@ -81,7 +80,6 @@ schedule.createSchedule = function (req, res) {
 schedule.getScheduleId = function(req, res){
 var schedu = schedule.findUser(req.query.id)
 schedu.then(function(sched){
-    console.log(sched);
         res.send({status: 200, body: sched});
     }, function(){
         res.send({status: 404,error:'Error occured while fetching data from database.'});
@@ -111,7 +109,6 @@ schedule.findUser = function(id){
 schedule.updateSchedule = function (req, res) {
 
 var user_id = req.body._id;
-console.log("Get User" + user_id);
 
 db
     .findOne({user_id : user_id})
@@ -137,7 +134,6 @@ db
         .status(response.status)
         .json(response.message);
     } else {
-        console.log("body", req.body);
         doc.monday_morning.hour = req.body.monday_morning_hour + req.body.difference.hour,
         doc.monday_morning.minutes = req.body.monday_morning_minutes,
         doc.monday_afternoon.hour = req.body.monday_afternoon_hour + req.body.difference.hour,
