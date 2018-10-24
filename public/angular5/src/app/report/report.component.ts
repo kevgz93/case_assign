@@ -61,7 +61,7 @@ export class ReportComponent implements OnInit {
         this.cases.total = Object.keys(data).length;
         this.cases.sort(function(a, b)
         {
-          return b.date.month - a.date.month || a.date.day - b.date.day;
+          return b.date.month - a.date.month || a.date.date - b.date.date;
         });
         this.showtotalCase = true;
         this.showtableCase = true;
@@ -117,6 +117,7 @@ convertMonthString(times):Object{
         {
           return b.day_off.month - a.day_off.month || a.day_off.day - b.day_off.day;
         });
+        
         this.showtotalTime = true;
         this.showtableTime = true;
       }) 
