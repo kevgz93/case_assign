@@ -366,9 +366,11 @@ export class HomeComponent implements OnInit {
     }
     //get qm from america
     currentQmAms(week):string{
-      let date = new Date;
+      let date = new Date();
       let day = date.getDay();
-      let time = date.getHours();
+      let moment = require('moment-timezone');
+      let dateCA = moment.tz(date, "America/Tegucigalpa");
+      let time = dateCA._i.getHours();
       if(day ===1 && time <12){
         return week.monday.morning;
       }

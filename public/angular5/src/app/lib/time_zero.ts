@@ -32,7 +32,7 @@ export class ConvertTimeZero
     {
         let offset = this.isDayLight();
         let dayL;
-        let dLight;
+        let dLight = 0;
         let difference = { "hour": 0, "minutes": 0 };
         if(offset != -300){
             dayL = true;
